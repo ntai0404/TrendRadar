@@ -29,7 +29,7 @@ def render_feishu_content(
 
     Args:
         report_data: 报告数据字典，包含 stats, new_titles, failed_ids, total_new_count
-        update_info: 版本更新信息（可选）
+        update_info: 版本Cập nhật信息（可选）
         mode: 报告模式 ("daily", "incremental", "current")
         separator: 内容分隔符
         region_order: 区域显示顺序列表
@@ -122,7 +122,7 @@ def render_feishu_content(
         if mode == "incremental":
             mode_text = "增量模式下暂无新增匹配的热点词汇"
         elif mode == "current":
-            mode_text = "当前榜单模式下暂无匹配的热点词汇"
+            mode_text = "Bảng xếp hạng hiện tại模式下暂无匹配的热点词汇"
         else:
             mode_text = "暂无匹配的热点词汇"
         text_content = f"📭 {mode_text}\n\n"
@@ -138,7 +138,7 @@ def render_feishu_content(
     # 获取当前时间
     now = get_time_func() if get_time_func else datetime.now()
     text_content += (
-        f"\n\n<font color='grey'>更新时间：{now.strftime('%Y-%m-%d %H:%M:%S')}</font>"
+        f"\n\n<font color='grey'>Thời gian cập nhật: {now.strftime('%Y-%m-%d %H:%M:%S')}</font>"
     )
 
     if update_info:
@@ -160,7 +160,7 @@ def render_dingtalk_content(
 
     Args:
         report_data: 报告数据字典，包含 stats, new_titles, failed_ids, total_new_count
-        update_info: 版本更新信息（可选）
+        update_info: 版本Cập nhật信息（可选）
         mode: 报告模式 ("daily", "incremental", "current")
         region_order: 区域显示顺序列表
         get_time_func: 获取当前时间的函数（可选，默认使用 datetime.now()）
@@ -260,7 +260,7 @@ def render_dingtalk_content(
         if mode == "incremental":
             mode_text = "增量模式下暂无新增匹配的热点词汇"
         elif mode == "current":
-            mode_text = "当前榜单模式下暂无匹配的热点词汇"
+            mode_text = "Bảng xếp hạng hiện tại模式下暂无匹配的热点词汇"
         else:
             mode_text = "暂无匹配的热点词汇"
         text_content += f"📭 {mode_text}\n\n"
@@ -273,7 +273,7 @@ def render_dingtalk_content(
         for i, id_value in enumerate(report_data["failed_ids"], 1):
             text_content += f"  • **{id_value}**\n"
 
-    text_content += f"\n\n> 更新时间：{now.strftime('%Y-%m-%d %H:%M:%S')}"
+    text_content += f"\n\n> Thời gian cập nhật: {now.strftime('%Y-%m-%d %H:%M:%S')}"
 
     if update_info:
         text_content += f"\n> TrendRadar 发现新版本 **{update_info['remote_version']}**，当前 **{update_info['current_version']}**"
@@ -297,7 +297,7 @@ def _render_rss_section_feishu(rss_items: list, separator: str = "---") -> str:
             feeds_map[feed_id] = []
         feeds_map[feed_id].append(item)
 
-    text_content = f"📰 **RSS 订阅更新** (共 {len(rss_items)} 条)\n\n"
+    text_content = f"📰 **RSS 订阅Cập nhật** (共 {len(rss_items)} 条)\n\n"
 
     for feed_id, items in feeds_map.items():
         feed_name = items[0].get("feed_name", feed_id) if items else feed_id
@@ -340,7 +340,7 @@ def _render_rss_section_markdown(rss_items: list) -> str:
             feeds_map[feed_id] = []
         feeds_map[feed_id].append(item)
 
-    text_content = f"📰 **RSS 订阅更新** (共 {len(rss_items)} 条)\n\n"
+    text_content = f"📰 **RSS 订阅Cập nhật** (共 {len(rss_items)} 条)\n\n"
 
     for feed_id, items in feeds_map.items():
         feed_name = items[0].get("feed_name", feed_id) if items else feed_id

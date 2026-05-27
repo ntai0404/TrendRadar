@@ -1,57 +1,4 @@
-# coding=utf-8
-"""
-HTML 
 
- HTML Tin Hot
-"""
-
-from datetime import datetime
-from typing import Any, Dict, List, Optional, Callable
-
-from trendradar.report.helpers import html_escape, calculate_rank_trend
-from trendradar.utils.time import convert_time_for_display
-from trendradar.ai.formatter import render_ai_analysis_html_rich
-
-
-def render_html_content(
-    report_data: Dict,
-    total_titles: int,
-    mode: str = "daily",
-    update_info: Optional[Dict] = None,
-    *,
-    region_order: Optional[List[str]] = None,
-    get_time_func: Optional[Callable[[], datetime]] = None,
-    rss_items: Optional[List[Dict]] = None,
-    rss_new_items: Optional[List[Dict]] = None,
-    display_mode: str = "keyword",
-    standalone_data: Optional[Dict] = None,
-    ai_analysis: Optional[Any] = None,
-    show_new_section: bool = True,
-) -> str:
-    """HTML
-
-    Args:
-        report_data: ， stats, new_titles, failed_ids, total_new_count
-        total_titles: Mới
-        mode:  ("daily", "current", "incremental")
-        update_info: Mới（）
-        region_order: 
-        get_time_func: （， datetime.now）
-        rss_items: RSS （）
-        rss_new_items: RSS Mới（）
-        display_mode:  ("keyword"=, "platform"=)
-        standalone_data: Khu vực trưng bày độc lập（）， platforms  rss_feeds
-        ai_analysis: AI Phân tích（），AIAnalysisResult 
-        show_new_section: Điểm nóng mới
-
-    Returns:
-         HTML 
-    """
-    default_region_order = ["hotlist", "rss", "new_items", "standalone", "ai_analysis"]
-    if region_order is None:
-        region_order = default_region_order
-
-    html = """
     <!DOCTYPE html>
     <html>
     <head>
@@ -1393,712 +1340,118 @@ def render_html_content(
                     </div>
                 </div>
                 <div class="header-title">Phân tích Tin tức Hot</div>
-                <div class="header-info">"""
-
-    if get_time_func:
-        now = get_time_func()
-    else:
-        now = datetime.now()
-
-    if mode == "current":
-        mode_display = "Bảng xếp hạng hiện tại"
-    elif mode == "incremental":
-        mode_display = "Phân tích mới"
-    else:
-        mode_display = "Tổng hợp cả ngày"
-
-    hot_news_count = sum(len(stat["titles"]) for stat in report_data["stats"])
-    new_count = report_data.get("total_new_count", 0)
-
-    hotlist_total = report_data.get("hotlist_total", total_titles)
-    platform_total = report_data.get("platform_total", 0)
-    failed_count = len(report_data.get("failed_ids", []))
-    platform_success = platform_total - failed_count if platform_total else 0
-    rss_matched = report_data.get("rss_matched_count", 0)
-    rss_total = report_data.get("rss_total_count", 0)
-    rss_source_total = report_data.get("rss_source_total", 0)
-    rss_source_failed = report_data.get("rss_source_failed", 0)
-    rss_source_success = max(0, rss_source_total - rss_source_failed)
-
-    # 1. Loại báo cáo
-    html += f"""
+                <div class="header-info">
                     <div class="info-item">
                         <span class="info-label">Loại báo cáo</span>
-                        <span class="info-value">{mode_display}</span>
-                    </div>"""
-
-    # 2. Thời gian tạo
-    html += f"""
+                        <span class="info-value">Bảng xếp hạng hiện tại</span>
+                    </div>
                     <div class="info-item">
                         <span class="info-label">Thời gian tạo</span>
-                        <span class="info-value">{now.strftime("%m-%d %H:%M")}</span>
-                    </div>"""
-
-    # 3. Tin Hot phù hợp
-    html += f"""
+                        <span class="info-value">05-27 13:09</span>
+                    </div>
                     <div class="info-item">
                         <span class="info-label">Tin Hot phù hợp</span>
-                        <span class="info-value">{hot_news_count} / {hotlist_total}</span>
-                    </div>"""
-
-    # 4. RSS phù hợp
-    if rss_source_total > 0:
-        rss_value = f"{rss_matched} / {rss_total}"
-    else:
-        rss_value = "Chưa bật"
-    html += f"""
+                        <span class="info-value">0 / 0</span>
+                    </div>
                     <div class="info-item">
                         <span class="info-label">RSS phù hợp</span>
-                        <span class="info-value">{rss_value}</span>
-                    </div>"""
-
-    # 5. Nền tảng Tin Hot
-    if platform_total > 0:
-        platform_value = f"{platform_success}/{platform_total}"
-    else:
-        platform_value = "--"
-    html += f"""
+                        <span class="info-value">1 / 97</span>
+                    </div>
                     <div class="info-item">
                         <span class="info-label">Nền tảng Tin Hot</span>
-                        <span class="info-value">{platform_value}</span>
-                    </div>"""
-
-    # 6. Nguồn RSS
-    if rss_source_total > 0:
-        rss_source_value = f"{rss_source_success}/{rss_source_total}"
-    else:
-        rss_source_value = "--"
-    html += f"""
+                        <span class="info-value">--</span>
+                    </div>
                     <div class="info-item">
                         <span class="info-label">Nguồn RSS</span>
-                        <span class="info-value">{rss_source_value}</span>
-                    </div>"""
-
-    rss_new_count = sum(len(stat.get("titles", [])) for stat in (rss_new_items or []))
-    total_new = new_count + rss_new_count
-    new_value = f"{new_count} + {rss_new_count}" if total_new > 0 else "0"
-    html += f"""
+                        <span class="info-value">3/3</span>
+                    </div>
                     <div class="info-item">
                         <span class="info-label">Điểm nóng mới</span>
-                        <span class="info-value">{new_value}</span>
-                    </div>"""
-
-    # 8. AI Phân tích
-    if ai_analysis and getattr(ai_analysis, "success", False):
-        hotlist_analyzed = getattr(ai_analysis, "hotlist_analyzed", 0)
-        rss_analyzed = getattr(ai_analysis, "rss_analyzed", 0)
-        standalone_analyzed = getattr(ai_analysis, "standalone_analyzed", 0)
-        ai_include_rss = getattr(ai_analysis, "include_rss", True)
-        ai_include_standalone = getattr(ai_analysis, "include_standalone", False)
-
-        ai_parts = [str(hotlist_analyzed)]
-        if ai_include_rss:
-            ai_parts.append(str(rss_analyzed))
-        if ai_include_standalone:
-            ai_parts.append(str(standalone_analyzed))
-        ai_value = " + ".join(ai_parts) if sum(int(p) for p in ai_parts) > 0 else "0"
-    elif ai_analysis:
-        if getattr(ai_analysis, "skipped", False):
-            ai_value = "Đã bỏ qua"
-        else:
-            ai_value = "Chờ cấu hình"
-    else:
-        ai_value = "Chưa bật"
-    html += f"""
+                        <span class="info-value">0 + 1</span>
+                    </div>
                     <div class="info-item">
                         <span class="info-label">AI Phân tích</span>
-                        <span class="info-value">{ai_value}</span>
-                    </div>"""
-
-    html += """
+                        <span class="info-value">0 + 1 + 40</span>
+                    </div>
                 </div>
             </div>
 
             <div class="content">
                 <div class="search-bar">
                     <input type="text" class="search-input" placeholder="Tìm kiếm tiêu đề tin tức..." oninput="handleSearch(this.value)">
-                </div>"""
-
-    if report_data["failed_ids"]:
-        html += """
-                <div class="error-section">
-                    <div class="error-title">⚠️ Các nền tảng bị lỗi</div>
-                    <ul class="error-list">"""
-        for id_value in report_data["failed_ids"]:
-            html += f'<li class="error-item">{html_escape(id_value)}</li>'
-        html += """
-                    </ul>
-                </div>"""
-
-    stats_html = ""
-    tab_bar_html = ""
-    if report_data["stats"]:
-        total_count = len(report_data["stats"])
-
-        total_news_count = sum(s["count"] for s in report_data["stats"])
-        tab_bar_html = '<div class="tab-bar-wrapper"><div class="tab-bar">'
-        tab_bar_html += f'<button class="tab-btn" data-tab-index="all">Tất cả<span class="tab-count">{total_news_count}</span></button>'
-        for tab_i, tab_stat in enumerate(report_data["stats"]):
-            escaped_tab_word = html_escape(tab_stat["word"])
-            tab_count = tab_stat["count"]
-            tab_bar_html += f'<button class="tab-btn" data-tab-index="{tab_i}">{escaped_tab_word}<span class="tab-count">{tab_count}</span></button>'
-        tab_bar_html += '</div></div>'
-
-        for i, stat in enumerate(report_data["stats"], 1):
-            count = stat["count"]
-
-            if count >= 10:
-                count_class = "hot"
-            elif count >= 5:
-                count_class = "warm"
-            else:
-                count_class = ""
-
-            escaped_word = html_escape(stat["word"])
-
-            stats_html += f"""
-                <div class="word-group" data-tab-index="{i - 1}">
-                    <div class="word-header">
-                        <div class="word-info">
-                            <div class="word-name">{escaped_word}</div>
-                            <div class="word-count {count_class}">{count} tin</div>
-                        </div>
-                        <div class="word-index"><span class="collapse-icon">▼</span>{i}/{total_count}</div>
-                    </div>"""
-
-            for j, title_data in enumerate(stat["titles"], 1):
-                is_new = title_data.get("is_new", False)
-                new_class = "new" if is_new else ""
-
-                stats_html += f"""
-                    <div class="news-item {new_class}">
-                        <div class="news-number">{j}</div>
-                        <div class="news-content">
-                            <div class="news-header">"""
-
-                if display_mode == "keyword":
-                    stats_html += f'<span class="source-name">{html_escape(title_data["source_name"])}</span>'
-                else:
-                    matched_keyword = title_data.get("matched_keyword", "")
-                    if matched_keyword:
-                        stats_html += f'<span class="keyword-tag">[{html_escape(matched_keyword)}]</span>'
-
-                ranks = title_data.get("ranks", [])
-                if ranks:
-                    min_rank = min(ranks)
-                    max_rank = max(ranks)
-                    rank_threshold = title_data.get("rank_threshold", 10)
-
-                    if min_rank <= 3:
-                        rank_class = "top"
-                    elif min_rank <= rank_threshold:
-                        rank_class = "high"
-                    else:
-                        rank_class = ""
-
-                    if min_rank == max_rank:
-                        rank_text = str(min_rank)
-                    else:
-                        rank_text = f"{min_rank}-{max_rank}"
-
-                    rank_timeline = title_data.get("rank_timeline", [])
-                    trend = calculate_rank_trend(rank_timeline, ranks)
-                    trend_html = ""
-                    if trend == "up":
-                        trend_html = '<span class="trend-up">📈</span>'
-                    elif trend == "down":
-                        trend_html = '<span class="trend-down">📉</span>'
-
-                    stats_html += f'<span class="rank-num {rank_class}">{rank_text}</span>{trend_html}'
-
-                time_display = title_data.get("time_display", "")
-                if time_display:
-                    simplified_time = (
-                        time_display.replace(" ~ ", "~")
-                        .replace("[", "")
-                        .replace("]", "")
-                    )
-                    stats_html += (
-                        f'<span class="time-info">{html_escape(simplified_time)}</span>'
-                    )
-
-                count_info = title_data.get("count", 1)
-                if count_info > 1:
-                    stats_html += f'<span class="count-info">{count_info} lần</span>'
-
-                stats_html += """
-                            </div>
-                            <div class="news-title">"""
-
-                escaped_title = html_escape(title_data["title"])
-                link_url = title_data.get("mobile_url") or title_data.get("url", "")
-
-                if link_url:
-                    escaped_url = html_escape(link_url)
-                    stats_html += f'<a href="{escaped_url}" target="_blank" class="news-link">{escaped_title}</a>'
-                else:
-                    stats_html += escaped_title
-
-                stats_html += """
-                            </div>
-                        </div>
-                    </div>"""
-
-            stats_html += """
-                </div>"""
-
-    if stats_html:
-        stats_html = f"""
-                <div class="hotlist-section">{tab_bar_html}{stats_html}
-                </div>"""
-
-    new_titles_html = ""
-    if show_new_section and report_data["new_titles"]:
-        new_titles_html += f"""
-                <div class="new-section">
-                    <div class="new-section-title">Điểm nóng mới ( {report_data['total_new_count']} )</div>
-                    <div class="new-sources-grid">"""
-
-        for source_data in report_data["new_titles"]:
-            escaped_source = html_escape(source_data["source_name"])
-            titles_count = len(source_data["titles"])
-
-            new_titles_html += f"""
-                    <div class="new-source-group">
-                        <div class="new-source-title">{escaped_source} · {titles_count}</div>"""
-
-            for idx, title_data in enumerate(source_data["titles"], 1):
-                ranks = title_data.get("ranks", [])
-
-                rank_class = ""
-                if ranks:
-                    min_rank = min(ranks)
-                    if min_rank <= 3:
-                        rank_class = "top"
-                    elif min_rank <= title_data.get("rank_threshold", 10):
-                        rank_class = "high"
-
-                    if len(ranks) == 1:
-                        rank_text = str(ranks[0])
-                    else:
-                        rank_text = f"{min(ranks)}-{max(ranks)}"
-                else:
-                    rank_text = "?"
-
-                new_titles_html += f"""
-                        <div class="new-item">
-                            <div class="new-item-number">{idx}</div>
-                            <div class="new-item-rank {rank_class}">{rank_text}</div>
-                            <div class="new-item-content">
-                                <div class="new-item-title">"""
-
-                escaped_title = html_escape(title_data["title"])
-                link_url = title_data.get("mobile_url") or title_data.get("url", "")
-
-                if link_url:
-                    escaped_url = html_escape(link_url)
-                    new_titles_html += f'<a href="{escaped_url}" target="_blank" class="news-link">{escaped_title}</a>'
-                else:
-                    new_titles_html += escaped_title
-
-                new_titles_html += """
-                                </div>
-                            </div>
-                        </div>"""
-
-            new_titles_html += """
-                    </div>"""
-
-        new_titles_html += """
-                    </div>
-                </div>"""
-
-    def render_rss_stats_html(stats: List[Dict], title: str = "Cập nhật RSS") -> str:
-        """ RSS  HTML
-
-        Args:
-            stats: RSS ，：
-                [
-                    {
-                        "word": "",
-                        "count": 5,
-                        "titles": [
-                            {
-                                "title": "",
-                                "source_name": "Feed ",
-                                "time_display": "12-29 08:20",
-                                "url": "...",
-                                "is_new": True/False
-                            }
-                        ]
-                    }
-                ]
-            title: 
-
-        Returns:
-             HTML 
-        """
-        if not stats:
-            return ""
-
-        total_count = sum(stat.get("count", 0) for stat in stats)
-        if total_count == 0:
-            return ""
-
-        rss_html = f"""
+                </div>
                 <div class="rss-section">
                     <div class="rss-section-header">
-                        <div class="rss-section-title">{title}</div>
-                        <div class="rss-section-count">{total_count} tin</div>
+                        <div class="rss-section-title">RSS MớiMới</div>
+                        <div class="rss-section-count">1 tin</div>
                     </div>
-                    <div class="rss-feeds-grid">"""
-
-        for stat in stats:
-            keyword = stat.get("word", "")
-            titles = stat.get("titles", [])
-            if not titles:
-                continue
-
-            keyword_count = len(titles)
-
-            rss_html += f"""
+                    <div class="rss-feeds-grid">
                     <div class="feed-group">
                         <div class="feed-header">
-                            <div class="feed-name">{html_escape(keyword)}</div>
-                            <div class="feed-count">{keyword_count} tin</div>
-                        </div>"""
-
-            for title_data in titles:
-                item_title = title_data.get("title", "")
-                url = title_data.get("url", "")
-                time_display = title_data.get("time_display", "")
-                source_name = title_data.get("source_name", "")
-                is_new = title_data.get("is_new", False)
-
-                rss_html += """
+                            <div class="feed-name">Tin tức AI</div>
+                            <div class="feed-count">1 tin</div>
+                        </div>
                         <div class="rss-item">
-                            <div class="rss-meta">"""
-
-                if time_display:
-                    rss_html += f'<span class="rss-time">{html_escape(time_display)}</span>'
-
-                if source_name:
-                    rss_html += f'<span class="rss-author">{html_escape(source_name)}</span>'
-
-                if is_new:
-                    rss_html += '<span class="rss-author" style="color: #dc2626;">NEW</span>'
-
-                rss_html += """
+                            <div class="rss-meta"><span class="rss-time">05-27 12:25</span><span class="rss-author">VnExpress</span><span class="rss-author" style="color: #dc2626;">NEW</span>
                             </div>
-                            <div class="rss-title">"""
-
-                escaped_title = html_escape(item_title)
-                if url:
-                    escaped_url = html_escape(url)
-                    rss_html += f'<a href="{escaped_url}" target="_blank" class="rss-link">{escaped_title}</a>'
-                else:
-                    rss_html += escaped_title
-
-                rss_html += """
+                            <div class="rss-title"><a href="https://vnexpress.net/chung-khoan-qua-dinh-lich-su-vi-sao-khong-phai-ai-cung-huong-loi-5078714.html" target="_blank" class="rss-link">Chứng khoán qua đỉnh lịch sử, vì sao không phải ai cũng hưởng lợi?</a>
                             </div>
-                        </div>"""
-
-            rss_html += """
-                    </div>"""
-
-        rss_html += """
+                        </div>
                     </div>
-                </div>"""
-        return rss_html
-
-    def render_standalone_html(data: Optional[Dict]) -> str:
-        """Khu vực trưng bày độc lập HTML（）
-
-        Args:
-            data: ，：
-                {
-                    "platforms": [
-                        {
-                            "id": "zhihu",
-                            "name": "",
-                            "items": [
-                                {
-                                    "title": "",
-                                    "url": "",
-                                    "rank": 1,
-                                    "ranks": [1, 2, 1],
-                                    "first_time": "08:00",
-                                    "last_time": "12:30",
-                                    "count": 3,
-                                }
-                            ]
-                        }
-                    ],
-                    "rss_feeds": [
-                        {
-                            "id": "hacker-news",
-                            "name": "Hacker News",
-                            "items": [
-                                {
-                                    "title": "",
-                                    "url": "",
-                                    "published_at": "2025-01-07T08:00:00",
-                                    "author": "",
-                                }
-                            ]
-                        }
-                    ]
-                }
-
-        Returns:
-             HTML 
-        """
-        if not data:
-            return ""
-
-        platforms = data.get("platforms", [])
-        rss_feeds = data.get("rss_feeds", [])
-
-        if not platforms and not rss_feeds:
-            return ""
-
-        total_platform_items = sum(len(p.get("items", [])) for p in platforms)
-        total_rss_items = sum(len(f.get("items", [])) for f in rss_feeds)
-        total_count = total_platform_items + total_rss_items
-
-        if total_count == 0:
-            return ""
-
-        all_groups = []
-        for p in platforms:
-            items = p.get("items", [])
-            if items:
-                all_groups.append({"name": p.get("name", p.get("id", "")), "count": len(items)})
-        for f in rss_feeds:
-            items = f.get("items", [])
-            if items:
-                all_groups.append({"name": f.get("name", f.get("id", "")), "count": len(items)})
-
-        standalone_html = f"""
-                <div class="standalone-section">
-                    <div class="standalone-section-header">
-                        <div class="standalone-section-title">Khu vực trưng bày độc lập</div>
-                        <div class="standalone-section-count">{total_count} tin</div>
-                    </div>"""
-
-        if len(all_groups) >= 2:
-            standalone_html += """
-                    <div class="tab-bar standalone-tab-bar">"""
-            for idx, g in enumerate(all_groups):
-                active = ' active' if idx == 0 else ''
-                standalone_html += f"""
-                        <button class="tab-btn{active}" data-standalone-tab="{idx}">{html_escape(g["name"])}<span class="tab-count">{g["count"]}</span></button>"""
-            standalone_html += f"""
-                        <button class="tab-btn" data-standalone-tab="all">Tất cả<span class="tab-count">{total_count}</span></button>
-                    </div>"""
-
-        standalone_html += """
-                    <div class="standalone-groups-grid">"""
-
-        group_idx = 0
-        for platform in platforms:
-            platform_name = platform.get("name", platform.get("id", ""))
-            items = platform.get("items", [])
-            if not items:
-                continue
-
-            standalone_html += f"""
-                    <div class="standalone-group" data-standalone-tab="{group_idx}">
-                        <div class="standalone-header">
-                            <div class="standalone-name">{html_escape(platform_name)}</div>
-                            <div class="standalone-count">{len(items)} tin</div>
-                        </div>"""
-
-            for j, item in enumerate(items, 1):
-                title = item.get("title", "")
-                url = item.get("url", "") or item.get("mobileUrl", "")
-                rank = item.get("rank", 0)
-                ranks = item.get("ranks", [])
-                first_time = item.get("first_time", "")
-                last_time = item.get("last_time", "")
-                count = item.get("count", 1)
-
-                standalone_html += f"""
-                        <div class="news-item">
-                            <div class="news-number">{j}</div>
-                            <div class="news-content">
-                                <div class="news-header">"""
-
-                if ranks:
-                    min_rank = min(ranks)
-                    max_rank = max(ranks)
-
-                    if min_rank <= 3:
-                        rank_class = "top"
-                    elif min_rank <= 10:
-                        rank_class = "high"
-                    else:
-                        rank_class = ""
-
-                    if min_rank == max_rank:
-                        rank_text = str(min_rank)
-                    else:
-                        rank_text = f"{min_rank}-{max_rank}"
-
-                    standalone_html += f'<span class="rank-num {rank_class}">{rank_text}</span>'
-                elif rank > 0:
-                    if rank <= 3:
-                        rank_class = "top"
-                    elif rank <= 10:
-                        rank_class = "high"
-                    else:
-                        rank_class = ""
-                    standalone_html += f'<span class="rank-num {rank_class}">{rank}</span>'
-
-                if first_time and last_time and first_time != last_time:
-                    first_time_display = convert_time_for_display(first_time)
-                    last_time_display = convert_time_for_display(last_time)
-                    standalone_html += f'<span class="time-info">{html_escape(first_time_display)}~{html_escape(last_time_display)}</span>'
-                elif first_time:
-                    first_time_display = convert_time_for_display(first_time)
-                    standalone_html += f'<span class="time-info">{html_escape(first_time_display)}</span>'
-
-                if count > 1:
-                    standalone_html += f'<span class="count-info">{count} lần</span>'
-
-                standalone_html += """
-                                </div>
-                                <div class="news-title">"""
-
-                escaped_title = html_escape(title)
-                if url:
-                    escaped_url = html_escape(url)
-                    standalone_html += f'<a href="{escaped_url}" target="_blank" class="news-link">{escaped_title}</a>'
-                else:
-                    standalone_html += escaped_title
-
-                standalone_html += """
-                                </div>
-                            </div>
-                        </div>"""
-
-            standalone_html += """
-                    </div>"""
-            group_idx += 1
-
-        for feed in rss_feeds:
-            feed_name = feed.get("name", feed.get("id", ""))
-            items = feed.get("items", [])
-            if not items:
-                continue
-
-            standalone_html += f"""
-                    <div class="standalone-group" data-standalone-tab="{group_idx}">
-                        <div class="standalone-header">
-                            <div class="standalone-name">{html_escape(feed_name)}</div>
-                            <div class="standalone-count">{len(items)} tin</div>
-                        </div>"""
-
-            for j, item in enumerate(items, 1):
-                title = item.get("title", "")
-                url = item.get("url", "")
-                published_at = item.get("published_at", "")
-                author = item.get("author", "")
-
-                standalone_html += f"""
-                        <div class="news-item">
-                            <div class="news-number">{j}</div>
-                            <div class="news-content">
-                                <div class="news-header">"""
-
-                if published_at:
-                    try:
-                        from datetime import datetime as dt
-                        if "T" in published_at:
-                            dt_obj = dt.fromisoformat(published_at.replace("Z", "+00:00"))
-                            time_display = dt_obj.strftime("%m-%d %H:%M")
-                        else:
-                            time_display = published_at
-                    except:
-                        time_display = published_at
-
-                    standalone_html += f'<span class="time-info">{html_escape(time_display)}</span>'
-
-                if author:
-                    standalone_html += f'<span class="source-name">{html_escape(author)}</span>'
-
-                standalone_html += """
-                                </div>
-                                <div class="news-title">"""
-
-                escaped_title = html_escape(title)
-                if url:
-                    escaped_url = html_escape(url)
-                    standalone_html += f'<a href="{escaped_url}" target="_blank" class="news-link">{escaped_title}</a>'
-                else:
-                    standalone_html += escaped_title
-
-                standalone_html += """
-                                </div>
-                            </div>
-                        </div>"""
-
-            standalone_html += """
-                    </div>"""
-            group_idx += 1
-
-        standalone_html += """
                     </div>
-                </div>"""
-        return standalone_html
-
-    rss_stats_html = render_rss_stats_html(rss_items, "Cập nhật RSS") if rss_items else ""
-    rss_new_html = render_rss_stats_html(rss_new_items, "RSS MớiMới") if rss_new_items else ""
-
-    standalone_html = render_standalone_html(standalone_data)
-
-    ai_html = render_ai_analysis_html_rich(ai_analysis) if ai_analysis else ""
-
-    region_contents = {
-        "hotlist": stats_html,
-        "rss": rss_stats_html,
-        "new_items": (new_titles_html, rss_new_html),  
-        "standalone": standalone_html,
-        "ai_analysis": ai_html,
-    }
-
-    def add_section_divider(content: str) -> str:
-        """ div  section-divider """
-        if not content or 'class="' not in content:
-            return content
-        first_class_pos = content.find('class="')
-        if first_class_pos != -1:
-            insert_pos = first_class_pos + len('class="')
-            return content[:insert_pos] + "section-divider " + content[insert_pos:]
-        return content
-
-    has_previous_content = False
-    for region in region_order:
-        content = region_contents.get(region, "")
-        if region == "new_items":
-            new_html, rss_new = content
-            if new_html:
-                if has_previous_content:
-                    new_html = add_section_divider(new_html)
-                html += new_html
-                has_previous_content = True
-            if rss_new:
-                if has_previous_content:
-                    rss_new = add_section_divider(rss_new)
-                html += rss_new
-                has_previous_content = True
-        elif content:
-            if has_previous_content:
-                content = add_section_divider(content)
-            html += content
-            has_previous_content = True
-
-    html += """
+                </div>
+                <div class="section-divider rss-section">
+                    <div class="rss-section-header">
+                        <div class="rss-section-title">Cập nhật RSS</div>
+                        <div class="rss-section-count">1 tin</div>
+                    </div>
+                    <div class="rss-feeds-grid">
+                    <div class="feed-group">
+                        <div class="feed-header">
+                            <div class="feed-name">Tin tức AI</div>
+                            <div class="feed-count">1 tin</div>
+                        </div>
+                        <div class="rss-item">
+                            <div class="rss-meta"><span class="rss-time">05-27 12:25</span><span class="rss-author">VnExpress</span><span class="rss-author" style="color: #dc2626;">NEW</span>
+                            </div>
+                            <div class="rss-title"><a href="https://vnexpress.net/chung-khoan-qua-dinh-lich-su-vi-sao-khong-phai-ai-cung-huong-loi-5078714.html" target="_blank" class="rss-link">Chứng khoán qua đỉnh lịch sử, vì sao không phải ai cũng hưởng lợi?</a>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="section-divider ai-section">
+                    <div class="ai-section-header">
+                        <div class="ai-section-title">✨ AI Phân tích điểm nóng</div>
+                        <span class="ai-section-badge">AI</span>
+                    </div>
+                    <div class="ai-blocks-grid">
+                    <div class="ai-block">
+                        <div class="ai-block-title">Xu hướng điểm nóng cốt lõi</div>
+                        <div class="ai-block-content">Bức tranh toàn cảnh thể hiện sự phân mảnh cục bộ khi không có chủ đề nào thực sự thống trị toàn mạng.<br><br>【Chủ đề vĩ mô】:<br>Hai luồng tự sự chính đan xen: sự khắc nghiệt của biến đổi khí hậu toàn cầu và nghịch lý tăng trưởng kinh tế.<br><br>【Lĩnh vực vi mô】:<br>1. Thời tiết cực đoan: Nắng nóng bất thường, vòm nhiệt châu Âu và những tác động hệ lụy đa chiều.<br><br>2. Bất bình đẳng tài chính: Thị trường chứng khoán lập đỉnh nhưng nhà đầu tư cá nhân không được hưởng lợi.<br><br>3. Đối ngoại: Chuyến thăm Thái Lan của lãnh đạo cấp cao thu hút sự chú ý trên các nền tảng chính thống.</div>
+                    </div>
+                    <div class="ai-block">
+                        <div class="ai-block-title">Tranh cãi và định hướng dư luận</div>
+                        <div class="ai-block-content">【Phổ cảm xúc】:<br>Sự đối lập gay gắt giữa bề nổi thành tích vĩ mô và trải nghiệm cá nhân thực tế.<br><br>【Mâu thuẫn cốt lõi】:<br>1. Lợi ích kinh tế: Bức xúc ngầm khi chứng khoán vượt đỉnh lịch sử nhưng tài khoản cá nhân vẫn thua lỗ, đi kèm sự hối hận về phong trào nghỉ hưu sớm.<br><br>2. Bất công tư pháp: Tranh cãi xoay quanh việc cựu quan chức y tế được giảm án và cựu thẩm phán nhận hối lộ, tạo hố sâu khủng hoảng niềm tin.</div>
+                    </div>
+                    <div class="ai-block">
+                        <div class="ai-block-title">Tín hiệu yếu và biến động</div>
+                        <div class="ai-block-content">【Cộng hưởng đa nền tảng】<br>Sự kiện ngoại giao cấp cao được đồng loạt đưa tin trên cả hai nền tảng, cho thấy sự định hướng đồng nhất của dòng chảy tin tức chính thống.<br><br>【Bắt tín hiệu yếu】<br>Hệ lụy thời tiết cực đoan đang chuyển từ cảnh báo sinh hoạt sang chính sách vĩ mô. Sự chuyển dịch từ từ khóa 「40 độ C」 sang đề xuất 「cơ chế giá điện theo khung giờ」 là tín hiệu cảnh báo sớm về áp lực hạ tầng năng lượng sắp bùng nổ, báo hiệu khả năng thiết lập mặt bằng chi phí sinh hoạt mới.</div>
+                    </div>
+                    <div class="ai-block">
+                        <div class="ai-block-title">Góc nhìn sâu từ RSS</div>
+                        <div class="ai-block-content">【Hiệu chỉnh nhận thức】<br>Chỉ số thị trường không phản ánh sức khỏe tài chính toàn dân. Bài phân tích 「Chứng khoán qua đỉnh lịch sử, vì sao không phải ai cũng hưởng lợi?」 bóc trần ảo giác làm giàu nhanh, cho thấy dòng tiền đang phân hóa cực đoan chỉ tập trung vào một số trụ cột.<br><br>【Gia tăng giá trị lõi】<br>Cảnh báo rủi ro danh mục đầu tư trong giai đoạn hưng phấn của thị trường, cung cấp một góc nhìn lạnh lùng đối lập với tâm lý đám đông.</div>
+                    </div>
+                    <div class="ai-block">
+                        <div class="ai-block-title">Đề xuất chiến lược</div>
+                        <div class="ai-block-content">1. Nhà đầu tư: Tránh tâm lý đua lệnh khi thị trường chứng khoán lập đỉnh; tái cơ cấu danh mục tập trung vào các nhóm ngành phòng thủ và tiện ích do tác động dài hạn của thời tiết cực đoan.<br><br>2. Doanh nghiệp: Đẩy mạnh chiến dịch tiếp thị cho các sản phẩm giải nhiệt, thiết bị tiết kiệm năng lượng và chuẩn bị kịch bản tối ưu chi phí vận hành nếu giá điện thay đổi.<br><br>3. Công chúng: Chuẩn bị tinh thần cho việc thay đổi cơ chế tính giá điện; rà soát lại kế hoạch tài chính cá nhân và cẩn trọng với các trào lưu như nghỉ hưu sớm.</div>
+                    </div>
+                    <div class="ai-block">
+                        <div class="ai-block-title">Điểm tin nguồn độc lập</div>
+                        <div class="ai-block-content">[VnExpress]:<br>Do không có dữ liệu biến động quỹ đạo, xu hướng mang tính tĩnh. Nền tảng tập trung mạnh vào dân sinh, y tế và tiêu dùng. Nổi bật là chuỗi cảnh báo thời tiết cực đoan, sự vụ 「Uống 3.000 cốc trà sữa thay nước lọc」 và bài học hối hận vì làm việc cật lực để nghỉ hưu sớm. Các tin tức về biến động quốc tế chỉ đóng vai trò thứ yếu.<br><br>[Tuổi Trẻ]:<br>Không có dữ liệu quỹ đạo thứ hạng. Nền tảng thể hiện thiên hướng phản biện chính sách sâu sắc hơn. Tín hiệu nổi bật nhất là đề xuất 「cơ chế giá điện theo khung giờ」 và nghiên cứu 「Biến đổi khí hậu làm gia tăng kháng kháng sinh」. Ngoài ra, sự kiện phá dỡ sân Chi Lăng và truy tố cựu thẩm phán mang đậm tính thời sự và pháp lý.</div>
+                    </div>
+                    </div>
+                </div>
             </div>
 
             <div class="footer">
@@ -2106,16 +1459,7 @@ def render_html_content(
                     Tạo bởi <span class="project-name">TrendRadar</span> ·
                     <a href="https://github.com/sansan0/TrendRadar" target="_blank" class="footer-link">
                         GitHub Dự án mã nguồn mở
-                    </a>"""
-
-    if update_info:
-        html += f"""
-                    <br>
-                    <span style="color: #ea580c; font-weight: 500;">
-                        Có phiên bản mới {update_info['remote_version']}，Phiên bản hiện tại {update_info['current_version']}
-                    </span>"""
-
-    html += """
+                    </a>
                 </div>
             </div>
         </div>
@@ -2783,7 +2127,7 @@ def render_html_content(
 
                     var line = idx + '. ';
                     if (url) {
-                        line += '[' + titleText.replace(/[\\[\\]]/g, '') + '](' + url + ')';
+                        line += '[' + titleText.replace(/[\[\]]/g, '') + '](' + url + ')';
                     } else {
                         line += titleText;
                     }
@@ -2857,7 +2201,7 @@ def render_html_content(
                             var author = item.querySelector('.rss-author');
                             if (author) meta.push(author.textContent.trim());
                             var line = (i + 1) + '. ';
-                            if (url) { line += '[' + titleText.replace(/[\\[\\]]/g, '') + '](' + url + ')'; }
+                            if (url) { line += '[' + titleText.replace(/[\[\]]/g, '') + '](' + url + ')'; }
                             else { line += titleText; }
                             if (meta.length) line += '  `' + meta.join(' | ') + '`';
                             lines.push(line);
@@ -2935,7 +2279,7 @@ def render_html_content(
                 lines.push('---');
                 lines.push('*Generated by TrendRadar*');
 
-                var md = lines.join('\\n');
+                var md = lines.join('\n');
                 var blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
                 var link = document.createElement('a');
                 var filename = 'TrendRadar_' + dateStr + '_' + timeStr.replace(':', '') + '.md';
@@ -3075,6 +2419,4 @@ def render_html_content(
         </script>
     </body>
     </html>
-    """
-
-    return html
+    

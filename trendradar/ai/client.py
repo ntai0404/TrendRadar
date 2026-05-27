@@ -88,17 +88,18 @@ class AIClient:
             if key not in params:
                 params[key] = value
 
+        # Bật stream để tương thích với 9router (luôn trả về định dạng chunk streaming)
+        params["stream"] = True
+
         # 调用 LiteLLM
         response = completion(**params)
 
-        # 提取响应内容
-        # 某些模型/提供商返回 list（内容块）而非 str，统一转为 str
-        content = response.choices[0].message.content
-        if isinstance(content, list):
-            content = "\n".join(
-                item.get("text", str(item)) if isinstance(item, dict) else str(item)
-                for item in content
-            )
+        # 提取响应内容 (xử lý stream)
+        content = ""
+        for chunk in response:
+            if chunk.choices and chunk.choices[0].delta.content:
+                content += chunk.choices[0].delta.content
+                
         return content or ""
 
     def validate_config(self) -> tuple[bool, str]:

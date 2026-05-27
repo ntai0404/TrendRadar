@@ -119,7 +119,7 @@ def send_to_feishu(
         webhook_url: 飞书 Webhook URL
         report_data: 报告数据
         report_type: 报告类型
-        update_info: 更新信息（可选）
+        update_info: Cập nhật信息（可选）
         proxy_url: 代理 URL（可选）
         mode: 报告模式 (daily/current)
         account_label: 账号标签（多账号时显示）
@@ -252,7 +252,7 @@ def send_to_dingtalk(
         webhook_url: 钉钉 Webhook URL
         report_data: 报告数据
         report_type: 报告类型
-        update_info: 更新信息（可选）
+        update_info: Cập nhật信息（可选）
         proxy_url: 代理 URL（可选）
         mode: 报告模式 (daily/current)
         account_label: 账号标签（多账号时显示）
@@ -369,7 +369,7 @@ def send_to_wework(
         webhook_url: 企业微信 Webhook URL
         report_data: 报告数据
         report_type: 报告类型
-        update_info: 更新信息（可选）
+        update_info: Cập nhật信息（可选）
         proxy_url: 代理 URL（可选）
         mode: 报告模式 (daily/current)
         account_label: 账号标签（多账号时显示）
@@ -497,7 +497,7 @@ def send_to_telegram(
         chat_id: Telegram Chat ID
         report_data: 报告数据
         report_type: 报告类型
-        update_info: 更新信息（可选）
+        update_info: Cập nhật信息（可选）
         proxy_url: 代理 URL（可选）
         mode: 报告模式 (daily/current)
         account_label: 账号标签（多账号时显示）
@@ -772,7 +772,7 @@ def send_to_ntfy(
         token: ntfy 访问令牌（可选）
         report_data: 报告数据
         report_type: 报告类型
-        update_info: 更新信息（可选）
+        update_info: Cập nhật信息（可选）
         proxy_url: 代理 URL（可选）
         mode: 报告模式 (daily/current)
         account_label: 账号标签（多账号时显示）
@@ -789,8 +789,8 @@ def send_to_ntfy(
 
     # 避免 HTTP header 编码问题
     report_type_en_map = {
-        "全天汇总": "Daily Summary",
-        "当前榜单": "Current Ranking",
+        "Tổng hợp cả ngày": "Daily Summary",
+        "Bảng xếp hạng hiện tại": "Current Ranking",
         "增量分析": "Incremental Update",
         "通知连通性测试": "Notification Test",
     }
@@ -860,7 +860,7 @@ def send_to_ntfy(
         if content_size > 4096:
             print(f"警告：{log_prefix}第 {actual_batch_num} 批次消息过大（{content_size} 字节），可能被拒绝")
 
-        # 更新 headers 的批次标识
+        # Cập nhật headers 的批次标识
         current_headers = headers.copy()
         if total_batches > 1:
             current_headers["Title"] = f"{report_type_en} ({actual_batch_num}/{total_batches})"
@@ -960,7 +960,7 @@ def send_to_bark(
         bark_url: Bark URL（包含 device_key）
         report_data: 报告数据
         report_type: 报告类型
-        update_info: 更新信息（可选）
+        update_info: Cập nhật信息（可选）
         proxy_url: 代理 URL（可选）
         mode: 报告模式 (daily/current)
         account_label: 账号标签（多账号时显示）
@@ -1122,7 +1122,7 @@ def send_to_slack(
         webhook_url: Slack Webhook URL
         report_data: 报告数据
         report_type: 报告类型
-        update_info: 更新信息（可选）
+        update_info: Cập nhật信息（可选）
         proxy_url: 代理 URL（可选）
         mode: 报告模式 (daily/current)
         account_label: 账号标签（多账号时显示）
@@ -1230,7 +1230,7 @@ def send_to_generic_webhook(
         payload_template: JSON 模板字符串，支持 {title} 和 {content} 占位符
         report_data: 报告数据
         report_type: 报告类型
-        update_info: 更新信息（可选）
+        update_info: Cập nhật信息（可选）
         proxy_url: 代理 URL（可选）
         mode: 报告模式 (daily/current)
         account_label: 账号标签（多账号时显示）

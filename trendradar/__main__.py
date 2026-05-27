@@ -48,7 +48,7 @@ def _compare_version(local: str, remote: str) -> str:
     remote_tuple = _parse_version(remote)
 
     if local_tuple < remote_tuple:
-        return "⚠️ 需要更新"
+        return "⚠️ 需要Cập nhật"
     elif local_tuple > remote_tuple:
         return "🔮 超前版本"
     else:
@@ -91,7 +91,7 @@ def check_all_versions(
         proxy_url: 代理 URL
 
     Returns:
-        (need_update, remote_version): 程序是否需要更新及远程版本号
+        (need_update, remote_version): 程序是否需要Cập nhật及远程版本号
     """
     # 获取远程版本
     remote_version = _fetch_remote_version(version_url, proxy_url)
@@ -166,7 +166,7 @@ def check_all_versions(
 
     print("=" * 60)
 
-    # 返回程序版本的更新状态
+    # 返回程序版本的Cập nhật状态
     if remote_version:
         need_update = _parse_version(__version__) < _parse_version(remote_version)
         return need_update, remote_version if need_update else None
@@ -186,15 +186,15 @@ class NewsAnalyzer:
             "should_send_notification": True,
         },
         "current": {
-            "mode_name": "当前榜单模式",
-            "description": "当前榜单模式（当前榜单匹配新闻 + 新增新闻区域 + 按时推送）",
-            "report_type": "当前榜单",
+            "mode_name": "Bảng xếp hạng hiện tại模式",
+            "description": "Bảng xếp hạng hiện tại模式（Bảng xếp hạng hiện tại匹配新闻 + 新增新闻区域 + 按时推送）",
+            "report_type": "Bảng xếp hạng hiện tại",
             "should_send_notification": True,
         },
         "daily": {
-            "mode_name": "全天汇总模式",
-            "description": "全天汇总模式（所有匹配新闻 + 新增新闻区域 + 按时推送）",
-            "report_type": "全天汇总",
+            "mode_name": "Tổng hợp cả ngày模式",
+            "description": "Tổng hợp cả ngày模式（所有匹配新闻 + 新增新闻区域 + 按时推送）",
+            "report_type": "Tổng hợp cả ngày",
             "should_send_notification": True,
         },
     }
@@ -278,7 +278,7 @@ class NewsAnalyzer:
             print("GitHub Actions环境，不使用代理")
 
     def _set_update_info_from_config(self) -> None:
-        """从已缓存的远程版本设置更新信息（不再重复请求）"""
+        """从已缓存的远程版本设置Cập nhật信息（不再重复请求）"""
         try:
             version_url = self.ctx.config.get("VERSION_CHECK_URL", "")
             if not version_url:
@@ -526,8 +526,8 @@ class NewsAnalyzer:
                 # 根据 AI 模式确定报告类型
                 ai_report_type = {
                     "daily": "当日汇总",
-                    "current": "当前榜单",
-                    "incremental": "增量更新"
+                    "current": "Bảng xếp hạng hiện tại",
+                    "incremental": "Cập nhật thêm"
                 }.get(ai_mode, report_type)
             else:
                 ai_report_type = report_type
@@ -591,7 +591,7 @@ class NewsAnalyzer:
                 current_platform_ids, quiet=quiet
             )
 
-            if not all_results:
+            if not all_results and current_platform_ids:
                 print("没有找到当天的数据")
                 return None
 
@@ -989,7 +989,7 @@ class NewsAnalyzer:
             report_data["rss_source_total"] = self._rss_source_total
             report_data["rss_source_failed"] = self._rss_source_failed
 
-            # 是否发送版本更新信息
+            # 是否发送版本Cập nhật信息
             update_info_to_send = self.update_info if cfg["SHOW_VERSION_UPDATE"] else None
 
             # 使用 NotificationDispatcher 发送到所有渠道
@@ -1047,7 +1047,7 @@ class NewsAnalyzer:
     def _initialize_and_check_config(self) -> bool:
         """通用初始化和配置检查。返回 True 表示可以继续执行。"""
         now = self.ctx.get_time()
-        print(f"当前北京时间: {now.strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"Thời gian hiện tại (Việt Nam): {now.strftime('%Y-%m-%d %H:%M:%S')}")
 
         if not self.ctx.config["ENABLE_CRAWLER"]:
             print("爬虫功能已禁用（ENABLE_CRAWLER=False），程序退出")
@@ -1211,7 +1211,7 @@ class NewsAnalyzer:
 
         三种模式：
         - daily: 当日汇总，统计=当天所有条目，新增=本次新增条目
-        - current: 当前榜单，统计=当前榜单条目，新增=本次新增条目
+        - current: Bảng xếp hạng hiện tại，统计=Bảng xếp hạng hiện tại条目，新增=本次新增条目
         - incremental: 增量模式，统计=新增条目，新增=无
 
         Args:
@@ -1298,10 +1298,10 @@ class NewsAnalyzer:
                 return None, None, raw_rss_items, rss_new_urls
 
         elif self.report_mode == "current":
-            # 当前榜单模式：统计=当前榜单所有条目
+            # Bảng xếp hạng hiện tại模式：统计=Bảng xếp hạng hiện tại所有条目
             # raw_rss_items 已在前面获取
             if not raw_rss_items:
-                print("[RSS] 当前榜单模式：没有 RSS 数据")
+                print("[RSS] Bảng xếp hạng hiện tại模式：没有 RSS 数据")
                 return None, None, None, rss_new_urls
 
             rss_stats, total = count_rss_frequency(
@@ -1317,7 +1317,7 @@ class NewsAnalyzer:
                 quiet=False,
             )
             if not rss_stats:
-                print("[RSS] 当前榜单模式：关键词匹配后没有内容")
+                print("[RSS] Bảng xếp hạng hiện tại模式：关键词匹配后没有内容")
                 # 即使关键词匹配为空，也返回原始条目用于独立展示区
                 return None, None, raw_rss_items, rss_new_urls
 
@@ -1691,7 +1691,7 @@ class NewsAnalyzer:
 
         if html_file:
             print(f"HTML报告已生成: {html_file}")
-            print(f"最新报告已更新: output/html/latest/{self.report_mode}.html")
+            print(f"最新报告已Cập nhật: output/html/latest/{self.report_mode}.html")
 
         # 发送通知
         if mode_strategy["should_send_notification"]:
@@ -2231,7 +2231,7 @@ def main():
         # 复用已加载的配置，避免重复加载
         analyzer = NewsAnalyzer(config=config)
 
-        # 设置更新信息（复用已获取的远程版本，不再重复请求）
+        # 设置Cập nhật信息（复用已获取的远程版本，不再重复请求）
         if analyzer.is_github_actions and need_update and remote_version:
             analyzer.update_info = {
                 "current_version": __version__,

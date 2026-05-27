@@ -233,8 +233,8 @@ class NotificationDispatcher:
 
         Args:
             report_data: 报告数据（由 prepare_report_data 生成）
-            report_type: 报告类型（如 "全天汇总"、"当前榜单"、"增量分析"）
-            update_info: 版本更新信息（可选）
+            report_type: 报告类型（如 "Tổng hợp cả ngày"、"Bảng xếp hạng hiện tại"、"增量分析"）
+            update_info: 版本Cập nhật信息（可选）
             proxy_url: 代理 URL（可选）
             mode: 报告模式 (daily/current/incremental)
             html_file_path: HTML 报告文件路径（邮件使用）

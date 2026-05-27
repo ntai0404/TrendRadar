@@ -191,7 +191,7 @@ def count_word_frequency(
 
                 if not quiet:
                     print(
-                        f"当前榜单模式：最新时间 {latest_time}，筛选出 {sum(len(titles) for titles in results_to_process.values())} 条当前榜单新闻"
+                        f"Bảng xếp hạng hiện tại模式：最新时间 {latest_time}，筛选出 {sum(len(titles) for titles in results_to_process.values())} 条Bảng xếp hạng hiện tại新闻"
                     )
             else:
                 results_to_process = results
@@ -407,7 +407,7 @@ def count_word_frequency(
             )
             if not quiet:
                 print(
-                    f"当前榜单模式：当天第一次爬取，{total_input_news} 条当前榜单新闻中有 {matched_new_count} 条{filter_status}"
+                    f"Bảng xếp hạng hiện tại模式：当天第一次爬取，{total_input_news} 条Bảng xếp hạng hiện tại新闻中有 {matched_new_count} 条{filter_status}"
                 )
         else:
             matched_count = sum(stat["count"] for stat in word_stats.values())
@@ -418,7 +418,7 @@ def count_word_frequency(
             )
             if not quiet:
                 print(
-                    f"当前榜单模式：{total_input_news} 条当前榜单新闻中有 {matched_count} 条{filter_status}"
+                    f"Bảng xếp hạng hiện tại模式：{total_input_news} 条Bảng xếp hạng hiện tại新闻中有 {matched_count} 条{filter_status}"
                 )
 
     stats = []

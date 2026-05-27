@@ -1,0 +1,212 @@
+3: HTML 报告渲染模块
+5: 提供 HTML 格式的热点Mới闻报告生成功能
+31:     """渲染HTML内容
+34:         report_data: 报告数据字典，包含 stats, new_titles, failed_ids, total_new_count
+35:         total_titles: Mới闻总数
+36:         mode: 报告模式 ("daily", "current", "incremental")
+37:         update_info: 更Mới信息（可选）
+38:         region_order: 区域显示顺序列表
+39:         get_time_func: 获取当前时间的函数（可选，默认使用 datetime.now）
+40:         rss_items: RSS 统计条目列表（可选）
+41:         rss_new_items: RSS Mới增条目列表（可选）
+42:         display_mode: 显示模式 ("keyword"=按关键词分组, "platform"=按平台分组)
+43:         standalone_data: Khu vực trưng bày độc lập数据（可选），包含 platforms 和 rss_feeds
+44:         ai_analysis: AI Phân tích结果对象（可选），AIAnalysisResult 实例
+45:         show_new_section: 是否显示Điểm nóng mới区域
+48:         渲染后的 HTML 字符串
+50:     # 默认区域顺序
+463:             /* 通用区域分割线样式 */
+470:             /* 热榜统计区样式 */
+472:                 /* 默认无边框，由 section-divider 动态添加 */
+642:             /* RSS 订阅内容样式 */
+754:             /* Khu vực trưng bày độc lập样式 - 复用热点词汇统计区样式 */
+807:             /* AI Phân tích区块样式 */
+891:             /* ===== 浏览器增强样式（渐进增强，邮件客户端无影响） ===== */
+893:             /* 宽屏模式 - 基础 */
+898:             /* 宽屏模式 - RSS feed-group 两列 */
+906:             /* 宽屏模式 - AI Phân tích区两列网格 */
+914:             /* 宽屏模式 - Điểm nóng mới多列 */
+922:             /* 宽屏模式 - Khu vực trưng bày độc lập多列 */
+930:             /* Tab 栏 */
+1028:             /* 搜索栏 */
+1043:             /* 右下角悬浮工具栏 */
+1082:             /* 快捷键 tooltip */
+1125:             /* 折叠/展开 */
+1145:             /* Tab 切换动画 */
+1152:             /* 宽屏切换按钮 */
+1172:             /* ===== 暗色模式 ===== */
+1188:             /* 文字颜色 */
+1209:             /* 链接 */
+1218:             /* 强调色 */
+1229:             /* 边框与分割线 */
+1240:             /* 序号圆圈 */
+1247:             /* 折叠 hover */
+1250:             /* Tab 栏 */
+1273:             /* 搜索框 */
+1285:             /* RSS 卡片 */
+1291:             /* AI Phân tích区 */
+1321:             /* 错误区 */
+1338:             /* 悬浮按钮 */
+1342:             /* 下拉菜单 */
+1356:             /* 暗色模式切换按钮 */
+1376:             /* 快捷键面板已集成到 fab-tooltip */
+1378:             /* 阅读进度条 */
+1392:             /* 复制按钮样式已集成到 .news-number */
+1396:             /* Mới lọt top标记 */
+1435:     # 使用提供的时间函数或默认 datetime.now
+1441:     # 处理Loại báo cáo显示
+1449:     # 计算各项数据
+1453:     # 从元数据获取 RSS 和平台信息
+1518:     # 7. Điểm nóng mới（热榜Mới增 + RSS Mới增）
+1564:     # 处理失败ID错误信息
+1576:     # 生成热点词汇统计部分的HTML
+1582:         # 生成 Tab 栏 HTML
+1595:             # 确定热度等级
+1610:                             <div class="word-count {count_class}">{count} 条</div>
+1615:             # 处理每个词组下的Mới闻标题，给每条Mới闻标上序号
+1626:                 # 根据 display_mode 决定显示来源还是关键词
+1628:                     # keyword 模式：显示来源
+1631:                     # platform 模式：显示关键词
+1636:                 # 处理排名显示
+1643:                     # 确定排名等级
+1656:                     # 计算趋势箭头
+1667:                 # 处理时间显示
+1670:                     # 简化时间显示格式，将波浪线替换为~
+1680:                 # 处理出现次数
+1683:                     stats_html += f'<span class="count-info">{count_info}次</span>'
+1689:                 # 处理标题和链接
+1707:     # 给热榜统计添加外层包装
+1713:     # 生成Mới增Mới闻区域的HTML
+1718:                     <div class="new-section-title">本次Điểm nóng mới (共 {report_data['total_new_count']} 条)</div>
+1727:                         <div class="new-source-title">{escaped_source} · {titles_count}条</div>"""
+1729:             # 为Mới增Mới闻也添加序号
+1733:                 # 处理Mới增Mới闻的排名显示
+1756:                 # 处理Mới增Mới闻的链接
+1778:     # 生成 RSS 统计内容
+1779:     def render_rss_stats_html(stats: List[Dict], title: str = "RSS 订阅更Mới") -> str:
+1780:         """渲染 RSS 统计区块 HTML
+1783:             stats: RSS 分组统计列表，格式与热榜一致：
+1786:                         "word": "关键词",
+1790:                                 "title": "标题",
+1791:                                 "source_name": "Feed 名称",
+1799:             title: 区块标题
+1802:             渲染后的 HTML 字符串
+1807:         # 计算总条目数
+1816:                         <div class="rss-section-count">{total_count} 条</div>
+1820:         # 按关键词分组渲染（与热榜格式一致）
+1833:                             <div class="feed-count">{keyword_count} 条</div>
+1879:     # 生成Khu vực trưng bày độc lập内容
+1881:         """渲染Khu vực trưng bày độc lập HTML（复用热点词汇统计区样式）
+1884:             data: 独立展示数据，格式：
+1889:                             "name": "知乎热榜",
+1892:                                     "title": "标题",
+1893:                                     "url": "链接",
+1909:                                     "title": "标题",
+1910:                                     "url": "链接",
+1912:                                     "author": "作者",
+1920:             渲染后的 HTML 字符串
+1931:         # 计算总条目数
+1939:         # 收集所有分组信息用于生成 tab
+1954:                         <div class="standalone-section-count">{total_count} 条</div>
+1957:         # 生成 tab 栏（2+ 分组时）
+1973:         # 渲染Nền tảng Tin Hot（复用 word-group 结构）
+1984:                             <div class="standalone-count">{len(items)} 条</div>
+1987:             # 渲染每个条目（复用 news-item 结构）
+2003:                 # 排名显示（复用 rank-num 样式，无 # 前缀）
+2008:                     # 确定排名等级
+2031:                 # 时间显示（复用 time-info 样式，将 HH-MM 转换为 HH:MM）
+2040:                 # 出现次数（复用 count-info 样式）
+2042:                     standalone_html += f'<span class="count-info">{count}次</span>'
+2048:                 # 标题和链接（复用 news-link 样式）
+2065:         # 渲染 Nguồn RSS（复用相同结构）
+2076:                             <div class="standalone-count">{len(items)} 条</div>
+2091:                 # 时间显示（格式化 ISO 时间）
+2105:                 # 作者显示
+2134:     # 生成 RSS 统计和Mới增 HTML
+2135:     rss_stats_html = render_rss_stats_html(rss_items, "RSS 订阅更Mới") if rss_items else ""
+2136:     rss_new_html = render_rss_stats_html(rss_new_items, "RSS Mới增更Mới") if rss_new_items else ""
+2138:     # 生成Khu vực trưng bày độc lập HTML
+2141:     # 生成 AI Phân tích HTML
+2144:     # 准备各区域内容映射
+2148:         "new_items": (new_titles_html, rss_new_html),  # 元组，分别处理
+2154:         """为内容的外层 div 添加 section-divider 类"""
+2163:     # 按 region_order 顺序组装内容，动态添加分割线
+2168:             # 特殊处理 new_items 区域（包含热榜Mới增和 RSS Mới增两部分）
+2191:                     由 <span class="project-name">TrendRadar</span> 生成 ·
+2193:                         GitHub 开源项目
+2200:                         发现Mới版本 {update_info['remote_version']}，当前版本 {update_info['current_version']}
+2209:             <button class="fab-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="返回顶部">↑</button>
+2213:                     <div class="tip-row"><span>切换宽屏</span><span class="tip-key">W</span></div>
+2214:                     <div class="tip-row"><span>暗色模式</span><span class="tip-key">D</span></div>
+2215:                     <div class="tip-row"><span>搜索</span><span class="tip-key">/</span></div>
+2216:                     <div class="tip-row"><span>上一个 Tab</span><span class="tip-key">←</span></div>
+2217:                     <div class="tip-row"><span>下一个 Tab</span><span class="tip-key">→</span></div>
+2218:                     <div class="tip-row"><span>序号可复制</span><span class="tip-key">点击</span></div>
+2224:             // ===== 浏览器增强功能 =====
+2435:             // Khu vực trưng bày độc lập Tab 切换
+2460:                 // 初始状态
+2542:             // ===== 截图功能 =====
+2550:                     button.textContent = '生成中...';
+2554:                     // 等待页面稳定
+2557:                     // 截图前准备：切回窄屏布局
+2560:                     // 截图前隐藏按钮
+2564:                     // 再次等待确保按钮完全隐藏
+2598:                     // 触发下载
+2603:                     button.textContent = '保存成功!';
+2613:                     button.textContent = '保存失败';
+2631:                     button.textContent = '分析中...';
+2634:                     // 获取所有可能的分割元素
+2642:                     // 计算元素位置和高度
+2646:                     // 添加header作为必须包含的元素
+2655:                     // 添加错误信息（如果存在）
+2667:                     // 按word-group分组处理news-item
+2672:                         // 添加word-group的header部分
+2686:                         // 添加每个news-item
+2700:                     // 添加Mới增Mới闻部分
+2712:                     // 添加footer
+2722:                     // 计算分割点
+2732:                         // 检查是否需要创建Mới分段
+2734:                             // 在前一个元素结束处分割
+2738:                             // 开始Mới分段
+2751:                     // 添加最后一个分段
+2757:                     button.textContent = `生成中 (0/${segments.length})...`;
+2759:                     // 隐藏保存按钮
+2763:                     // 为每个分段生成图片
+2767:                         button.textContent = `生成中 (${i + 1}/${segments.length})...`;
+2769:                         // 创建临时容器用于截图
+2780:                         // 克隆容器内容
+2783:                         // 移除克隆内容中的保存按钮
+2792:                         // 等待DOM更Mới
+2795:                         // 使用html2canvas截取特定区域
+2813:                         // 清理临时容器
+2817:                     // 恢复按钮显示
+2820:                     // 下载所有图片
+2832:                         // 延迟一下避免浏览器阻止多个下载
+2836:                     button.textContent = `已保存 ${segments.length} 张图片!`;
+2844:                     console.error('分段保存失败:', error);
+2848:                     button.textContent = '保存失败';
+2862:                 // 标题
+2867:                 // 报告元信息
+2880:                 // 提取 news-item 通用函数
+2916:                 // 热点关键词区
+2919:                     lines.push('## 热点Mới闻');
+2937:                 // Điểm nóng mới区
+2941:                     lines.push('## ' + (newTitle ? newTitle.textContent.trim() : '本次Điểm nóng mới'));
+2959:                 // RSS 订阅更Mới区
+2963:                     lines.push('## ' + (rssSectionTitle ? rssSectionTitle.textContent.trim() : 'RSS 订阅更Mới'));
+2994:                 // AI 热点分析区
+3005:                         // 跳过 info 提示（如"跳过"）
+3008:                         lines.push('## ' + (aiTitle ? aiTitle.textContent.trim() : 'AI 热点分析'));
+3049:                 // 错误区
+3054:                         lines.push('## 抓取异常');
+3063:                 // 页脚
+3067:                 // 下载
+3083:                 // 自动检测宽屏模式
+3092:                 // 暗色模式恢复
+3101:                 // 启用搜索栏
+3105:                 // 初始化增强功能
+3111:                 // 键盘快捷键
+3132:                 // 阅读进度条
+3148:                 // 一键复制：hover 时数字变复制图标
+3157:                     numEl.title = '点击复制标题和链接';
+3188:                 // Header watermark 鼠标跟随揭示

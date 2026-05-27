@@ -167,7 +167,7 @@ class SQLiteStorageMixin:
                             existing = cursor.fetchone()
 
                             if existing:
-                                # 已存在，更新记录
+                                # 已存在，Cập nhật记录
                                 existing_id, existing_title = existing
 
                                 update_title = item.title
@@ -192,7 +192,7 @@ class SQLiteStorageMixin:
                                     VALUES (?, ?, ?, ?)
                                 """, (existing_id, item.rank, data.crawl_time, now_str))
 
-                                # 更新现有记录
+                                # Cập nhật现有记录
                                 cursor.execute("""
                                     UPDATE news_items SET
                                         title = ?,
@@ -1100,7 +1100,7 @@ class SQLiteStorageMixin:
 
     def _get_latest_rss_data_impl(self, date: Optional[str] = None) -> Optional[RSSData]:
         """
-        获取最新一次抓取的 RSS 数据（当前榜单模式）
+        获取最新一次抓取的 RSS 数据（Bảng xếp hạng hiện tại模式）
 
         Args:
             date: 日期字符串（YYYY-MM-DD），默认为今天
@@ -1332,7 +1332,7 @@ class SQLiteStorageMixin:
     def _deprecate_specific_tags_impl(
         self, date: Optional[str], tag_ids: List[int]
     ) -> int:
-        """废弃指定 ID 的标签及其关联分类结果（增量更新时使用）"""
+        """废弃指定 ID 的标签及其关联分类结果（Cập nhật thêm时使用）"""
         if not tag_ids:
             return 0
         try:
@@ -1364,7 +1364,7 @@ class SQLiteStorageMixin:
     def _update_tags_hash_impl(
         self, date: Optional[str], interests_file: str, new_hash: str
     ) -> int:
-        """更新指定兴趣文件所有 active 标签的 prompt_hash（增量更新时使用）"""
+        """Cập nhật指定兴趣文件所有 active 标签的 prompt_hash（Cập nhật thêm时使用）"""
         try:
             conn = self._get_connection(date)
             cursor = conn.cursor()
@@ -1379,7 +1379,7 @@ class SQLiteStorageMixin:
             conn.commit()
             return count
         except Exception as e:
-            print(f"[AI筛选] 更新标签 hash 失败: {e}")
+            print(f"[AI筛选] Cập nhật标签 hash 失败: {e}")
             return 0
 
     # ========================================
@@ -1390,7 +1390,7 @@ class SQLiteStorageMixin:
         self, date: Optional[str], tag_updates: List[Dict],
         interests_file: str = "ai_interests.txt"
     ) -> int:
-        """按 tag 名匹配，更新 active 标签的 description 字段"""
+        """按 tag 名匹配，Cập nhật active 标签的 description 字段"""
         try:
             conn = self._get_connection(date)
             cursor = conn.cursor()
@@ -1411,14 +1411,14 @@ class SQLiteStorageMixin:
             conn.commit()
             return count
         except Exception as e:
-            print(f"[AI筛选] 更新标签描述失败: {e}")
+            print(f"[AI筛选] Cập nhật标签描述失败: {e}")
             return 0
 
     def _update_tag_priorities_impl(
         self, date: Optional[str], tag_priorities: List[Dict],
         interests_file: str = "ai_interests.txt"
     ) -> int:
-        """按 tag 名匹配，更新 active 标签的 priority 字段"""
+        """按 tag 名匹配，Cập nhật active 标签的 priority 字段"""
         try:
             conn = self._get_connection(date)
             cursor = conn.cursor()
@@ -1443,7 +1443,7 @@ class SQLiteStorageMixin:
             conn.commit()
             return count
         except Exception as e:
-            print(f"[AI筛选] 更新标签优先级失败: {e}")
+            print(f"[AI筛选] Cập nhật标签优先级失败: {e}")
             return 0
 
     # ========================================

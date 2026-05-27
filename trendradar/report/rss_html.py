@@ -1,8 +1,8 @@
 # coding=utf-8
 """
-RSS HTML 报告渲染模块
+RSS HTML 
 
-提供 RSS 订阅内容的 HTML 格式报告生成功能
+ RSS  HTML 
 """
 
 from datetime import datetime
@@ -18,23 +18,23 @@ def render_rss_html_content(
     *,
     get_time_func: Optional[Callable[[], datetime]] = None,
 ) -> str:
-    """渲染 RSS HTML 内容
+    """ RSS HTML 
 
     Args:
-        rss_items: RSS 条目列表，每个条目包含:
-            - title: 标题
-            - feed_id: RSS 源 ID
-            - feed_name: RSS 源名称
-            - url: 链接
-            - published_at: 发布时间
-            - summary: 摘要（可选）
-            - author: 作者（可选）
-        total_count: 条目总数
-        feeds_info: RSS 源 ID 到名称的映射
-        get_time_func: 获取当前时间的函数（可选，默认使用 datetime.now）
+        rss_items: RSS ，:
+            - title: 
+            - feed_id: Nguồn RSS ID
+            - feed_name: Nguồn RSS
+            - url: 
+            - published_at: 
+            - summary: （）
+            - author: （）
+        total_count: 
+        feeds_info: Nguồn RSS ID 
+        get_time_func: （， datetime.now）
 
     Returns:
-        渲染后的 HTML 字符串
+         HTML 
     """
     html = """
     <!DOCTYPE html>
@@ -42,7 +42,7 @@ def render_rss_html_content(
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>RSS 订阅内容</title>
+        <title>RSS </title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <style>
             * { box-sizing: border-box; }
@@ -293,23 +293,22 @@ def render_rss_html_content(
         <div class="container">
             <div class="header">
                 <div class="save-buttons">
-                    <button class="save-btn" onclick="saveAsImage()">保存为图片</button>
+                    <button class="save-btn" onclick="saveAsImage()"></button>
                 </div>
-                <div class="header-title">RSS 订阅内容</div>
+                <div class="header-title">RSS </div>
                 <div class="header-info">
                     <div class="info-item">
-                        <span class="info-label">订阅条目</span>
+                        <span class="info-label"></span>
                         <span class="info-value">"""
 
-    html += f"{total_count} 条"
+    html += f"{total_count} "
 
     html += """</span>
                     </div>
                     <div class="info-item">
-                        <span class="info-label">生成时间</span>
+                        <span class="info-label">Thời gian tạo</span>
                         <span class="info-value">"""
 
-    # 使用提供的时间函数或默认 datetime.now
     if get_time_func:
         now = get_time_func()
     else:
@@ -323,7 +322,6 @@ def render_rss_html_content(
 
             <div class="content">"""
 
-    # 按 feed_id 分组
     feeds_map: Dict[str, List[Dict]] = {}
     for item in rss_items:
         feed_id = item.get("feed_id", "unknown")
@@ -331,7 +329,6 @@ def render_rss_html_content(
             feeds_map[feed_id] = []
         feeds_map[feed_id].append(item)
 
-    # 渲染每个 RSS 源的内容
     for feed_id, items in feeds_map.items():
         feed_name = items[0].get("feed_name", feed_id) if items else feed_id
         if feeds_info and feed_id in feeds_info:
@@ -343,7 +340,7 @@ def render_rss_html_content(
                 <div class="feed-group">
                     <div class="feed-header">
                         <div class="feed-name">{escaped_feed_name}</div>
-                        <div class="feed-count">{len(items)} 条</div>
+                        <div class="feed-count">{len(items)} tin</div>
                     </div>"""
 
         for item in items:
@@ -395,9 +392,9 @@ def render_rss_html_content(
 
             <div class="footer">
                 <div class="footer-content">
-                    由 <span class="project-name">TrendRadar</span> 生成 ·
+                    Tạo bởi <span class="project-name">TrendRadar</span> ·
                     <a href="https://github.com/sansan0/TrendRadar" target="_blank" class="footer-link">
-                        GitHub 开源项目
+                        GitHub Dự án mã nguồn mở
                     </a>
                 </div>
             </div>
@@ -409,7 +406,7 @@ def render_rss_html_content(
                 const originalText = button.textContent;
 
                 try {
-                    button.textContent = '生成中...';
+                    button.textContent = 'Đang tạo...';
                     button.disabled = true;
                     window.scrollTo(0, 0);
 
@@ -445,7 +442,7 @@ def render_rss_html_content(
 
                     const link = document.createElement('a');
                     const now = new Date();
-                    const filename = `TrendRadar_RSS订阅_${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}_${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}.png`;
+                    const filename = `TrendRadar_RSS_${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}_${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}.png`;
 
                     link.download = filename;
                     link.href = canvas.toDataURL('image/png', 1.0);
@@ -454,7 +451,7 @@ def render_rss_html_content(
                     link.click();
                     document.body.removeChild(link);
 
-                    button.textContent = '保存成功!';
+                    button.textContent = 'Lưu thành công!';
                     setTimeout(() => {
                         button.textContent = originalText;
                         button.disabled = false;
@@ -463,7 +460,7 @@ def render_rss_html_content(
                 } catch (error) {
                     const buttons = document.querySelector('.save-buttons');
                     buttons.style.visibility = 'visible';
-                    button.textContent = '保存失败';
+                    button.textContent = 'Lưu thất bại';
                     setTimeout(() => {
                         button.textContent = originalText;
                         button.disabled = false;

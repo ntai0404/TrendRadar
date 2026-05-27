@@ -20,15 +20,15 @@ def get_batch_header(format_type: str, batch_num: int, total_batches: int) -> st
         格式化的批次头部字符串
     """
     if format_type == "telegram":
-        return f"<b>[第 {batch_num}/{total_batches} 批次]</b>\n\n"
+        return f"<b>[Phần {batch_num}/{total_batches}]</b>\n\n"
     elif format_type == "slack":
-        return f"*[第 {batch_num}/{total_batches} 批次]*\n\n"
+        return f"*[Phần {batch_num}/{total_batches}]*\n\n"
     elif format_type in ("wework_text", "bark"):
         # 企业微信文本模式和 Bark 使用纯文本格式
-        return f"[第 {batch_num}/{total_batches} 批次]\n\n"
+        return f"[Phần {batch_num}/{total_batches}]\n\n"
     else:
         # 飞书、钉钉、ntfy、企业微信 markdown 模式
-        return f"**[第 {batch_num}/{total_batches} 批次]**\n\n"
+        return f"**[Phần {batch_num}/{total_batches}]**\n\n"
 
 
 def get_max_batch_header_size(format_type: str) -> int:
@@ -93,9 +93,9 @@ def truncate_at_line_boundary(text: str, max_bytes: int) -> str:
 
 
 def truncate_preserving_footer(content: str, max_bytes: int) -> str:
-    """截断内容，优先保留尾部 footer（更新时间等），正文在行边界处截断
+    """截断内容，优先保留尾部 footer（Cập nhật时间等），正文在行边界处截断
 
-    识别内容末尾的 footer 区域（更新时间、版本提示等），
+    识别内容末尾的 footer 区域（Cập nhật时间、版本提示等），
     对 footer 之前的正文部分在行边界处截断，再拼接完整 footer。
 
     Args:
@@ -109,7 +109,7 @@ def truncate_preserving_footer(content: str, max_bytes: int) -> str:
         return content
 
     # 各平台 footer 的常见开头模式
-    footer_markers = ["\n\n\n> ", "\n\n> ", "\n\n<font", "\n\n_", "\n\n更新时间"]
+    footer_markers = ["\n\n\n> ", "\n\n> ", "\n\n<font", "\n\n_", "\n\nCập nhật时间"]
     footer_start = -1
     for marker in footer_markers:
         pos = content.rfind(marker)
@@ -142,7 +142,7 @@ def _split_oversized_batch(content: str, max_content_bytes: int) -> List[str]:
         拆分后的子批次列表
     """
     # 识别 footer
-    footer_markers = ["\n\n\n> ", "\n\n> ", "\n\n<font", "\n\n_", "\n\n更新时间"]
+    footer_markers = ["\n\n\n> ", "\n\n> ", "\n\n<font", "\n\n_", "\n\nCập nhật时间"]
     footer = ""
     body = content
     for marker in footer_markers:
