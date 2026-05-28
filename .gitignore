@@ -1,0 +1,17 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+
+# Local crawler runtime data
+llm_news_crawler_bot/.env
+llm_news_crawler_bot/.venv/
+llm_news_crawler_bot/.cdp_profiles/
+llm_news_crawler_bot/output/
+llm_news_crawler_bot/server*.log
+llm_news_crawler_bot/server.pid
+llm_news_crawler_bot/cdp_profiles.runtime.json
+
+# Generic local outputs
+output/
+*.log
