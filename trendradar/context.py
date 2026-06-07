@@ -32,6 +32,7 @@ from trendradar.report import (
     generate_html_report,
     render_html_content,
 )
+from trendradar.report.html_dashboard import render_html_dashboard
 from trendradar.notification import (
     render_feishu_content,
     render_dingtalk_content,
@@ -321,6 +322,7 @@ class AppContext:
         standalone_data: Optional[Dict] = None,
         frequency_file: Optional[str] = None,
         report_metadata: Optional[Dict] = None,
+        crawled_bot_items: Optional[List[Dict]] = None,
     ) -> str:
         """生成HTML报告"""
         return generate_html_report(
@@ -335,7 +337,7 @@ class AppContext:
             output_dir="output",
             date_folder=self.format_date(),
             time_filename=self.format_time(),
-            render_html_func=lambda *args, **kwargs: self.render_html(*args, rss_items=rss_items, rss_new_items=rss_new_items, ai_analysis=ai_analysis, standalone_data=standalone_data, **kwargs),
+            render_html_func=lambda *args, **kwargs: self.render_html(*args, rss_items=rss_items, rss_new_items=rss_new_items, ai_analysis=ai_analysis, standalone_data=standalone_data, crawled_bot_items=crawled_bot_items, **kwargs),
             matches_word_groups_func=self.matches_word_groups,
             load_frequency_words_func=lambda: self.load_frequency_words(frequency_file),
             report_metadata=report_metadata,
@@ -351,14 +353,14 @@ class AppContext:
         rss_new_items: Optional[List[Dict]] = None,
         ai_analysis: Optional[Any] = None,
         standalone_data: Optional[Dict] = None,
+        crawled_bot_items: Optional[List[Dict]] = None,
     ) -> str:
-        """渲染HTML内容"""
-        return render_html_content(
+        """渲染HTML内容 — dashboard layout"""
+        return render_html_dashboard(
             report_data=report_data,
             total_titles=total_titles,
             mode=mode,
             update_info=update_info,
-            region_order=self.region_order,
             get_time_func=self.get_time,
             rss_items=rss_items,
             rss_new_items=rss_new_items,
@@ -366,6 +368,8 @@ class AppContext:
             ai_analysis=ai_analysis,
             show_new_section=self.show_new_section,
             standalone_data=standalone_data,
+            region_order=self.region_order,
+            crawled_bot_items=crawled_bot_items,
         )
 
     # === 通知内容渲染 ===

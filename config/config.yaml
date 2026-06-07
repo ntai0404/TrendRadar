@@ -95,6 +95,21 @@ rss:
       name: "Dân Trí"
       url: "https://dantri.com.vn/rss/home.rss"
 
+    # Thêm kênh YouTube (Ví dụ: Kênh tin tức tài chính/chứng khoán)
+    # Bạn có thể thay channel_id bằng ID kênh YouTube bạn muốn theo dõi
+    - id: "youtube_vtv24"
+      name: "VTV24 Money"
+      url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCz2B8Fm2O6l2x8oZ3L0w4aQ"
+
+# ===============================================================
+# 3.5. Theo dõi Mạng xã hội & Video tĩnh (Social Media & Videos)
+#
+# Các đường link tại đây sẽ được gửi trực tiếp cho LLM Bot chạy ngầm
+# để trích xuất nội dung mỗi lần TrendRadar khởi chạy.
+# ===============================================================
+SOCIAL_MEDIA:
+  URLS:
+    - "https://www.facebook.com/CafeF"
 
 # ===============================================================
 # 4. 报告模式
@@ -296,17 +311,23 @@ storage:
 
 
 # ===============================================================
-# 8. AI 模型配置（ai_analysis / ai_translation / ai_filter 共用）
+# 8. AI 模型及 API 配置（核心设置）
+#
+# 注意：配置修改后，下次运行 TrendRadar 自动生效
 # ===============================================================
 ai:
-  # LiteLLM 模型格式: 提供商/模型名
-  # Sử dụng mô hình từ 9router (bạn có thể thay đổi sang ag/claude-sonnet-4-6, v.v. từ danh sách của bạn)
-  model: "openai/ag/gemini-3.1-pro-low"
-  fallback_models: ["openai/ag/claude-sonnet-4-6"]
-
-  api_key: ""      # Điền API Key của 9router vào đây
+  # 使用哪家的大模型（格式为: 服务商/模型名称）
+  # 推荐使用: 
+  #   - openai/gpt-4o-mini (性价比最高)
+  #   - openai/deepseek-chat (DeepSeek V3，最聪明)
+  model: "openai/llama3:latest"
   
-  api_base: "http://localhost:20128/v1" # ĐỔI 'PORT' THÀNH PORT CỦA 9ROUTER (VD: 4000, 8080)
+  # 备用模型：当主模型因为网络或并发限制失败时，自动使用备用模型重试
+  fallback_models: []
+
+  api_key: "ollama"      # Điền API Key của 9router vào đây
+  
+  api_base: "http://127.0.0.1:11434/v1" # ĐỔI 'PORT' THÀNH PORT CỦA 9ROUTER (VD: 4000, 8080)
                                     #
                                     # ❓ 什么时候需要填？
                                     #    当你使用的 AI 服务商不在上方支持列表中时。

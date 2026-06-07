@@ -510,6 +510,16 @@ class NewsCrawlerBot:
         wants_video = any(token in text_lower for token in ("video", "youtube", "clip", "bài hát", "bai hat", "song", "music", "nhạc", "nhac"))
         wants_video = wants_video or any(token in target_type for token in ("video", "song", "music")) or platform_hint == "youtube"
 
+        emit(f"DEBUG Heuristic: URL={page.url}, requested_count={requested_count}, type={type(requested_count)}")
+        
+        # Heuristic cho LLM yếu (ví dụ: Llama 3 8B) thường bỏ qua tham số hoặc đoán sai platform
+        if "facebook" in page.url.lower():
+            if requested_count == 1:
+                requested_count = 5
+            target_type = "post"
+            platform_hint = "facebook"
+            emit("Heuristic: Facebook page detected. Forcing requested_count>=5, target_type='post', platform_hint='facebook'.")
+
         if plan.navigation_url and plan.navigation_url != page.url:
             emit(f"[step 3] Navigating to LLM requested URL: {plan.navigation_url}")
             await page.goto(plan.navigation_url, wait_until="domcontentloaded")
@@ -1154,7 +1164,7 @@ class NewsCrawlerBot:
         count: int,
         emit: Callable[[str], None],
     ) -> list[str]:
-        selector = "a[href*='/posts/'], a[href*='/permalink/']"
+        selector = "a[href*='/posts/'], a[href*='/permalink/'], a[href*='/videos/'], a[href*='/reel/'], a[href*='/watch/'], a[href*='fbid=']"
         for attempt in range(4):
             try:
                 emit(f"Waiting for Facebook post links to collect target items (pass {attempt + 1}).")
@@ -1174,7 +1184,7 @@ class NewsCrawlerBot:
     async def _collect_facebook_post_urls_once(self, page: Page, count: int) -> list[str]:
         return await page.evaluate(
             """(limit) => {
-                const anchors = Array.from(document.querySelectorAll("a[href*='/posts/'], a[href*='/permalink/']"));
+                const anchors = Array.from(document.querySelectorAll("a[href*='/posts/'], a[href*='/permalink/'], a[href*='/videos/'], a[href*='/reel/'], a[href*='/watch/'], a[href*='fbid=']"));
                 const out = [];
                 const seen = new Set();
                 for (const a of anchors) {
@@ -1182,11 +1192,11 @@ class NewsCrawlerBot:
                     if (!href) continue;
                     const url = new URL(href, location.href);
                     if (!url.hostname.endsWith('facebook.com')) continue;
-                    const isPost = url.pathname.includes('/posts/') || url.pathname.includes('/permalink/');
+                    const isPost = url.pathname.includes('/posts/') || url.pathname.includes('/permalink/') || url.pathname.includes('/videos/') || url.pathname.includes('/reel/') || url.pathname.includes('/watch/') || url.search.includes('fbid=');
                     if (!isPost) continue;
-                    url.search = '';
-                    url.hash = '';
-                    const normalized = url.toString().replace(/\\/$/, '');
+                    // Retain fbid in search string but clear other tracking params if possible
+                    // Simplified: just use the raw href to not break fbid links
+                    const normalized = url.toString();
                     if (seen.has(normalized)) continue;
                     seen.add(normalized);
                     out.push(normalized);

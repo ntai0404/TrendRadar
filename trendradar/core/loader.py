@@ -605,6 +605,12 @@ def load_config(config_path: Optional[str] = None) -> Dict[str, Any]:
     # Webhook 配置
     config.update(_load_webhook_config(config_data))
 
+    # Social Media / VOD urls
+    social_media = config_data.get("SOCIAL_MEDIA") or config_data.get("social_media", {})
+    config["SOCIAL_MEDIA"] = {
+        "URLS": social_media.get("URLS") or social_media.get("urls", [])
+    }
+
     # 打印通知渠道配置来源
     _print_notification_sources(config)
 

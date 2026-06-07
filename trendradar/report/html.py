@@ -27,6 +27,7 @@ def render_html_content(
     standalone_data: Optional[Dict] = None,
     ai_analysis: Optional[Any] = None,
     show_new_section: bool = True,
+    crawled_bot_items: Optional[List[Dict]] = None,
 ) -> str:
     """HTML
 
@@ -47,7 +48,7 @@ def render_html_content(
     Returns:
          HTML 
     """
-    default_region_order = ["hotlist", "rss", "new_items", "standalone", "ai_analysis"]
+    default_region_order = ["hotlist", "rss", "new_items", "standalone", "ai_analysis", "llm_bot"]
     if region_order is None:
         region_order = default_region_order
 
@@ -1011,19 +1012,103 @@ def render_html_content(
             }
             .tab-btn.active .tab-count { background: rgba(255,255,255,0.3); }
 
-            .search-bar { display: none; padding: 0 0 16px 0; }
+            /* ===== Thanh công cụ hiện đại (Menu + Lọc loại tin + Tìm kiếm) ===== */
+            .news-toolbar {
+                display: none;
+                position: sticky;
+                top: 0;
+                z-index: 20;
+                flex-direction: column;
+                gap: 14px;
+                margin: -24px -24px 24px -24px;
+                padding: 16px 24px;
+                background: rgba(255,255,255,0.82);
+                backdrop-filter: saturate(180%) blur(14px);
+                -webkit-backdrop-filter: saturate(180%) blur(14px);
+                border-bottom: 1px solid #eceef2;
+            }
+
+            .toolbar-search {
+                position: relative;
+                display: flex;
+                align-items: center;
+            }
+            .toolbar-search .search-icon {
+                position: absolute;
+                left: 14px;
+                width: 18px;
+                height: 18px;
+                color: #9ca3af;
+                pointer-events: none;
+            }
             .search-input {
                 width: 100%;
-                padding: 10px 16px;
+                padding: 12px 16px 12px 42px;
                 border: 1px solid #e5e7eb;
-                border-radius: 8px;
+                border-radius: 12px;
                 font-size: 14px;
                 outline: none;
-                transition: border-color 0.2s;
+                background: #f9fafb;
+                transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
                 box-sizing: border-box;
             }
-            .search-input:focus { border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79,70,229,0.1); }
+            .search-input:focus {
+                border-color: #4f46e5;
+                background: #fff;
+                box-shadow: 0 0 0 4px rgba(79,70,229,0.1);
+            }
             .search-input::placeholder { color: #9ca3af; }
+
+            .type-filter {
+                display: flex;
+                gap: 8px;
+                overflow-x: auto;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                padding-bottom: 2px;
+            }
+            .type-filter::-webkit-scrollbar { display: none; }
+            .filter-chip {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                padding: 7px 14px;
+                border: 1px solid #e5e7eb;
+                background: #fff;
+                color: #4b5563;
+                border-radius: 999px;
+                font-size: 13px;
+                font-weight: 500;
+                cursor: pointer;
+                white-space: nowrap;
+                transition: all 0.2s ease;
+                flex-shrink: 0;
+            }
+            .filter-chip:hover {
+                border-color: #c7d2fe;
+                color: #4f46e5;
+                background: #f5f3ff;
+            }
+            .filter-chip.active {
+                background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+                border-color: transparent;
+                color: #fff;
+                box-shadow: 0 2px 8px rgba(79,70,229,0.25);
+            }
+            .filter-chip .chip-count {
+                font-size: 11px;
+                background: rgba(0,0,0,0.06);
+                padding: 1px 7px;
+                border-radius: 999px;
+                font-weight: 600;
+            }
+            .filter-chip .chip-count:empty { display: none; }
+            .filter-chip.active .chip-count { background: rgba(255,255,255,0.25); }
+
+            body.wide-mode .news-toolbar {
+                margin: -32px -40px 24px -40px;
+                padding: 16px 40px;
+            }
 
             .fab-bar {
                 position: fixed;
@@ -1244,15 +1329,37 @@ def render_html_content(
             body.dark-mode .tab-bar::-webkit-scrollbar-thumb { background: #475569; }
 
             body.dark-mode .search-input {
-                background: #1e293b;
+                background: #0f172a;
                 border-color: #334155;
                 color: #e2e8f0;
             }
             body.dark-mode .search-input:focus {
                 border-color: #818cf8;
-                box-shadow: 0 0 0 3px rgba(129,140,248,0.15);
+                background: #1e293b;
+                box-shadow: 0 0 0 4px rgba(129,140,248,0.15);
             }
             body.dark-mode .search-input::placeholder { color: #64748b; }
+
+            body.dark-mode .news-toolbar {
+                background: rgba(30,41,59,0.82);
+                border-bottom-color: #334155;
+            }
+            body.dark-mode .filter-chip {
+                background: #1e293b;
+                border-color: #334155;
+                color: #94a3b8;
+            }
+            body.dark-mode .filter-chip:hover {
+                border-color: #4338ca;
+                color: #c4b5fd;
+                background: #253347;
+            }
+            body.dark-mode .filter-chip.active {
+                background: linear-gradient(135deg, #6d28d9 0%, #7c3aed 100%);
+                color: #fff;
+            }
+            body.dark-mode .filter-chip .chip-count { background: rgba(255,255,255,0.1); }
+            body.dark-mode .filter-chip.active .chip-count { background: rgba(255,255,255,0.2); }
 
             body.dark-mode .rss-item {
                 background: #1a2e25;
@@ -1515,8 +1622,19 @@ def render_html_content(
             </div>
 
             <div class="content">
-                <div class="search-bar">
-                    <input type="text" class="search-input" placeholder="Tìm kiếm tiêu đề tin tức..." oninput="handleSearch(this.value)">
+                <div class="news-toolbar">
+                    <div class="toolbar-search">
+                        <svg class="search-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg>
+                        <input type="text" class="search-input" placeholder="Tìm kiếm tiêu đề tin tức..." oninput="handleSearch(this.value)">
+                    </div>
+                    <div class="type-filter" role="tablist" aria-label="Lọc loại tin">
+                        <button class="filter-chip active" data-filter="all">Tất cả<span class="chip-count"></span></button>
+                        <button class="filter-chip" data-filter="hotlist-section">🔥 Tin Hot<span class="chip-count"></span></button>
+                        <button class="filter-chip" data-filter="new-section">✨ Tin mới<span class="chip-count"></span></button>
+                        <button class="filter-chip" data-filter="rss-section">📰 RSS<span class="chip-count"></span></button>
+                        <button class="filter-chip" data-filter="standalone-section">📌 Độc lập<span class="chip-count"></span></button>
+                        <button class="filter-chip" data-filter="ai-section">🤖 AI Phân tích<span class="chip-count"></span></button>
+                    </div>
                 </div>"""
 
     if report_data["failed_ids"]:
@@ -2052,12 +2170,84 @@ def render_html_content(
                 </div>"""
         return standalone_html
 
+    def render_llm_bot_html(items: Optional[List[Dict]]) -> str:
+        if not items:
+            return ""
+
+        bot_html = f"""
+                <div class="standalone-section ai-section">
+                    <div class="standalone-section-header">
+                        <div class="standalone-section-title" style="color: #4f46e5;">Dữ liệu từ LLM Bot (Crawl tự động)</div>
+                        <div class="standalone-section-count">{len(items)} tin đã lấy</div>
+                    </div>
+                    <div class="standalone-groups-grid">
+                        <div class="standalone-group">
+                            <div class="standalone-header">
+                                <div class="standalone-name">Kết quả chi tiết</div>
+                            </div>"""
+
+        for j, item in enumerate(items, 1):
+            title = html_escape(item.get("title", "Không có tiêu đề"))
+            url = html_escape(item.get("url", ""))
+            author = html_escape(item.get("author", ""))
+            extracted_at = html_escape(item.get("extracted_at", ""))
+            summary = html_escape(item.get("summary", ""))
+            
+            # Format extracted_at time
+            time_display = extracted_at
+            if "T" in extracted_at:
+                try:
+                    from datetime import datetime as dt
+                    dt_obj = dt.fromisoformat(extracted_at.replace("Z", "+00:00"))
+                    time_display = dt_obj.strftime("%m-%d %H:%M")
+                except:
+                    pass
+
+            bot_html += f"""
+                            <div class="news-item ai-block">
+                                <div class="news-number">{j}</div>
+                                <div class="news-content">
+                                    <div class="news-header">"""
+            if time_display:
+                bot_html += f'<span class="time-info">{time_display}</span>'
+            if author:
+                bot_html += f'<span class="source-name">{author}</span>'
+            
+            bot_html += """
+                                    </div>
+                                    <div class="news-title">"""
+            if url:
+                bot_html += f'<a href="{url}" target="_blank" class="news-link">{title}</a>'
+            else:
+                bot_html += title
+                
+            bot_html += """
+                                    </div>"""
+                                    
+            if summary:
+                bot_html += f"""
+                                    <div style="font-size: 13px; color: #4b5563; margin-top: 8px; line-height: 1.5; background: #f3f4f6; padding: 10px; border-radius: 6px; border-left: 3px solid #6366f1;">
+                                        {summary}
+                                    </div>"""
+                                    
+            bot_html += """
+                                </div>
+                            </div>"""
+
+        bot_html += """
+                        </div>
+                    </div>
+                </div>"""
+        return bot_html
+
     rss_stats_html = render_rss_stats_html(rss_items, "Cập nhật RSS") if rss_items else ""
     rss_new_html = render_rss_stats_html(rss_new_items, "RSS MớiMới") if rss_new_items else ""
 
     standalone_html = render_standalone_html(standalone_data)
 
     ai_html = render_ai_analysis_html_rich(ai_analysis) if ai_analysis else ""
+    
+    llm_bot_html = render_llm_bot_html(crawled_bot_items)
 
     region_contents = {
         "hotlist": stats_html,
@@ -2065,6 +2255,7 @@ def render_html_content(
         "new_items": (new_titles_html, rss_new_html),  
         "standalone": standalone_html,
         "ai_analysis": ai_html,
+        "llm_bot": llm_bot_html,
     }
 
     def add_section_divider(content: str) -> str:
@@ -2304,6 +2495,64 @@ def render_html_content(
                 };
             })();
 
+            function initTypeFilter() {
+                var chips = document.querySelectorAll('.filter-chip');
+                if (!chips.length) return;
+
+                // Bản đồ loại tin -> selector của khối nội dung tương ứng
+                var sectionSelectors = {
+                    'hotlist-section': '.hotlist-section',
+                    'new-section': '.new-section',
+                    'rss-section': '.rss-section',
+                    'standalone-section': '.standalone-section',
+                    'ai-section': '.ai-section'
+                };
+
+                // Đếm số khối có thật và cập nhật badge; ẩn chip nếu loại tin không tồn tại
+                chips.forEach(function(chip) {
+                    var key = chip.getAttribute('data-filter');
+                    if (key === 'all') return;
+                    var nodes = document.querySelectorAll(sectionSelectors[key]);
+                    var countEl = chip.querySelector('.chip-count');
+                    if (!nodes.length) {
+                        chip.style.display = 'none';
+                        return;
+                    }
+                    if (countEl) {
+                        var itemCount = 0;
+                        nodes.forEach(function(n) {
+                            itemCount += n.querySelectorAll('.news-item, .rss-item, .ai-block').length;
+                        });
+                        if (itemCount > 0) countEl.textContent = itemCount;
+                    }
+                });
+
+                function applyFilter(key) {
+                    chips.forEach(function(c) {
+                        c.classList.toggle('active', c.getAttribute('data-filter') === key);
+                    });
+                    Object.keys(sectionSelectors).forEach(function(secKey) {
+                        document.querySelectorAll(sectionSelectors[secKey]).forEach(function(sec) {
+                            sec.style.display = (key === 'all' || key === secKey) ? '' : 'none';
+                        });
+                    });
+                    // Cuộn lên đầu phần nội dung cho dễ đọc
+                    var content = document.querySelector('.content');
+                    if (content && key !== 'all') {
+                        var toolbar = document.querySelector('.news-toolbar');
+                        var offset = toolbar ? toolbar.offsetHeight + 8 : 0;
+                        var top = content.getBoundingClientRect().top + window.scrollY - offset;
+                        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+                    }
+                }
+
+                chips.forEach(function(chip) {
+                    chip.addEventListener('click', function() {
+                        applyFilter(chip.getAttribute('data-filter'));
+                    });
+                });
+            }
+
             function initBackToTop() {
                 var fabBar = document.querySelector('.fab-bar');
                 if (!fabBar) return;
@@ -2410,7 +2659,15 @@ def render_html_content(
                         g.style.display = '';
                     }
                 });
-                document.querySelectorAll('.tab-bar-wrapper, .standalone-tab-bar, .search-bar, .fab-bar, .toggle-wide-btn').forEach(function(el) {
+                // Hiện lại các khối bị ẩn bởi bộ lọc loại tin để chụp đầy đủ
+                state.hiddenSections = [];
+                document.querySelectorAll('.hotlist-section, .new-section, .rss-section, .standalone-section, .ai-section').forEach(function(sec, i) {
+                    if (sec.style.display === 'none') {
+                        state.hiddenSections.push(i);
+                        sec.style.display = '';
+                    }
+                });
+                document.querySelectorAll('.tab-bar-wrapper, .standalone-tab-bar, .news-toolbar, .fab-bar, .toggle-wide-btn').forEach(function(el) {
                     el.dataset.prevDisplay = el.style.display || '';
                     el.style.display = 'none';
                 });
@@ -2435,7 +2692,13 @@ def render_html_content(
                         if (standaloneGroups[i]) standaloneGroups[i].style.display = 'none';
                     });
                 }
-                document.querySelectorAll('.tab-bar-wrapper, .standalone-tab-bar, .search-bar, .fab-bar, .toggle-wide-btn').forEach(function(el) {
+                var allSections = document.querySelectorAll('.hotlist-section, .new-section, .rss-section, .standalone-section, .ai-section');
+                if (state.hiddenSections) {
+                    state.hiddenSections.forEach(function(i) {
+                        if (allSections[i]) allSections[i].style.display = 'none';
+                    });
+                }
+                document.querySelectorAll('.tab-bar-wrapper, .standalone-tab-bar, .news-toolbar, .fab-bar, .toggle-wide-btn').forEach(function(el) {
                     el.style.display = el.dataset.prevDisplay || '';
                     delete el.dataset.prevDisplay;
                 });
@@ -2966,13 +3229,14 @@ def render_html_content(
                     if (darkBtn) darkBtn.textContent = '☀';
                 }
 
-                var searchBar = document.querySelector('.search-bar');
-                if (searchBar) searchBar.style.display = 'block';
+                var newsToolbar = document.querySelector('.news-toolbar');
+                if (newsToolbar) newsToolbar.style.display = 'flex';
 
                 initTabs();
                 initBackToTop();
                 initCollapse();
                 initStandaloneTabs();
+                initTypeFilter();
 
                 document.addEventListener('keydown', function(e) {
                     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;

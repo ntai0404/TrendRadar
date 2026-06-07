@@ -52,12 +52,24 @@ def save_runtime_profile(domain: str, cdp_url: str) -> None:
     )
 
 
+def _is_cdp_alive(cdp_url: str) -> bool:
+    try:
+        with urlopen(f"{cdp_url}/json/version", timeout=1) as response:
+            return response.status == 200
+    except Exception:
+        return False
+
 def profile_for_host(host: str) -> tuple[Optional[str], Optional[str]]:
     normalized = normalize_domain(host)
     for domain, cdp_url in all_profiles().items():
         profile_domain = normalize_domain(domain)
         if normalized == profile_domain or normalized.endswith("." + profile_domain):
-            return profile_domain, cdp_url
+            if _is_cdp_alive(cdp_url):
+                return profile_domain, cdp_url
+            else:
+                # Trình duyệt đã bị đóng -> Khởi động lại
+                new_cdp_url, _ = create_cdp_profile(profile_domain)
+                return profile_domain, new_cdp_url
     return None, None
 
 

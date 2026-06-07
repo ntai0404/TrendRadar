@@ -785,6 +785,42 @@ class NewsAnalyzer:
 
         return standalone_data
 
+    def _get_crawled_bot_items(self) -> List[Dict]:
+        """Đọc kết quả đã crawl từ llm_news_crawler_bot."""
+        bot_output_dir = Path("llm_news_crawler_bot/output")
+        crawled_items = []
+        if bot_output_dir.exists():
+            import json
+            for job_dir in bot_output_dir.iterdir():
+                if job_dir.is_dir():
+                    metadata_file = job_dir / "metadata.json"
+                    if metadata_file.exists():
+                        try:
+                            with open(metadata_file, "r", encoding="utf-8") as f:
+                                data = json.load(f)
+                            # manifest metadata.json has a "items" list but no "status" field
+                            # item-level metadata.json (under items/item_xxx/) has article data directly
+                            items = data.get("items", [])
+                            if items:
+                                for raw_item in items:
+                                    item_metadata = raw_item.get("metadata", {})
+                                    if not item_metadata:
+                                        continue
+                                    # Attach timestamp
+                                    item_metadata["extracted_at"] = data.get("timestamp", "")
+                                    # Normalize url field
+                                    if not item_metadata.get("url") and item_metadata.get("source_url"):
+                                        item_metadata["url"] = item_metadata["source_url"]
+                                    # Only include items with a title
+                                    if item_metadata.get("title") or item_metadata.get("content"):
+                                        crawled_items.append(item_metadata)
+                        except Exception as e:
+                            print(f"Lỗi đọc metadata bot: {e}")
+        
+        # Sort by extracted_at desc
+        crawled_items.sort(key=lambda x: x.get("extracted_at", ""), reverse=True)
+        return crawled_items
+
     def _run_analysis_pipeline(
         self,
         data_source: Dict,
@@ -887,6 +923,9 @@ class NewsAnalyzer:
             display_regions = self.ctx.config.get("DISPLAY", {}).get("REGIONS", {})
             html_standalone = standalone_data if display_regions.get("STANDALONE", False) else None
             html_ai = ai_result if display_regions.get("AI_ANALYSIS", True) else None
+            
+            crawled_bot_items = self._get_crawled_bot_items()
+            
             html_file = self.ctx.generate_html(
                 stats,
                 total_titles,
@@ -908,6 +947,7 @@ class NewsAnalyzer:
                     "rss_source_total": self._rss_source_total,
                     "rss_source_failed": self._rss_source_failed,
                 },
+                crawled_bot_items=crawled_bot_items,
             )
 
         return stats, html_file, ai_result, rss_items
@@ -1724,6 +1764,74 @@ class NewsAnalyzer:
 
         return html_file
 
+    def _trigger_llm_bot_for_social_media(self, results: Dict, raw_rss_items: Dict) -> None:
+        """Kích hoạt bot chạy ngầm cho các bài viết mạng xã hội (VD: facebook, youtube)."""
+        urls = set()
+        
+        def is_target_url(url: str) -> bool:
+            if not url:
+                return False
+            return "facebook.com" in url or "youtube.com" in url or "youtu.be" in url
+
+        for source_data in results.values():
+            for title_data in source_data.values():
+                url = title_data.get("url", "")
+                if is_target_url(url):
+                    urls.add(url)
+                    
+        if raw_rss_items:
+            # raw_rss_items is a list of dicts, not a dict of lists
+            for item in raw_rss_items:
+                url = item.get("url", "")
+                if is_target_url(url):
+                    urls.add(url)
+                    
+        # Đọc thêm từ cấu hình (những link tĩnh mà người dùng muốn theo dõi)
+        social_media_config = self.ctx.config.get("SOCIAL_MEDIA", {})
+        static_urls = social_media_config.get("URLS", [])
+        for url in static_urls:
+            urls.add(url)
+                        
+        if not urls:
+            return
+            
+        print(f"Phát hiện {len(urls)} link mạng xã hội/video. Đang kích hoạt LLM Bot thu thập dữ liệu...")
+        import subprocess
+        prompt_file = Path("config/social_media_prompt.txt").absolute()
+        bot_dir = Path("llm_news_crawler_bot").absolute()
+        
+        # We assume they share the same venv or python environment
+        import sys
+        python_exec = sys.executable
+        
+        procs = []
+        for url in urls:
+            cmd = [
+                python_exec, "-m", "news_crawler_bot.cli",
+                "--url", url,
+                "--browser-mode", "auto",
+                "--instruction-file", str(prompt_file)
+            ]
+            try:
+                # Run in background and write logs to bot_run.log
+                log_file = bot_dir / "bot_run.log"
+                with open(log_file, "a", encoding="utf-8") as f:
+                    proc = subprocess.Popen(cmd, cwd=str(bot_dir), stdout=f, stderr=subprocess.STDOUT)
+                    procs.append(proc)
+            except Exception as e:
+                print(f"Không thể khởi động bot cho {url}: {e}")
+                
+        # Wait for all processes to finish with a timeout of 10 minutes
+        if procs:
+            print("Đang chờ Bot thu thập dữ liệu mạng xã hội (tối đa 10 phút)...")
+            for p in procs:
+                try:
+                    p.wait(timeout=600)
+                except subprocess.TimeoutExpired:
+                    print("Cảnh báo: Bot chạy quá 10 phút (timeout), tiến hành dừng bot và tiếp tục tạo báo cáo.")
+                    p.kill()
+            print("Bot thu thập dữ liệu đã hoàn thành.")
+
     def run(self) -> None:
         """执行分析流程"""
         try:
@@ -1737,6 +1845,9 @@ class NewsAnalyzer:
 
             # 抓取 RSS 数据（如果启用），返回统计条目、新增条目和原始条目
             rss_items, rss_new_items, raw_rss_items, rss_new_urls = self._crawl_rss_data()
+
+            # Chạy Bot đồng bộ trước khi tạo báo cáo HTML
+            self._trigger_llm_bot_for_social_media(results, raw_rss_items)
 
             # 执行模式策略，传递 RSS 数据用于合并推送
             self._execute_mode_strategy(
