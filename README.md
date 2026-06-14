@@ -4,7 +4,7 @@
   <img src="/_image/banner.webp" alt="TrendRadar Banner" width="80%">
 </a>
 
-最快<strong>30秒</strong>部署的热点助手 —— 告别无效刷屏，只看真正关心的新闻资讯
+The fastest trending topic assistant deployed in <strong>30 seconds</strong> — say goodbye to endless scrolling, only read the news you truly care about
 
 <a href="https://trendshift.io/repositories/14726" target="_blank"><img src="https://trendshift.io/api/badge/repositories/14726" alt="sansan0%2FTrendRadar | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
@@ -14,355 +14,355 @@
 [![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg?style=flat-square)](LICENSE)
 [![Version](https://img.shields.io/badge/version-v6.8.0-blue.svg)](https://github.com/sansan0/TrendRadar)
 [![MCP](https://img.shields.io/badge/MCP-v4.0.4-green.svg)](https://github.com/sansan0/TrendRadar)
-[![RSS](https://img.shields.io/badge/RSS-订阅源支持-orange.svg?style=flat-square&logo=rss&logoColor=white)](https://github.com/sansan0/TrendRadar)
-[![AI翻译](https://img.shields.io/badge/AI-多语言推送-purple.svg?style=flat-square)](https://github.com/sansan0/TrendRadar)
+[![RSS](https://img.shields.io/badge/RSS-Feed_Support-orange.svg?style=flat-square&logo=rss&logoColor=white)](https://github.com/sansan0/TrendRadar)
+[![AI Translation](https://img.shields.io/badge/AI-Multilingual_Push-purple.svg?style=flat-square)](https://github.com/sansan0/TrendRadar)
 
-[![企业微信通知](https://img.shields.io/badge/企业微信-通知-00D4AA?style=flat-square)](https://work.weixin.qq.com/)
-[![个人微信通知](https://img.shields.io/badge/个人微信-通知-00D4AA?style=flat-square)](https://weixin.qq.com/)
-[![Telegram通知](https://img.shields.io/badge/Telegram-通知-00D4AA?style=flat-square)](https://telegram.org/)
-[![dingtalk通知](https://img.shields.io/badge/钉钉-通知-00D4AA?style=flat-square)](#)
-[![飞书通知](https://img.shields.io/badge/飞书-通知-00D4AA?style=flat-square)](https://www.feishu.cn/)
-[![邮件通知](https://img.shields.io/badge/Email-通知-00D4AA?style=flat-square)](#)
-[![ntfy通知](https://img.shields.io/badge/ntfy-通知-00D4AA?style=flat-square)](https://github.com/binwiederhier/ntfy)
-[![Bark通知](https://img.shields.io/badge/Bark-通知-00D4AA?style=flat-square)](https://github.com/Finb/Bark)
-[![Slack通知](https://img.shields.io/badge/Slack-通知-00D4AA?style=flat-square)](https://slack.com/)
-[![通用Webhook](https://img.shields.io/badge/通用-Webhook-607D8B?style=flat-square&logo=webhook&logoColor=white)](#)
+[![WeCom Notification](https://img.shields.io/badge/WeCom-Notification-00D4AA?style=flat-square)](https://work.weixin.qq.com/)
+[![WeChat Notification](https://img.shields.io/badge/WeChat-Notification-00D4AA?style=flat-square)](https://weixin.qq.com/)
+[![Telegram Notification](https://img.shields.io/badge/Telegram-Notification-00D4AA?style=flat-square)](https://telegram.org/)
+[![DingTalk Notification](https://img.shields.io/badge/DingTalk-Notification-00D4AA?style=flat-square)](#)
+[![Feishu Notification](https://img.shields.io/badge/Feishu-Notification-00D4AA?style=flat-square)](https://www.feishu.cn/)
+[![Email Notification](https://img.shields.io/badge/Email-Notification-00D4AA?style=flat-square)](#)
+[![ntfy Notification](https://img.shields.io/badge/ntfy-Notification-00D4AA?style=flat-square)](https://github.com/binwiederhier/ntfy)
+[![Bark Notification](https://img.shields.io/badge/Bark-Notification-00D4AA?style=flat-square)](https://github.com/Finb/Bark)
+[![Slack Notification](https://img.shields.io/badge/Slack-Notification-00D4AA?style=flat-square)](https://slack.com/)
+[![Custom Webhook](https://img.shields.io/badge/Custom-Webhook-607D8B?style=flat-square&logo=webhook&logoColor=white)](#)
 
 
-[![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-自动化-2088FF?style=flat-square&logo=github-actions&logoColor=white)](https://github.com/sansan0/TrendRadar)
-[![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-部署-4285F4?style=flat-square&logo=github&logoColor=white)](https://sansan0.github.io/TrendRadar)
-[![Docker](https://img.shields.io/badge/Docker-部署-2496ED?style=flat-square&logo=docker&logoColor=white)](https://hub.docker.com/r/wantcat/trendradar)
-[![MCP Support](https://img.shields.io/badge/MCP-AI分析支持-FF6B6B?style=flat-square&logo=ai&logoColor=white)](https://modelcontextprotocol.io/)
-[![AI分析推送](https://img.shields.io/badge/AI-分析推送-FF6B6B?style=flat-square&logo=openai&logoColor=white)](#)
-[![AI智能筛选](https://img.shields.io/badge/AI-智能筛选新闻-9B59B6?style=flat-square&logo=openai&logoColor=white)](#)
+[![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-Automation-2088FF?style=flat-square&logo=github-actions&logoColor=white)](https://github.com/sansan0/TrendRadar)
+[![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-Deployment-4285F4?style=flat-square&logo=github&logoColor=white)](https://sansan0.github.io/TrendRadar)
+[![Docker](https://img.shields.io/badge/Docker-Deployment-2496ED?style=flat-square&logo=docker&logoColor=white)](https://hub.docker.com/r/wantcat/trendradar)
+[![MCP Support](https://img.shields.io/badge/MCP-AI_Analysis_Support-FF6B6B?style=flat-square&logo=ai&logoColor=white)](https://modelcontextprotocol.io/)
+[![AI Analysis Push](https://img.shields.io/badge/AI-Analysis_Push-FF6B6B?style=flat-square&logo=openai&logoColor=white)](#)
+[![AI Smart Filtering](https://img.shields.io/badge/AI-Smart_News_Filtering-9B59B6?style=flat-square&logo=openai&logoColor=white)](#)
 
 </div>
 
 <div align="center">
 
-**中文** | **[English](README-EN.md)**
+**Chinese** | **[English](README-EN.md)**
 
 </div>
 
-> 本项目以轻量，易部署为目标
+> This project aims to be lightweight and easy to deploy
 
 <br>
 
-## 📑 快速导航
+## 📑 Quick Navigation
 
-> 💡 **点击下方链接**可快速跳转到对应章节。部署推荐从「**快速开始**」入手，需要详细自定义请看「**配置详解**」
+> 💡 **Click the links below** to quickly jump to the corresponding sections. For deployment, it is recommended to start with "**Quick Start**". For detailed customization, please see "**Configuration Details**"
 
 <div align="center">
 
 |   |   |   |
 |:---:|:---:|:---:|
-| [🚀 **快速开始**](#-快速开始) | [AI 智能分析](#-ai-智能分析) | [⚙️ **配置详解**](#配置详解) |
-| [Docker部署](#6-docker-部署) | [MCP客户端](#-mcp-客户端) | [📝 **更新日志**](#-更新日志) |
-| [🎯 **核心功能**](#-核心功能) | [☕ **支持项目**](#-支持项目) | [📚 **项目相关**](#-项目相关) |
+| [🚀 **Quick Start**](#-Quick Start) | [AI Smart Analysis](#-ai-Intelligent Analysis) | [⚙️ **Configuration Details**](#Configuration Details) |
+| [Docker Deployment](#6-docker-deployment) | [MCP Client](#-mcp-client) | [📝 **Changelog**](#-Update log) |
+| [🎯 **Core Features**](#-Core Features) | [☕ **Support the Project**](#-Support the Project) | [📚 **Project Related**](#-Project Related) |
 
 </div>
 
 <br>
 
-- 感谢**为项目点 star** 的观众们，**fork** 你所欲也，**star** 我所欲也，两者得兼😍是对开源精神最好的支持
+- Thanks to everyone who **starred the project**. **Forking** is what you want, **starring** is what I want, and having both 😍 is the best support for the open-source spirit
 
 <details>
-<summary>👉 点击展开：<strong>致谢名单</strong> (天使轮荣誉榜 🔥73+🔥 位)</summary>
+<summary>👉 Click to expand: <strong>Acknowledgments</strong> (Angel Round Honor Roll 🔥73+🔥 members)</summary>
 
-### 早期支持者致谢
+### Acknowledgments to Early Supporters
 
-> 💡 **特别说明**：
+> 💡 **Special Note**:
 >
-> 1. **关于名单**：下方表格记录了项目起步阶段（天使轮）的支持者。因早期人工统计繁琐，**难免存在疏漏或记录不全的情况，如有遗漏，实非本意，万望海涵**。
-> 2. **未来规划**：为了将有限的精力回归代码与功能迭代，**即日起不再人工维护此名单**。
+> 1. **About the list**: The table below records the supporters during the project's initial stage (angel round). Due to the tedious manual tracking in the early days, **there may inevitably be omissions or incomplete records. If you were missed, it was truly unintentional, and we beg your understanding**.
+> 2. **Future plans**: In order to refocus our limited energy on code and feature iteration, **we will no longer manually maintain this list from today onwards**.
 >
-> 无论名字是否上榜，你们的每一份支持都是 TrendRadar 能够走到今天的基石。🙏
+> Whether your name is on the list or not, every bit of your support is the cornerstone that has allowed TrendRadar to reach where it is today. 🙏
 
-### 基础设施支持
+### Infrastructure Support
 
-感谢 **GitHub** 免费提供的基础设施，这是本项目得以**一键 fork**便捷运行的最大前提。
+Thanks to **GitHub** for providing free infrastructure, which is the biggest prerequisite for this project to run conveniently with a **one-click fork**.
 
-### 数据支持
+### Data Support
 
-本项目使用 [newsnow](https://github.com/ourongxing/newsnow) 项目的 API 获取多平台数据，特别感谢作者提供的服务。
+This project uses the API of the [newsnow](https://github.com/ourongxing/newsnow) project to obtain multi-platform data. Special thanks to the author for providing this service.
 
-经联系，作者表示无需担心服务器压力，但这是基于他的善意和信任。请大家：
-- **前往 [newsnow 项目](https://github.com/ourongxing/newsnow) 点 star 支持**
-- Docker 部署时，请合理控制推送频率，勿竭泽而渔
+After contacting the author, they stated there is no need to worry about server pressure, but this is based on their goodwill and trust. Please:
+- **Go to the [newsnow project](https://github.com/ourongxing/newsnow) and leave a star to support it**
+- When deploying with Docker, please reasonably control the push frequency and do not abuse the API
 
-### 推广助力
+### Promotion Support
 
-> 感谢以下平台和个人的推荐(按时间排列)
+> Thanks to the following platforms and individuals for their recommendations (in chronological order)
 
-- [小众软件](https://mp.weixin.qq.com/s/fvutkJ_NPUelSW9OGK39aA) - 开源软件推荐平台
-- [LinuxDo 社区](https://linux.do/) - 技术爱好者的聚集地
-- [阮一峰周刊](https://github.com/ruanyf/weekly) - 技术圈有影响力的周刊
+- [Appinn](https://mp.weixin.qq.com/s/fvutkJ_NPUelSW9OGK39aA) - Open source software recommendation platform
+- [LinuxDo Community](https://linux.do/) - A gathering place for tech enthusiasts
+- [Ruan Yifeng's Weekly](https://github.com/ruanyf/weekly) - An influential weekly newsletter in the tech community
 
-### 观众支持
+### Audience Support
 
-> 感谢**给予资金支持**的朋友们，你们的慷慨已化身为键盘旁的零食饮料，陪伴着项目的每一次迭代。
+> Thanks to the friends who **provided financial support**. Your generosity has turned into snacks and drinks next to the keyboard, accompanying every iteration of the project.
 >
-> **关于"一元点赞"的回归**：
-> 随着 v5.0.0 版本的发布，项目迈入了一个新的阶段。为了支持日益增长的 API 成本和咖啡因消耗，"一元点赞"通道现已重新开启。你的每一份心意，都将转化为代码世界里的 Token 和动力。🚀 [前往支持](#-支持项目)
+> **Regarding the return of "One Yuan Like"**:
+> With the release of version v5.0.0, the project has entered a new stage. To support the growing API costs and caffeine consumption, the "One Yuan Like" channel has now been reopened. Every bit of your support will be transformed into Tokens and motivation in the coding world. 🚀 [Go to support](#-support project)
 
-|           点赞人            |  金额  |  日期  |             备注             |
+|           Supporter            |  Amount  |  Date  |             Remarks             |
 | :-------------------------: | :----: | :----: | :-----------------------: |
 |           D*5          |  1.8 * 3 | 2025.11.24  |    | 
-|           *鬼          |  1 | 2025.11.17  |    | 
-|           *超          |  10 | 2025.11.17  |    | 
-|           R*w          |  10 | 2025.11.17  | 这 agent 做的牛逼啊,兄弟    | 
-|           J*o          |  1 | 2025.11.17  | 感谢开源,祝大佬事业有成    | 
-|           *晨          |  8.88  | 2025.11.16  | 项目不错,研究学习中    | 
-|           *海          |  1  | 2025.11.15  |    | 
-|           *德          |  1.99  | 2025.11.15  |    | 
-|           *疏          |  8.8  | 2025.11.14  |  感谢开源，项目很棒，支持一下   | 
-|           M*e          |  10  | 2025.11.14  |  开源不易，大佬辛苦了   | 
-|           **柯          |  1  | 2025.11.14  |     | 
-|           *云          |  88  | 2025.11.13  |    好项目，感谢开源  | 
+|           *Gui          |  1 | 2025.11.17  |    |
+|           *Chao          |  10 | 2025.11.17  |    |
+|           R*w          |  10 | 2025.11.17  | This agent is awesome, bro    |
+|           J*o          |  1 | 2025.11.17  | Thanks for open sourcing, wishing you success in your career    |
+|           *Chen          |  8.88  | 2025.11.16  | Good project, studying and learning from it    |
+|           *Hai          |  1  | 2025.11.15  |    |
+|           *De          |  1.99  | 2025.11.15  |    |
+|           *Shu          |  8.8  | 2025.11.14  |  Thanks for open sourcing, great project, supporting it   |
+|           M*e          |  10  | 2025.11.14  |  Open source is not easy, thanks for your hard work   |
+|           **Ke          |  1  | 2025.11.14  |     |
+|           *Yun          |  88  | 2025.11.13  |    Good project, thanks for open sourcing  |
 |           *W          |  6  | 2025.11.13  |      | 
-|           *凯          |  1  | 2025.11.13  |      | 
-|           对*.          |  1  | 2025.11.13  |    Thanks for your TrendRadar  | 
+|           *Kai          |  1  | 2025.11.13  |      |
+|           Dui*.          |  1  | 2025.11.13  |    Thanks for your TrendRadar  |
 |           s*y          |  1  | 2025.11.13  |      | 
-|           **翔          |  10  | 2025.11.13  |   好项目，相见恨晚，感谢开源！     | 
-|           *韦          |  9.9  | 2025.11.13  |   TrendRadar超赞，请老师喝咖啡~     | 
-|           h*p          |  5  | 2025.11.12  |   支持中国开源力量，加油！     | 
+|           **Xiang          |  10  | 2025.11.13  |   Good project, wish I found it sooner, thanks for open sourcing!     |
+|           *Wei          |  9.9  | 2025.11.13  |   TrendRadar is awesome, buying you a coffee~     |
+|           h*p          |  5  | 2025.11.12  |   Support Chinese open source power, keep it up!     |
 |           c*r          |  6  | 2025.11.12  |        | 
 |           a*n          |  5  | 2025.11.12  |        | 
-|           。*c          |  1  | 2025.11.12  |    感谢开源分享    | 
-|           *记          |  1  | 2025.11.11  |        | 
-|           *主          |  1  | 2025.11.10  |        | 
-|           *了          |  10  | 2025.11.09  |        | 
-|           *杰          |  5  | 2025.11.08  |        | 
-|           *点          |  8.80  | 2025.11.07  |   开发不易，支持一下。     | 
-|           Q*Q          |  6.66  | 2025.11.07  |   感谢开源！     | 
+|           .*c          |  1  | 2025.11.12  |    Thanks for open source sharing    |
+|           *Ji          |  1  | 2025.11.11  |        |
+|           *Zhu          |  1  | 2025.11.10  |        |
+|           *Le          |  10  | 2025.11.09  |        |
+|           *Jie          |  5  | 2025.11.08  |        |
+|           *Dian          |  8.80  | 2025.11.07  |   Development is not easy, supporting you.     |
+|           Q*Q          |  6.66  | 2025.11.07  |   Thanks for open sourcing!     |
 |           C*e          |  1  | 2025.11.05  |        | 
 |           Peter Fan          |  20  | 2025.10.29  |        | 
-|           M*n          |  1  | 2025.10.27  |      感谢开源  | 
-|           *许          |  8.88  | 2025.10.23  |      老师 小白一枚，摸了几天了还没整起来，求教  | 
-|           Eason           |  1  | 2025.10.22  |      还没整明白，但你在做好事  | 
+|           M*n          |  1  | 2025.10.27  |      Thanks for open sourcing  |
+|           *Xu          |  8.88  | 2025.10.23  |      Teacher, I'm a newbie, been trying for a few days but still haven't set it up, please advise  |
+|           Eason           |  1  | 2025.10.22  |      Haven't figured it out yet, but you are doing a good thing  |
 |           P*n           |  1  | 2025.10.20  |          |
-|           *杰           |  1  | 2025.10.19  |          |
-|           *徐           |  1  | 2025.10.18  |          |
-|           *志           |  1  | 2025.10.17  |          |
-|           *😀           |  10  | 2025.10.16  |     点赞     |
-|           **杰           |  10  | 2025.10.16  |          |
-|           *啸           |  10  | 2025.10.16  |          |
-|           *纪           |  5  | 2025.10.14  | TrendRadar         |
-|           J*d           |  1  | 2025.10.14  | 谢谢你的工具，很好玩...          |
+|           *Jie           |  1  | 2025.10.19  |          |
+|           *Xu           |  1  | 2025.10.18  |          |
+|           *Zhi           |  1  | 2025.10.17  |          |
+|           *😀           |  10  | 2025.10.16  |     Like     |
+|           **Jie           |  10  | 2025.10.16  |          |
+|           *Xiao           |  10  | 2025.10.16  |          |
+|           *Ji           |  5  | 2025.10.14  | TrendRadar         |
+|           J*d           |  1  | 2025.10.14  | Thanks for your tool, it's very fun...          |
 |           *H           |  1  | 2025.10.14  |           |
-|           那*O           |  10  | 2025.10.13  |           |
-|           *圆           |  1  | 2025.10.13  |           |
+|           Na*O           |  10  | 2025.10.13  |           |
+|           *Yuan           |  1  | 2025.10.13  |           |
 |           P*g           |  6  | 2025.10.13  |           |
-|           Ocean           |  20  | 2025.10.12  |  ...真的太棒了！！！小白级别也能直接用...         |
-|           **培           |  5.2  | 2025.10.2  |  github-yzyf1312:开源万岁         |
-|           *椿           |  3  | 2025.9.23  |  加油，很不错         |
+|           Ocean           |  20  | 2025.10.12  |  ...really awesome!!! Even beginners can use it directly...         |
+|           **Pei           |  5.2  | 2025.10.2  |  github-yzyf1312: Long live open source         |
+|           *Chun           |  3  | 2025.9.23  |  Keep it up, very good         |
 |           *🍍           |  10  | 2025.9.21  |           |
 |           E*f           |  1  | 2025.9.20  |           |
-|           *记            |  1  | 2025.9.20  |           |
+|           *Ji            |  1  | 2025.9.20  |           |
 |           z*u            |  2  | 2025.9.19  |           |
-|           **昊            |  5  | 2025.9.17  |           |
-|           *号            |  1  | 2025.9.15  |           |
-|           T*T            |  2  | 2025.9.15  |  点赞         |
-|           *家            |  10  | 2025.9.10  |           |
+|           **Hao            |  5  | 2025.9.17  |           |
+|           *Hao            |  1  | 2025.9.15  |           |
+|           T*T            |  2  | 2025.9.15  |  Thumbs up         |
+|           *Jia            |  10  | 2025.9.10  |           |
 |           *X            |  1.11  | 2025.9.3  |           |
-|           *飙            |  20  | 2025.8.31  |  来自老童谢谢         |
-|           *下            |  1  | 2025.8.30  |           |
-|           2*D            |  88  | 2025.8.13 下午 |           |
-|           2*D            |  1  | 2025.8.13 上午 |           |
-|           S*o            |  1  | 2025.8.05 |   支持一下        |
-|           *侠            |  10  | 2025.8.04 |           |
-|           x*x            |  2  | 2025.8.03 |  trendRadar 好项目 点赞          |
-|           *远            |  1  | 2025.8.01 |            |
-|           *邪            |  5  | 2025.8.01 |            |
-|           *梦            |  0.1  | 2025.7.30 |            |
-|           **龙            |  10  | 2025.7.29 |      支持一下      |
+|           *Biao            |  20  | 2025.8.31  |  Thanks from Lao Tong         |
+|           *Xia            |  1  | 2025.8.30  |           |
+|           2*D            |  88  | 2025.8.13 PM |           |
+|           2*D            |  1  | 2025.8.13 AM |           |
+|           S*o            |  1  | 2025.8.05 |   Support        |
+|           *Xia            |  10  | 2025.8.04 |           |
+|           x*x            |  2  | 2025.8.03 |  trendRadar good project thumbs up          |
+|           *Yuan            |  1  | 2025.8.01 |            |
+|           *Xie            |  5  | 2025.8.01 |            |
+|           *Meng            |  0.1  | 2025.7.30 |            |
+|           **Long            |  10  | 2025.7.29 |      Support      |
 
 
 </details>
 
 <br>
 
-## 🪄 赞助商
+## 🪄 Sponsors
 
 <div align="center">
 
-> **虚位以待**
+> **Available**
 
 </div>
 
 <br>
 
-<a name="-支持项目"></a>
+<a name="-support-the-project"></a>
 
-### ❤️ 觉得好用？支持一下
+### ❤️ Find it useful? Support us
 
-> 若 TrendRadar 曾为你捕捉价值，不妨为它注入动力，助其持续进化
+> If TrendRadar has captured value for you, why not inject some power into it to help it continue to evolve
 >
-> 金额随意，1 元也是对开源的鼓励。欢迎在赞赏时备注留言 (´▽`ʃ♡ƪ)
+> Any amount is welcome, even 1 yuan is an encouragement for open source. Feel free to leave a message when donating (´▽`ʃ♡ƪ)
 
 <div align="center">
 
-| 微信赞赏 | 支付宝赞赏 |
+| WeChat Pay | Alipay |
 |:---:|:---:|
-| <img src="https://cdn-1258574687.cos.ap-shanghai.myqcloud.com/img/%2F2025%2F07%2F17%2F2ae0a88d98079f7e876c2b4dc85233c6-9e8025.JPG" width="240" alt="微信赞赏"> | <img src="https://cdn-1258574687.cos.ap-shanghai.myqcloud.com/img/%2F2025%2F07%2F17%2F1ed4f20ab8e35be51f8e84c94e6e239b4-fe4947.JPG" width="240" alt="支付宝赞赏"> |
+| <img src="https://cdn-1258574687.cos.ap-shanghai.myqcloud.com/img/%2F2025%2F07%2F17%2F2ae0a88d98079f7e876c2b4dc85233c6-9e8025.JPG" width="240" alt="WeChat Pay"> | <img src="https://cdn-1258574687.cos.ap-shanghai.myqcloud.com/img/%2F2025%2F07%2F17%2F1ed4f20ab8e35be51f8e84c94e6e239b4-fe4947.JPG" width="240" alt="Alipay"> |
 
 </div>
 
 
-### 🤝 二次开发与引用
+### 🤝 Secondary Development and Citation
 
-如果你在项目中使用或借鉴了本项目的思路、核心代码，**非常欢迎**在 README 或文档中注明来源并附上本仓库链接。
+If you use or refer to the ideas or core code of this project in your project, you are **very welcome** to indicate the source in the README or documentation and attach the link to this repository.
 
-这将有助于项目的持续维护和社区发展，感谢你的尊重与支持！❤️
+This will help the continuous maintenance of the project and community development. Thank you for your respect and support! ❤️
 
 
-### 💬 交流与反馈
+### 💬 Communication and Feedback
 
-- **GitHub Issues**：适合具体的技术问题。提问时请提供完整信息（截图、错误日志等），有助于快速定位。
-- **公众号交流**：建议优先在相关文章下的留言区交流。若需后台提问，**先点赞/推荐**文章是最好的"敲门砖"，我在后台都能感受到这份心意哟 (´▽`ʃ♡ƪ)。
-- **QQ 群交流**：关注公众号，回复「**交流群**」即可加入。无论你是 AI 小白还是硬核开发者，想求助技术问题还是分享折腾心得，这里都欢迎你。群里主打互助交流和灵感碰撞，入群请先看群公告；提问时描述清楚问题、附上截图，群友有空就会帮忙，大家的实战经验往往比我一个人更快更全面 🤝
+- **GitHub Issues**: Suitable for specific technical problems. Please provide complete information (screenshots, error logs, etc.) when asking questions to help quickly locate the issue.
+- **WeChat Official Account Communication**: It is recommended to communicate in the comment section under related articles first. If you need to ask questions in the background, **liking/recommending** the article first is the best "stepping stone", I can feel this kindness in the background (´▽`ʃ♡ƪ).
+- **QQ Group Communication**: Follow the official account and reply "**Communication Group**" to join. Whether you are an AI beginner or a hardcore developer, want to ask for help with technical problems or share your tinkering experience, you are welcome here. The group focuses on mutual help and inspiration collision. Please read the group announcement first when joining; describe the problem clearly and attach screenshots when asking questions. Group members will help when they have time. Everyone's practical experience is often faster and more comprehensive than mine alone 🤝
 
-> **友情提示**：
-> 本项目为开源分享，非商业产品。把作者当朋友而非客服，沟通效率会更高哦！
+> **Friendly Reminder**:
+> This project is an open-source sharing, not a commercial product. Treating the author as a friend rather than customer service will make communication much more efficient!
 
 <div align="center">
 
-|公众号关注 |
+| WeChat Official Account |
 |:---:|
-| <img src="_image/weixin.png" width="500" title="硅基茶水间"/> |
+| <img src="_image/weixin.png" width="500" title="Silicon-based Tea Room"/> |
 
 </div>
 
 <br>
 
-## 📝 更新日志
+## 📝 Changelog
 
-> **📌 查看最新更新**：**[原仓库更新日志](https://github.com/sansan0/TrendRadar?tab=readme-ov-file#-更新日志)** ：
-- **提示**：建议查看【历史更新】，明确具体的【功能内容】
+> **📌 View Latest Updates**: **[Original Repository Changelog](https://github.com/sansan0/TrendRadar?tab=readme-ov-file#-Update Log)**:
+- **Tip**: It is recommended to check [Historical Updates] to clarify specific [Feature Content]
 
 
 ### 2026/05/23 - v6.8.0
 
-- **HTML 报告全面增强**：新增报告元数据展示（生成时间、数据来源、版本号）、暗色模式自动适配、Tab 栏交互优化、趋势箭头可视化，浏览器阅读体验大幅提升
-- **版本检查 CDN 多源回退**：版本检查接口支持 GitHub → jsDelivr → Cloudflare 等多个 CDN 源自动回退，国内网络环境也能稳定获取更新提示
-- **展示区域开关生效**：HTML 报告和邮件现在正确尊重 `display.regions.ai_analysis` 和 `display.regions.standalone` 开关，关闭即不渲染
-- **导出按钮修复**：修复导出按钮点击后下拉菜单图标消失的问题
-- **Markdown 导出修复**：修复 HTML 报告 Markdown 导出中 JS 换行符转义错误
+- **Comprehensive HTML Report Enhancements**: Added report metadata display (generation time, data source, version number), automatic dark mode adaptation, Tab bar interaction optimization, and trend arrow visualization, significantly improving the browser reading experience
+- **Version Check CDN Multi-source Fallback**: The version check interface supports automatic fallback across multiple CDN sources like GitHub → jsDelivr → Cloudflare, ensuring stable update notifications even in domestic network environments
+- **Display Region Switches Effective**: HTML reports and emails now correctly respect the `display.regions.ai_analysis` and `display.regions.standalone` switches; they will not be rendered if turned off
+- **Export Button Fix**: Fixed the issue where the dropdown menu icon disappeared after clicking the export button
+- **Markdown Export Fix**: Fixed JS newline character escaping errors in the HTML report Markdown export
 
 ### 2026/02/09 - mcp-v4.0.0
 
-- **🔥 AI 消息直推所有渠道**：让 AI 写好的内容一键推送到飞书、钉钉、Telegram、邮件等 9 个渠道，Markdown 自动适配各平台格式，不用操心格式差异
-- **新增格式化策略指南**：新增 `get_channel_format_guide` 工具，告诉 AI 每个渠道支持什么格式、有什么限制，生成的内容排版更好看
-- **智能分批发送**：超长消息自动按各渠道字节限制拆分（飞书 30KB、钉钉 20KB 等），配置读取自 config.yaml
-- **修复渠道误检测**：ntfy 不再因为默认地址被误报为"已配置"
-- **代码复用优化**：批次处理函数直接复用 trendradar 核心模块，不重复造轮子
+- **🔥 AI Message Direct Push to All Channels**: Push AI-generated content with one click to 9 channels including Feishu, DingTalk, Telegram, and Email. Markdown automatically adapts to each platform's format, so you don't have to worry about formatting differences
+- **New Formatting Strategy Guide**: Added the `get_channel_format_guide` tool to tell AI what formats each channel supports and what limitations they have, resulting in better-formatted generated content
+- **Smart Batch Sending**: Overly long messages are automatically split according to the byte limits of each channel (Feishu 30KB, DingTalk 20KB, etc.), with configurations read from config.yaml
+- **Channel False Detection Fix**: ntfy is no longer falsely reported as "configured" due to the default address
+- **Code Reuse Optimization**: Batch processing functions directly reuse the trendradar core module, avoiding reinventing the wheel
 
 
 <details>
-<summary>👉 点击展开：<strong>历史更新</strong></summary>
+<summary>👉 Click to expand: <strong>Historical Updates</strong></summary>
 
 ### 2026/05/15 - v6.7.0
 
-- **Markdown 导出**：报告导出下拉菜单新增 Markdown 格式，一键生成带链接的结构化文本，方便 LLM 二次加工和跨平台分享（[#1121](https://github.com/sansan0/TrendRadar/issues/1121)）
-- **RSS guid 去重**：RSS 存储新增 guid 字段，去重优先级改为 guid > url，解决同一文章因 URL 变化导致重复入库的问题
-- **空标题防护**：解析器、渲染层、翻译回填全链路增加空标题兜底逻辑，确保无标题条目也能正常显示
-- **翻译质量增强**：翻译提示词要求保留编号顺序，空翻译结果不再覆盖原始标题
+- **Markdown Export**: Added Markdown format to the report export dropdown menu, generating structured text with links in one click, facilitating LLM secondary processing and cross-platform sharing ([#1121](https://github.com/sansan0/TrendRadar/issues/1121))
+- **RSS guid Deduplication**: Added a guid field to RSS storage, changing the deduplication priority to guid > url, solving the issue of duplicate entries for the same article caused by URL changes
+- **Empty Title Protection**: Added fallback logic for empty titles across the entire chain of parser, rendering layer, and translation backfill, ensuring items without titles can also be displayed normally
+- **Translation Quality Enhancement**: Translation prompts now require preserving the numbering order, and empty translation results will no longer overwrite the original title
 
 ### 2026/03/28 - v6.6.0
 
-- **HTML 报告浏览器增强**：在浏览器中打开报告可自动切换宽屏布局，关键词分组和独立展区均支持 Tab 快速切换，搜索框实时过滤新闻标题，邮件客户端仍显示原始窄屏布局，零回归
-- **暗色模式**：一键切换深色主题，自动记住偏好，适合夜间阅读
-- **一键复制新闻**：鼠标悬停新闻序号即可复制标题和链接，方便快速分享
-- **导出优化**：整页截图和分段截图合并为下拉式导出按钮，截图时自动还原干净布局
-- **快捷键系统**：支持 `W` 宽屏切换、`D` 暗色模式、`/` 搜索、`?` 查看快捷键提示
-- **阅读进度条**：页面顶部实时显示阅读进度
+- **HTML Report Browser Enhancements**: Opening the report in a browser automatically switches to a widescreen layout. Both keyword groups and independent display areas support quick Tab switching, and the search box filters news titles in real-time. Email clients still display the original narrow-screen layout with zero regressions
+- **Dark Mode**: One-click switch to a dark theme, automatically remembering preferences, suitable for night reading
+- **One-click Copy News**: Hover over the news number to copy the title and link, making quick sharing easy
+- **Export Optimization**: Full-page screenshots and segmented screenshots are merged into a dropdown export button, automatically restoring a clean layout when taking screenshots
+- **Shortcut Key System**: Supports `W` for widescreen toggle, `D` for dark mode, `/` for search, and `?` to view shortcut key tips
+- **Reading Progress Bar**: Real-time display of reading progress at the top of the page
 
 ### 2026/03/12 - v6.5.0
 
-- **AI 智能筛选系统**：不用再手动设关键词！在 `ai_interests.txt` 里用日常语言写下你关注的方向（如"我想看 AI 和新能源相关新闻"），AI 会自动提取标签并对每条新闻打分，只推送真正和你相关的内容。万一 AI 筛选出了问题，会自动切回关键词匹配，推送不中断
-- **每个时段支持不同的筛选方式和关注方向**：Timeline 中的每个时间段现在可以独立设置用什么方式筛选、看什么类型的新闻。比如：早上用"科技关键词"快速过滤，晚上换成"金融 AI 兴趣描述"做深度筛选——同一个系统，不同时段看不同内容
-- **AI 分析范围独立于推送**：AI 分析的数据范围可以和推送内容不同。比如推送只发新增消息（避免重复打扰），但 AI 分析当天全部新闻（看完整趋势）。每个时段也能单独设置 AI 分析模式
-- **AI 筛选智能省钱**：已分析过的新闻不会重复消耗 token；兴趣描述修改后，AI 自动判断变化幅度——小改动只更新受影响的标签，大改动才全量重新分类
-- **多文件配置与标签隔离**：自定义关键词文件放 `config/custom/keyword/`，AI 兴趣文件放 `config/custom/ai/`，不同文件产生的标签各自独立、互不干扰
-- **AI 翻译精准控制**：可分别控制热榜、RSS、独立展示区是否翻译，没开启显示的区域自动跳过，不浪费 token
-- **远程存储批量上传**：多次写操作攒在一起统一提交云端，减少 API 调用次数
-- **每组关键词/标签展示数量限制**：通过 `max_news_per_keyword` 控制每个分组最多显示多少条新闻，避免单个热门话题占满整条推送
-- **时段冲突智能检测**：两个时间段如果有时间重叠，系统会自动报错提醒修改，避免配置冲突导致意外行为
-- 修复若干bug
+- **AI Smart Filtering System**: No need to manually set keywords anymore! Write down your areas of interest in everyday language in `ai_interests.txt` (e.g., "I want to see news related to AI and new energy"), and AI will automatically extract tags and score each piece of news, only pushing content truly relevant to you. In case the AI filtering encounters an issue, it will automatically switch back to keyword matching, ensuring pushing is not interrupted
+- **Different Filtering Methods and Focus Areas Supported for Each Time Period**: Each time period in the Timeline can now be independently configured with its filtering method and the type of news to watch. For example: use "tech keywords" for quick filtering in the morning, and switch to "financial AI interest descriptions" for deep filtering at night—the same system, different content at different times
+- **AI Analysis Scope Independent of Pushing**: The data scope for AI analysis can be different from the pushed content. For example, pushing only sends new messages (to avoid repeated interruptions), but AI analyzes all news of the day (to see the complete trend). Each time period can also have its AI analysis mode set individually
+- **AI Filtering Smart Cost-saving**: Previously analyzed news will not repeatedly consume tokens; after modifying the interest description, AI automatically judges the extent of the change—small changes only update affected tags, while large changes trigger a full re-classification
+- **Multi-file Configuration and Tag Isolation**: Custom keyword files are placed in `config/custom/keyword/`, and AI interest files in `config/custom/ai/`. Tags generated from different files are independent and do not interfere with each other
+- **Precise Control of AI Translation**: You can separately control whether trending lists, RSS, and independent display areas are translated. Areas not enabled for display are automatically skipped, avoiding token waste
+- **Remote Storage Batch Upload**: Multiple write operations are accumulated and submitted to the cloud at once, reducing the number of API calls
+- **Display Quantity Limit per Keyword/Tag Group**: Control the maximum number of news items displayed per group via `max_news_per_keyword`, preventing a single hot topic from occupying the entire push
+- **Time Period Conflict Smart Detection**: If two time periods overlap, the system will automatically report an error and prompt for modification, avoiding unexpected behavior caused by configuration conflicts
+- Fixed several bugs
 
 ### 2026/02/09 - v6.0.0
 
-> **Breaking Change**：配置文件升级（config.yaml 2.0.0），旧版 `push_window` 和 `analysis_window` 配置不再兼容，请参考新版 config.yaml 迁移
+> **Breaking Change**: Configuration file upgrade (config.yaml 2.0.0). The old `push_window` and `analysis_window` configurations are no longer compatible. Please refer to the new config.yaml for migration
 
-- **统一调度系统**：新增 `timeline.yaml`，用一套配置控制「什么时间采集 / 推送 / AI 分析」
-- **5 种预设模板**：`always_on`（全天候，默认）、`morning_evening`（早晚汇总）、`office_hours`（办公时间）、`night_owl`（夜猫子）、`custom`（自定义）；也支持在 `presets:` 下新增自己的模板，只要 key 不重复，然后在 config.yaml 里填你的模板名即可
-- **灵活的时间段配置**：支持工作日/周末差异化、跨午夜时间段、per-period once 去重
-- **可视化配置编辑器**：
-  - 新增 `timeline.yaml` 编辑标签页，与 config.yaml / frequency_words.txt 并列
-  - 预设模式卡片选择：点击即切换，自动同步 config.yaml 的 `schedule.preset`
-  - 周视图时间线：7 天 × 24 小时水平条，用颜色区分推送/分析/采集状态
-  - 可交互控件：开关、下拉框、时间选择器，右侧修改实时同步到左侧 YAML
-  - 周映射下拉选择：根据日计划动态填充，拖拉点击即可完成调度配置
-- **AI 提示词稳定性优化**（ai_analysis_prompt.txt v2.0.0）：
-  - 格式规范独立说明：将换行/标签/序号/禁止事项从 JSON value 中抽出，作为独立章节
-  - JSON 模板简化：字段描述缩短为一句话 + 字数限制，减少 AI 输出格式混乱
-  - 去除 system prompt 中的 Markdown 格式，与"禁止 Markdown"指令保持一致
-  - 所有 JSON 字段声明为可选，缺少任何字段不会报错，增强容错性
-- **新增独立展示区 AI 概括分析**（`ai_analysis.include_standalone`）：
-  - 新增独立开关，开启后 AI 对每个 standalone 源生成核心概括
-  - AI 分析与推送展示解耦：无需开启独立展示区的推送显示，AI 也可独立分析完整热榜数据
-  - 支持热榜平台和 RSS 源，含排名/时间/轨迹数据
-  - 轨迹分析与 `include_rank_timeline` 联动：开启时利用轨迹数据做深度趋势分析，关闭时基于排名做简要判断
-  - 新增 `standalone_summaries` JSON 字段（独立源点速览），所有推送渠道均已适配渲染
+- **Unified Scheduling System**: Added `timeline.yaml`, using a single set of configurations to control "when to collect / push / AI analyze"
+- **5 preset templates**: `always_on` (24/7, default), `morning_evening` (morning and evening summary), `office_hours` (office hours), `night_owl` (night owl), `custom` (custom); also supports adding your own templates under `presets:` as long as the key is unique, then just fill in your template name in config.yaml
+- **Flexible time period configuration**: supports weekday/weekend differentiation, cross-midnight time periods, per-period once deduplication
+- **Visual configuration editor**:
+  - Added `timeline.yaml` edit tab, alongside config.yaml / frequency_words.txt
+  - Preset mode card selection: click to switch, automatically syncs `schedule.preset` in config.yaml
+  - Weekly view timeline: 7 days × 24 hours horizontal bars, using colors to distinguish push/analysis/collection status
+  - Interactive controls: switches, dropdowns, time selectors, modifications on the right sync in real-time to the YAML on the left
+  - Weekly mapping dropdown selection: dynamically populated based on daily plans, drag and click to complete scheduling configuration
+- **AI prompt stability optimization** (ai_analysis_prompt.txt v2.0.0):
+  - Independent format specification instructions: extracted line breaks/tags/numbers/prohibitions from JSON values into an independent section
+  - JSON template simplification: field descriptions shortened to one sentence + word limit, reducing AI output format confusion
+  - Removed Markdown formatting from system prompt, consistent with the "No Markdown" instruction
+  - All JSON fields declared as optional, missing any field will not cause an error, enhancing fault tolerance
+- **Added AI summary analysis for standalone display area** (`ai_analysis.include_standalone`):
+  - Added independent switch, when enabled AI generates a core summary for each standalone source
+  - Decoupled AI analysis and push display: AI can independently analyze complete trending data without enabling push display for the standalone display area
+  - Supports trending platforms and RSS feeds, including ranking/time/trajectory data
+  - Trajectory analysis linked with `include_rank_timeline`: when enabled, uses trajectory data for deep trend analysis; when disabled, makes brief judgments based on rankings
+  - Added `standalone_summaries` JSON field (quick overview of standalone sources), all push channels have been adapted for rendering
 
 
 ### 2026/01/28 - v5.5.0
 
-> 和 mcp 功能一样, 这个小工具我也不新开一个仓库维护了, 反正纯前端, 都搁一起吧
+> Just like the mcp feature, I won't open a new repository to maintain this little tool either, since it's pure frontend, let's put them all together
 
-- 增加 trendradar 的可视化配置编辑器
+- Added visual configuration editor for trendradar
 
 
 ### 2026/02/02 - mcp-v3.2.0
 
-- **新增 read_article 工具**：通过 Jina AI Reader 读取单篇文章正文（Markdown 格式）
-- **新增 read_articles_batch 工具**：批量读取多篇文章（最多 5 篇，自动限速）
-- **推荐工作流**：`search_news(query="关键词", include_url=True)` → `read_article(url=...)` 读取正文
-- **文档更新**：README-MCP-FAQ.md 和 README-MCP-FAQ-EN.md 新增 Q19-Q20 文章读取相关说明
+- **Added read_article tool**: reads the body of a single article via Jina AI Reader (Markdown format)
+- **Added read_articles_batch tool**: reads multiple articles in batch (up to 5 articles, automatic rate limiting)
+- **Recommended workflow**: `search_news(query="keyword", include_url=True)` → `read_article(url=...)` to read the body
+- **Documentation update**: Added Q19-Q20 article reading related instructions in README-MCP-FAQ.md and README-MCP-FAQ-EN.md
 
 
 ### 2026/01/10 - mcp-v3.0.0~v3.1.5
 
-- **Breaking Change**：所有工具返回值统一为 `{success, summary, data, error}` 结构
-- **异步一致性**：所有 21 个工具函数使用 `asyncio.to_thread()` 包装同步调用
-- **MCP Resources**：新增 4 个资源（platforms、rss-feeds、available-dates、keywords）
-- **RSS 增强**：`get_latest_rss` 支持多日查询（days 参数），跨日期 URL 去重
-- **正则匹配修复**：`get_trending_topics` 支持 `/pattern/` 正则语法和 `display_name`
-- **缓存优化**：新增 `make_cache_key()` 函数，参数排序+MD5 哈希确保一致性
-- **新增 check_version 工具**：支持同时检查 TrendRadar 和 MCP Server 版本更新
+- **Breaking Change**: All tool return values unified to `{success, summary, data, error}` structure
+- **Asynchronous consistency**: All 21 tool functions use `asyncio.to_thread()` to wrap synchronous calls
+- **MCP Resources**: Added 4 resources (platforms, rss-feeds, available-dates, keywords)
+- **RSS enhancement**: `get_latest_rss` supports multi-day queries (days parameter), cross-date URL deduplication
+- **Regex matching fix**: `get_trending_topics` supports `/pattern/` regex syntax and `display_name`
+- **Cache optimization**: Added `make_cache_key()` function, parameter sorting + MD5 hashing to ensure consistency
+- **Added check_version tool**: supports checking TrendRadar and MCP Server version updates simultaneously
 
 
 ### 2026/01/23 - v5.4.0
 
-- 增加 AI 分析模式的独立控制功能，可选 follow_report | daily | current | incremental 
-- 新增 AI 分析时间窗口控制，支持自定义运行段及每日频次限制
-- 增加配置文件版本管理功能
-- 修复若干bug
+- Added independent control function for AI analysis mode, options include follow_report | daily | current | incremental
+- Added AI analysis time window control, supports custom running periods and daily frequency limits
+- Added configuration file version management function
+- Fixed several bugs
 
 
 ### 2026/01/19 - v5.3.0
 
-> **重大重构：AI 模块迁移至 LiteLLM**
+> **Major refactoring: AI module migrated to LiteLLM**
 
-- **统一 AI 接口**：使用 LiteLLM 替代手动实现，支持 100+ AI 提供商
-- **简化配置**：移除 `provider` 字段，改用 `model: "provider/model_name"` 格式
-- **新增功能**：自动重试 (`num_retries`)、备用模型 (`fallback_models`)
-- **配置变更**：
-  - `ai.provider` → 移除（已合并到 model）
+- **Unified AI interface**: uses LiteLLM instead of manual implementation, supports 100+ AI providers
+- **Simplified configuration**: removed `provider` field, switched to `model: "provider/model_name"` format
+- **New features**: automatic retries (`num_retries`), fallback models (`fallback_models`)
+- **Configuration Changes**:
+  - `ai.provider` → Removed (merged into model)
   - `ai.base_url` → `ai.api_base`
-  - `AI_PROVIDER` 环境变量 → 移除
-  - `AI_BASE_URL` 环境变量 → `AI_API_BASE`
-- **模型格式示例**：
+  - `AI_PROVIDER` environment variable → Removed
+  - `AI_BASE_URL` environment variable → `AI_API_BASE`
+- **Model Format Example**:
   - DeepSeek: `deepseek/deepseek-chat`
   - OpenAI: `openai/gpt-4o`
   - Gemini: `gemini/gemini-2.5-flash`
@@ -370,599 +370,599 @@
 
 ### 2026/01/17 - v5.2.0
 
-> 主要见 config.yaml 描述
+> Mainly see the description in config.yaml
 
-**🌐 AI 翻译功能**
+**🌐 AI Translation Feature**
 
-- **多语言翻译**：支持将推送内容翻译为任意语言
-- **批量翻译**：智能批量处理，减少 API 调用次数
-- **自定义提示词**：支持自定义翻译风格
+- **Multilingual Translation**: Supports translating push content into any language
+- **Batch Translation**: Intelligent batch processing to reduce API calls
+- **Custom Prompts**: Supports customizing translation styles
 
-**🔧 配置架构优化**
+**🔧 Configuration Architecture Optimization**
 
-- **AI 模型配置独立**：分析和翻译共享模型配置
-- **区域开关统一**：统一管理推送区域显示
-- **区域排序自定义**：支持自定义各区域的显示顺序
+- **Independent AI Model Configuration**: Analysis and translation share model configurations
+- **Unified Section Switches**: Unified management of push section display
+- **Custom Section Sorting**: Supports customizing the display order of each section
 
-**✨ AI 分析增强**
+**✨ AI Analysis Enhancements**
 
-- **AI 分析嵌入 HTML**：分析结果直接嵌入 HTML 报告，邮件通知直接使用
-- **富样式 AI 区块**：渐变蓝色背景卡片式布局，清晰分隔各分析维度
-- **排名时间线支持**：AI 可获取每条新闻在每个抓取时间点的精确排名
-- **板块重组 (7→4)**：整合为核心热点态势、舆论风向争议、异动与弱信号、研判策略建议
+- **AI Analysis Embedded in HTML**: Analysis results are directly embedded into HTML reports, ready for email notifications
+- **Rich-Style AI Block**: Gradient blue background card layout, clearly separating each analysis dimension
+- **Ranking Timeline Support**: AI can obtain the exact ranking of each news item at every scraping time point
+- **Section Reorganization (7→4)**: Consolidated into core hotspot trends, public opinion controversies, anomalies and weak signals, and judgment strategy suggestions
 
-**🔧 多模型适配**
+**🔧 Multi-Model Adaptation**
 
-- **通用参数透传**：支持向 API 透传任意高级参数
-- **Gemini 适配**：原生参数支持，内置安全策略放宽
+- **Universal Parameter Passthrough**: Supports passing any advanced parameters to the API
+- **Gemini Adaptation**: Native parameter support, built-in relaxation of safety policies
 
-**🐛 Bug 修复**
+**🐛 Bug Fixes**
 
-- 修复若干已知问题，提升系统稳定性
+- Fixed several known issues to improve system stability
 
 ### 2026/01/10 - v5.0.0
 
-> **开发小插曲**：
-> 致敬那个陪伴我两年多、却在刚续费后反手弹出 `"This organization has been disabled"` 的某 C 厂模型
+> **Development Anecdote**:
+> A tribute to a certain Company C's model that accompanied me for over two years, only to pop up `"This organization has been disabled"` right after I renewed my subscription
 
-**✨ 推送内容"五大板块"重构**
+**✨ Push Content "Five Major Sections" Refactoring**
 
-本次更新对推送消息进行了区域化重构，现在推送内容清晰地划分为五大核心板块：
+This update refactored the push messages into sections. Now the push content is clearly divided into five core sections:
 
-1.  **📊 热榜新闻**：根据你的关键词精准筛选后的全网热点聚合。
-2.  **📰 RSS 订阅**：你的个性化订阅源内容，支持按关键词分组。
-3.  **🆕 本次新增**：实时捕捉自上次运行以来的全新热点（带 🆕 标记）。
-4.  **📋 独立展示区**：指定平台的完整热榜或 RSS 源展示，**完全不受关键词过滤限制**。
-5.  **✨ AI 分析板块**：由 AI 驱动的深度洞察，包含趋势概述、热度走势及**极其重要**的情感倾向分析。
+1.  **📊 Trending News**: Aggregation of network-wide hotspots precisely filtered based on your keywords.
+2.  **📰 RSS Subscriptions**: Your personalized subscription feed content, supporting grouping by keywords.
+3.  **🆕 Newly Added**: Real-time capture of brand new hotspots since the last run (marked with 🆕).
+4.  **📋 Independent Display Area**: Complete trending lists or RSS feeds of specified platforms, **completely unaffected by keyword filtering**.
+5.  **✨ AI Analysis Section**: Deep insights driven by AI, including trend overviews, popularity trends, and **extremely important** sentiment analysis.
 
-**✨ AI 智能分析推送功能**
+**✨ AI Intelligent Analysis Push Feature**
 
-- **AI 分析集成**：使用 AI 大模型对推送内容进行深度分析，自动生成热点趋势概述、关键词热度分析、跨平台关联、潜在影响评估等
-- **情感倾向分析**：新增深度情感识别，精准捕捉舆论的正负面、争议或担忧情绪
-- **多 AI 提供商支持**：支持 DeepSeek（默认，性价比高）、OpenAI、Google Gemini 及任意 OpenAI 兼容接口
-- **两种推送模式**：`only_analysis`（仅 AI 分析）、`both`（两者都推送）
-- **自定义提示词**：通过 `config/ai_analysis_prompt.txt` 文件自定义 AI 分析角色和输出格式
-- **多维度数据分析**：AI 可分析排名变化、热度持续时间、跨平台表现、趋势预测等
+- **AI Analysis Integration**: Uses large AI models to deeply analyze push content, automatically generating hotspot trend overviews, keyword popularity analysis, cross-platform correlations, potential impact assessments, etc.
+- **Sentiment Analysis**: Added deep sentiment recognition to accurately capture positive/negative, controversial, or concerned public opinions
+- **Multiple AI Providers Support**: Supports DeepSeek (default, highly cost-effective), OpenAI, Google Gemini, and any OpenAI-compatible interfaces
+- **Two Push Modes**: `only_analysis` (AI analysis only), `both` (push both)
+- **Custom Prompts**: Customize the AI analysis role and output format via the `config/ai_analysis_prompt.txt` file
+- **Multi-dimensional Data Analysis**: AI can analyze ranking changes, popularity duration, cross-platform performance, trend predictions, etc.
 
-**📋 独立展示区功能**
+**📋 Independent Display Area Features**
 
-- **完整热榜展示**：指定平台的完整热榜单独展示，不受关键词过滤影响
-- **RSS 独立展示**：RSS 源内容可完整展示，适合内容较少的订阅源
-- **灵活配置**：支持配置展示平台列表、RSS 源列表、最大展示条数
+- **Complete Trending List Display**: The complete trending list of specified platforms is displayed independently, unaffected by keyword filtering
+- **Independent RSS Display**: RSS feed content can be displayed completely, suitable for feeds with less content
+- **Flexible Configuration**: Supports configuring the display platform list, RSS feed list, and maximum number of items to display
 
-**📊 推送体验重构**
+**📊 Push Experience Refactoring**
 
-- **排版升级**：重新设计并统一各渠道统计头部，强化区块组织，消息层次一目了然
-- **配置简化**：优化飞书等通知渠道的配置逻辑，上手更简单
-- **热度趋势箭头**：新增 🔺(上升)、🔻(下降)、➖(持平) 趋势标识，直观展示热度变化
-- **通用 Webhook**：支持自定义 Webhook URL 和 JSON 模板，轻松适配 Discord、Matrix、IFTTT 等任意平台
+- **Layout Upgrade**: Redesigned and unified the statistics header for all channels, strengthened block organization, making the message hierarchy clear at a glance
+- **Configuration Simplification**: Optimized the configuration logic for notification channels like Feishu, making it easier to get started
+- **Popularity Trend Arrows**: Added 🔺(Up), 🔻(Down), ➖(Flat) trend indicators to visually display popularity changes
+- **Universal Webhook**: Supports custom Webhook URLs and JSON templates, easily adapting to any platform like Discord, Matrix, IFTTT, etc.
 
-**🔧 配置优化**
+**🔧 Configuration Optimization**
 
-- **频率词配置增强**：新增 `[组别名]` 语法，支持 `#` 注释行，配置更清晰（感谢 [@songge8](https://github.com/sansan0/TrendRadar/issues/752) 提出的建议）
-- **环境变量支持**：AI 分析相关配置支持环境变量覆盖（`AI_API_KEY`、`AI_PROVIDER` 等）
+- **Frequency Word Configuration Enhancement**: Added `[Group Name]` syntax, supports `#` comment lines, making configuration clearer (Thanks to [@songge8](https://github.com/sansan0/TrendRadar/issues/752) for the suggestion)
+- **Environment Variable Support**: AI analysis related configurations support environment variable overrides (`AI_API_KEY`, `AI_PROVIDER`, etc.)
 
-> 💡 详细配置教程见 [让 AI 帮我分析热点](#12-让-ai-帮我分析热点)
+> 💡 For detailed configuration tutorials, see [Let AI Help Me Analyze Trending Topics](#12-Let-ai-help me analyze hot spots)
 
 
 ### 2026/01/02 - v4.7.0
 
-- **修复 RSS HTML 显示**：修复 RSS 数据格式不匹配导致的渲染问题，现在按关键词分组正确显示
-- **新增正则表达式语法**：关键词配置支持 `/pattern/` 正则语法，解决英文子字符串误匹配问题（如 `ai` 匹配 `training`）[📖 查看语法详解](#关键词基础语法)
-- **新增显示名称语法**：使用 `=> 备注` 给复杂的正则表达式起个好记的名字，推送消息显示更清晰（如 `/\bai\b/ => AI相关`）
-- **不会写正则？** README 新增 AI 生成正则的引导，告诉 ChatGPT/Gemini/DeepSeek 你想匹配什么，让 AI 帮你写
+- **Fix RSS HTML Display**: Fixed rendering issues caused by RSS data format mismatch, now correctly displayed grouped by keywords
+- **New Regular Expression Syntax**: Keyword configuration supports `/pattern/` regex syntax, solving the issue of false matches with English substrings (e.g., `ai` matching `training`) [📖 View Syntax Details](#Keyword Basic Syntax)
+- **New Display Name Syntax**: Use `=> Remark` to give complex regular expressions an easy-to-remember name, making push messages clearer (e.g., `/\bai\b/ => AI Related`)
+- **Don't know how to write regex?** README adds a guide for AI-generated regex, tell ChatGPT/Gemini/DeepSeek what you want to match, and let AI write it for you
 
 
 ### 2025/12/30 - mcp-v2.0.0
 
-- **架构调整**：移除 TXT 支持，统一使用 SQLite 数据库
-- **RSS 查询**：新增 `get_latest_rss`、`search_rss`、`get_rss_feeds_status`
-- **统一搜索**：`search_news` 支持 `include_rss` 参数同时搜索热榜和 RSS
+- **Architecture Adjustment**: Removed TXT support, unified to use SQLite database
+- **RSS Query**: Added `get_latest_rss`, `search_rss`, `get_rss_feeds_status`
+- **Unified Search**: `search_news` supports the `include_rss` parameter to search both trending lists and RSS simultaneously
 
 
 ### 2026/01/01 - v4.6.0
 
-- **修复 RSS HTML 显示**：将 RSS 内容合并到热榜 HTML 页面，按源分组显示
-- **新增 display_mode 配置**：支持 `keyword`（按关键词分组）和 `platform`（按平台分组）两种显示模式
+- **Fix RSS HTML Display**: Merged RSS content into the trending list HTML page, displayed grouped by source
+- **New display_mode Configuration**: Supports two display modes: `keyword` (grouped by keyword) and `platform` (grouped by platform)
 
 
 ### 2025/12/30 - v4.5.0
 
-- **RSS 订阅源支持**：新增 RSS/Atom 抓取，按关键词分组统计（与热榜格式一致）
-- **存储结构重构**：扁平化目录结构 `output/{type}/{date}.db`
-- **统一排序配置**：`sort_by_position_first` 同时影响热榜和 RSS
-- **配置结构重构**：`config.yaml` 重新组织为 7 个逻辑分组（app、report、notification、storage、platforms、rss、advanced），配置路径更清晰
+- **RSS Feed Support**: Added RSS/Atom fetching, grouped and counted by keywords (consistent with the trending list format)
+- **Storage Structure Refactoring**: Flattened directory structure `output/{type}/{date}.db`
+- **Unified Sorting Configuration**: `sort_by_position_first` affects both trending lists and RSS
+- **Configuration Structure Refactoring**: `config.yaml` is reorganized into 7 logical groups (app, report, notification, storage, platforms, rss, advanced), making configuration paths clearer
 
 
 ### 2025/12/26 - mcp-v1.2.0
 
-  **MCP 模块更新 - 优化工具集，新增聚合对比功能，合并冗余工具:**
-  - 新增 `aggregate_news` 工具 - 跨平台新闻去重聚合
-  - 新增 `compare_periods` 工具 - 时期对比分析（周环比/月环比）
-  - 合并 `find_similar_news` + `search_related_news_history` → `find_related_news`
-  - 增强 `get_trending_topics` - 新增 `auto_extract` 模式自动提取热点
-  - 修复若干bug
-  - 同步更新 README-MCP-FAQ.md 文档的中英文版 (Q1-Q18)
+  **MCP Module Update - Optimized toolset, added aggregation and comparison features, merged redundant tools:**
+  - Added `aggregate_news` tool - Cross-platform news deduplication and aggregation
+  - Added `compare_periods` tool - Period comparison analysis (week-over-week/month-over-month)
+  - Merged `find_similar_news` + `search_related_news_history` → `find_related_news`
+  - Enhanced `get_trending_topics` - Added `auto_extract` mode to automatically extract trending topics
+  - Fixed several bugs
+  - Synchronously updated the Chinese and English versions of the README-MCP-FAQ.md document (Q1-Q18)
 
 
 ### 2025/12/20 - v4.0.3
 
-- 新增 URL 标准化功能，解决微博等平台因动态参数（如 `band_rank`）导致的重复推送问题
-- 修复增量模式检测逻辑，正确识别历史标题
+- Added URL standardization feature to solve duplicate push issues caused by dynamic parameters (e.g., `band_rank`) on platforms like Weibo
+- Fixed incremental mode detection logic to correctly identify historical titles
 
 
 ### 2025/12/17 - v4.0.1
 
-- StorageManager 添加推送记录代理方法
-- S3 客户端切换至 virtual-hosted style 以提升兼容性（支持腾讯云 COS 等更多服务）
+- StorageManager added push record proxy methods
+- Switched S3 client to virtual-hosted style to improve compatibility (supports more services like Tencent Cloud COS)
 
 
 ### 2025/12/13 - mcp-v1.1.0
 
-  **MCP 模块更新:**
-  - 适配 v4.0.0，同时也兼容 v3.x 的数据
-  - 新增存储同步工具：`sync_from_remote`、`get_storage_status`、`list_available_dates`
+  **MCP Module Update:**
+  - Adapted to v4.0.0, while also compatible with v3.x data
+  - Added storage synchronization tools: `sync_from_remote`, `get_storage_status`, `list_available_dates`
 
 
 ### 2025/12/13 - v4.0.0
 
-**🎉 重大更新：全面重构存储和核心架构**
+**🎉 Major Update: Comprehensive Refactoring of Storage and Core Architecture**
 
-- **多存储后端支持**：引入全新的存储模块，支持本地 SQLite 和远程云存储（S3 兼容协议，例如 Cloudflare R2），适应 GitHub Actions、Docker 和本地环境。
-- **数据库结构优化**：重构 SQLite 数据库表结构，提升数据效率和查询能力。
-- **核心代码模块化**：将主程序逻辑拆分为 trendradar 包的多个模块，显著提升代码可维护性。
-- **增强功能**：实现日期格式标准化、数据保留策略、时区配置支持、时间显示优化，并修复远程存储数据持久化问题，确保数据合并的准确性。
-- **清理和兼容**：移除了大部分历史兼容代码，统一了数据存储和读取方式。
+- **Multiple Storage Backend Support**: Introduced a brand new storage module supporting local SQLite and remote cloud storage (S3-compatible protocols, e.g., Cloudflare R2), suitable for GitHub Actions, Docker, and local environments.
+- **Database Structure Optimization**: Refactored the SQLite database table structure to improve data efficiency and query capabilities.
+- **Core Code Modularization**: Split the main program logic into multiple modules within the trendradar package, significantly improving code maintainability.
+- **Enhanced Features**: Implemented date format standardization, data retention policies, timezone configuration support, and time display optimization; fixed remote storage data persistence issues to ensure the accuracy of data merging.
+- **Cleanup and Compatibility**: Removed most legacy compatibility code, unifying data storage and reading methods.
 
 
 ### 2025/12/03 - v3.5.0
 
-**🎉 核心功能增强**
+**🎉 Core Feature Enhancements**
 
-1. **多账号推送支持**
-   - 所有推送渠道（飞书、钉钉、企业微信、Telegram、ntfy、Bark、Slack）支持多账号配置
-   - 使用分号 `;` 分隔多个账号，例如：`FEISHU_WEBHOOK_URL=url1;url2`
-   - 自动验证配对配置（如 Telegram 的 token 和 chat_id）数量一致性
+1. **Multi-Account Push Support**
+   - All push channels (Feishu, DingTalk, WeChat Work, Telegram, ntfy, Bark, Slack) support multi-account configuration
+   - Use a semicolon `;` to separate multiple accounts, for example: `FEISHU_WEBHOOK_URL=url1;url2`
+   - Automatically verify the consistency in the number of paired configurations (such as Telegram's token and chat_id)
 
-2. **推送区域配置**
-   - 通过 `display.region_order` 自定义各区域的显示顺序（v5.2.0 替代原 `reverse_content_order`）
-   - 通过 `display.regions` 控制各区域是否显示（热榜、新增热点、RSS、独立展示区、AI 分析）
+2. **Push Region Configuration**
+   - Customize the display order of each region via `display.region_order` (replaced the original `reverse_content_order` in v5.2.0)
+   - Control whether each region is displayed via `display.regions` (Hot List, New Hot Topics, RSS, Independent Display Area, AI Analysis)
 
-3. **全局过滤关键词**
-   - 新增 `[GLOBAL_FILTER]` 区域标记，支持全局过滤不想看到的内容
-   - 适用场景：过滤广告、营销、低质内容等
+3. **Global Filter Keywords**
+   - Added `[GLOBAL_FILTER]` region tag, supporting global filtering of unwanted content
+   - Applicable scenarios: filtering ads, marketing, low-quality content, etc.
 
-**🐳 Docker 双路径 HTML 生成优化**
+**🐳 Docker Dual-Path HTML Generation Optimization**
 
-- **问题修复**：解决 Docker 环境下 `index.html` 无法同步到宿主机的问题
-- **双路径生成**：当日汇总 HTML 同时生成到两个位置
-  - `index.html`（项目根目录）：供 GitHub Pages 访问
-  - `output/index.html`：通过 Docker Volume 挂载，宿主机可直接访问
-- **兼容性**：确保 Docker、GitHub Actions、本地运行环境均能正常访问网页版报告
+- **Bug Fix**: Resolved the issue where `index.html` could not be synchronized to the host machine in the Docker environment
+- **Dual-Path Generation**: The daily summary HTML is simultaneously generated in two locations
+  - `index.html` (project root directory): For GitHub Pages access
+  - `output/index.html`: Mounted via Docker Volume, directly accessible by the host machine
+- **Compatibility**: Ensure that Docker, GitHub Actions, and local runtime environments can all normally access the web version of the report
 
-**🐳 Docker MCP 镜像支持**
+**🐳 Docker MCP Image Support**
 
-- 新增独立的 MCP 服务镜像 `wantcat/trendradar-mcp`
-- 支持 Docker 部署 AI 分析功能，通过 HTTP 接口（端口 3333）提供服务
-- 双容器架构：新闻推送服务与 MCP 服务独立运行，可分别扩展和重启
-- 详见 [Docker 部署 - MCP 服务](#6-docker-部署)
+- Added an independent MCP service image `wantcat/trendradar-mcp`
+- Supports Docker deployment of AI analysis features, providing services via HTTP interface (port 3333)
+- Dual-container architecture: News push service and MCP service run independently, and can be scaled and restarted separately
+- See [Docker Deployment - MCP Service](#6-docker-deployment) for details
 
-**🌐 Web 服务器支持**
+**🌐 Web Server Support**
 
-- 新增内置 Web 服务器，支持通过浏览器访问生成的报告
-- 通过 `manage.py` 命令控制启动/停止：`docker exec -it trendradar python manage.py start_webserver`
-- 访问地址：`http://localhost:8080`（端口可配置）
-- 安全特性：静态文件服务、目录限制、本地访问
-- 支持自动启动和手动控制两种模式
+- Added built-in Web server, supporting browser access to generated reports
+- Control start/stop via `manage.py` command: `docker exec -it trendradar python manage.py start_webserver`
+- Access address: `http://localhost:8080` (port is configurable)
+- Security features: Static file service, directory restrictions, local access
+- Supports both automatic startup and manual control modes
 
-**📖 文档优化**
+**📖 Documentation Optimization**
 
-- 新增 [推送内容怎么显示？](#7-推送内容怎么显示) 章节：自定义推送样式和内容
-- 新增 [什么时候给我推送？](#8-什么时候给我推送) 章节：设置推送时间段
-- 新增 [多久运行一次？](#9-多久运行一次) 章节：设置自动运行频率
-- 新增 [推送到多个群/设备](#10-推送到多个群设备) 章节：同时推送给多个接收者
-- 优化各配置章节：统一添加"配置位置"说明
-- 简化快速开始配置说明：三个核心文件一目了然
-- 优化 [Docker 部署](#6-docker-部署) 章节：新增镜像说明、推荐 git clone 部署、重组部署方式
+- Added [How is the push content displayed?](#7-How is the push content displayed) section: Customize push style and content
+- Added [When will it push to me?](#8-WHEN will it push to me) section: Set push time periods
+- Added [How often does it run?](#9-How often) section: Set automatic run frequency
+- Added [Push to multiple groups/devices](#10-Push to multiple groups/devices) section: Push to multiple recipients simultaneously
+- Optimized configuration sections: Uniformly added "Configuration Location" instructions
+- Simplified quick start configuration instructions: three core files at a glance
+- Optimized [Docker Deployment](#6-docker-deployment) section: added image instructions, recommended git clone deployment, reorganized deployment methods
 
-**🔧 升级说明**：
-- **GitHub Fork 用户**：更新 `main.py`、`config/config.yaml`（新增多账号推送支持，无需修改现有配置）
-- **多账号推送**：新功能，默认不启用，现有单账号配置不受影响
+**🔧 Upgrade Instructions**:
+- **GitHub Fork Users**: Update `main.py`, `config/config.yaml` (added multi-account push support, no need to modify existing configuration)
+- **Multi-account Push**: New feature, disabled by default, existing single-account configuration is not affected
 
 
 ### 2025/11/26 - mcp-v1.0.3
 
-  **MCP 模块更新:**
-  - 新增日期解析工具 resolve_date_range,解决 AI 模型计算日期不一致的问题
-  - 支持自然语言日期表达式解析(本周、最近7天、上月等)
-  - 工具总数从 13 个增加到 14 个
+  **MCP Module Update:**
+  - Added date parsing tool resolve_date_range to solve the issue of inconsistent date calculations by AI models
+  - Supports parsing natural language date expressions (this week, last 7 days, last month, etc.)
+  - Total number of tools increased from 13 to 14
 
 
 ### 2025/11/28 - v3.4.1
 
-**🔧 格式优化**
+**🔧 Format Optimization**
 
-1. **Bark 推送增强**
-   - Bark 现支持 Markdown 渲染
-   - 启用原生 Markdown 格式：粗体、链接、列表、代码块等
-   - 移除纯文本转换，充分利用 Bark 原生渲染能力
+1. **Bark Push Enhancement**
+   - Bark now supports Markdown rendering
+   - Enabled native Markdown formatting: bold, links, lists, code blocks, etc.
+   - Removed plain text conversion to fully utilize Bark's native rendering capabilities
 
-2. **Slack 格式精准化**
-   - 使用专用 mrkdwn 格式处理分批内容
-   - 提升字节大小估算准确性（避免消息超限）
-   - 优化链接格式：`<url|text>` 和加粗语法：`*text*`
+2. **Slack Format Refinement**
+   - Use dedicated mrkdwn format to process batched content
+   - Improved byte size estimation accuracy (to avoid message size limits)
+   - Optimized link format: `<url|text>` and bold syntax: `*text*`
 
-3. **性能提升**
-   - 格式转换在分批过程中完成，避免二次处理
-   - 准确估算消息大小，减少发送失败率
+3. **Performance Improvement**
+   - Format conversion is completed during the batching process to avoid secondary processing
+   - Accurately estimate message size to reduce send failure rate
 
-**🔧 升级说明**：
-- **GitHub Fork 用户**：更新 `main.py`，`config.yaml`
+**🔧 Upgrade Instructions**:
+- **GitHub Fork Users**: Update `main.py`, `config.yaml`
 
 
 ### 2025/11/25 - v3.4.0
 
-**🎉 新增 Slack 推送支持**
+**🎉 Added Slack Push Support**
 
-1. **团队协作推送渠道**
-   - 支持 Slack Incoming Webhooks（全球流行的团队协作工具）
-   - 消息集中管理，适合团队共享热点资讯
-   - 支持 mrkdwn 格式（粗体、链接等）
+1. **Team Collaboration Push Channel**
+   - Supports Slack Incoming Webhooks (a globally popular team collaboration tool)
+   - Centralized message management, suitable for teams to share trending news
+   - Supports mrkdwn format (bold, links, etc.)
 
-2. **多种部署方式**
-   - GitHub Actions：配置 `SLACK_WEBHOOK_URL` Secret
-   - Docker：环境变量 `SLACK_WEBHOOK_URL`
-   - 本地运行：`config/config.yaml` 配置文件
+2. **Multiple Deployment Methods**
+   - GitHub Actions: Configure `SLACK_WEBHOOK_URL` Secret
+   - Docker: Environment variable `SLACK_WEBHOOK_URL`
+   - Local Run: `config/config.yaml` configuration file
 
 
-> 📖 **详细配置教程**：[快速开始 - Slack 推送](#-快速开始)
+> 📖 **Detailed Configuration Tutorial**: [Quick Start - Slack Push](#-Quick Start)
 
-- 优化 setup-windows.bat 和 setup-windows-en.bat 一键安装 MCP 的体验
+- Optimized the one-click MCP installation experience for setup-windows.bat and setup-windows-en.bat
 
-**🔧 升级说明**：
-- **GitHub Fork 用户**：更新 `main.py`、`config/config.yaml`、`.github/workflows/crawler.yml`
+**🔧 Upgrade Instructions**:
+- **GitHub Fork Users**: Update `main.py`, `config/config.yaml`, `.github/workflows/crawler.yml`
 
 
 ### 2025/11/24 - v3.3.0
 
-**🎉 新增 Bark 推送支持**
+**🎉 Added Bark Push Support**
 
-1. **iOS 专属推送渠道**
-   - 支持 Bark 推送（基于 APNs，iOS 平台）
-   - 免费开源，简洁高效，无广告干扰
-   - 支持官方服务器和自建服务器两种方式
+1. **iOS Exclusive Push Channel**
+   - Supports Bark push (based on APNs, iOS platform)
+   - Free and open-source, simple and efficient, no ad interference
+   - Supports both official and self-hosted servers
 
-2. **多种部署方式**
-   - GitHub Actions：配置 `BARK_URL` Secret
-   - Docker：环境变量 `BARK_URL`
-   - 本地运行：`config/config.yaml` 配置文件
+2. **Multiple deployment methods**
+   - GitHub Actions: Configure `BARK_URL` Secret
+   - Docker: Environment variable `BARK_URL`
+   - Local execution: `config/config.yaml` configuration file
 
-> 📖 **详细配置教程**：[快速开始 - Bark 推送](#-快速开始)
+> 📖 **Detailed configuration tutorial**: [Quick Start - Bark Push](#-Quick Start)
 
-**🐛 Bug 修复**
-- 修复 `config.yaml` 中 `ntfy_server_url` 配置不生效的问题 ([#345](https://github.com/sansan0/TrendRadar/issues/345))
+**🐛 Bug Fixes**
+- Fixed the issue where the `ntfy_server_url` configuration in `config.yaml` did not take effect ([#345](https://github.com/sansan0/TrendRadar/issues/345))
 
-**🔧 升级说明**：
-- **GitHub Fork 用户**：更新 `main.py`、`config/config.yaml`、`.github/workflows/crawler.yml`
+**🔧 Upgrade Instructions**:
+- **GitHub Fork Users**: Update `main.py`, `config/config.yaml`, `.github/workflows/crawler.yml`
 
 ### 2025/11/23 - v3.2.0
 
-**🎯 新增高级定制功能**
+**🎯 New Advanced Customization Features**
 
-1. **关键词排序优先级配置**
-   - 支持两种排序策略：热度优先 vs 配置顺序优先
-   - 满足不同使用场景：热点追踪 or 个性化关注
+1. **Keyword sorting priority configuration**
+   - Supports two sorting strategies: popularity first vs. configuration order first
+   - Meets different usage scenarios: hotspot tracking or personalized following
 
-2. **显示数量精准控制**
-   - 全局配置：统一限制所有关键词显示数量
-   - 单独配置：使用 `@数字` 语法为特定关键词设置限制
-   - 有效控制推送长度，突出重点内容
+2. **Precise control of display quantity**
+   - Global configuration: Uniformly limit the display quantity of all keywords
+   - Individual configuration: Use the `@number` syntax to set limits for specific keywords
+   - Effectively control push length and highlight key content
 
-> 📖 **详细配置教程**：[关键词配置 - 高级配置](#关键词高级配置)
+> 📖 **Detailed configuration tutorial**: [Keyword Configuration - Advanced Configuration](#Keyword Advanced Configuration)
 
-**🔧 升级说明**：
-- **GitHub Fork 用户**：更新 `main.py`、`config/config.yaml`
+**🔧 Upgrade Instructions**:
+- **GitHub Fork Users**: Update `main.py`, `config/config.yaml`
 
 
 ### 2025/11/18 - mcp-v1.0.2
 
-  **MCP 模块更新:**
-  - 优化查询今日新闻却可能错误返回过去日期的情况
+  **MCP Module Updates:**
+  - Optimized the issue where querying today's news might incorrectly return past dates
 
 
 ### 2025/11/22 - v3.1.1
 
-- **修复数据异常导致的崩溃问题**：解决部分用户在 GitHub Actions 环境中遇到的 `'float' object has no attribute 'lower'` 错误
-- 新增双重防护机制：在数据获取阶段过滤无效标题（None、float、空字符串），同时在函数调用处添加类型检查
-- 提升系统稳定性，确保在数据源返回异常格式时仍能正常运行
+- **Fixed crash caused by data anomalies**: Resolved the `'float' object has no attribute 'lower'` error encountered by some users in the GitHub Actions environment
+- Added dual protection mechanism: filter invalid titles (None, float, empty strings) during the data acquisition phase, and add type checking at function calls
+- Improved system stability to ensure normal operation even when data sources return abnormal formats
 
-**升级说明**（GitHub Fork 用户）：
-- 必须更新：`main.py`
-- 建议使用小版本升级方式：复制替换上述文件
+**Upgrade Instructions** (GitHub Fork Users):
+- Must update: `main.py`
+- Recommended to use the minor version upgrade method: copy and replace the above files
 
 
 ### 2025/11/20 - v3.1.0
 
-- **新增个人微信推送支持**：企业微信应用可推送到个人微信，无需安装企业微信 APP
-- 支持两种消息格式：`markdown`（企业微信群机器人）和 `text`（个人微信应用）
-- 新增 `WEWORK_MSG_TYPE` 环境变量配置，支持 GitHub Actions、Docker、docker compose 等多种部署方式
-- `text` 模式自动清除 Markdown 语法，提供纯文本推送效果
-- 详见快速开始中的「个人微信推送」配置说明
+- **Added support for personal WeChat push**: WeChat Work apps can push to personal WeChat without installing the WeChat Work APP
+- Supports two message formats: `markdown` (WeChat Work group bot) and `text` (personal WeChat app)
+- Added `WEWORK_MSG_TYPE` environment variable configuration, supporting multiple deployment methods such as GitHub Actions, Docker, and docker compose
+- `text` mode automatically clears Markdown syntax, providing a plain text push effect
+- See the "Personal WeChat Push" configuration instructions in the Quick Start for details
 
-**升级说明**（GitHub Fork 用户）：
-- 必须更新：`main.py`、`config/config.yaml`
-- 可选更新：`.github/workflows/crawler.yml`（如使用 GitHub Actions 部署）
-- 建议使用小版本升级方式：复制替换上述文件
+**Upgrade Instructions** (GitHub Fork Users):
+- Must update: `main.py`, `config/config.yaml`
+- Optional update: `.github/workflows/crawler.yml` (if deployed using GitHub Actions)
+- Recommended to use the minor version upgrade method: copy and replace the above files
 
 ### 2025/11/12 - v3.0.5
 
-- 修复邮件发送 SSL/TLS 端口配置逻辑错误
-- 优化邮箱服务商（QQ/163/126）默认使用 465 端口（SSL）
-- **新增 Docker 环境变量支持**：核心配置项（`enable_crawler`、`report_mode`、`push_window` 等）支持通过环境变量覆盖，解决 NAS 用户修改配置文件不生效的问题（详见 [🐳 Docker 部署](#-docker-部署) 章节）
+- Fixed logic error in email sending SSL/TLS port configuration
+- Optimized email service providers (QQ/163/126) to use port 465 (SSL) by default
+- **Added Docker environment variable support**: Core configuration items (`enable_crawler`, `report_mode`, `push_window`, etc.) support being overridden via environment variables, solving the issue where modifying the configuration file does not take effect for NAS users (see the [🐳 Docker Deployment](#-docker- deploy) section for details)
 
 
 ### 2025/10/26 - mcp-v1.0.1
 
-  **MCP 模块更新:**
-  - 修复日期查询参数传递错误
-  - 统一所有工具的时间参数格式
+  **MCP module update:**
+  - Fixed date query parameter passing error
+  - Unified time parameter format for all tools
 
 
 ### 2025/10/31 - v3.0.4
 
-- 解决飞书因推送内容过长而产生的错误，实现了分批推送
+- Resolved the error caused by Feishu push content being too long, implemented batch pushing
 
 
 ### 2025/10/23 - v3.0.3
 
-- 扩大 ntfy 错误信息显示范围
+- Expanded the display scope of ntfy error messages
 
 
 ### 2025/10/21 - v3.0.2
 
-- 修复 ntfy 推送编码问题
+- Fixed ntfy push encoding issue
 
 ### 2025/10/20 - v3.0.0
 
-**重大更新 - AI 分析功能上线** ✨
+**Major Update - AI Analysis Feature Launched** ✨
 
-- **核心功能**：
-  - 新增基于 MCP (Model Context Protocol) 的 AI 分析服务器
-  - 支持17种智能分析工具：基础查询、智能检索、高级分析、RSS 查询、系统管理
-  - 自然语言交互：通过对话方式查询和分析新闻数据
-  - 多客户端支持：Claude Desktop、Cherry Studio、Cursor、Cline 等
+- **Core Features**:
+  - Added AI analysis server based on MCP (Model Context Protocol)
+  - Supports 17 intelligent analysis tools: basic query, smart retrieval, advanced analysis, RSS query, system management
+  - Natural language interaction: Query and analyze news data through conversation
+  - Multi-client support: Claude Desktop, Cherry Studio, Cursor, Cline, etc.
 
-- **分析能力**：
-  - 话题趋势分析（热度追踪、生命周期、爆火检测、趋势预测）
-  - 数据洞察（平台对比、活跃度统计、关键词共现）
-  - 情感分析、相似新闻查找、智能摘要生成
-  - 历史相关新闻检索、多模式搜索
+- **Analysis Capabilities**:
+  - Topic trend analysis (popularity tracking, lifecycle, viral detection, trend prediction)
+  - Data insights (platform comparison, activity statistics, keyword co-occurrence)
+  - Sentiment analysis, similar news search, smart summary generation
+  - Historical related news retrieval, multi-mode search
 
-- **更新提示**：
-  - 这是独立的 AI 分析功能，不影响现有的推送功能
-  - 可选择性使用，无需升级现有部署
+- **Update Notes**:
+  - This is an independent AI analysis feature, does not affect existing push functions
+  - Optional to use, no need to upgrade existing deployments
 
 
 ### 2025/10/15 - v2.4.4
 
-- **更新内容**：
-    - 修复 ntfy 推送编码问题 + 1
-    - 修复推送时间窗口判断问题
+- **Update Content**:
+    - Fixed ntfy push encoding issue + 1
+    - Fixed push time window judgment issue
 
-- **更新提示**：
-  - 建议【小版本升级】
+- **Update Notes**:
+  - Recommended [Minor version upgrade]
 
 
 ### 2025/10/10 - v2.4.3
 
-> 感谢 [nidaye996](https://github.com/sansan0/TrendRadar/issues/98) 发现的体验问题
+> Thanks to [nidaye996](https://github.com/sansan0/TrendRadar/issues/98) for discovering the user experience issue
 
-- **更新内容**：
-    - 重构"静默推送模式"命名为"推送时间窗口控制"，提升功能理解度
-    - 明确推送时间窗口作为可选附加功能，可与三种推送模式搭配使用
-    - 改进注释和文档描述，使功能定位更加清晰
+- **Update Content**:
+    - Refactored "Silent Push Mode" to "Push Time Window Control" to improve feature understanding
+    - Clarified that the push time window is an optional add-on feature that can be used with the three push modes
+    - Improved comments and documentation descriptions to make feature positioning clearer
 
-- **更新提示**：
-  - 这个仅仅是重构，可以不用升级
+- **Update Notes**:
+  - This is just a refactoring, no need to upgrade
 
 
 ### 2025/10/8 - v2.4.2
 
-- **更新内容**：
-    - 修复 ntfy 推送编码问题
-    - 修复配置文件缺失问题
-    - 优化 ntfy 推送效果
-    - 增加 github page 图片分段导出功能
+- **Update Content**:
+    - Fixed ntfy push encoding issue
+    - Fixed missing configuration file issue
+    - Optimized ntfy push effect
+    - Added GitHub Pages image segmented export feature
 
-- **更新提示**：
-  - 建议使用【大版本更新】
+- **Update Notes**:
+  - Recommended to use [Major version update]
 
 
 ### 2025/10/2 - v2.4.0
 
-**新增 ntfy 推送通知**
+**Added ntfy push notifications**
 
-- **核心功能**：
-  - 支持 ntfy.sh 公共服务和自托管服务器
+- **Core features**:
+  - Supports ntfy.sh public service and self-hosted servers
 
-- **使用场景**：
-  - 适合追求隐私的用户（支持自托管）
-  - 跨平台推送（iOS、Android、Desktop、Web）
-  - 无需注册账号（公共服务器）
-  - 开源免费（MIT 协议）
+- **Use cases**:
+  - Suitable for privacy-conscious users (supports self-hosting)
+  - Cross-platform push (iOS, Android, Desktop, Web)
+  - No account registration required (public servers)
+  - Free and open-source (MIT License)
 
-- **更新提示**：
-  - 建议使用【大版本更新】
+- **Update notes**:
+  - Recommended to use [Major Version Update]
 
 
 ### 2025/09/26 - v2.3.2
 
-- 修正了邮件通知配置检查被遗漏的问题（[#88](https://github.com/sansan0/TrendRadar/issues/88)）
+- Fixed an issue where email notification configuration checks were missed ([#88](https://github.com/sansan0/TrendRadar/issues/88))
 
-**修复说明**：
-- 解决了即使正确配置邮件通知，系统仍提示"未配置任何webhook"的问题
+**Fix details**:
+- Resolved the issue where the system still prompted "No webhook configured" even when email notifications were correctly configured
 
 ### 2025/09/22 - v2.3.1
 
-- **新增邮件推送功能**，支持将热点新闻报告发送到邮箱
-- **智能 SMTP 识别**：自动识别 Gmail、QQ邮箱、Outlook、网易邮箱等 10+ 种邮箱服务商配置
-- **HTML 精美格式**：邮件内容采用与网页版相同的 HTML 格式，排版精美，移动端适配
-- **批量发送支持**：支持多个收件人，用逗号分隔即可同时发送给多人
-- **自定义 SMTP**：可自定义 SMTP 服务器和端口
-- 修复Docker构建网络连接问题
+- **Added email push feature**, supporting sending trending news reports to email
+- **Smart SMTP recognition**: Automatically recognizes configurations for 10+ email providers such as Gmail, QQ Mail, Outlook, NetEase Mail, etc.
+- **Beautiful HTML formatting**: Email content uses the same HTML format as the web version, with beautiful typography and mobile adaptation
+- **Batch sending support**: Supports multiple recipients, simply separate with commas to send to multiple people simultaneously
+- **Custom SMTP**: Customizable SMTP server and port
+- Fixed Docker build network connection issues
 
-**使用说明**：
-- 适用场景：适合需要邮件归档、团队分享、定时报告的用户
-- 支持邮箱：Gmail、QQ邮箱、Outlook/Hotmail、163/126邮箱、新浪邮箱、搜狐邮箱等
+**Usage instructions**:
+- Applicable scenarios: Suitable for users who need email archiving, team sharing, and scheduled reports
+- Supported emails: Gmail, QQ Mail, Outlook/Hotmail, 163/126 Mail, Sina Mail, Sohu Mail, etc.
 
-**更新提示**：
-- 此次更新的内容比较多，如果想升级，建议采用【大版本升级】
+**Update notes**:
+- This update contains many changes. If you want to upgrade, it is recommended to use [Major Version Upgrade]
 
 ### 2025/09/17 - v2.2.0
 
-- 新增一键保存新闻图片功能，让你轻松分享关注的热点
+- Added one-click save news as image feature, allowing you to easily share trending topics you follow
 
-**使用说明**：
-- 适用场景：当你按照教程开启了网页版功能后(GitHub Pages)
-- 使用方法：用手机或电脑打开该网页链接，点击页面顶部的"保存为图片"按钮
-- 实际效果：系统会自动将当前的新闻报告制作成一张精美图片，保存到你的手机相册或电脑桌面
-- 分享便利：你可以直接把这张图片发给朋友、发到朋友圈，或分享到工作群，让别人也能看到你发现的重要资讯
+**Usage instructions**:
+- Applicable scenarios: After you have enabled the web version feature according to the tutorial (GitHub Pages)
+- How to use: Open the web link on your phone or computer, and click the "Save as Image" button at the top of the page
+- Actual effect: The system will automatically generate a beautiful image of the current news report and save it to your phone album or computer desktop
+- Sharing convenience: You can directly send this image to friends, post it on Moments, or share it in work groups, so others can also see the important information you discovered
 
 ### 2025/09/13 - v2.1.2
 
-- 解决钉钉的推送容量限制导致的新闻推送失败问题(采用分批推送)
+- Resolved the issue of news push failures caused by DingTalk's push capacity limits (using batch pushing)
 
 ### 2025/09/04 - v2.1.1
 
-- 修复docker在某些架构中无法正常运行的问题
-- 正式发布官方 Docker 镜像 wantcat/trendradar，支持多架构
-- 优化 Docker 部署流程，无需本地构建即可快速使用
+- Fixed the issue where docker could not run properly on certain architectures
+- Officially released the official Docker image wantcat/trendradar, supporting multiple architectures
+- Optimized the Docker deployment process, allowing quick use without local building
 
 ### 2025/08/30 - v2.1.0
 
-**核心改进**：
-- **推送逻辑优化**：从"每次执行都推送"改为"时间窗口内可控推送"
-- **时间窗口控制**：可设定推送时间范围，避免非工作时间打扰
-- **推送频率可选**：时间段内支持单次推送或多次推送
+**Core improvements**:
+- **Push logic optimization**: Changed from "push on every execution" to "controllable push within a time window"
+- **Time window control**: Can set a push time range to avoid disturbances during non-working hours
+- **Selectable push frequency**: Supports single or multiple pushes within the time period
 
-**更新提示**：
-- 本功能默认关闭，需手动在 config.yaml 中开启推送时间窗口控制
-- 升级需同时更新 main.py 和 config.yaml 两个文件
+**Update notes**:
+- This feature is disabled by default and requires manually enabling the push time window control in config.yaml
+- Upgrading requires updating both main.py and config.yaml files simultaneously
 
 ### 2025/08/27 - v2.0.4
 
-- 本次版本不是功能修复，而是重要提醒
-- 请务必妥善保管好 webhooks，不要公开，不要公开，不要公开
-- 如果你以 fork 的方式将本项目部署在 GitHub 上，请将 webhooks 填入 GitHub Secret，而非 config.yaml
-- 如果你已经暴露了 webhooks 或将其填入了 config.yaml，建议删除后重新生成
+- This version is not a feature fix, but an important reminder
+- Please be sure to keep your webhooks safe, do not make them public, do not make them public, do not make them public
+- If you deploy this project on GitHub by forking, please fill the webhooks into GitHub Secret instead of config.yaml
+- If you have already exposed your webhooks or filled them into config.yaml, it is recommended to delete and regenerate them
 
 ### 2025/08/06 - v2.0.3
 
-- 优化 github page 的网页版效果，方便移动端使用
+- Optimized the web version effect of github page for easier mobile use
 
 ### 2025/07/28 - v2.0.2
 
-- 重构代码
-- 解决版本号容易被遗漏修改的问题
+- Refactored code
+- Solved the issue where the version number was easily forgotten to be modified
 
 ### 2025/07/27 - v2.0.1
 
-**修复问题**: 
+**Fixes**:
 
-1. docker 的 shell 脚本的换行符为 CRLF 导致的执行异常问题
-2. frequency_words.txt 为空时，导致新闻发送也为空的逻辑问题
-  - 修复后，当你选择 frequency_words.txt 为空时，将**推送所有新闻**，但受限于消息推送大小限制，请做如下调整
-    - 方案一：关闭手机推送，只选择 Github Pages 布置(这是能获得最完整信息的方案，将把所有平台的热点按照你**自定义的热搜算法**进行重新排序)
-    - 方案二：减少推送平台，优先选择**企业微信**或**Telegram**，这两个推送我做了分批推送功能(因为分批推送影响推送体验，且只有这两个平台只给一点点推送容量，所以才不得已做了分批推送功能，但至少能保证获得的信息完整)
-    - 方案三：可与方案二结合，模式选择 current 或 incremental 可有效减少一次性推送的内容 
+1. Execution exception caused by CRLF line endings in the docker shell script
+2. Logic issue where empty frequency_words.txt resulted in empty news sending
+  - After the fix, when you choose to leave frequency_words.txt empty, it will **push all news**, but due to message push size limits, please make the following adjustments
+    - Option 1: Turn off mobile push and only choose Github Pages deployment (this is the option to get the most complete information, it will reorder the hot topics of all platforms according to your **custom hot search algorithm**)
+    - Option 2: Reduce push platforms, prioritize **WeCom** or **Telegram**. I have implemented a batch push feature for these two (because batch push affects the push experience, and only these two platforms provide very little push capacity, so I had to implement the batch push feature, but at least it guarantees the information obtained is complete)
+    - Option 3: Can be combined with Option 2, selecting current or incremental mode can effectively reduce the content pushed at one time
 
 ### 2025/07/17 - v2.0.0
 
-**重大重构**：
-- 配置管理重构：所有配置现在通过 `config/config.yaml` 文件管理（main.py 我依旧没拆分，方便你们复制升级）
-- 运行模式升级：支持三种模式 - `daily`（当日汇总）、`current`（当前榜单）、`incremental`（增量监控）
-- Docker 支持：完整的 Docker 部署方案，支持容器化运行
+**Major Refactoring**:
+- Configuration management refactoring: All configurations are now managed through the `config/config.yaml` file (I still haven't split main.py, to make it easier for you to copy and upgrade)
+- Run mode upgrade: Supports three modes - `daily` (daily summary), `current` (current ranking), `incremental` (incremental monitoring)
+- Docker support: Complete Docker deployment solution, supporting containerized execution
 
-**配置文件说明**：
-- `config/config.yaml` - 主配置文件（应用设置、爬虫配置、通知配置、平台配置等）
-- `config/frequency_words.txt` - 关键词配置（监控词汇设置）
+**Configuration File Description**:
+- `config/config.yaml` - Main configuration file (application settings, crawler configuration, notification configuration, platform configuration, etc.)
+- `config/frequency_words.txt` - Keyword configuration (monitoring vocabulary settings)
 
 ### 2025/07/09 - v1.4.1
 
-**功能新增**：增加增量推送(在 main.py 头部配置 FOCUS_NEW_ONLY)，该开关只关心新话题而非持续热度，只在有新内容时才发通知。
+**New Feature**: Added incremental push (configure FOCUS_NEW_ONLY at the top of main.py), this switch only cares about new topics rather than sustained popularity, and only sends notifications when there is new content.
 
-**修复问题**: 某些情况下，由于新闻本身含有特殊符号导致的偶发性排版异常。
+**Fixes**: Occasional layout anomalies caused by special symbols in the news itself in some cases.
 
 ### 2025/06/23 - v1.3.0
 
-企业微信 和 Telegram 的推送消息有长度限制，对此我采用将消息拆分推送的方式。开发文档详见[企业微信](https://developer.work.weixin.qq.com/document/path/91770) 和 [Telegram](https://core.telegram.org/bots/api)
+WeCom and Telegram push messages have length limits, for which I adopted the method of splitting the messages for pushing. For development documentation, see [WeCom](https://developer.work.weixin.qq.com/document/path/91770) and [Telegram](https://core.telegram.org/bots/api)
 
 ### 2025/06/21 - v1.2.1
 
-在本版本之前的旧版本，不仅 main.py 需要复制替换， crawler.yml 也需要你复制替换
+In older versions before this version, not only main.py needs to be copied and replaced, but crawler.yml also needs you to copy and replace
 https://github.com/sansan0/TrendRadar/blob/master/.github/workflows/crawler.yml
 
 ### 2025/06/19 - v1.2.0
 
-> 感谢 claude research 整理的各平台 api ,让我快速完成各平台适配（虽然代码更多冗余了~
+> Thanks to claude research for organizing the APIs of various platforms, allowing me to quickly complete the adaptation for each platform (although the code is more redundant now~
 
-1. 支持 telegram ，企业微信，钉钉推送渠道, 支持多渠道配置和同时推送
+1. Support telegram, WeCom, DingTalk push channels, support multi-channel configuration and simultaneous push
 
 ### 2025/06/18 - v1.1.0
 
-> **200 star⭐** 了, 继续给大伙儿助兴~近期，在我的"怂恿"下，挺多人在我公众号点赞分享推荐助力了我，我都在后台看见了具体账号的鼓励数据，很多都成了天使轮老粉（我玩公众号才一个多月，虽然注册是七八年前的事了哈哈，属于上车早，发车晚），但因为你们没有留言或私信我，所以我也无法一一回应并感谢支持，在此一并谢谢！
+> **200 stars⭐**, continuing to add to the fun for everyone~ Recently, under my "encouragement", many people liked, shared, and recommended to support me on my official account. I saw the encouragement data of specific accounts in the background, and many have become angel-round veteran fans (I've only been running the official account for over a month, although I registered it seven or eight years ago haha, which means I got on the bus early but departed late). However, because you didn't leave a message or private message me, I couldn't respond and thank you for your support one by one, so thank you all here!
 
-1. 重要的更新，加了权重，你现在看到的新闻都是最热点最有关注度的出现在最上面
-2. 更新文档使用，因为近期更新了很多功能，而且之前的使用文档我偷懒写的简单（见下面的 ⚙️ frequency_words.txt 配置完整教程）
+1. Important update, added weights, the news you see now are the hottest and most followed appearing at the top
+2. Updated usage documentation, because many features have been updated recently, and I was lazy and wrote the previous usage documentation too simply (see the complete tutorial for ⚙️ frequency_words.txt configuration below)
 
 ### 2025/06/16 - v1.0.0
 
-1. 增加了一个项目新版本更新提示，默认打开，如要关掉，可以在 main.py 中把 "FEISHU_SHOW_VERSION_UPDATE": True 中的 True 改成 False 即可
+1. Added a project new version update prompt, turned on by default, if you want to turn it off, you can change True to False in "FEISHU_SHOW_VERSION_UPDATE": True in main.py
 
 ### 2025/06/13+14
 
-1. 去掉了兼容代码，之前 fork 的同学，直接复制代码会在当天显示异常（第二天会恢复正常）
-2. feishu 和 html 底部增加一个新增新闻显示
+1. Removed compatibility code, for users who forked before, directly copying the code will display abnormally on the same day (it will return to normal the next day)
+2. Added a new news display at the bottom of feishu and html
 
 ### 2025/06/09
 
-**100 star⭐** 了，写个小功能给大伙儿助助兴
-frequency_words.txt 文件增加了一个【必须词】功能，使用 + 号
+**100 stars⭐**, wrote a small feature to add to the fun for everyone
+Added a [Must-have Word] feature to the frequency_words.txt file, using the + sign
 
-1. 必须词语法如下：  
-   唐僧或者猪八戒必须在标题里同时出现，才会收录到推送新闻中
-
-```
-+唐僧
-+猪八戒
-```
-
-2. 过滤词的优先级更高：  
-   如果标题中过滤词匹配到唐僧念经，那么即使必须词里有唐僧，也不显示
+1. The syntax for must-have words is as follows:
+   Tang Seng and Zhu Bajie must appear in the title at the same time to be included in the pushed news
 
 ```
-+唐僧
-!唐僧念经
++Tang Seng
++Zhu Bajie
+```
+
+2. Filter words have higher priority:
+   If a filter word matches "Tang Monk chanting" in the title, it will not be displayed even if the required words include "Tang Monk"
+
+```
++Tang Monk
+!Tang Monk chanting
 ```
 
 ### 2025/06/02
 
-1. **网页**和**飞书消息**支持手机直接跳转详情新闻
-2. 优化显示效果 + 1
+1. **Webpages** and **Feishu messages** support direct redirection to news details on mobile
+2. Optimized display effect + 1
 
 ### 2025/05/26
 
-1. 飞书消息显示效果优化
+1. Optimized Feishu message display effect
 
 <table>
 <tr>
 <td align="center">
-优化前<br>
-<img src="_image/before.jpg" alt="飞书消息界面 - 优化前" width="400"/>
+Before optimization<br>
+<img src="_image/before.jpg" alt="Feishu message interface - Before optimization" width="400"/>
 </td>
 <td align="center">
-优化后<br>
-<img src="_image/after.jpg" alt="飞书消息界面 - 优化后" width="400"/>
+After optimization<br>
+<img src="_image/after.jpg" alt="Feishu message interface - After optimization" width="400"/>
 </td>
 </tr>
 </table>
@@ -971,656 +971,656 @@ frequency_words.txt 文件增加了一个【必须词】功能，使用 + 号
 
 <br>
 
-## ✨ 核心功能
+## ✨ Core Features
 
-### **全网热点聚合**
+### **All-Network Hot Trends Aggregation**
 
-- 知乎
-- 抖音
-- bilibili 热搜
-- 华尔街见闻
-- 贴吧
-- 百度热搜
-- 财联社热门
-- 澎湃新闻
-- 凤凰网
-- 今日头条
-- 微博
+- Zhihu
+- Douyin
+- Bilibili Hot Search
+- Wallstreetcn
+- Tieba
+- Baidu Hot Search
+- Cailianshe Hot
+- The Paper
+- iFeng
+- Toutiao
+- Weibo
 
-默认监控 11 个主流平台，也可自行增加额外的平台
+Monitors 11 mainstream platforms by default, and you can also add additional platforms yourself
 
-> 💡 详细配置教程见 [配置详解 - 平台配置](#1-平台配置)
+> 💡 For detailed configuration tutorials, see [Configuration Details - Platform Configuration](#1-Platform Configuration)
 
-### **RSS 订阅源支持**（v4.5.0 新增）
+### **RSS Feed Support** (New in v4.5.0)
 
-支持 RSS/Atom 订阅源抓取，按关键词分组统计（与热榜格式一致）：
+Supports fetching RSS/Atom feeds, grouped and counted by keywords (consistent with the hotlist format):
 
-- **统一格式**：RSS 与热榜使用相同的关键词匹配和显示格式
-- **简单配置**：直接在 `config.yaml` 中添加 RSS 源
-- **合并推送**：热榜和 RSS 合并为一条消息推送
-- **新鲜度过滤**：自动过滤超过指定天数的旧文章，避免重复推送。支持全局默认天数和单源独立设置
+- **Unified format**: RSS and hotlists use the same keyword matching and display format
+- **Simple configuration**: Add RSS feeds directly in `config.yaml`
+- **Merged push**: Hotlists and RSS are merged into a single message for push
+- **Freshness filtering**: Automatically filters out old articles exceeding a specified number of days to avoid duplicate pushes. Supports global default days and independent settings per feed
 
-> 💡 RSS 使用与热榜相同的 `frequency_words.txt` 进行关键词过滤
+> 💡 RSS uses the same `frequency_words.txt` as the hotlist for keyword filtering
 
-### **可视化配置编辑器**
+### **Visual Configuration Editor**
 
-提供基于 Web 的图形化配置界面，无需手动编辑 YAML 文件，通过表单即可完成所有配置项的修改与导出。
+Provides a Web-based graphical configuration interface. No need to manually edit YAML files; you can modify and export all configuration items through forms.
 
-👉 **在线体验**：[https://sansan0.github.io/TrendRadar/](https://sansan0.github.io/TrendRadar/)
+👉 **Online Experience**: [https://sansan0.github.io/TrendRadar/](https://sansan0.github.io/TrendRadar/)
 
-<img src="/_image/editor.png" alt="可视化配置编辑器" width="80%">
+<img src="/_image/editor.png" alt="Visual Configuration Editor" width="80%">
 
-### **智能推送策略**
+### **Smart Push Strategy**
 
-**三种推送模式**：
+**Three push modes**:
 
-| 模式 | 适用场景 | 推送特点 |
+| Mode | Applicable Scenarios | Push Features |
 |------|---------|---------|
-| **当日汇总** (daily) | 企业管理者/普通用户 | 按时推送当日所有匹配新闻（会包含之前推送过的） |
-| **当前榜单** (current) | 自媒体人/内容创作者 | 按时推送当前榜单匹配新闻（持续在榜的每次都出现） |
-| **增量监控** (incremental) | 投资者/交易员 | 仅推送新增内容，零重复 |
+| **Daily Summary** (daily) | Enterprise Managers/Regular Users | Pushes all matching news for the day on schedule (includes previously pushed items) |
+| **Current Rankings** (current) | Independent Media/Content Creators | Pushes matching news from the current rankings on schedule (items staying on the list appear every time) |
+| **Incremental Monitoring** (incremental) | Investors/Traders | Only pushes new content, zero repetition |
 
-> 💡 **快速选择指南：**
-> - 不想看到重复新闻 → 用 `incremental`（增量监控）
-> - 想看完整榜单趋势 → 用 `current`（当前榜单）
-> - 需要每日汇总报告 → 用 `daily`（当日汇总）
+> 💡 **Quick Selection Guide:**
+> - Don't want to see duplicate news → Use `incremental` (Incremental Monitoring)
+> - Want to see complete ranking trends → Use `current` (Current Rankings)
+> - Need a daily summary report → Use `daily` (Daily Summary)
 >
-> 详细对比和配置教程见 [配置详解 - 推送模式详解](#3-推送模式详解)
+> For detailed comparison and configuration tutorials, see [Detailed Configuration - Push Modes Explained](#3-Push Modes Explained)
 
-**附加功能**（可选）：
+**Additional Features** (Optional):
 
-| 功能 | 说明 | 默认 |
+| Feature | Description | Default |
 |------|------|------|
-| **调度系统** | 按周一到周日逐日编排：为每天分配不同时间段、推送模式和 AI 分析策略。**每个时段可独立设置筛选方式（关键词/AI）和关注方向**，实现不同时间看不同类型新闻。内置 5 种预设（always_on / morning_evening / office_hours / night_owl / custom），也可自定义。支持工作日/周末差异化、跨午夜时段、per-period 去重、时段冲突检测（v6.0.0 + v6.5.0） | morning_evening |
-| **内容顺序配置** | 通过 `display.region_order` 调整各区域（热榜、新增热点、RSS、独立展示区、AI 分析）的显示顺序；通过 `display.regions` 控制各区域是否显示（v5.2.0） | 见配置文件 |
-| **显示模式切换** | `keyword`=按关键词分组，`platform`=按平台分组（v4.6.0 新增） | keyword |
+| **Scheduling System** | Daily orchestration from Monday to Sunday: assigns different time periods, push modes, and AI analysis strategies for each day. **Each period can independently set filtering methods (keyword/AI) and focus areas**, allowing you to read different types of news at different times. Built-in 5 presets (always_on / morning_evening / office_hours / night_owl / custom), also customizable. Supports weekday/weekend differentiation, cross-midnight periods, per-period deduplication, and period conflict detection (v6.0.0 + v6.5.0) | morning_evening |
+| **Content Order Configuration** | Adjust the display order of each region (Hot List, New Hot Topics, RSS, Independent Display Area, AI Analysis) via `display.region_order`; control whether each region is displayed via `display.regions` (v5.2.0) | See config file |
+| **Display Mode Switching** | `keyword`=Group by keyword, `platform`=Group by platform (Added in v4.6.0) | keyword |
 
-> 💡 详细配置教程见 [推送内容怎么显示？](#7-推送内容怎么显示) 和 [什么时候给我推送？](#8-什么时候给我推送)
+> 💡 For detailed configuration tutorials, see [How is the push content displayed?](#7-How to display push content) and [When will it push to me?](#8-WHEN will it be pushed to me)
 
-### **精准内容筛选**
+### **Precise Content Filtering**
 
-设置个人关键词（如：AI、比亚迪、教育政策），只推送相关热点，过滤无关信息
+Set personal keywords (e.g., AI, BYD, education policy) to only push related hot topics and filter out irrelevant information
 
-> 💡 **基础配置教程**：[关键词配置 - 基础语法](#关键词基础语法)
+> 💡 **Basic Configuration Tutorial**: [Keyword Configuration - Basic Syntax](#Keyword Basic Syntax)
 >
-> 💡 **高级配置教程**：[关键词配置 - 高级配置](#关键词高级配置)
+> 💡 **Advanced Configuration Tutorial**: [Keyword Configuration - Advanced Configuration](#Keyword Advanced Configuration)
 >
-> 💡 也可以不做筛选，完整推送所有热点（将 frequency_words.txt 留空）
+> 💡 You can also choose not to filter and push all hot topics completely (leave frequency_words.txt empty)
 
-### **AI 智能筛选新闻**（v6.5.0 新增）
+### **AI Intelligent News Filtering** (Added in v6.5.0)
 
-用自然语言描述你的兴趣，AI 自动分类新闻，替代传统关键词匹配
+Describe your interests in natural language, and AI will automatically categorize news, replacing traditional keyword matching
 
-- **自然语言兴趣描述**：在 `ai_interests.txt` 中用日常语言写下关注方向，无需学习关键词语法
-- **两阶段智能处理**：AI 先从兴趣描述提取结构化标签，再对新闻按标签批量分类打分
-- **分数阈值控制**：通过 `ai_filter.min_score` 精确控制推送质量，只推送高相关度新闻
-- **自动回退保障**：AI 筛选失败时自动回退到关键词匹配，确保推送不中断
-- **智能标签更新**：兴趣变更时 AI 自动评估变化幅度，决定增量或全量重分类
-- **灵活切换**：`filter.method` 支持 `keyword`（默认）和 `ai` 两种模式，Timeline 可按时段覆盖
-- **分时段个性化**：不同时间段可以使用不同的关键词文件或 AI 兴趣描述。例如早上用"科技词库"快速过滤，晚上换成"金融兴趣"做 AI 深度筛选
+- **Natural Language Interest Description**: Write down your focus areas in everyday language in `ai_interests.txt`, no need to learn keyword syntax
+- **Two-Stage Intelligent Processing**: AI first extracts structured tags from interest descriptions, then batch categorizes and scores news by tags
+- **Score Threshold Control**: Precisely control push quality via `ai_filter.min_score`, only pushing highly relevant news
+- **Automatic Fallback Guarantee**: Automatically falls back to keyword matching when AI filtering fails, ensuring uninterrupted pushes
+- **Intelligent Tag Updates**: When interests change, AI automatically evaluates the extent of the change to decide on incremental or full re-categorization
+- **Flexible Switching**: `filter.method` supports both `keyword` (default) and `ai` modes, Timeline can override by time period
+- **Time-Period Personalization**: Different time periods can use different keyword files or AI interest descriptions. For example, use a "tech vocabulary" for quick filtering in the morning, and switch to "financial interests" for deep AI filtering at night
 
 ```yaml
-# config.yaml 快速启用示例
+# config.yaml quick start example
 filter:
-  method: ai          # keyword（默认）| ai
+  method: ai          # keyword (default) | ai
 ai_filter:
-  min_score: 6         # 推送最低分数阈值（1-10）
+  min_score: 6         # Minimum score threshold for pushing (1-10)
 ```
 
-> 💡 AI 筛选与 AI 分析/翻译共享模型配置，只需配置一次 `ai.api_key`
+> 💡 AI filtering shares model configuration with AI analysis/translation, only need to configure `ai.api_key` once
 
-### **热点趋势分析**
+### **Hot Topic Trend Analysis**
 
-实时追踪新闻热度变化，让你不仅知道"什么在热搜"，更了解"热点如何演变"
+Track news popularity changes in real-time, letting you not only know "what's trending" but also understand "how hot topics evolve"
 
-- **时间轴追踪**：记录每条新闻从首次出现到最后出现的完整时间跨度
-- **热度变化**：统计新闻在不同时间段的排名变化和出现频次
-- **新增检测**：实时识别新出现的热点话题，用🆕标记第一时间提醒
-- **持续性分析**：区分一次性热点话题和持续发酵的深度新闻
-- **跨平台对比**：同一新闻在不同平台的排名表现，看出媒体关注度差异
+- **Timeline Tracking**: Record the complete time span of each news item from its first appearance to its last
+- **Popularity Changes**: Count the ranking changes and appearance frequency of news across different time periods
+- **New Addition Detection**: Identify newly emerged hot topics in real-time, using the 🆕 tag for immediate alerts
+- **Persistence Analysis**: Distinguish between one-off hot topics and continuously developing in-depth news
+- **Cross-Platform Comparison**: The ranking performance of the same news across different platforms, revealing differences in media attention
 
-> 💡 推送格式说明见 [消息样式说明](#5-我收到的消息长什么样)
+> 💡 For push format instructions, see [Message Style Instructions](#5-What does the message I receive look like)
 
-### **个性化热点算法**
+### **Personalized Trending Algorithm**
 
-不再被各个平台的算法牵着走，TrendRadar 会重新整理全网热搜
+No longer led by the algorithms of various platforms, TrendRadar will reorganize trending searches across the entire internet
 
-> 💡 三个比例可以调整，详见 [配置详解 - 热点权重调整](#4-热点权重调整)
+> 💡 The three ratios can be adjusted, see [Configuration Details - Trending Weight Adjustment](#4-Hotspot Weight Adjustment) for details
 
-### **多渠道多账号推送**
+### **Multi-channel and Multi-account Push**
 
-支持**企业微信**(+ 微信推送方案)、**飞书**、**钉钉**、**Telegram**、**邮件**、**ntfy**、**Bark**、**Slack**、**通用 Webhook**（可对接 Discord、IFTTT 等任意平台），消息直达手机和邮箱
+Supports **WeCom** (+ WeChat push solution), **Feishu**, **DingTalk**, **Telegram**, **Email**, **ntfy**, **Bark**, **Slack**, **General Webhook** (can connect to Discord, IFTTT, and any other platforms), delivering messages directly to your phone and email
 
-> 💡 详细配置教程见 [推送到多个群/设备](#10-推送到多个群设备)
+> 💡 For detailed configuration tutorials, see [Push to Multiple Groups/Devices](#10-Push to multiple group devices)
 
-### **AI 多语言翻译**（v5.2.0 新增）
+### **AI Multi-language Translation** (New in v5.2.0)
 
-将推送内容翻译为任意语言，打破语言壁垒，无论是阅读国内热点还是通过 RSS 订阅海外资讯，都能以母语轻松获取
+Translate push content into any language, breaking language barriers. Whether reading domestic trending topics or subscribing to overseas news via RSS, you can easily access them in your native language
 
-- **一键翻译**：在 `config.yaml` 中设置 `ai_translation.enabled: true` 和目标语言即可
-- **多语言支持**：支持 English、Korean、Japanese、French 等任意语言
-- **智能批量处理**：自动批量翻译，减少 API 调用次数，节省成本
-- **自定义风格**：通过 `ai_translation_prompt.txt` 自定义翻译风格和术语
-- **共享模型配置**：与 AI 分析功能共用 `ai` 配置段的模型设置
+- **One-click Translation**: Simply set `ai_translation.enabled: true` and the target language in `config.yaml`
+- **Multi-language Support**: Supports any language such as English, Korean, Japanese, French, etc.
+- **Smart Batch Processing**: Automatically translates in batches, reducing API calls and saving costs
+- **Custom Style**: Customize translation style and terminology via `ai_translation_prompt.txt`
+- **Shared Model Configuration**: Shares the model settings in the `ai` configuration section with the AI analysis feature
 
 ```yaml
-# config.yaml 快速启用示例
+# config.yaml quick start example
 ai_translation:
   enabled: true
-  language: "English"  # 翻译目标语言
+  language: "English"  # Target translation language
 ```
 
-> 💡 翻译功能与 AI 分析功能共享模型配置，只需配置一次 `ai.api_key` 即可同时使用两个功能
+> 💡 The translation feature shares the model configuration with the AI analysis feature, you only need to configure `ai.api_key` once to use both features simultaneously
 
-**RSS 源参考**：以下是一些 RSS 订阅源合集，可按需选用
-- [awesome-tech-rss](https://github.com/tuan3w/awesome-tech-rss) - 科技、创业、编程领域博客和媒体
-- [awesome-rss-feeds](https://github.com/plenaryapp/awesome-rss-feeds) - 世界各国主流新闻媒体 RSS 合集
+**RSS Feed Reference**: Below are some RSS feed collections that can be used as needed
+- [awesome-tech-rss](https://github.com/tuan3w/awesome-tech-rss) - Blogs and media in technology, entrepreneurship, and programming
+- [awesome-rss-feeds](https://github.com/plenaryapp/awesome-rss-feeds) - RSS collection of mainstream news media from around the world
 
-> ⚠️ 部分海外媒体内容可能涉及敏感话题，AI 模型可能拒绝翻译，建议根据实际需求筛选订阅源
+> ⚠️ Some overseas media content may involve sensitive topics, and AI models may refuse to translate. It is recommended to filter subscription feeds based on actual needs
 
-### **HTML 报告浏览器增强**（v6.6.0 新增）
+### **HTML Report Browser Enhancement** (New in v6.6.0)
 
-在浏览器中打开推送的 HTML 报告，自动解锁增强体验（邮件客户端不受影响）：
+Open the pushed HTML report in a browser to automatically unlock an enhanced experience (email clients are not affected):
 
-- **宽屏模式**：桌面端自动切换 1200px 宽屏布局，充分利用屏幕空间
-- **Tab 快速切换**：关键词分组和独立展区均支持 Tab 导航，告别长页面翻滚
-- **暗色模式**：一键切换深色主题，自动记住偏好
-- **实时搜索**：按 `/` 唤起搜索框，即时过滤新闻标题
-- **一键复制**：悬停新闻序号即可复制标题和链接
-- **快捷键**：`W` 宽屏、`D` 暗色、`/` 搜索、`?` 查看所有快捷键
+- **Widescreen Mode**: Automatically switches to a 1200px widescreen layout on desktop, fully utilizing screen space
+- **Quick Tab Switching**: Both keyword grouping and independent exhibition areas support Tab navigation, saying goodbye to long page scrolling
+- **Dark Mode**: One-click switch to dark theme, automatically remembers preferences
+- **Real-time Search**: Press `/` to bring up the search box, instantly filtering news titles
+- **One-click Copy**: Hover over the news number to copy the title and link
+- **Shortcuts**: `W` for widescreen, `D` for dark mode, `/` for search, `?` to view all shortcuts
 
-> 💡 所有增强功能基于渐进增强，邮件客户端仍显示原始 600px 布局，零回归
+> 💡 All enhanced features are based on progressive enhancement, email clients still display the original 600px layout, zero regressions
 
-### **灵活存储架构**（v4.0.0 重大更新）
+### **Flexible Storage Architecture** (Major update in v4.0.0)
 
-**多存储后端支持**：
-- **远程云存储**：GitHub Actions 环境默认，支持 S3 兼容协议（R2/OSS/COS 等），数据存储在云端，不污染仓库
-- **本地 SQLite 数据库**：Docker/本地环境默认，数据完全可控
-- **自动后端选择**：根据运行环境智能切换存储方式
+**Multi-storage Backend Support**:
+- **Remote Cloud Storage**: Default for GitHub Actions environment, supports S3-compatible protocols (R2/OSS/COS, etc.), data is stored in the cloud, without polluting the repository
+- **Local SQLite Database**: Default for Docker/local environments, data is fully controllable
+- **Automatic Backend Selection**: Intelligently switches storage methods based on the running environment
 
-> 💡 详细说明见 [数据保存在哪里？](#11-数据保存在哪里)
+> 💡 For detailed instructions, see [Where is the data saved?](#11-Where is the data saved?)
 
-### **多端部署**
-- **GitHub Actions**：定时自动爬取 + 远程云存储（需签到续期）
-- **Docker 部署**：支持多架构容器化运行，数据本地存储
-- **本地运行**：Windows/Mac/Linux 直接运行
+### **Multi-platform Deployment**
+- **GitHub Actions**: Scheduled automatic crawling + remote cloud storage (requires check-in for renewal)
+- **Docker Deployment**: Supports multi-architecture containerized execution, local data storage
+- **Local Execution**: Run directly on Windows/Mac/Linux
 
 
-### **AI 分析推送（v5.0.0 新增）**
+### **AI Analysis Push (New in v5.0.0)**
 
-使用 AI 大模型对推送内容进行深度分析，自动生成热点洞察报告
+Use large AI models to conduct deep analysis of pushed content and automatically generate trending insight reports
 
-- **智能分析**：自动分析热点趋势、关键词热度、跨平台关联、潜在影响
-- **多提供商**：基于 LiteLLM 统一接口，支持 100+ AI 提供商（DeepSeek、OpenAI、Gemini、Anthropic、本地 Ollama 等），还支持备用模型自动切换
-- **分析模式独立**：AI 的分析范围可以和推送不同——推送只发新增消息（避免打扰），但 AI 可以分析当天全部新闻（看完整趋势）
-- **灵活推送**：可选仅原始内容、仅 AI 分析、或两者都推送
-- **自定义提示词**：通过 `config/ai_analysis_prompt.txt` 自定义分析角度
+- **Intelligent Analysis**: Automatically analyze hot trends, keyword popularity, cross-platform correlations, and potential impacts
+- **Multiple Providers**: Based on the LiteLLM unified interface, supports 100+ AI providers (DeepSeek, OpenAI, Gemini, Anthropic, local Ollama, etc.), and also supports automatic fallback model switching
+- **Independent Analysis Mode**: The AI's analysis scope can differ from the push—the push only sends new messages (to avoid disturbance), but the AI can analyze all news of the day (to see the complete trend)
+- **Flexible Push**: Choose to push only original content, only AI analysis, or both
+- **Custom Prompts**: Customize analysis perspectives via `config/ai_analysis_prompt.txt`
 
-> 💡 详细配置教程见 [让 AI 帮我分析热点](#12-让-ai-帮我分析热点)
+> 💡 For detailed configuration tutorials, see [Let AI Help Me Analyze Trends](#12-Let-ai-help me analyze hot spots)
 
-### **独立展示区（v5.0.0 新增）**
+### **Independent Display Area (New in v5.0.0)**
 
-为指定平台提供完整热榜展示，不受关键词过滤影响
+Provide a complete trending list display for specified platforms, unaffected by keyword filtering
 
-- **完整热榜**：指定平台的热榜完整展示，适合想看完整排名的用户
-- **RSS 独立展示**：RSS 源内容可完整展示，不受关键词限制
-- **AI 深度分析**：可独立开启 AI 对完整热榜的趋势分析，无需在推送中展示
-- **灵活配置**：支持配置展示平台、RSS 源、最大条数
+- **Complete Trending List**: Complete display of the trending list for specified platforms, suitable for users who want to see the full rankings
+- **Independent RSS Display**: RSS feed content can be displayed completely, unrestricted by keywords
+- **Deep AI Analysis**: Independently enable AI trend analysis on the complete trending list without displaying it in the push
+- **Flexible Configuration**: Support configuring display platforms, RSS feeds, and maximum item counts
 
-> 💡 详细配置教程见 [推送内容怎么显示？ - 独立展示区](#7-推送内容怎么显示)
+> 💡 For detailed configuration tutorials, see [How is the pushed content displayed? - Independent Display Area](#7-How is the pushed content displayed)
 
-### **AI 智能分析（v3.0.0 新增）**
+### **AI Intelligent Analysis (New in v3.0.0)**
 
-基于 MCP (Model Context Protocol) 协议的 AI 对话分析系统，让你用自然语言深度挖掘新闻数据
+An AI dialogue analysis system based on the MCP (Model Context Protocol) protocol, allowing you to deeply mine news data using natural language
 
-> **💡 使用提示**：AI 功能需要本地新闻数据支持
-> - 项目自带测试数据，可立即体验功能
-> - 建议自行部署运行项目，获取更实时的数据
+> **💡 Usage Tip**: AI features require local news data support
+> - The project comes with test data, allowing you to experience the features immediately
+> - It is recommended to deploy and run the project yourself to get more real-time data
 >
-> 详见 [AI 智能分析](#-ai-智能分析)
+> For details, see [AI Intelligent Analysis](#-ai-INTELLIGENT ANALYSIS)
 
-### **网页部署**
+### **Web Deployment**
 
-运行后根目录生成 `index.html`，即为完整的新闻报告页面。
+After running, an `index.html` is generated in the root directory, which is the complete news report page.
 
-> **部署方式**：点击 **Use this template** 创建仓库，可部署到 Cloudflare Pages 或 GitHub Pages 等静态托管平台。
+> **Deployment Method**: Click **Use this template** to create a repository, which can be deployed to static hosting platforms like Cloudflare Pages or GitHub Pages.
 >
-> **💡 提示**：启用 GitHub Pages 可获得在线访问地址，进入仓库 Settings → Pages 即可开启。[效果预览](https://sansan0.github.io/TrendRadar/)
+> **💡 Tip**: Enable GitHub Pages to get an online access address; go to repository Settings → Pages to turn it on. [Preview Effect](https://sansan0.github.io/TrendRadar/)
 >
-> ⚠️ 原 GitHub Actions 自动存储功能已下线（该方案曾导致 GitHub 服务器负载过高，影响平台稳定性）。
+> ⚠️ The original GitHub Actions automatic storage feature has been taken offline (this solution previously caused high load on GitHub servers, affecting platform stability).
 
-### **减少 APP 依赖**
+### **Reduce APP Dependency**
 
-从"被算法推荐绑架"变成"主动获取自己想要的信息"
+Shift from "being kidnapped by algorithmic recommendations" to "proactively acquiring the information you want"
 
-**适合人群：** 投资者、自媒体人、企业公关、关心时事的普通用户
+**Target Audience:** Investors, self-media creators, corporate PR, and ordinary users who care about current affairs
 
-**典型场景：** 股市投资监控、品牌舆情追踪、行业动态关注、生活资讯获取
+**Typical Scenarios:** Stock market investment monitoring, brand public opinion tracking, industry dynamics attention, and lifestyle information acquisition
 
 
-| 网页效果(邮箱推送效果) | 飞书推送效果 | AI 分析推送效果 |
+| Web Page Effect (Email Push Effect) | Feishu Push Effect | AI Analysis Push Effect |
 |:---:|:---:|:---:|
-| ![网页效果](_image/github-pages.png) | ![飞书推送效果](_image/feishu.jpg) | ![AI分析推送效果](_image/ai.jpg) |
+| ![Web Page Effect](_image/github-pages.png) | ![Feishu Push Effect](_image/feishu.jpg) | ![AI Analysis Push Effect](_image/ai.jpg) |
 
 
 <br>
 
-## 🚀 快速开始
+## 🚀 Quick Start
 
-> **提醒**：建议先 **[查看最新官方文档](https://github.com/sansan0/TrendRadar?tab=readme-ov-file)**，确保配置步骤是最新的。
+> **Reminder**: It is recommended to first **[check the latest official documentation](https://github.com/sansan0/TrendRadar?tab=readme-ov-file)** to ensure the configuration steps are up to date.
 
-### 请选择适合你的部署方式
+### Please choose the deployment method that suits you
 
-#### 🅰️ 方案一：Docker 部署（推荐 🔥）
+#### 🅰️ Option 1: Docker Deployment (Recommended 🔥)
 
-* **特点**：比 GitHub Actions 更稳定，数据本地存储（无需配置云存储）
-* **适用**：有自己的服务器、NAS 或长期运行的电脑
-* **注意**：你需要阅读了解下方的基础配置流程，然后跳转到 Docker 教程进行部署。
+* **Features**: More stable than GitHub Actions, local data storage (no need to configure cloud storage)
+* **Suitable for**: Those with their own servers, NAS, or long-running computers
+* **Note**: You need to read and understand the basic configuration process below, then jump to the Docker tutorial for deployment.
 
-#### 🅱️ 方案二：GitHub Actions 部署（本章节内容 ⬇️）
+#### 🅱️ Option 2: GitHub Actions Deployment (Content of this chapter ⬇️)
 
-* **特点**：无服务器，数据存储在 **远程云存储**（推荐配置）
-* **适用**：没有服务器的用户，利用 GitHub 免费资源
-* **注意**：需配置云存储以获得完整体验，且需定期签到续期
+* **Features**: Serverless, data stored in **remote cloud storage** (recommended configuration)
+* **Applicable to**: Users without a server, utilizing free GitHub resources
+* **Note**: Cloud storage configuration is required for a complete experience, and regular check-ins are needed for renewal
 
-### 1️⃣ 第一步：获取项目代码
+### 1️⃣ Step 1: Get the project code
 
-   点击本仓库页面右上角的绿色 **[Use this template]** 按钮 → 选择 "Create a new repository"。
+   Click the green **[Use this template]** button in the top right corner of this repository page → select "Create a new repository".
 
-   > ⚠️ 提醒：
-   > - 后续文档中提到的 "Fork" 均可理解为 "Use this template"
-   > - 使用 Fork 可能导致运行异常，详见 [Issue #606](https://github.com/sansan0/TrendRadar/issues/606)
+   > ⚠️ Reminder:
+   > - "Fork" mentioned in the subsequent documentation can be understood as "Use this template"
+   > - Using Fork may cause abnormal operation, see [Issue #606](https://github.com/sansan0/TrendRadar/issues/606) for details
 
    <br>
 
-### 2️⃣ 第二步：设置 GitHub Secrets
+### 2️⃣ Step 2: Set up GitHub Secrets
 
-   在你 Fork 后的仓库中，进入 `Settings` > `Secrets and variables` > `Actions` > `New repository secret`
+   In your Forked repository, go to `Settings` > `Secrets and variables` > `Actions` > `New repository secret`
 
-   **📌 重要说明（请务必仔细阅读）：**
+   **📌 Important Note (Please read carefully):**
 
-   - **一个 Name 对应一个 Secret**：每添加一个配置项，点击一次"New repository secret"按钮，填写一对"Name"和"Secret"
-   - **保存后看不到值是正常的**：出于安全考虑，保存后重新编辑时，只能看到 Name（名称），看不到 Secret（值）的内容
-   - **严禁自创名称**：Secret 的 Name（名称）必须**严格使用**下方列出的名称（如 `WEWORK_WEBHOOK_URL`、`FEISHU_WEBHOOK_URL` 等），不能自己随意修改或创造新名称，否则系统无法识别
-   - **可以同时配置多个平台**：系统会向所有配置的平台发送通知
+   - **One Name corresponds to one Secret**: For each configuration item added, click the "New repository secret" button once and fill in a pair of "Name" and "Secret"
+   - **It is normal not to see the value after saving**: For security reasons, when editing again after saving, you can only see the Name, not the content of the Secret (value)
+   - **Do not create your own names**: The Name of the Secret must **strictly use** the names listed below (such as `WEWORK_WEBHOOK_URL`, `FEISHU_WEBHOOK_URL`, etc.). You cannot arbitrarily modify or create new names, otherwise the system will not recognize them
+   - **Multiple platforms can be configured simultaneously**: The system will send notifications to all configured platforms
 
-   **配置示例：**
+   **Configuration Example:**
 
-   <img src="_image/secrets.png" alt="GitHub Secrets 配置示例"/>
+   <img src="_image/secrets.png" alt="GitHub Secrets Configuration Example"/>
 
-   如上图所示，每一行是一个配置项：
-   - **Name（名称）**：必须使用下方展开内容中列出的固定名称（如 `WEWORK_WEBHOOK_URL`）
-   - **Secret（值）**：填写你从对应平台获取的实际内容（如 Webhook 地址、Token 等）
+   As shown in the figure above, each line is a configuration item:
+   - **Name**: Must use the fixed names listed in the expanded content below (such as `WEWORK_WEBHOOK_URL`)
+   - **Secret (Value)**: Fill in the actual content you obtained from the corresponding platform (such as Webhook address, Token, etc.)
 
    <br>
 
    <details>
-   <summary>👉 点击展开：<strong>企业微信机器人</strong>（配置最简单最迅速）</summary>
+   <summary>👉 Click to expand: <strong>WeCom Bot</strong> (Simplest and fastest configuration)</summary>
    <br>
 
-   **GitHub Secret 配置（⚠️ Name 名称必须严格一致）：**
-   - **Name（名称）**：`WEWORK_WEBHOOK_URL`（请复制粘贴此名称，不要手打，避免打错）
-   - **Secret（值）**：你的企业微信机器人 Webhook 地址
+   **GitHub Secret Configuration (⚠️ The Name must be strictly identical):**
+   - **Name**: `WEWORK_WEBHOOK_URL` (Please copy and paste this name, do not type it manually to avoid typos)
+   - **Secret (Value)**: Your WeCom Bot Webhook address
 
    <br>
 
-   **机器人设置步骤：**
+   **Bot Setup Steps:**
 
-   #### 手机端设置：
-   1. 打开企业微信 App → 进入目标内部群聊
-   2. 点击右上角"…"按钮 → 选择"消息推送"
-   3. 点击"添加" → 名称输入"TrendRadar"
-   4. 复制 Webhook 地址，点击保存，复制的内容配置到上方的 GitHub Secret 中
+   #### Mobile Setup:
+   1. Open the WeCom App → enter the target internal group chat
+   2. Click the "..." button in the top right corner → select "Message Push"
+   3. Click "Add" → enter "TrendRadar" as the name
+   4. Copy the Webhook address, click save, and configure the copied content into the GitHub Secret above
 
-   #### PC 端设置流程类似
+   #### PC setup process is similar
    </details>
 
    <details>
-   <summary>👉 点击展开：<strong>个人微信推送</strong>（基于企业微信应用，推送到个人微信）</summary>
+   <summary>👉 Click to expand: <strong>Personal WeChat Push</strong> (Based on WeCom app, pushes to personal WeChat)</summary>
    <br>
 
-   > 由于该方案是基于企业微信的插件机制，推送样式为纯文本（无 markdown 格式），但可以直接推送到个人微信，无需安装企业微信 App。
+   > Since this solution is based on the WeCom plugin mechanism, the push style is plain text (no markdown format), but it can be pushed directly to personal WeChat without installing the WeCom App.
 
-   **GitHub Secret 配置（⚠️ Name 名称必须严格一致）：**
-   - **Name（名称）**：`WEWORK_WEBHOOK_URL`（请复制粘贴此名称，不要手打）
-   - **Secret（值）**：你的企业微信应用 Webhook 地址
+   **GitHub Secret Configuration (⚠️ The Name must be strictly identical):**
+   - **Name**: `WEWORK_MSG_TYPE` (Please copy and paste this name, do not type it manually)
+   - **Secret (Value)**: Your WeCom app Webhook address
 
-   - **Name（名称）**：`WEWORK_MSG_TYPE`（请复制粘贴此名称，不要手打）
-   - **Secret（值）**：`text`
+   - **Name**: `WEWORK_MSG_TYPE` (Please copy and paste this name, do not type it manually)
+   - **Secret (Value)**: `text`
 
    <br>
 
-   **设置步骤：**
+   **Setup Steps:**
 
-   1. 完成上方的企业微信机器人 Webhook 设置
-   2. 添加 `WEWORK_MSG_TYPE` Secret，值设为 `text`
-   3. 按照下面图片操作，关联个人微信
-   4. 配置好后，手机上的企业微信 App 可以删除
+   1. Complete the WeCom Bot Webhook setup above
+   2. Add the `WEWORK_MSG_TYPE` Secret and set the value to `text`
+   3. Follow the image below to link your personal WeChat
+   4. After configuration, the WeCom App on your phone can be deleted
 
-   <img src="_image/wework.png" title="个人微信推送配置"/>
+   <img src="_image/wework.png" title="Personal WeChat Push Configuration"/>
 
-   **说明**：
-   - 与企业微信机器人使用相同的 Webhook 地址
-   - 区别在于消息格式：`text` 为纯文本，`markdown` 为富文本（默认）
-   - 纯文本格式会自动去除所有 markdown 语法（粗体、链接等）
+   **Note**:
+   - Uses the same Webhook address as the WeCom bot
+   - The difference lies in the message format: `text` is plain text, `markdown` is rich text (default)
+   - Plain text format will automatically remove all markdown syntax (bold, links, etc.)
 
    </details>
 
    <details>
-   <summary>👉 点击展开：<strong>飞书机器人</strong>（消息显示相对友好）</summary>
+   <summary>👉 Click to expand: <strong>Feishu Bot</strong> (Message display is relatively friendly)</summary>
    <br>
 
-   若启用 **AI 分析**，飞书推送偶发（约 5% 概率）会有数分钟延迟（推测为平台对 AI 生成内容的合规性审核）。
+   If **AI Analysis** is enabled, Feishu push may occasionally (about 5% probability) have a delay of a few minutes (presumably due to the platform's compliance review of AI-generated content).
 
-   **GitHub Secret 配置（⚠️ Name 名称必须严格一致）：**
-   - **Name（名称）**：`FEISHU_WEBHOOK_URL`（请复制粘贴此名称，不要手打）
-   - **Secret（值）**：你的飞书机器人 Webhook 地址（该链接开头类似 https://www.feishu.cn/flow/api/trigger-webhook/********）
+   **GitHub Secret Configuration (⚠️ The Name must be strictly identical):**
+   - **Name**: `FEISHU_WEBHOOK_URL` (Please copy and paste this name, do not type it manually)
+   - **Secret (Value)**: Your Feishu bot Webhook address (The link starts with something like https://www.feishu.cn/flow/api/trigger-webhook/********)
    <br>
 
-   有两个方案，**方案一**配置简单，**方案二**配置复杂(但是稳定推送)
+   There are two options, **Option 1** is simple to configure, **Option 2** is complex to configure (but provides stable push)
 
-   其中方案一，由 **ziventian**发现并提供建议，在这里感谢他，默认是个人推送，也可以配置群组推送操作[#97](https://github.com/sansan0/TrendRadar/issues/97) ，
+   Option 1 was discovered and suggested by **ziventian**, thanks to him here. The default is personal push, but group push operations can also be configured [#97](https://github.com/sansan0/TrendRadar/issues/97) ,
 
-   **方案一：**
+   **Option 1:**
 
-   > 对部分人存在额外操作，否则会报"系统错误"。需要手机端搜索下机器人，然后开启飞书机器人应用(该建议来自于网友，可参考)
+   > There are extra operations for some people, otherwise a "System Error" will be reported. You need to search for the bot on the mobile app, and then enable the Feishu bot application (This suggestion comes from netizens and can be used as a reference)
 
-   1. 电脑浏览器打开 https://botbuilder.feishu.cn/home/my-command
+   1. Open https://botbuilder.feishu.cn/home/my-command in your computer browser
 
-   2. 点击"新建机器人指令" 
+   2. Click "New Bot Command"
 
-   3. 点击"选择触发器"，往下滑动，点击"Webhook 触发"
+   3. Click "Select Trigger", scroll down, and click "Webhook Trigger"
 
-   4. 此时你会看到"Webhook 地址"，把这个链接先复制到本地记事本暂存，继续接下来的操作
+   4. At this point, you will see the "Webhook Address". Copy this link to a local notepad temporarily, and continue with the next operations
 
-   5. "参数"里面放上下面的内容，然后点击"完成"
+   5. Put the following content in "Parameters", and then click "Complete"
 
    ```json
    {
      "message_type": "text",
      "content": {
-       "text": "{{内容}}"
+       "text": "{{Content}}"
      }
    }
    ```
 
-   6. 点击"选择操作" > "通过官方机器人发消息"
+   6. Click "Select Action" > "Send message via official bot"
 
-   7. 消息标题填写"TrendRadar 热点监控"
+   7. Fill in "TrendRadar Hotspot Monitor" for the message title
 
-   8. 最关键的部分来了，点击 + 按钮，选择"Webhook 触发"，然后按照下面的图片摆放
+   8. Here comes the most crucial part, click the + button, select "Webhook Trigger", and then arrange it according to the image below
 
-   ![飞书机器人配置示例](_image/feishu.png)
+   ![Feishu Bot Configuration Example](_image/feishu.png)
 
-   9. 配置完成后，将第 4 步复制的 Webhook 地址配置到 GitHub Secrets 中的 `FEISHU_WEBHOOK_URL`
+   9. After configuration is complete, configure the Webhook address copied in step 4 to `FEISHU_WEBHOOK_URL` in GitHub Secrets
 
    <br>
 
-   **方案二：**
+   **Option 2:**
 
-   1. 电脑浏览器打开 https://botbuilder.feishu.cn/home/my-app
+   1. Open https://botbuilder.feishu.cn/home/my-app in your computer browser
 
-   2. 点击"新建机器人应用"
+   2. Click "New Bot Application"
 
-   3. 进入创建的应用后，点击"流程设计" > "创建流程" > "选择触发器"
+   3. After entering the created application, click "Process Design" > "Create Process" > "Select Trigger"
 
-   4. 往下滑动，点击"Webhook 触发"
+   4. Scroll down and click "Webhook Trigger"
 
-   5. 此时你会看到"Webhook 地址"，把这个链接先复制到本地记事本暂存，继续接下来的操作
+   5. At this point, you will see the "Webhook Address". Copy this link to a local notepad temporarily, and continue with the next operations
 
-   6. "参数"里面放上下面的内容，然后点击"完成"
+   6. Put the following content in "Parameters", and then click "Complete"
 
    ```json
    {
      "message_type": "text",
      "content": {
-       "text": "{{内容}}"
+       "text": "{{Content}}"
      }
    }
    ```
 
-   7. 点击"选择操作" > "发送飞书消息"，勾选 "群消息"，然后点击下面的输入框，点击"我管理的群组"（如果没有群组，你可以在飞书 app 上创建群组）
+   7. Click "Select Action" > "Send Feishu Message", check "Group Message", then click the input box below, and click "Groups I Manage" (If there are no groups, you can create a group on the Feishu app)
 
-   8. 消息标题填写"TrendRadar 热点监控"
+   8. Fill in "TrendRadar Hotspot Monitor" for the message title
 
-   9. 最关键的部分来了，点击 + 按钮，选择"Webhook 触发"，然后按照下面的图片摆放
+   9. Here comes the most crucial part, click the + button, select "Webhook Trigger", and then arrange it according to the image below
 
-   ![飞书机器人配置示例](_image/feishu.png)
+   ![Feishu Bot Configuration Example](_image/feishu.png)
 
-   10. 配置完成后，将第 5 步复制的 Webhook 地址配置到 GitHub Secrets 中的 `FEISHU_WEBHOOK_URL`
+   10. After configuration is complete, configure the Webhook address copied in step 5 to `FEISHU_WEBHOOK_URL` in GitHub Secrets
 
    </details>
 
    <details>
-   <summary>👉 点击展开：<strong>钉钉机器人</strong></summary>
+   <summary>👉 Click to expand: <strong>DingTalk Bot</strong></summary>
    <br>
 
-   **GitHub Secret 配置（⚠️ Name 名称必须严格一致）：**
-   - **Name（名称）**：`DINGTALK_WEBHOOK_URL`（请复制粘贴此名称，不要手打）
-   - **Secret（值）**：你的钉钉机器人 Webhook 地址
+   **GitHub Secret Configuration (⚠️ The Name must be strictly identical):**
+   - **Name**: `DINGTALK_WEBHOOK_URL` (Please copy and paste this name, do not type it manually)
+   - **Secret (Value)**: Your DingTalk Bot Webhook URL
 
    <br>
 
-   **机器人设置步骤：**
+   **Bot Setup Steps:**
 
-   1. **创建机器人（仅 PC 端支持）**：
-      - 打开钉钉 PC 客户端，进入目标群聊
-      - 点击群设置图标（⚙️）→ 往下翻找到"机器人"点开
-      - 选择"添加机器人" → "自定义"
+   1. **Create a Bot (Only supported on PC)**:
+      - Open the DingTalk PC client and enter the target group chat
+      - Click the group settings icon (⚙️) → scroll down to find "Bots" and open it
+      - Select "Add Bot" → "Custom"
 
-   2. **配置机器人**：
-      - 设置机器人名称
-      - **安全设置**：
-        - **自定义关键词**：设置 "热点"
+   2. **Configure the Bot**:
+      - Set the bot name
+      - **Security Settings**:
+        - **Custom Keywords**: Set "hotspot"
 
-   3. **完成设置**：
-      - 勾选服务条款协议 → 点击"完成"
-      - 复制获得的 Webhook URL
-      - 将 URL 配置到 GitHub Secrets 中的 `DINGTALK_WEBHOOK_URL`
+   3. **Complete Setup**:
+      - Check the terms of service agreement → click "Finished"
+      - Copy the obtained Webhook URL
+      - Configure the URL into `DINGTALK_WEBHOOK_URL` in GitHub Secrets
 
-   **注意**：移动端只能接收消息，无法创建新机器人。
+   **Note**: The mobile app can only receive messages and cannot create new bots.
    </details>
 
    <details>
-   <summary>👉 点击展开：<strong>Telegram Bot</strong></summary>
+   <summary>👉 Click to expand: <strong>Telegram Bot</strong></summary>
    <br>
 
-   **GitHub Secret 配置（⚠️ Name 名称必须严格一致）：**
-   - **Name（名称）**：`TELEGRAM_BOT_TOKEN`（请复制粘贴此名称，不要手打）
-   - **Secret（值）**：你的 Telegram Bot Token
+   **GitHub Secret Configuration (⚠️ The Name must be strictly identical):**
+   - **Name**: `TELEGRAM_BOT_TOKEN` (Please copy and paste this name, do not type it manually)
+   - **Secret (Value)**: Your Telegram Bot Token
 
-   - **Name（名称）**：`TELEGRAM_CHAT_ID`（请复制粘贴此名称，不要手打）
-   - **Secret（值）**：你的 Telegram Chat ID
+   - **Name**: `TELEGRAM_CHAT_ID` (Please copy and paste this name, do not type it manually)
+   - **Secret (Value)**: Your Telegram Chat ID
 
-   **说明**：Telegram 需要配置**两个** Secret，请分别点击两次"New repository secret"按钮添加
+   **Note**: Telegram requires configuring **two** Secrets. Please click the "New repository secret" button twice to add them separately.
 
    <br>
 
-   **机器人设置步骤：**
+   **Bot Setup Steps:**
 
-   1. **创建机器人**：
-      - 在 Telegram 中搜索 `@BotFather`（大小写注意，有蓝色徽章勾勾，有类似 37849827 monthly users，这个才是官方的，有一些仿官方的账号注意辨别）
-      - 发送 `/newbot` 命令创建新机器人
-      - 设置机器人名称（必须以"bot"结尾，很容易遇到重复名字，所以你要绞尽脑汁想不同的名字）
-      - 获取 Bot Token（格式如：`123456789:AAHfiqksKZ8WmR2zSjiQ7_v4TMAKdiHm9T0`）
+   1. **Create a Bot**:
+      - Search for `@BotFather` in Telegram (note the capitalization, it has a blue verified checkmark and something like 37849827 monthly users. This is the official one, be careful to distinguish it from fake accounts)
+      - Send the `/newbot` command to create a new bot
+      - Set the bot name (must end with "bot". It's easy to encounter duplicate names, so you'll have to rack your brains for a unique one)
+      - Get the Bot Token (format like: `123456789:AAHfiqksKZ8WmR2zSjiQ7_v4TMAKdiHm9T0`)
 
-   2. **获取 Chat ID**：
+   2. **Get the Chat ID**:
 
-      **方法一：通过官方 API 获取**
-      - 先向你的机器人发送一条消息
-      - 访问：`https://api.telegram.org/bot<你的Bot Token>/getUpdates`
-      - 在返回的 JSON 中找到 `"chat":{"id":数字}` 中的数字
+      **Method 1: Get via official API**
+      - First, send a message to your bot
+      - Visit: `https://api.telegram.org/bot<Your Bot Token>/getUpdates`
+      - Find the number in `"chat":{"id":number}` from the returned JSON
 
-      **方法二：使用第三方工具**
-      - 搜索 `@userinfobot` 并发送 `/start`
-      - 获取你的用户 ID 作为 Chat ID
+      **Method 2: Use a third-party tool**
+      - Search for `@userinfobot` and send `/start`
+      - Get your user ID to use as the Chat ID
 
-   3. **配置到 GitHub**：
-      - `TELEGRAM_BOT_TOKEN`：填入第 1 步获得的 Bot Token
-      - `TELEGRAM_CHAT_ID`：填入第 2 步获得的 Chat ID
+   3. **Configure in GitHub**:
+      - `TELEGRAM_BOT_TOKEN`: Enter the Bot Token obtained in step 1
+      - `TELEGRAM_CHAT_ID`: Enter the Chat ID obtained in step 2
    </details>
 
    <details>
-   <summary>👉 点击展开：<strong>邮件推送</strong>（支持所有主流邮箱）</summary>
+   <summary>👉 Click to expand: <strong>Email Push</strong> (Supports all mainstream email providers)</summary>
    <br>
 
-   - 注意事项：为防止邮件群发功能被**滥用**，当前的群发是所有收件人都能看到彼此的邮箱地址。
-   - 如果你没有过配置下面这种邮箱发送的经历，不建议尝试
+   - Note: To prevent the mass email function from being **abused**, the current mass mailing allows all recipients to see each other's email addresses.
+   - If you have no experience configuring the email sending methods below, it is not recommended to try
 
-   > ⚠️ **重要配置依赖**：邮件推送需要 HTML 报告文件。请确保 `config/config.yaml` 中的 `storage.formats.html` 设置为 `true`：
+   > ⚠️ **Important Configuration Dependency**: Email push requires an HTML report file. Please ensure `storage.formats.html` in `config/config.yaml` is set to `true`:
    > ```yaml
    > storage:
    >   formats:
    >     sqlite: true
    >     txt: false
-   >     html: true   # 必须启用，否则邮件推送会失败
+   >     html: true   # Must be enabled, otherwise email push will fail
    > ```
-   > 如果设置为 `false`，邮件推送时会报错：`错误：HTML文件不存在或未提供: None`
+   > If set to `false`, an error will occur during email push: `Error: HTML file does not exist or is not provided: None`
 
    <br>
 
-   **GitHub Secret 配置（⚠️ Name 名称必须严格一致）：**
-   - **Name（名称）**：`EMAIL_FROM`（请复制粘贴此名称，不要手打）
-   - **Secret（值）**：发件人邮箱地址
+   **GitHub Secret Configuration (⚠️ Name must be strictly identical):**
+   - **Name**: `EMAIL_FROM` (Please copy and paste this name, do not type it manually)
+   - **Secret (Value)**: Sender's email address
 
-   - **Name（名称）**：`EMAIL_PASSWORD`（请复制粘贴此名称，不要手打）
-   - **Secret（值）**：邮箱密码或授权码
+   - **Name**: `EMAIL_PASSWORD` (Please copy and paste this name, do not type it manually)
+   - **Secret (Value)**: Email password or authorization code
 
-   - **Name（名称）**：`EMAIL_TO`（请复制粘贴此名称，不要手打）
-   - **Secret（值）**：收件人邮箱地址（多个收件人用英文逗号分隔，也可以和 EMAIL_FROM 一样，自己发送给自己）
+   - **Name**: `EMAIL_TO` (Please copy and paste this name, do not type it manually)
+   - **Secret (Value)**: Recipient's email address (Multiple recipients should be separated by English commas; it can also be the same as EMAIL_FROM to send to yourself)
 
-   - **Name（名称）**：`EMAIL_SMTP_SERVER`（可选配置，请复制粘贴此名称）
-   - **Secret（值）**：SMTP服务器地址（可留空，系统会自动识别）
+   - **Name**: `EMAIL_SMTP_SERVER` (Optional configuration, please copy and paste this name)
+   - **Secret (Value)**: SMTP server address (Can be left blank, the system will automatically recognize it)
 
-   - **Name（名称）**：`EMAIL_SMTP_PORT`（可选配置，请复制粘贴此名称）
-   - **Secret（值）**：SMTP端口（可留空，系统会自动识别）
+   - **Name**: `EMAIL_SMTP_PORT` (Optional configuration, please copy and paste this name)
+   - **Secret (Value)**: SMTP port (Can be left blank, the system will automatically recognize it)
 
-   **说明**：邮件推送需要配置至少**3个必需** Secret（EMAIL_FROM、EMAIL_PASSWORD、EMAIL_TO），后两个为可选配置
+   **Description**: Email push requires configuring at least **3 required** Secrets (EMAIL_FROM, EMAIL_PASSWORD, EMAIL_TO), the latter two are optional configurations
 
    <br>
 
-   **支持的邮箱服务商**（自动识别 SMTP 配置）：
+   **Supported Email Providers** (Automatically recognize SMTP configuration):
 
-   | 邮箱服务商 | 域名 | SMTP 服务器 | 端口 | 加密方式 |
+   | Email Provider | Domain | SMTP Server | Port | Encryption |
    |-----------|------|------------|------|---------|
    | **Gmail** | gmail.com | smtp.gmail.com | 587 | TLS |
-   | **QQ邮箱** | qq.com | smtp.qq.com | 465 | SSL |
+   | **QQ Mail** | qq.com | smtp.qq.com | 465 | SSL |
    | **Outlook** | outlook.com | smtp-mail.outlook.com | 587 | TLS |
    | **Hotmail** | hotmail.com | smtp-mail.outlook.com | 587 | TLS |
    | **Live** | live.com | smtp-mail.outlook.com | 587 | TLS |
-   | **163邮箱** | 163.com | smtp.163.com | 465 | SSL |
-   | **126邮箱** | 126.com | smtp.126.com | 465 | SSL |
-   | **新浪邮箱** | sina.com | smtp.sina.com | 465 | SSL |
-   | **搜狐邮箱** | sohu.com | smtp.sohu.com | 465 | SSL |
-   | **天翼邮箱** | 189.cn | smtp.189.cn | 465 | SSL |
-   | **阿里云邮箱** | aliyun.com | smtp.aliyun.com | 465 | TLS |
-   | **Yandex邮箱** | yandex.com | smtp.yandex.com | 465 | TLS |
-   | **iCloud邮箱** | icloud.com | smtp.mail.me.com | 587 | SSL |
+   | **163 Mail** | 163.com | smtp.163.com | 465 | SSL |
+   | **126 Mail** | 126.com | smtp.126.com | 465 | SSL |
+   | **Sina Mail** | sina.com | smtp.sina.com | 465 | SSL |
+   | **Sohu Mail** | sohu.com | smtp.sohu.com | 465 | SSL |
+   | **189 Mail** | 189.cn | smtp.189.cn | 465 | SSL |
+   | **Aliyun Mail** | aliyun.com | smtp.aliyun.com | 465 | TLS |
+   | **Yandex Mail** | yandex.com | smtp.yandex.com | 465 | TLS |
+   | **iCloud Mail** | icloud.com | smtp.mail.me.com | 587 | SSL |
 
-   > **自动识别**：使用以上邮箱时，无需手动配置 `EMAIL_SMTP_SERVER` 和 `EMAIL_SMTP_PORT`，系统会自动识别。
+   > **Automatic Recognition**: When using the above emails, there is no need to manually configure `EMAIL_SMTP_SERVER` and `EMAIL_SMTP_PORT`, the system will automatically recognize them.
    >
-   > **反馈说明**：
-   > - 如果你使用**其他邮箱**测试成功，欢迎开 [Issues](https://github.com/sansan0/TrendRadar/issues) 告知，我会添加到支持列表
-   > - 如果上述邮箱配置有误或无法使用，也请开 [Issues](https://github.com/sansan0/TrendRadar/issues) 反馈，帮助改进项目
+   > **Feedback Instructions**:
+   > - If you successfully test with **other emails**, please open an [Issues](https://github.com/sansan0/TrendRadar/issues) to let me know, and I will add it to the supported list
+   > - If the above email configurations are incorrect or unusable, please also open an [Issues](https://github.com/sansan0/TrendRadar/issues) to provide feedback and help improve the project
    >
-   > **特别感谢**：
-   > - 感谢 [@DYZYD](https://github.com/DYZYD) 贡献天翼邮箱（189.cn）配置并完成自发自收测试 ([#291](https://github.com/sansan0/TrendRadar/issues/291))
-   > - 感谢 [@longzhenren](https://github.com/longzhenren) 贡献阿里云邮箱（aliyun.com）配置并完成测试 ([#344](https://github.com/sansan0/TrendRadar/issues/344))
-   > - 感谢 [@ACANX](https://github.com/ACANX) 贡献 Yandex 邮箱（yandex.com）配置并完成测试 ([#663](https://github.com/sansan0/TrendRadar/issues/663))
-   > - 感谢 [@Sleepy-Tianhao](https://github.com/Sleepy-Tianhao) 贡献 iCloud 邮箱（icloud.com）配置并完成测试 ([#728](https://github.com/sansan0/TrendRadar/issues/728))
+   > **Special Thanks**:
+   > - Thanks to [@DYZYD](https://github.com/DYZYD) for contributing the 189 Mail (189.cn) configuration and completing the self-send and self-receive test ([#291](https://github.com/sansan0/TrendRadar/issues/291))
+   > - Thanks to [@longzhenren](https://github.com/longzhenren) for contributing the Aliyun Mail (aliyun.com) configuration and completing the test ([#344](https://github.com/sansan0/TrendRadar/issues/344))
+   > - Thanks to [@ACANX](https://github.com/ACANX) for contributing the Yandex Mail (yandex.com) configuration and completing the test ([#663](https://github.com/sansan0/TrendRadar/issues/663))
+   > - Thanks to [@Sleepy-Tianhao](https://github.com/Sleepy-Tianhao) for contributing the iCloud Mail (icloud.com) configuration and completing the test ([#728](https://github.com/sansan0/TrendRadar/issues/728))
 
-   **常见邮箱设置：**
+   **Common Email Settings:**
 
-   #### QQ邮箱：
-   1. 登录 QQ邮箱网页版 → 设置 → 账户
-   2. 开启 POP3/SMTP 服务
-   3. 生成授权码（16位字母）
-   4. `EMAIL_PASSWORD` 填写授权码，而非 QQ 密码
+   #### QQ Mail:
+   1. Log in to QQ Mail web version → Settings → Account
+   2. Enable POP3/SMTP service
+   3. Generate authorization code (16-letter code)
+   4. For `EMAIL_PASSWORD`, fill in the authorization code, not the QQ password
 
    #### Gmail：
-   1. 开启两步验证
-   2. 生成应用专用密码
-   3. `EMAIL_PASSWORD` 填写应用专用密码
+   1. Enable two-step verification
+   2. Generate an app password
+   3. For `EMAIL_PASSWORD`, fill in the app password
 
-   #### 163/126邮箱：
-   1. 登录网页版 → 设置 → POP3/SMTP/IMAP
-   2. 开启 SMTP 服务
-   3. 设置客户端授权码
-   4. `EMAIL_PASSWORD` 填写授权码
+   #### 163/126 Mail:
+   1. Log in to the web version → Settings → POP3/SMTP/IMAP
+   2. Enable SMTP service
+   3. Set up client authorization code
+   4. For `EMAIL_PASSWORD`, fill in the authorization code
    <br>
 
-   **高级配置**：
-   如果自动识别失败，可手动配置 SMTP：
-   - `EMAIL_SMTP_SERVER`：如 smtp.gmail.com
-   - `EMAIL_SMTP_PORT`：如 587（TLS）或 465（SSL）
+   **Advanced Configuration**:
+   If automatic recognition fails, you can manually configure SMTP:
+   - `EMAIL_SMTP_SERVER`: e.g., smtp.gmail.com
+   - `EMAIL_SMTP_PORT`: e.g., 587 (TLS) or 465 (SSL)
    <br>
 
-   **如果有多个收件人(注意是英文逗号分隔)**：
+   **If there are multiple recipients (note: separated by English commas)**:
    - EMAIL_TO="user1@example.com,user2@example.com,user3@example.com"
 
    </details>
 
    <details>
-   <summary>👉 点击展开：<strong>ntfy 推送</strong>（开源免费，支持自托管）</summary>
+   <summary>👉 Click to expand: <strong>ntfy Push</strong> (Open source, free, supports self-hosting)</summary>
    <br>
 
-   **两种使用方式：**
+   **Two ways to use:**
 
-   ### 方式一：免费使用（推荐新手） 🆓
+   ### Method 1: Free to use (Recommended for beginners) 🆓
 
-   **特点**：
-   - ✅ 无需注册账号，立即使用
-   - ✅ 每天 250 条消息（足够 90% 用户）
-   - ✅ Topic 名称即"密码"（需选择不易猜测的名称）
-   - ⚠️ 消息未加密，不适合敏感信息, 但适合我们这个项目的不敏感信息
+   **Features**:
+   - ✅ No account registration required, use immediately
+   - ✅ 250 messages per day (enough for 90% of users)
+   - ✅ Topic name is the "password" (need to choose a name that is hard to guess)
+   - ⚠️ Messages are unencrypted, not suitable for sensitive information, but suitable for the non-sensitive information of our project
 
-   **快速开始：**
+   **Quick Start:**
 
-   1. **下载 ntfy 应用**：
+   1. **Download the ntfy app**:
       - Android：[Google Play](https://play.google.com/store/apps/details?id=io.heckel.ntfy) / [F-Droid](https://f-droid.org/en/packages/io.heckel.ntfy/)
       - iOS：[App Store](https://apps.apple.com/us/app/ntfy/id1625396347)
-      - 桌面：访问 [ntfy.sh](https://ntfy.sh)
+      - Desktop: Visit [ntfy.sh](https://ntfy.sh)
 
-   2. **订阅主题**（选择一个难猜的名称）：
+   2. **Subscribe to a topic** (choose a hard-to-guess name):
       ```
-      建议格式：trendradar-{你的名字缩写}-{随机数字}
+      Suggested format: trendradar-{your initials}-{random numbers}
    
-      不能使用中文
+      Cannot use Chinese
       
-      ✅ 好例子：trendradar-zs-8492
-      ❌ 坏例子：news、alerts（太容易被猜到）
+      ✅ Good example: trendradar-zs-8492
+      ❌ Bad example: news, alerts (too easy to guess)
       ```
 
-   3. **配置 GitHub Secret（⚠️ Name 名称必须严格一致）**：
-      - **Name（名称）**：`NTFY_TOPIC`（请复制粘贴此名称，不要手打）
-      - **Secret（值）**：填写你刚才订阅的主题名称
+   3. **Configure GitHub Secret (⚠️ Name must be strictly identical)**:
+      - **Name**: `NTFY_TOPIC` (please copy and paste this name, do not type it manually)
+      - **Secret (Value)**: Fill in the topic name you just subscribed to
 
-      - **Name（名称）**：`NTFY_SERVER_URL`（可选配置，请复制粘贴此名称）
-      - **Secret（值）**：留空（默认使用 ntfy.sh）
+      - **Name**: `NTFY_SERVER_URL` (optional configuration, please copy and paste this name)
+      - **Secret (Value)**: Leave blank (defaults to ntfy.sh)
 
-      - **Name（名称）**：`NTFY_TOKEN`（可选配置，请复制粘贴此名称）
-      - **Secret（值）**：留空
+      - **Name**: `NTFY_TOKEN` (Optional configuration, please copy and paste this name)
+      - **Secret (Value)**: Leave blank
 
-      **说明**：ntfy 至少需要配置 1 个必需 Secret (NTFY_TOPIC)，后两个为可选配置
+      **Note**: ntfy requires at least 1 mandatory Secret (NTFY_TOPIC), the latter two are optional configurations
 
-   4. **测试**：
+   4. **Test**:
       ```bash
-      curl -d "测试消息" ntfy.sh/你的主题名称
+      curl -d "Test message" ntfy.sh/your_topic_name
       ```
 
    ---
 
-   ### 方式二：自托管（完全隐私控制） 🔒
+   ### Method 2: Self-hosted (Complete Privacy Control) 🔒
 
-   **适合人群**：有服务器、追求完全隐私、技术能力强
+   **Suitable for**: Users with servers, seeking complete privacy, and strong technical skills
 
-   **优势**：
-   - ✅ 完全开源（Apache 2.0 + GPLv2）
-   - ✅ 数据完全自主控制
-   - ✅ 无任何限制
-   - ✅ 零费用
+   **Advantages**:
+   - ✅ Completely open-source (Apache 2.0 + GPLv2)
+   - ✅ Complete control over your own data
+   - ✅ No restrictions
+   - ✅ Zero cost
 
-   **Docker 一键部署**：
+   **One-click Docker Deployment**:
    ```bash
    docker run -d \
      --name ntfy \
@@ -1630,86 +1630,86 @@ ai_translation:
      serve --cache-file /var/cache/ntfy/cache.db
    ```
 
-   **配置 TrendRadar**：
+   **Configure TrendRadar**:
    ```yaml
    NTFY_SERVER_URL: https://ntfy.yourdomain.com
-   NTFY_TOPIC: trendradar-alerts  # 自托管可用简单名称
-   NTFY_TOKEN: tk_your_token  # 可选：启用访问控制
+   NTFY_TOPIC: trendradar-alerts  # Simple names can be used for self-hosting
+   NTFY_TOKEN: tk_your_token  # Optional: Enable access control
    ```
 
-   **在应用中订阅**：
-   - 点击"Use another server"
-   - 输入你的服务器地址
-   - 输入主题名称
-   - （可选）输入登录凭据
+   **Subscribe in the app**:
+   - Click "Use another server"
+   - Enter your server address
+   - Enter the topic name
+   - (Optional) Enter login credentials
 
    ---
 
-   **常见问题：**
+   **FAQ:**
 
    <details>
-   <summary><strong>Q1: 免费版够用吗？</strong></summary>
+   <summary><strong>Q1: Is the free version enough?</strong></summary>
 
-   每天 250 条消息对大多数用户足够。按 30 分钟抓取一次计算，每天约 48 次推送，完全够用。
+   250 messages per day is enough for most users. Calculated at one scrape every 30 minutes, there are about 48 pushes per day, which is completely sufficient.
    </details>
 
    <details>
-   <summary><strong>Q2: Topic 名称真的安全吗？</strong></summary>
+   <summary><strong>Q2: Is the Topic name really secure?</strong></summary>
 
-   如果你选择随机的、足够长的名称（如 `trendradar-zs-8492-news`），暴力破解几乎不可能：
-   - ntfy 有严格的速率限制（1 秒 1 次请求）
-   - 64 个字符选择（A-Z, a-z, 0-9, _, -）
-   - 10 位随机字符串有 64^10 种可能性（需要数年才能破解）
+   If you choose a random, sufficiently long name (like `trendradar-zs-8492-news`), brute-force cracking is almost impossible:
+   - ntfy has strict rate limits (1 request per second)
+   - 64 character choices (A-Z, a-z, 0-9, _, -)
+   - A 10-character random string has 64^10 possibilities (would take years to crack)
    </details>
 
    ---
 
-   **推荐选择：**
+   **Recommended choices:**
 
-   | 用户类型 | 推荐方案 | 理由 |
+   | User Type | Recommended Solution | Reason |
    |---------|---------|------|
-   | 普通用户 | 方式一（免费） | 简单快速，够用 |
-   | 技术用户 | 方式二（自托管） | 完全控制，无限制 |
-   | 高频用户 | 方式三（付费） | 这个自己去官网看吧 |
+   | Regular User | Method 1 (Free) | Simple and fast, sufficient |
+   | Technical User | Method 2 (Self-hosted) | Complete control, no restrictions |
+   | High-frequency User | Method 3 (Paid) | Check the official website for this |
 
-   **相关链接：**
-   - [ntfy 官方文档](https://docs.ntfy.sh/)
-   - [自托管教程](https://docs.ntfy.sh/install/)
-   - [GitHub 仓库](https://github.com/binwiederhier/ntfy)
+   **Related Links:**
+   - [ntfy Official Documentation](https://docs.ntfy.sh/)
+   - [Self-hosting Tutorial](https://docs.ntfy.sh/install/)
+   - [GitHub Repository](https://github.com/binwiederhier/ntfy)
 
    </details>
 
    <details>
-   <summary>👉 点击展开：<strong>Bark 推送</strong>（iOS 专属，简洁高效）</summary>
+   <summary>👉 Click to expand: <strong>Bark Push</strong> (iOS exclusive, simple and efficient)</summary>
    <br>
 
-   **GitHub Secret 配置（⚠️ Name 名称必须严格一致）：**
-   - **Name（名称）**：`BARK_URL`（请复制粘贴此名称，不要手打）
-   - **Secret（值）**：你的 Bark 推送 URL
+   **GitHub Secret Configuration (⚠️ Name must be strictly identical):**
+   - **Name**: `BARK_URL` (Please copy and paste this name, do not type it manually)
+   - **Secret (Value)**: Your Bark push URL
 
    <br>
 
-   **Bark 简介：**
+   **Introduction to Bark:**
 
-   Bark 是一款 iOS 平台的免费开源推送工具，特点是简单、快速、无广告。
+   Bark is a free and open-source push notification tool for iOS, featuring simplicity, speed, and no ads.
 
-   **使用方式：**
+   **How to use:**
 
-   ### 方式一：使用官方服务器（推荐新手） 🆓
+   ### Method 1: Use the official server (Recommended for beginners) 🆓
 
-   1. **下载 Bark App**：
-      - iOS：[App Store](https://apps.apple.com/cn/app/bark-给你的手机发推送/id1403753865)
+   1. **Download the Bark App**:
+      - iOS: [App Store](https://apps.apple.com/cn/app/bark-send push to your mobile phone/id1403753865)
 
-   2. **获取推送 URL**：
-      - 打开 Bark App
-      - 复制首页显示的推送 URL（格式如：`https://api.day.app/your_device_key`）
-      - 将 URL 配置到 GitHub Secrets 中的 `BARK_URL`
+   2. **Get the push URL**:
+      - Open the Bark App
+      - Copy the push URL displayed on the homepage (format: `https://api.day.app/your_device_key`)
+      - Configure the URL into `BARK_URL` in GitHub Secrets
 
-   ### 方式二：自建服务器（完全隐私控制） 🔒
+   ### Method 2: Self-hosted server (Complete privacy control) 🔒
 
-   **适合人群**：有服务器、追求完全隐私、技术能力强
+   **Suitable for**: Users with servers, seeking complete privacy, and strong technical skills
 
-   **Docker 一键部署**：
+   **Docker one-click deployment**:
    ```bash
    docker run -d \
      --name bark-server \
@@ -1717,1271 +1717,1271 @@ ai_translation:
      finab/bark-server
    ```
 
-   **配置 TrendRadar**：
+   **Configure TrendRadar**:
    ```yaml
    BARK_URL: http://your-server-ip:8080/your_device_key
    ```
 
    ---
 
-   **注意事项：**
-   - ✅ Bark 使用 APNs 推送，单条消息最大 4KB
-   - ✅ 支持自动分批推送，无需担心消息过长
-   - ✅ 推送格式为纯文本（自动去除 Markdown 语法）
-   - ⚠️ 仅支持 iOS 平台
+   **Notes:**
+   - ✅ Bark uses APNs for push notifications, with a maximum size of 4KB per message
+   - ✅ Supports automatic batch push, no need to worry about messages being too long
+   - ✅ Push format is plain text (Markdown syntax is automatically removed)
+   - ⚠️ Only supports the iOS platform
 
-   **相关链接：**
-   - [Bark 官方网站](https://bark.day.app/)
-   - [Bark GitHub 仓库](https://github.com/Finb/Bark)
-   - [Bark Server 自建教程](https://github.com/Finb/bark-server)
+   **Related links:**
+   - [Bark Official Website](https://bark.day.app/)
+   - [Bark GitHub Repository](https://github.com/Finb/Bark)
+   - [Bark Server Self-hosting Tutorial](https://github.com/Finb/bark-server)
 
    </details>
 
    <details>
-   <summary>👉 点击展开：<strong>Slack 推送</strong></summary>
+   <summary>👉 Click to expand: <strong>Slack Push</strong></summary>
    <br>
 
-   **GitHub Secret 配置（⚠️ Name 名称必须严格一致）：**
-   - **Name（名称）**：`SLACK_WEBHOOK_URL`（请复制粘贴此名称，不要手打）
-   - **Secret（值）**：你的 Slack Incoming Webhook URL
+   **GitHub Secret Configuration (⚠️ The Name must be strictly identical):**
+   - **Name**: `SLACK_WEBHOOK_URL` (Please copy and paste this name, do not type it manually)
+   - **Secret (Value)**: Your Slack Incoming Webhook URL
 
    <br>
 
-   **Slack 简介：**
+   **Introduction to Slack:**
 
-   Slack 是团队协作工具，Incoming Webhooks 可以将消息推送到 Slack 频道。
+   Slack is a team collaboration tool, and Incoming Webhooks can push messages to Slack channels.
 
-   **设置步骤：**
+   **Setup steps:**
 
-   ### 步骤 1：创建 Slack App
+   ### Step 1: Create a Slack App
 
-   1. **访问 Slack API 页面**：
-      - 打开 https://api.slack.com/apps?new_app=1
-      - 如果未登录，先登录你的 Slack 工作空间
+   1. **Visit the Slack API page**:
+      - Open https://api.slack.com/apps?new_app=1
+      - If not logged in, log in to your Slack workspace first
 
-   2. **选择创建方式**：
-      - 点击 **"From scratch"**（从头开始创建）
+   2. **Select creation method**:
+      - Click **"From scratch"**
 
-   3. **填写 App 信息**：
-      - **App Name**：填写应用名称（如 `TrendRadar` 或 `热点新闻监控`）
-      - **Workspace**：从下拉列表选择你的工作空间
-      - 点击 **"Create App"** 按钮
+   3. **Fill in App information**:
+      - **App Name**: Enter the application name (e.g., `TrendRadar` or `Hot News Monitor`)
+      - **Workspace**: Select your workspace from the dropdown list
+      - Click the **"Create App"** button
 
-   ### 步骤 2：启用 Incoming Webhooks
+   ### Step 2: Enable Incoming Webhooks
 
-   1. **导航到 Incoming Webhooks**：
-      - 在左侧菜单中找到并点击 **"Incoming Webhooks"**
+   1. **Navigate to Incoming Webhooks**:
+      - Find and click **"Incoming Webhooks"** in the left menu
 
-   2. **启用功能**：
-      - 找到 **"Activate Incoming Webhooks"** 开关
-      - 将开关从 `OFF` 切换到 `ON`
-      - 页面会自动刷新显示新的配置选项
+   2. **Enable the feature**:
+      - Find the **"Activate Incoming Webhooks"** toggle
+      - Switch the toggle from `OFF` to `ON`
+      - The page will automatically refresh to show new configuration options
 
-   ### 步骤 3：生成 Webhook URL
+   ### Step 3: Generate Webhook URL
 
-   1. **添加新的 Webhook**：
-      - 滚动到页面底部
-      - 点击 **"Add New Webhook to Workspace"** 按钮
+   1. **Add a new Webhook**:
+      - Scroll to the bottom of the page
+      - Click the **"Add New Webhook to Workspace"** button
 
-   2. **选择目标频道**：
-      - 系统会弹出授权页面
-      - 从下拉列表中选择要接收消息的频道（如 `#热点新闻`）
-      - ⚠️ 如果要选择私有频道，必须先加入该频道
+   2. **Select the target channel**:
+      - The system will pop up an authorization page
+      - Select the channel to receive messages from the dropdown list (e.g., `#hot-news`)
+      - ⚠️ If you want to select a private channel, you must join that channel first
 
-   3. **授权应用**：
-      - 点击 **"Allow"** 按钮完成授权
-      - 系统会自动跳转回配置页面
+   3. **Authorize the app**:
+      - Click the **"Allow"** button to complete authorization
+      - The system will automatically redirect back to the configuration page
 
-   ### 步骤 4：复制并保存 Webhook URL
+   ### Step 4: Copy and save the Webhook URL
 
-   1. **查看生成的 URL**：
-      - 在 "Webhook URLs for Your Workspace" 区域
-      - 会看到刚刚生成的 Webhook URL
-      - 格式如：`https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX`
+   1. **View the generated URL**:
+      - In the "Webhook URLs for Your Workspace" section
+      - You will see the newly generated Webhook URL
+      - Format like: `https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX`
 
-   2. **复制 URL**：
-      - 点击 URL 右侧的 **"Copy"** 按钮
-      - 或手动选中 URL 并复制
+   2. **Copy the URL**:
+      - Click the **"Copy"** button on the right side of the URL
+      - Or manually select the URL and copy it
 
-   3. **配置到 TrendRadar**：
-      - **GitHub Actions**：将 URL 添加到 GitHub Secrets 中的 `SLACK_WEBHOOK_URL`
-      - **本地测试**：将 URL 填入 `config/config.yaml` 的 `slack_webhook_url` 字段
-      - **Docker 部署**：将 URL 添加到 `docker/.env` 文件的 `SLACK_WEBHOOK_URL` 变量
+   3. **Configure in TrendRadar**:
+      - **GitHub Actions**: Add the URL to `SLACK_WEBHOOK_URL` in GitHub Secrets
+      - **Local testing**: Fill the URL into the `slack_webhook_url` field in `config/config.yaml`
+      - **Docker deployment**: Add the URL to the `SLACK_WEBHOOK_URL` variable in the `docker/.env` file
 
    ---
 
-   **注意事项：**
-   - ✅ 支持 Markdown 格式（自动转换为 Slack mrkdwn）
-   - ✅ 支持自动分批推送（每批 4KB）
-   - ✅ 适合团队协作，消息集中管理
-   - ⚠️ Webhook URL 包含密钥，切勿公开
+   **Notes:**
+   - ✅ Supports Markdown format (automatically converted to Slack mrkdwn)
+   - ✅ Supports automatic batch pushing (4KB per batch)
+   - ✅ Suitable for team collaboration and centralized message management
+   - ⚠️ The Webhook URL contains a secret key, never make it public
 
-   **消息格式预览：**
+   **Message format preview:**
    ```
-   *[第 1/2 批次]*
+   *[Batch 1/2]*
 
-   📊 *热点词汇统计*
+   📊 *Trending Keywords Statistics*
 
-   🔥 *[1/3] AI ChatGPT* : 2 条
+   🔥 *[1/3] AI ChatGPT* : 2 items
 
-     1. [百度热搜] 🆕 ChatGPT-5正式发布 *[1]* - 09时15分 (1次)
+     1. [Baidu Hot Search] 🆕 ChatGPT-5 officially released *[1]* - 09:15 (1 time)
 
-     2. [今日头条] AI芯片概念股暴涨 *[3]* - [08时30分 ~ 10时45分] (3次)
+     2. [Toutiao] AI chip concept stocks surge *[3]* - [08:30 ~ 10:45] (3 times)
    ```
 
-   **相关链接：**
-   - [Slack Incoming Webhooks 官方文档](https://api.slack.com/messaging/webhooks)
-   - [Slack API 应用管理](https://api.slack.com/apps)
+   **Related Links:**
+   - [Slack Incoming Webhooks Official Documentation](https://api.slack.com/messaging/webhooks)
+   - [Slack API App Management](https://api.slack.com/apps)
 
    </details>
 
    <details>
-   <summary>👉 点击展开：<strong>通用 Webhook 推送</strong>（支持 Discord、Matrix、IFTTT 等）</summary>
+   <summary>👉 Click to expand: <strong>Generic Webhook Push</strong> (Supports Discord, Matrix, IFTTT, etc.)</summary>
    <br>
 
-   **GitHub Secret 配置（⚠️ Name 名称必须严格一致）：**
-   - **Name（名称）**：`GENERIC_WEBHOOK_URL`（请复制粘贴此名称，不要手打）
-   - **Secret（值）**：你的 Webhook URL
+   **GitHub Secret Configuration (⚠️ Name must be strictly identical):**
+   - **Name**: `GENERIC_WEBHOOK_URL` (Please copy and paste this name, do not type it manually)
+   - **Secret (Value)**: Your Webhook URL
 
-   - **Name（名称）**：`GENERIC_WEBHOOK_TEMPLATE`（可选配置，请复制粘贴此名称）
-   - **Secret（值）**：JSON 模板字符串，支持 `{title}` 和 `{content}` 占位符
+   - **Name**: `GENERIC_WEBHOOK_TEMPLATE` (Optional configuration, please copy and paste this name)
+   - **Secret (Value)**: JSON template string, supports `{title}` and `{content}` placeholders
 
    <br>
 
-   **通用 Webhook 简介：**
+   **Generic Webhook Introduction:**
 
-   通用 Webhook 支持任意接受 HTTP POST 请求的平台，包括但不限于：
-   - **Discord**：通过 Webhook 推送到频道
-   - **Matrix**：通过 Webhook 桥接推送
-   - **IFTTT**：触发自动化流程
-   - **自建服务**：任何支持 Webhook 的自定义服务
+   Generic Webhook supports any platform that accepts HTTP POST requests, including but not limited to:
+   - **Discord**: Push to channel via Webhook
+   - **Matrix**: Bridge push via Webhook
+   - **IFTTT**: Trigger automated workflows
+   - **Self-hosted services**: Any custom service that supports Webhooks
 
-   **配置示例：**
+   **Configuration Example:**
 
-   ### Discord 配置
+   ### Discord Configuration
 
-   1. **获取 Webhook URL**：
-      - 进入 Discord 服务器设置 → 整合 → Webhooks
-      - 创建新 Webhook，复制 URL
+   1. **Get Webhook URL**:
+      - Go to Discord Server Settings → Integrations → Webhooks
+      - Create a new Webhook, copy the URL
 
-   2. **配置模板**：
+   2. **Configure Template**:
       ```json
       {"content": "{content}"}
       ```
 
-   3. **GitHub Secret 配置**：
+   3. **GitHub Secret Configuration**:
       - `GENERIC_WEBHOOK_URL`：Discord Webhook URL
       - `GENERIC_WEBHOOK_TEMPLATE`：`{"content": "{content}"}`
 
-   ### 自定义模板
+   ### Custom Template
 
-   模板支持两个占位符：
-   - `{title}` - 消息标题
-   - `{content}` - 消息内容
+   The template supports two placeholders:
+   - `{title}` - Message title
+   - `{content}` - Message content
 
-   **模板示例**：
+   **Template Example**:
    ```json
-   # 默认格式（留空时使用）
+   # Default format (used when left blank)
    {"title": "{title}", "content": "{content}"}
 
-   # Discord 格式
+   # Discord format
    {"content": "{content}"}
 
-   # 自定义格式
+   # Custom format
    {"text": "{content}", "username": "TrendRadar"}
    ```
 
    ---
 
-   **注意事项：**
-   - ✅ 支持 Markdown 格式（与企业微信格式一致）
-   - ✅ 支持自动分批推送
-   - ✅ 支持多账号配置（用 `;` 分隔）
-   - ⚠️ 模板必须是有效的 JSON 格式
-   - ⚠️ 不同平台对消息格式要求不同，请参考目标平台文档
+   **Notes:**
+   - ✅ Supports Markdown format (consistent with WeCom format)
+   - ✅ Supports automatic batch pushing
+   - ✅ Supports multi-account configuration (separated by `;`)
+   - ⚠️ The template must be in a valid JSON format
+   - ⚠️ Different platforms have different requirements for message formats, please refer to the target platform's documentation
 
    </details>
 
    <br>
 
-### 3️⃣ 第三步：手动测试新闻推送
+### 3️⃣ Step 3: Manually test news push
 
-   > ⚠️ 提醒：
-   > - 完成第 1-2 步后，请立即测试！测试成功后再根据需要调整配置（第 4 步）
-   > - 请进入你自己的项目，不是本项目！
+   > ⚠️ Reminder:
+   > - After completing steps 1-2, please test immediately! Once the test is successful, adjust the configuration as needed (Step 4)
+   > - Please go to your own project, not this project!
 
-   **如何找到你的 Actions 页面**：
+   **How to find your Actions page**:
 
-   - **方法一**：打开你 fork 的项目主页，点击顶部的 **Actions** 标签
-   - **方法二**：直接访问 `https://github.com/你的用户名/TrendRadar/actions`
+   - **Method 1**: Open the homepage of your forked project and click the **Actions** tab at the top
+   - **Method 2**: Directly visit `https://github.com/your-username/TrendRadar/actions`
 
-   **示例对比**：
-   - ❌ 作者的项目：`https://github.com/sansan0/TrendRadar/actions`
-   - ✅ 你的项目：`https://github.com/你的用户名/TrendRadar/actions`
+   **Example comparison**:
+   - ❌ Author's project: `https://github.com/sansan0/TrendRadar/actions`
+   - ✅ Your project: `https://github.com/your-username/TrendRadar/actions`
 
-   **测试步骤**：
-   1. 进入你项目的 Actions 页面
-   2. 找到 **"Get Hot News"**(必须得是这个字)点进去，点击右侧的 **"Run workflow"** 按钮运行 
-      - 如果看不到该字样，参照 [#109](https://github.com/sansan0/TrendRadar/issues/109) 解决
-   3. 3 分钟左右，消息会推送到你配置的平台
-
-   <br>
-
-   > ⚠️ 提醒：
-   > - 手动测试不要太频繁，避免触发 GitHub Actions 限制
-   > - 点击 Run workflow 后需要刷新浏览器页面才能看到新的运行记录
+   **Test steps**:
+   1. Go to the Actions page of your project
+   2. Find **"Get Hot News"** (it must be exactly these words), click on it, and click the **"Run workflow"** button on the right to run it
+      - If you cannot see these words, refer to [#109](https://github.com/sansan0/TrendRadar/issues/109) to resolve it
+   3. In about 3 minutes, the message will be pushed to your configured platform
 
    <br>
 
-### 4️⃣ 第四步：配置说明（可选）
+   > ⚠️ Reminder:
+   > - Do not test manually too frequently to avoid triggering GitHub Actions limits
+   > - After clicking Run workflow, you need to refresh the browser page to see the new run record
 
-   默认配置已可正常使用，如需个性化调整，了解以下文件即可：
+   <br>
 
-   | 文件 | 作用 |
+### 4️⃣ Step 4: Configuration Instructions (Optional)
+
+   The default configuration is ready to use. If you need personalized adjustments, just understand the following files:
+
+   | File | Purpose |
    |------|------|
-   | `config/config.yaml` | 主配置文件：推送模式、时间窗口、平台列表、热点权重等 |
-   | `config/frequency_words.txt` | 关键词文件：设置你关心的词汇，筛选推送内容 |
-   | `config/ai_analysis_prompt.txt` | AI 提示词模板：自定义 AI 分析师的角色和分析维度 |
-   | `.github/workflows/crawler.yml` | 执行频率：控制多久运行一次（⚠️ 谨慎修改） |
+   | `config/config.yaml` | Main configuration file: push mode, time window, platform list, hot topic weights, etc. |
+   | `config/frequency_words.txt` | Keyword file: set the words you care about to filter pushed content |
+   | `config/ai_analysis_prompt.txt` | AI prompt template: customize the role and analysis dimensions of the AI analyst |
+   | `.github/workflows/crawler.yml` | Execution frequency: controls how often it runs (⚠️ modify with caution) |
 
-   👉 **详细配置教程**：[配置详解](#配置详解)
+   👉 **Detailed configuration tutorial**: [Configuration Details](#configuration-details)
 
    <br>
 
-### 5️⃣ 第五步：远程云存储 & 签到配置
+### 5️⃣ Step 5: Remote Cloud Storage & Check-in Configuration
 
-   **v4.0.0 重要变更**：引入「活跃度检测」机制，GitHub Actions 需定期签到以维持运行。
+   **v4.0.0 Important Change**: Introduced an "activity detection" mechanism; GitHub Actions requires regular check-ins to keep running.
 
-   - **运行周期**：有效期为 **7 天**，倒计时结束后服务将自动挂起。
-   - **续期方式**：在 Actions 页面手动触发 "Check In" workflow，即可重置 7 天有效期。
-   - **操作路径**：`Actions` → `Check In` → `Run workflow`
-   - **设计理念**：
-     - 如果 7 天都忘了签到，或许这些资讯对你来说并非刚需。适时的暂停，能帮你从信息流中抽离，给大脑留出喘息的空间。
-     - GitHub Actions 是宝贵的公共计算资源。引入签到机制旨在避免算力的无效空转，确保资源能分配给真正活跃且需要的用户。感谢你的理解与支持。
+   - **Run cycle**: The validity period is **7 days**, and the service will be automatically suspended after the countdown ends.
+   - **Renewal method**: Manually trigger the "Check In" workflow on the Actions page to reset the 7-day validity period.
+   - **Operation path**: `Actions` → `Check In` → `Run workflow`
+   - **Design philosophy**:
+     - If you forget to check in for 7 days, perhaps this information is not a rigid demand for you. A timely pause can help you detach from the information flow and give your brain some breathing room.
+     - GitHub Actions is a valuable public computing resource. The introduction of the check-in mechanism aims to avoid invalid idling of computing power and ensure that resources can be allocated to truly active users who need them. Thank you for your understanding and support.
 
    ---
 
-   **关于远程云存储配置（请根据部署方式选择）：**
+   **About remote cloud storage configuration (please choose according to your deployment method):**
 
-   - **GitHub Actions 用户**：
-     - **现状**：Actions 每次运行都是全新环境，不保存文件。如果不配置云存储，项目将运行在**轻量模式**（无增量推送、无历史追踪）。
-     - **建议**：配置远程云存储以获得完整体验。
+   - **GitHub Actions users**:
+     - **Current status**: Every time Actions runs, it is a brand new environment and does not save files. If cloud storage is not configured, the project will run in **lightweight mode** (no incremental push, no historical tracking).
+     - **Recommendation**: Configure remote cloud storage to get the full experience.
 
-   - **Docker / 本地用户**：
-     - **现状**：数据默认保存在本地硬盘。
-     - **建议**：云存储为可选项，可作为异地备份。
+   - **Docker / Local users**:
+     - **Current status**: Data is saved on the local hard drive by default.
+     - **Recommendation**: Cloud storage is optional and can be used as an off-site backup.
 
    <details>
-   <summary>👉 点击展开：<strong>远程云存储配置教程（以 Cloudflare R2 为例）</strong></summary>
+   <summary>👉 Click to expand: <strong>Remote Cloud Storage Configuration Tutorial (Using Cloudflare R2 as an example)</strong></summary>
    <br>
 
-   **⚠️ 前置条件（重要）：**
+   **⚠️ Prerequisites (Important):**
 
-   根据 Cloudflare 平台规则，开通 R2 需绑定支付方式。
+   According to Cloudflare platform rules, enabling R2 requires binding a payment method.
 
-   * **目的**：仅作身份验证（Verify Only），**不产生扣费**。
-   * **支付**：支持双币信用卡或国区 PayPal。
-   * **用量**：R2 的免费额度（10GB存储/月）足以覆盖本项目日常运行，无需担心付费。
+   * **Purpose**: For identity verification only (Verify Only), **no charges will be incurred**.
+   * **Payment**: Supports dual-currency credit cards or China region PayPal.
+   * **Usage**: R2's free tier (10GB storage/month) is sufficient to cover the daily operation of this project, so there is no need to worry about paying.
 
    ---
 
-   **GitHub Secret 配置（需添加 4 项）：**
+   **GitHub Secret Configuration (4 items need to be added):**
 
-   | Name（名称） | Secret（值）说明 |
+   | Name | Secret (Value) Description |
    |-------------|-----------------|
-   | `S3_BUCKET_NAME` | 存储桶名称（如 `trendradar-data`） |
-   | `S3_ACCESS_KEY_ID` | 访问密钥 ID（Access Key ID） |
-   | `S3_SECRET_ACCESS_KEY` | 访问密钥（Secret Access Key） |
-   | `S3_ENDPOINT_URL` | S3 API 端点（如 R2：`https://<account-id>.r2.cloudflarestorage.com`） |
+   | `S3_BUCKET_NAME` | Bucket name (e.g., `trendradar-data`) |
+   | `S3_ACCESS_KEY_ID` | Access Key ID |
+   | `S3_SECRET_ACCESS_KEY` | Secret Access Key |
+   | `S3_ENDPOINT_URL` | S3 API endpoint (e.g., for R2: `https://<account-id>.r2.cloudflarestorage.com`) |
 
-   **可选配置：**
+   **Optional Configuration:**
 
-   | Name（名称） | Secret（值）说明 |
+   | Name | Secret (Value) Description |
    |-------------|-----------------|
-   | `S3_REGION` | 区域（默认 `auto`，部分服务商可能需要指定） |
+   | `S3_REGION` | Region (default is `auto`, some providers may require specifying it) |
 
-   > 💡 **更多存储配置选项**：参见 [数据保存在哪里？](#11-数据保存在哪里)
+   > 💡 **More storage configuration options**: See [Where is the data saved?](#11-Where is the data saved)
 
    <br>
 
-   **详细操作步骤（获取凭据）：**
+   **Detailed Steps (Getting Credentials):**
 
-   1. **进入 R2 概览**：
-      - 登录 [Cloudflare Dashboard](https://dash.cloudflare.com/)。
-      - 在左侧侧边栏找到并点击 `R2对象存储`。
+   1. **Enter R2 Overview**:
+      - Log in to the [Cloudflare Dashboard](https://dash.cloudflare.com/).
+      - Find and click `R2 Object Storage` in the left sidebar.
 
-   2. **创建存储桶**：
-      - 点击`概述`
-      - 点击右上角的 `创建存储桶` (Create bucket)。
-      - 输入名称（例如 `trendradar-data`），点击 `创建存储桶`。
+   2. **Create a Bucket**:
+      - Click `Overview`
+      - Click `Create bucket` in the top right corner.
+      - Enter a name (e.g., `trendradar-data`), and click `Create bucket`.
 
-   3. **创建 API 令牌**：
-      - 回到 **概述**页面。
-      - 点击**右下角** `Account Details `找到并点击 `Manage` (Manage R2 API Tokens)。
-      - 同时你会看到 `S3 API`：`https://<account-id>.r2.cloudflarestorage.com`(这就是 S3_ENDPOINT_URL)
-      - 点击 `创建 Account APl 令牌` 。
-      - **⚠️ 关键设置**：
-        - **令牌名称**：随意填写（如 `github-action-write`）。
-        - **权限**：选择 `管理员读和写` 。
-        - **指定存储桶**：为了安全，建议选择 `仅适用于指定存储桶` 并选中你的桶（如 `trendradar-data`）。
-      - 点击 `创建 API 令牌`，**立即复制** 显示的 `Access Key ID` 和 `Secret Access Key`（只显示一次！）。
+   3. **Create an API Token**:
+      - Return to the **Overview** page.
+      - Click `Account Details` in the **bottom right corner**, find and click `Manage` (Manage R2 API Tokens).
+      - At the same time, you will see the `S3 API`: `https://<account-id>.r2.cloudflarestorage.com` (This is the S3_ENDPOINT_URL)
+      - Click `Create Account API Token`.
+      - **⚠️ Key Settings**:
+        - **Token Name**: Fill in anything (e.g., `github-action-write`).
+        - **Permissions**: Select `Admin Read and Write`.
+        - **Specify Bucket**: For security, it is recommended to select `Apply to specific buckets only` and choose your bucket (e.g., `trendradar-data`).
+      - Click `Create API Token`, and **immediately copy** the displayed `Access Key ID` and `Secret Access Key` (they are only shown once!).
 
    </details>
 
    <br>
 
-### 6️⃣ 第六步：开启 AI 分析推送
+### 6️⃣ Step 6: Enable AI Analysis Push
 
-   这是 v5.0.0 的核心功能，让 AI 帮你总结和分析新闻，建议尝试。
+   This is the core feature of v5.0.0, letting AI help you summarize and analyze news. It is highly recommended to try it.
 
-   **配置方法：**
-   在 GitHub Secrets (或 `.env` / `config.yaml`) 中添加：
-   - `AI_API_KEY`: 你的 API Key（支持 DeepSeek、OpenAI 等）
-   - `AI_PROVIDER`: 服务商名称（如 `deepseek`, `openai`）
+   **Configuration Method:**
+   Add the following to GitHub Secrets (or `.env` / `config.yaml`):
+   - `AI_API_KEY`: Your API Key (supports DeepSeek, OpenAI, etc.)
+   - `AI_PROVIDER`: Provider name (e.g., `deepseek`, `openai`)
 
-   就这样，无需复杂部署，下次推送时你就会看到智能分析报告了。
-
-   <br>
-
-### 7️⃣ 第七步：🎉 部署成功！
-
-   恭喜！现在你可以开始享受 TrendRadar 带来的高效信息流了。
-
-   💬 **加入社区**：欢迎关注公众号「**[硅基茶水间](#-支持项目)**」，分享你的使用心得和高级玩法。
+   That's it, no complex deployment required. You will see the intelligent analysis report in the next push.
 
    <br>
 
-### 8️⃣ 第八步：进阶：选择你的 AI 助手
+### 7️⃣ Step 7: 🎉 Deployment Successful!
 
-   TrendRadar 提供了两种 AI 使用方式，满足不同需求：
+   Congratulations! Now you can start enjoying the efficient information flow brought by TrendRadar.
 
-   | 特性 | ✨ AI 分析推送 | 🧠 AI 智能分析 |
+   💬 **Join the Community**: Welcome to follow the WeChat official account "**[Silicon-based Breakroom](#-supported project)**" to share your experience and advanced usage.
+
+   <br>
+
+### 8️⃣ Step 8: Advanced: Choose Your AI Assistant
+
+   TrendRadar provides two ways to use AI to meet different needs:
+
+   | Feature | ✨ AI Analysis Push | 🧠 AI Intelligent Analysis |
    | :--- | :--- | :--- |
-   | **模式** | **被动接收** (每日日报) | **主动对话** (深度调研) |
-   | **场景** | "今天有什么大事？" | "分析一下过去一周 AI 行业的变化" |
-   | **部署** | 极简 (填 Key 即可) | 进阶 (需本地运行/Docker) |
-   | **客户端** | 手机 |  电脑 |
+   | **Mode** | **Passive Reception** (Daily Report) | **Active Dialogue** (In-depth Research) |
+   | **Scenario** | "What are the big events today?" | "Analyze the changes in the AI industry over the past week" |
+   | **Deployment** | Minimalist (Just fill in the Key) | Advanced (Requires local run/Docker) |
+   | **Client** | Mobile | Computer |
   
 
-   👉 **结论**：先用 **AI 分析推送** 满足日常需求；如果你是数据分析师或需要深度挖掘，再尝试 **[AI 智能分析](#-ai-智能分析)**。
+   👉 **Conclusion**: Use **AI Analysis Push** first to meet daily needs; if you are a data analyst or need in-depth mining, then try **[AI Intelligent Analysis](#-ai- Intelligent Analysis)**.
 
 <br>
 
-<a name="配置详解"></a>
+<a name="Configuration details"></a>
 
-## ⚙️ 配置详解
+## ⚙️ Configuration Details
 
-> **📖 提醒**：本章节提供详细的配置说明，建议先完成 [快速开始](#-快速开始) 的基础配置，再根据需要回来查看详细选项。
+> **📖 Reminder**: This section provides detailed configuration instructions. It is recommended to complete the basic configuration in [Quick Start](#-Quick Start) first, and then come back to check the detailed options as needed.
 
-### 1. 我要看哪些平台？
+### 1. Which platforms do I want to watch?
 
-<details id="自定义监控平台">
-<summary>👉 点击展开：<strong>选择资讯来源</strong></summary>
+<details id="Customized monitoring platform">
+<summary>👉 Click to expand: <strong>Select Information Sources</strong></summary>
 <br>
 
-**配置位置：** `config/config.yaml` 的 `platforms` 部分
+**Configuration Location:** The `platforms` section of `config/config.yaml`
 
-本项目的资讯数据来源于 [newsnow](https://github.com/ourongxing/newsnow) ，你可以点击[网站](https://newsnow.busiyi.world/)，点击[更多]，查看是否有你想要的平台。
+The information data of this project comes from [newsnow](https://github.com/ourongxing/newsnow). You can click on the [website](https://newsnow.busiyi.world/), click [More], and check if there are platforms you want.
 
-具体添加可访问 [项目源代码](https://github.com/ourongxing/newsnow/tree/main/server/sources)，根据里面的文件名，在 `config/config.yaml` 文件中修改 `platforms` 配置：
+For specific additions, you can visit the [project source code](https://github.com/ourongxing/newsnow/tree/main/server/sources), and modify the `platforms` configuration in the `config/config.yaml` file according to the file names inside:
 
 ```yaml
 platforms:
-  enabled: true                       # 是否启用热榜平台抓取
+  enabled: true                       # Whether to enable hotlist platform scraping
   sources:
     - id: "toutiao"
-      name: "今日头条"
+      name: "Today's headlines"
     - id: "baidu"
-      name: "百度热搜"
+      name: "Baidu Hot Search"
     - id: "wallstreetcn-hot"
-      name: "华尔街见闻"
-    # 添加更多平台...
+      name: "Wall Street Insights"
+    # Add more platforms...
 ```
 
-> 💡 **快捷方式**：如果不会看源代码，可以复制他人整理好的 [平台配置汇总](https://github.com/sansan0/TrendRadar/issues/95)
+> 💡 **Shortcut**: If you don't know how to read the source code, you can copy the [Platform Configuration Summary](https://github.com/sansan0/TrendRadar/issues/95) compiled by others.
 
-> ⚠️ **注意**：平台不是越多越好，建议选择 10-15 个核心平台。过多平台会导致信息过载，反而降低使用体验。
+> ⚠️ **Note**: More platforms is not always better. It is recommended to choose 10-15 core platforms. Too many platforms will lead to information overload and reduce the user experience.
 
 </details>
 
-### 2. 我关心什么内容？
+### 2. What content do I care about?
 
-在 `frequency_words.txt` 文件中告诉机器人你想看什么，它就会帮你盯着。支持普通词、必须词、过滤词等多种玩法。
+Tell the bot what you want to see in the `frequency_words.txt` file, and it will keep an eye on it for you. It supports various usages such as normal words, required words, and filter words.
 
-| 语法类型 | 符号 | 作用 | 示例 | 匹配逻辑 |
+| Syntax Type | Symbol | Function | Example | Matching Logic |
 |---------|------|------|------|---------|
-| **普通词** | 无 | 基础匹配 | `华为` | 包含任意一个即可 |
-| **必须词** | `+` | 限定范围 | `+手机` | 必须同时包含 |
-| **过滤词** | `!` | 排除干扰 | `!广告` | 包含则直接排除 |
-| **数量限制** | `@` | 控制显示数量 | `@10` | 最多显示10条新闻（v3.2.0新增） |
-| **全局过滤** | `[GLOBAL_FILTER]` | 全局排除指定内容 | 见下方示例 | 任何情况下都过滤（v3.5.0新增） |
-| **正则表达式** | `/pattern/` | 精确匹配模式 | `/\bai\b/` | 使用正则表达式匹配（v4.7.0新增） |
-| **显示名称** | `=> 备注` | 自定义显示文本 | `/\bai\b/ => AI相关` | 推送和HTML显示备注名称（v4.7.0新增） |
+| **Normal Word** | None | Basic matching | `Huawei` | Contains any one of them |
+| **Required Word** | `+` | Limit scope | `+` | Must contain simultaneously |
+| **Filter Word** | `!` | Exclude interference | `!Advertisement` | Exclude directly if contained |
+| **Quantity Limit** | `@` | Control display quantity | `@10` | Display up to 10 news items (Added in v3.2.0) |
+| **Global Filter** | `[GLOBAL_FILTER]` | Globally exclude specified content | See example below | Filter under any circumstances (Added in v3.5.0) |
+| **Regular Expression** | `/pattern/` | Exact match pattern | `/\bai\b/` | Match using regular expressions (Added in v4.7.0) |
+| **Display Name** | `=> Remark` | Custom display text | `/\bai\b/ => AI related` | Push and HTML display remark name (Added in v4.7.0) |
 
-#### 2.1 基础语法
+#### 2.1 Basic Syntax
 
-<a name="关键词基础语法"></a>
+<a name="Keyword basic syntax"></a>
 
 <details>
-<summary>👉 点击展开：<strong>基础语法教程</strong></summary>
+<summary>👉 Click to expand: <strong>Basic Syntax Tutorial</strong></summary>
 <br>
 
-**配置位置：** `config/frequency_words.txt`
+**Configuration location:** `config/frequency_words.txt`
 
-##### 1. **普通关键词** - 基础匹配
+##### 1. **Normal Keywords** - Basic matching
 ```txt
-华为
+Huawei
 OPPO
-苹果
+Apple
 ```
-**作用：** 新闻标题包含其中**任意一个词**就会被捕获
+**Function:** News titles containing **any of these words** will be captured
 
-##### 2. **必须词** `+词汇` - 限定范围
+##### 2. **Required Words** `+word` - Limit scope
 ```txt
-华为
+Huawei
 OPPO
-+手机
++phone
 ```
-**作用：** 必须同时包含普通词**和**必须词才会被捕获
+**Function:** Must contain both normal words **and** required words to be captured
 
-##### 3. **过滤词** `!词汇` - 排除干扰
+##### 3. **Filter Words** `!word` - Exclude interference
 ```txt
-苹果
-华为
-!水果
-!价格
+Apple
+Huawei
+!fruit
+!price
 ```
-**作用：** 包含过滤词的新闻会被**直接排除**，即使包含关键词
+**Function:** News containing filter words will be **directly excluded**, even if they contain keywords
 
-##### 4. **数量限制** `@数字` - 控制显示数量（v3.2.0 新增）
+##### 4. **Quantity Limit** `@number` - Control display quantity (Added in v3.2.0)
 ```txt
-特斯拉
-马斯克
+Tesla
+Musk
 @5
 ```
-**作用：** 限制该关键词组最多显示的新闻条数
+**Function:** Limit the maximum number of news items displayed for this keyword group
 
-**配置优先级：** `@数字` > 全局配置 > 不限制
+**Configuration priority:** `@number` > Global configuration > No limit
 
-##### 5. **全局过滤** `[GLOBAL_FILTER]` - 全局排除指定内容（v3.5.0 新增）
+##### 5. **Global Filter** `[GLOBAL_FILTER]` - Globally exclude specified content (Added in v3.5.0)
 ```txt
 [GLOBAL_FILTER]
-广告
-推广
-营销
-震惊
-标题党
+Advertisement
+Promotion
+Marketing
+Shocking
+Clickbait
 
 [WORD_GROUPS]
-科技
+Technology
 AI
 
-华为
-鸿蒙
-!车
+Huawei
+HarmonyOS
+!car
 ```
-**作用：** 在任何情况下过滤包含指定词的新闻，**优先级最高**
+**Function:** Filter news containing specified words under any circumstances, **highest priority**
 
-**使用场景：**
-- 过滤低质内容：震惊、标题党、爆料等
-- 过滤营销内容：广告、推广、赞助等
-- 过滤特定主题：娱乐、八卦（根据需求）
+**Use cases:**
+- Filter low-quality content: shocking, clickbait, leaks, etc.
+- Filter marketing content: advertisements, promotions, sponsorships, etc.
+- Filter specific topics: entertainment, gossip (according to needs)
 
-**过滤优先级：** 全局过滤 > 词组内过滤(`!`) > 词组匹配
+**Filter priority:** Global filter > Intra-group filter (`!`) > Group matching
 
-**区域说明：**
-- `[GLOBAL_FILTER]`：全局过滤区，包含的词在任何情况下都会被过滤
-- `[WORD_GROUPS]`：词组区，保持现有语法（`!`、`+`、`@`）
-- 如果不使用区域标记，默认全部作为词组处理（向后兼容）
+**Section description:**
+- `[GLOBAL_FILTER]`: Global filter section, included words will be filtered under any circumstances
+- `[WORD_GROUPS]`: Word group section, keeps existing syntax (`!`, `+`, `@`)
+- If no region markers are used, all are treated as phrases by default (backward compatible)
 
-**匹配示例：**
+**Match examples:**
 ```txt
 [GLOBAL_FILTER]
-广告
+Ads
 
 [WORD_GROUPS]
-科技
+Technology
 AI
 ```
-- ❌ "广告：最新科技产品发布" ← 包含全局过滤词"广告"，直接拒绝
-- ✅ "科技公司发布AI新产品" ← 不包含全局过滤词，匹配"科技"词组
-- ✅ "AI技术突破引发关注" ← 不包含全局过滤词，匹配"科技"词组中的"AI"
+- ❌ "Ads: Latest tech product release" ← Contains the global filter word "Ads", rejected directly
+- ✅ "Tech company releases new AI product" ← Does not contain global filter words, matches the "Technology" phrase
+- ✅ "AI technology breakthrough attracts attention" ← Does not contain global filter words, matches "AI" in the "Technology" phrase
 
-**注意事项：**
-- 全局过滤词应谨慎使用，避免过度过滤导致遗漏有价值内容
-- 建议全局过滤词控制在 5-15 个以内
-- 对于特定词组的过滤，优先使用词组内过滤词（`!` 前缀）
+**Notes:**
+- Global filter words should be used with caution to avoid over-filtering and missing valuable content
+- It is recommended to keep the number of global filter words within 5-15
+- For filtering specific phrases, prioritize using intra-phrase filter words (with the `!` prefix)
 
-##### 6. **正则表达式** `/pattern/` - 精确匹配模式（v4.7.0 新增）
+##### 6. **Regular Expressions** `/pattern/` - Exact match mode (New in v4.7.0)
 
-普通关键词使用子字符串匹配，这在中文环境下很方便，但在英文环境可能会产生误匹配。例如 `ai` 会匹配到 `training` 中的 `ai`。
+Normal keywords use substring matching, which is convenient in a Chinese environment but may cause false matches in an English environment. For example, `ai` will match the `ai` in `training`.
 
-使用正则表达式语法 `/pattern/` 可以实现精确匹配：
+Using the regular expression syntax `/pattern/` enables exact matching:
 
 ```txt
 /(?<![a-z])ai(?![a-z])/
-人工智能
+Artificial Intelligence
 ```
 
-**作用：** 使用正则表达式进行匹配，支持所有 Python 正则语法
+**Function:** Uses regular expressions for matching, supporting all Python regex syntax
 
-**常用正则模式：**
+**Common regex patterns:**
 
-| 需求 | 正则写法 | 说明 |
+| Requirement | Regex Syntax | Description |
 |------|---------|------|
-| 英文单词边界 | `/\bword\b/` | 匹配独立单词，如 `/\bai\b/` 匹配 "AI" 但不匹配 "training" |
-| 前后非字母 | `/(?<![a-z])ai(?![a-z])/` | 更宽松的边界，适合中英混合场景 |
-| 开头匹配 | `/^breaking/` | 只匹配以 "breaking" 开头的标题 |
-| 结尾匹配 | `/发布$/` | 只匹配以 "发布" 结尾的标题 |
-| 多选一 | `/苹果\|华为\|小米/` | 匹配其中任意一个（注意转义 `\|`） |
+| English word boundary | `/\bword\b/` | Matches independent words, e.g., `/\bai\b/` matches "AI" but not "training" |
+| Non-letter before and after | `/(?<![a-z])ai(?![a-z])/` | Looser boundaries, suitable for mixed Chinese and English scenarios |
+| Match at beginning | `/^breaking/` | Only matches titles starting with "breaking" |
+| Match at end | `/release$/` | Only matches titles ending with "release" |
+| Match any of multiple | `/Apple\|Huawei\|Xiaomi/` | Matches any one of them (note the escaped `\|`) |
 
-**匹配示例：**
+**Match examples:**
 ```txt
-# 配置
+# Configuration
 /(?<![a-z])ai(?![a-z])/
-人工智能
+Artificial Intelligence
 ```
 
-- ✅ "AI is the future" ← 匹配独立的 "AI"
-- ✅ "你好ai这里" ← 前后是中文，匹配 "ai"
-- ✅ "人工智能发展迅速" ← 匹配 "人工智能"
-- ❌ "Resistance training is important" ← "training" 中的 "ai" 不匹配
-- ❌ "The maid cleaned the room" ← "maid" 中的 "ai" 不匹配
+- ✅ "AI is the future" ← Matches the independent "AI"
+- ✅ "aihehe" ← Surrounded by Chinese, matches "ai"
+- ✅ "Artificial Intelligence develops rapidly" ← Matches "Artificial Intelligence"
+- ❌ "Resistance training is important" ← The "ai" in "training" does not match
+- ❌ "The maid cleaned the room" ← The "ai" in "maid" does not match
 
-**组合使用：**
+**Combined usage:**
 ```txt
-# 正则 + 普通词 + 过滤词
+# Regex + Normal word + Filter word
 /\bai\b/
-人工智能
-机器学习
-!广告
+Artificial Intelligence
+Machine Learning
+!Ads
 ```
 
-**注意事项：**
-- 正则表达式自动启用大小写不敏感匹配（`re.IGNORECASE`）
-- 支持 `/pattern/i` 等 JavaScript 风格写法（flags 会被忽略，因为默认已启用忽略大小写）
-- 无效的正则语法会被当作普通词处理
-- 正则可用于普通词、必须词(`+`)、过滤词(`!`)
+**Notes:**
+- Regular expressions automatically enable case-insensitive matching (`re.IGNORECASE`)
+- Supports JavaScript-style syntax like `/pattern/i` (flags will be ignored since case-insensitivity is enabled by default)
+- Invalid regex syntax will be treated as normal words
+- Regex can be used for normal words, required words (`+`), and filter words (`!`)
 
-**💡 不会写正则？让 AI 帮你生成！**
+**💡 Don't know how to write regex? Let AI generate it for you!**
 
-如果你不熟悉正则表达式，可以直接让 ChatGPT / Gemini / DeepSeek 帮你生成。只需告诉 AI：
+If you are not familiar with regular expressions, you can directly ask ChatGPT / Gemini / DeepSeek to generate them for you. Just tell the AI:
 
-> 我需要一个 Python 正则表达式，用于匹配英文单词 "ai"，但不匹配 "training" 中的 "ai"。
-> 请直接给出正则表达式，格式为 `/pattern/`，不需要额外解释。
+> I need a Python regular expression to match the English word "ai", but not the "ai" in "training".
+> Please provide the regular expression directly in the format `/pattern/`, without any extra explanation.
 
-AI 会给你类似这样的结果：`/(?<![a-zA-Z])ai(?![a-zA-Z])/`
+The AI will give you a result like this: `/(?<![a-zA-Z])ai(?![a-zA-Z])/`
 
-##### 7. **显示名称** `=> 备注` - 自定义显示文本（v4.7.0 新增）
+##### 7. **Display Name** `=> Remark` - Custom display text (New in v4.7.0)
 
-正则表达式在推送消息和 HTML 页面显示时可能不太友好。使用 `=> 备注` 语法可以设置显示名称：
+Regular expressions might not be very user-friendly when displayed in push messages and HTML pages. Use the `=> Remark` syntax to set a display name:
 
 ```txt
-/(?<![a-zA-Z])ai(?![a-zA-Z])/ => AI 相关
-人工智能
+/(?<![a-zA-Z])ai(?![a-zA-Z])/ => AI Related
+Artificial Intelligence
 ```
 
-**作用：** 推送消息和 HTML 页面显示 "AI 相关" 而不是复杂的正则表达式
+**Effect:** Push messages and HTML pages will display "AI Related" instead of the complex regular expression
 
-**语法格式：**
+**Syntax Format:**
 ```txt
-# 正则 + 显示名称
-/pattern/ => 显示名称
-/pattern/i => 显示名称    # 支持 flags 写法（flags 被忽略）
-/pattern/=>显示名称       # => 两边空格可选
+# Regex + Display Name
+/pattern/ => Display Name
+/pattern/i => Display Name    # Supports flags syntax (flags are ignored)
+/pattern/=>Display Name       # Spaces around => are optional
 
-# 普通词 + 显示名称
-deepseek => DeepSeek 动态
+# Normal word + Display Name
+deepseek => DeepSeek Updates
 ```
 
-**匹配示例：**
+**Matching Example:**
 ```txt
-# 配置
-/(?<![a-zA-Z])ai(?![a-zA-Z])/ => AI 相关
-人工智能
+# Configuration
+/(?<![a-zA-Z])ai(?![a-zA-Z])/ => AI Related
+Artificial Intelligence
 ```
 
-| 原始配置 | 推送/HTML 显示 |
+| Original Configuration | Push/HTML Display |
 |---------|---------------|
-| `/(?<![a-z])ai(?![a-z])/` + `人工智能` | `(?<![a-z])ai(?![a-z]) 人工智能` |
-| `/(?<![a-z])ai(?![a-z])/ => AI 相关` + `人工智能` | **`AI 相关`** |
+| `/(?<![a-z])ai(?![a-z])/` + `Artificial Intelligence` | `(?<![a-z])ai(?![a-z]) Artificial Intelligence` |
+| `/(?<![a-z])ai(?![a-z])/ => AI Related` + `Artificial Intelligence` | **`AI Related`** |
 
-**注意事项：**
-- 显示名称只需写在词组的第一个词上
-- 如果词组中多个词都有显示名称，使用第一个
-- 不设置显示名称时，自动使用词组内所有词拼接
+**Notes:**
+- The display name only needs to be written on the first word of the phrase group
+- If multiple words in a phrase group have display names, the first one is used
+- When no display name is set, all words in the phrase group are automatically concatenated
 
 ---
 
-#### 🔗 词组功能 - 空行分隔的重要作用
+#### 🔗 Phrase Group Feature - The Important Role of Blank Line Separation
 
-**核心规则：** 用**空行**分隔不同的词组，每个词组独立统计
+**Core Rule:** Use **blank lines** to separate different phrase groups, each group is counted independently
 
-##### 示例配置：
+##### Example Configuration:
 ```txt
 iPhone
-华为
+Huawei
 OPPO
-+发布
++Release
 
-A股
-上证
-深证
-+涨跌
-!预测
+A-shares
+SSE
+SZSE
++Fluctuation
+!Prediction
 
-世界杯
-欧洲杯
-亚洲杯
-+比赛
+World Cup
+European Cup
+Asian Cup
++Match
 ```
 
-##### 词组解释及匹配效果：
+##### Phrase explanation and matching results:
 
-**第1组 - 手机新品类：**
-- 关键词：iPhone、华为、OPPO
-- 必须词：发布
-- 效果：必须包含手机品牌名，同时包含"发布"
+**Group 1 - New Mobile Phones:**
+- Keywords: iPhone, Huawei, OPPO
+- Required words: Launch
+- Effect: Must contain the mobile phone brand name, and also contain "Launch"
 
-**匹配示例：**
-- ✅ "iPhone 15正式发布售价公布" ← 有"iPhone"+"发布"
-- ✅ "华为Mate60系列发布会直播" ← 有"华为"+"发布"
-- ✅ "OPPO Find X7发布时间确定" ← 有"OPPO"+"发布"
-- ❌ "iPhone销量创新高" ← 有"iPhone"但缺少"发布"
+**Matching examples:**
+- ✅ "iPhone 15 officially launched, price announced" ← Contains "iPhone" + "Launch"
+- ✅ "Huawei Mate60 series launch event live stream" ← Contains "Huawei" + "Launch"
+- ✅ "OPPO Find X7 launch time confirmed" ← Contains "OPPO" + "Launch"
+- ❌ "iPhone sales hit a new high" ← Contains "iPhone" but missing "Launch"
 
-**第2组 - 股市行情类：**
-- 关键词：A股、上证、深证
-- 必须词：涨跌
-- 过滤词：预测
-- 效果：关注股市涨跌实况，排除预测类内容
+**Group 2 - Stock Market Trends:**
+- Keywords: A-shares, SSE, SZSE
+- Required words: Rise/Fall
+- Filter words: Predict
+- Effect: Focus on actual stock market rise/fall, exclude prediction-related content
 
-**匹配示例：**
-- ✅ "A股今日大幅涨跌分析" ← 有"A股"+"涨跌"
-- ✅ "上证指数涨跌幅创新高" ← 有"上证"+"涨跌"
-- ❌ "专家预测A股涨跌趋势" ← 有"A股"+"涨跌"但包含"预测"
+**Matching examples:**
+- ✅ "Analysis of significant rise/fall in A-shares today" ← Contains "A-shares" + "Rise/Fall"
+- ✅ "SSE index rise/fall margin hits a new high" ← Contains "SSE" + "Rise/Fall"
+- ❌ "Experts predict A-shares rise/fall trend" ← Contains "A-shares" + "Rise/Fall" but includes "Predict"
 
-**第3组 - 足球赛事类：**
-- 关键词：世界杯、欧洲杯、亚洲杯
-- 必须词：比赛
-- 效果：只关注比赛相关新闻
+**Group 3 - Football Matches:**
+- Keywords: World Cup, European Cup, Asian Cup
+- Required words: Match
+- Effect: Only focus on match-related news
 
 ---
 
-#### 📝 配置技巧
+#### 📝 Configuration Tips
 
-##### 1. **从宽到严**
+##### 1. **From Broad to Strict**
 ```txt
-# 第一步：先用宽泛关键词测试
-人工智能
+# Step 1: Test with broad keywords first
+Artificial Intelligence
 AI
 ChatGPT
 
-# 第二步：发现误匹配后，加入必须词限定
-人工智能
+# Step 2: After finding false matches, add required words to limit
+Artificial Intelligence
 AI
 ChatGPT
-+技术
++Technology
 
-# 第三步：发现干扰内容后，加入过滤词
-人工智能
+# Step 3: After finding interfering content, add filter words
+Artificial Intelligence
 AI
 ChatGPT
-+技术
-!广告
-!培训
++Technology
+!Ads
+!Training
 ```
 
-##### 2. **避免过度复杂**
+##### 2. **Avoid Overcomplication**
 
-❌ **不推荐：** 一个词组包含太多词汇
+❌ **Not recommended:** A phrase containing too many words
 ```txt
-华为
+Huawei
 OPPO
-苹果
-三星
+Apple
+Samsung
 vivo
-一加
-魅族
-+手机
-+发布
-+销量
-!假货
-!维修
-!二手
+OnePlus
+Meizu
++Smartphone
++Release
++Sales
+!Fake
+!Repair
+!Second-hand
 ```
 
-✅ **推荐：** 拆分成多个精确的词组
+✅ **Recommended:** Split into multiple precise phrases
 ```txt
-华为
+Huawei
 OPPO
-+新品
++New product
 
-苹果
-三星
-+发布
+Apple
+Samsung
++Release
 
-手机
-销量
-+市场
+Smartphone
+Sales
++Market
 ```
 
 </details>
 
-#### 2.2 高级配置（v3.2.0 新增）
+#### 2.2 Advanced Configuration (New in v3.2.0)
 
-<a name="关键词高级配置"></a>
+<a name="keyword-advanced-configuration"></a>
 
 <details>
-<summary>👉 点击展开：<strong>高级配置教程</strong></summary>
+<summary>👉 Click to expand: <strong>Advanced Configuration Tutorial</strong></summary>
 <br>
 
-##### 关键词排序优先级
+##### Keyword Sorting Priority
 
-**配置位置：** `config/config.yaml`
+**Configuration Location:** `config/config.yaml`
 
 ```yaml
 report:
-  sort_by_position_first: false  # 排序优先级配置
+  sort_by_position_first: false  # Sorting priority configuration
 ```
 
-| 配置值 | 排序规则 | 适用场景 |
+| Configuration Value | Sorting Rule | Applicable Scenario |
 |--------|---------|---------|
-| `false`（默认） | 热点条数 ↓ → 配置位置 ↑ | 关注热度趋势 |
-| `true` | 配置位置 ↑ → 热点条数 ↓ | 关注个人优先级 |
+| `false` (Default) | Hot news count ↓ → Configuration order ↑ | Focus on popularity trends |
+| `true` | Configuration order ↑ → Hot news count ↓ | Focus on personal priority |
 
-**示例：** 配置顺序 A、B、C，热点数 A(3条)、B(10条)、C(5条)
-- `false`：B(10条) → C(5条) → A(3条)
-- `true`：A(3条) → B(10条) → C(5条)
+**Example:** Configuration order A, B, C, hot news count A (3 items), B (10 items), C (5 items)
+- `false`: B (10 items) → C (5 items) → A (3 items)
+- `true`: A (3 items) → B (10 items) → C (5 items)
 
-##### 全局显示数量限制
+##### Global Display Quantity Limit
 
 ```yaml
 report:
-  max_news_per_keyword: 10  # 每个关键词最多显示10条（0=不限制）
+  max_news_per_keyword: 10  # Display up to 10 items per keyword (0 = unlimited)
 ```
 
-**Docker 环境变量：**
+**Docker Environment Variables:**
 ```bash
 SORT_BY_POSITION_FIRST=true
 MAX_NEWS_PER_KEYWORD=10
 ```
 
-**综合示例：**
+**Comprehensive Example:**
 ```yaml
 # config.yaml
 report:
-  sort_by_position_first: true   # 按配置顺序优先
-  max_news_per_keyword: 10       # 全局默认每个关键词最多10条
+  sort_by_position_first: true   # Prioritize by configuration order
+  max_news_per_keyword: 10       # Global default max 10 items per keyword
 ```
 
 ```txt
 # frequency_words.txt
-特斯拉
-马斯克
-@20              # 重点关注，显示20条（覆盖全局配置）
+Tesla
+Musk
+@20              # Focus, show 20 items (overrides global config)
 
-华为            # 使用全局配置，显示10条
+Huawei            # Uses global config, shows 10 items
 
-比亚迪
-@5               # 限制5条
+BYD
+@5               # Limit to 5 items
 ```
 
-**最终效果：** 按配置顺序显示 特斯拉(20条) → 华为(10条) → 比亚迪(5条)
+**Final effect:** Displayed in configured order: Tesla (20 items) → Huawei (10 items) → BYD (5 items)
 
 </details>
 
-### 3. 推送模式选哪个？
+### 3. Which push mode to choose?
 
 <details>
-<summary>👉 点击展开：<strong>三种推送模式详细对比</strong></summary>
+<summary>👉 Click to expand: <strong>Detailed comparison of the three push modes</strong></summary>
 <br>
 
-**配置位置：** `config/config.yaml` 的 `report.mode`
+**Configuration location:** `report.mode` in `config/config.yaml`
 
 ```yaml
 report:
-  mode: "daily"  # 可选: "daily" | "incremental" | "current"
+  mode: "daily"  # Optional: "daily" | "incremental" | "current"
 ```
 
-#### 详细对比表格
+#### Detailed comparison table
 
-| 模式 | 适用人群 | 推送时机 | 显示内容 | 典型使用场景 |
+| Mode | Target Audience | Push Timing | Display Content | Typical Use Cases |
 |------|----------|----------|----------|------------|
-| **当日汇总**<br/>`daily` | 📋 企业管理者/普通用户 | 按时推送(默认每小时推送一次) | 当日所有匹配新闻<br/>+ 新增新闻区域 | **案例**：每天下午6点查看今天所有重要新闻<br/>**特点**：看全天完整趋势，不漏掉任何热点<br/>**提醒**：会包含之前推送过的新闻 |
-| **当前榜单**<br/>`current` | 📰 自媒体人/内容创作者 | 按时推送(默认每小时推送一次) | 当前榜单匹配新闻<br/>+ 新增新闻区域 | **案例**：每小时追踪"哪些话题现在最火"<br/>**特点**：实时了解当前热度排名变化<br/>**提醒**：持续在榜的新闻每次都会出现 |
-| **增量监控**<br/>`incremental` | 📈 投资者/交易员 | 有新增才推送 | 新出现的匹配频率词新闻 | **案例**：监控"特斯拉"，只在有新消息时通知<br/>**特点**：零重复，只看首次出现的新闻<br/>**适合**：高频监控、避免信息打扰 |
+| **Daily Summary**<br/>`daily` | 📋 Enterprise Managers / Regular Users | Pushed on schedule (default once per hour) | All matching news of the day<br/>+ New news section | **Case**: Check all important news today at 6 PM every day<br/>**Features**: View the complete trend of the whole day without missing any hot topics<br/>**Reminder**: Will include previously pushed news |
+| **Current Rankings**<br/>`current` | 📰 Independent Media / Content Creators | Pushed on schedule (default once per hour) | Matching news from current rankings<br/>+ New news section | **Case**: Track "what topics are hottest right now" every hour<br/>**Features**: Real-time understanding of current popularity ranking changes<br/>**Reminder**: News that remains on the list will appear every time |
+| **Incremental Monitoring**<br/>`incremental` | 📈 Investors / Traders | Pushed only when there are new additions | Newly appeared matching keyword news | **Case**: Monitor "Tesla", notify only when there is new information<br/>**Features**: Zero repetition, only view news appearing for the first time<br/>**Suitable for**: High-frequency monitoring, avoiding information overload |
 
-#### 实际推送效果举例
+#### Example of actual push effects
 
-假设你监控"苹果"关键词，每小时执行一次：
+Assuming you monitor the keyword "Apple" and execute it once an hour:
 
-| 时间 | daily 模式推送 | current 模式推送 | incremental 模式推送 |
+| Time | daily mode push | current mode push | incremental mode push |
 |-----|--------------|----------------|-------------------|
-| 10:00 | 新闻A、新闻B | 新闻A、新闻B | 新闻A、新闻B |
-| 11:00 | 新闻A、新闻B、新闻C | 新闻B、新闻C、新闻D | **仅**新闻C |
-| 12:00 | 新闻A、新闻B、新闻C | 新闻C、新闻D、新闻E | **仅**新闻D、新闻E |
+| 10:00 | News A, News B | News A, News B | News A, News B |
+| 11:00 | News A, News B, News C | News B, News C, News D | **Only** News C |
+| 12:00 | News A, News B, News C | News C, News D, News E | **Only** News D, News E |
 
-**说明**：
-- `daily`：累积展示当天所有新闻（A、B、C 都保留）
-- `current`：展示当前榜单的新闻（排名变化，新闻D上榜，新闻A掉榜）
-- `incremental`：**只推送新出现的新闻**（避免重复干扰）
+**Explanation**:
+- `daily`: Cumulatively displays all news of the day (A, B, and C are all kept)
+- `current`: Displays news from the current rankings (rankings change, News D enters the list, News A drops off)
+- `incremental`: **Only pushes newly appeared news** (avoids repetitive interference)
 
-#### 常见问题
+#### Frequently Asked Questions
 
-> **💡 遇到这个问题？** 👉 "每个小时执行一次，第一次执行完输出的新闻，在下一个小时执行时还会出现"
-> - **原因**：你可能选择了 `daily`（当日汇总）或 `current`（当前榜单）模式
-> - **解决**：改用 `incremental`（增量监控）模式，只推送新增内容
+> **💡 Encountering this issue?** 👉 "Executes once an hour, the news output after the first execution still appears during the next hour's execution"
+> - **Cause**: You might have selected the `daily` (Daily Summary) or `current` (Current Rankings) mode
+> - **Solution**: Switch to the `incremental` (Incremental Monitoring) mode, which only pushes new content
 
-#### ⚠️ 增量模式重要提示
+#### ⚠️ Important note for incremental mode
 
-> **选择了 `incremental`（增量监控）模式的用户请注意：**
+> **Users who selected the `incremental` (Incremental Monitoring) mode, please note:**
 >
-> 📌 **增量模式只在有新增匹配新闻时才会推送**
+> 📌 **Incremental mode will only push when there are new matching news items**
 >
-> **如果长时间没有收到推送，可能是因为：**
-> 1. 当前时段没有符合你关键词的新热点出现
-> 2. 关键词配置过于严格或过于宽泛
-> 3. 监控平台数量较少
+> **If you haven't received a push for a long time, it might be because:**
+> 1. No new hot topics matching your keywords appeared during the current period
+> 2. Keyword configuration is too strict or too broad
+> 3. The number of monitored platforms is too small
 >
-> **解决方案：**
-> - 方案1：👉 [优化关键词配置](#2-关键词配置) - 调整关键词的精准度，增加或修改监控词汇
-> - 方案2：切换推送模式 - 改用 `current` 或 `daily` 模式，可以定时接收推送
-> - 方案3：👉 [增加监控平台](#1-平台配置) - 添加更多新闻平台，扩大信息来源
+> **Solutions:**
+> - Solution 1: 👉 [Optimize keyword configuration](#2-Keyword configuration) - Adjust the precision of keywords, add or modify monitored vocabulary
+> - Solution 2: Switch push mode - Change to `current` or `daily` mode to receive scheduled pushes
+> - Solution 3: 👉 [Add monitoring platforms](#1-Platform configuration) - Add more news platforms to expand information sources
 
 </details>
 
-### 4. 调整热点算法
+### 4. Adjusting the hot topic algorithm
 
 <details>
-<summary>👉 点击展开：<strong>自定义热点权重</strong></summary>
+<summary>👉 Click to expand: <strong>Custom Trend Weights</strong></summary>
 <br>
 
-**配置位置：** `config/config.yaml` 的 `advanced.weight` 部分
+**Configuration location:** The `advanced.weight` section of `config/config.yaml`
 
 ```yaml
 advanced:
   weight:
-    rank: 0.6           # 排名权重
-    frequency: 0.3      # 频次权重
-    hotness: 0.1        # 热度权重
+    rank: 0.6           # Rank weight
+    frequency: 0.3      # Frequency weight
+    hotness: 0.1        # Hotness weight
 ```
 
-当前默认的配置是平衡性配置
+The current default configuration is a balanced configuration
 
-#### 两个核心场景
+#### Two Core Scenarios
 
-**追实时热点型**：
+**Chasing Real-time Trends**:
 ```yaml
 advanced:
   weight:
-    rank: 0.8           # 主要看排名
-    frequency: 0.1      # 不太在乎持续性
+    rank: 0.8           # Focuses mainly on rank
+    frequency: 0.1      # Cares less about persistence
     hotness: 0.1
 ```
-**适用人群**：自媒体博主、营销人员、想快速了解当下最火话题的用户
+**Target Audience**: Content creators, marketers, users who want to quickly understand the hottest current topics
 
-**追深度话题型**：
+**Chasing In-depth Topics**:
 ```yaml
 advanced:
   weight:
-    rank: 0.4           # 适度看排名
-    frequency: 0.5      # 重视当天内的持续热度
+    rank: 0.4           # Moderately considers rank
+    frequency: 0.5      # Emphasizes sustained hotness throughout the day
     hotness: 0.1
 ```
-**适用人群**：投资者、研究人员、新闻工作者、需要深度分析趋势的用户
+**Target Audience**: Investors, researchers, journalists, users who need in-depth trend analysis
 
-#### 调整的方法
-1. **三个数字加起来必须等于 1.0**
-2. **哪个重要就调大哪个**：在乎排名就调大 `rank`，在乎持续性就调大 `frequency`
-3. **建议每次只调 0.1-0.2**，观察效果
+#### How to Adjust
+1. **The three numbers must add up to 1.0**
+2. **Increase the value of what is more important**: If you care about rank, increase `rank`; if you care about persistence, increase `frequency`
+3. **It is recommended to adjust only by 0.1-0.2 each time** and observe the effect
 
-核心思路：追求速度和时效性的用户提高排名权重，追求深度和稳定性的用户提高频次权重。
+Core idea: Users pursuing speed and timeliness should increase the rank weight, while users pursuing depth and stability should increase the frequency weight.
 
 </details>
 
-### 5. 我收到的消息长什么样？
+### 5. What do the messages I receive look like?
 
 <details>
-<summary>👉 点击展开：<strong>消息样式预览</strong></summary>
+<summary>👉 Click to expand: <strong>Message Style Preview</strong></summary>
 <br>
 
-#### 推送示例
+#### Push Example
 
-📊 热点词汇统计
+📊 Trending Vocabulary Statistics
 
-🔥 [1/3] AI ChatGPT : 2 条
+🔥 [1/3] AI ChatGPT : 2 items
 
-  1. [百度热搜] 🆕 ChatGPT-5正式发布 [**1**] - 09时15分 (1次)
+  1. [Baidu Hot Search] 🆕 ChatGPT-5 officially released [**1**] - 09:15 (1 time)
 
-  2. [今日头条] AI芯片概念股暴涨 [**3**] - [08时30分 ~ 10时45分] (3次)
-
-━━━━━━━━━━━━━━━━━━━
-
-📈 [2/3] 比亚迪 特斯拉 : 2 条
-
-  1. [微博] 🆕 比亚迪月销量破纪录 [**2**] - 10时20分 (1次)
-
-  2. [抖音] 特斯拉降价促销 [**4**] - [07时45分 ~ 09时15分] (2次)
+  2. [Toutiao] AI chip concept stocks surge [**3**] - [08:30 ~ 10:45] (3 times)
 
 ━━━━━━━━━━━━━━━━━━━
 
-📌 [3/3] A股 股市 : 1 条
+📈 [2/3] BYD Tesla : 2 items
 
-  1. [华尔街见闻] A股午盘点评分析 [**5**] - [11时30分 ~ 12时00分] (2次)
+  1. [Weibo] 🆕 BYD monthly sales break record [**2**] - 10:20 (1 time)
 
-🆕 本次新增热点新闻 (共 2 条)
+  2. [Douyin] Tesla price cut promotion [**4**] - [07:45 ~ 09:15] (2 times)
 
-**百度热搜** (1 条):
-  1. ChatGPT-5正式发布 [**1**]
+━━━━━━━━━━━━━━━━━━━
 
-**微博** (1 条):
-  1. 比亚迪月销量破纪录 [**2**]
+📌 [3/3] A-shares Stock Market : 1 item
 
-更新时间：2025-01-15 12:30:15
+  1. [Wallstreetcn] A-shares midday review and analysis [**5**] - [11:30 ~ 12:00] (2 times)
 
-#### 消息格式说明
+🆕 Newly added trending news this time (Total 2 items)
 
-| 格式元素      | 示例                        | 含义         | 说明                                    |
+**Baidu Hot Search** (1 item):
+  1. ChatGPT-5 officially released [**1**]
+
+**Weibo** (1 item):
+  1. BYD monthly sales break record [**2**]
+
+Update time: 2025-01-15 12:30:15
+
+#### Message Format Description
+
+| Format Element | Example                     | Meaning      | Description                             |
 | ------------- | --------------------------- | ------------ | --------------------------------------- |
-| 🔥📈📌        | 🔥 [1/3] AI ChatGPT        | 热度等级     | 🔥高热度(≥10条) 📈中热度(5-9条) 📌普通热度(<5条) |
-| [序号/总数]   | [1/3]                       | 排序位置     | 当前词组在所有匹配词组中的排名          |
-| 频率词组      | AI ChatGPT                  | 关键词组     | 配置文件中的词组，标题必须包含其中词汇   |
-| : N 条        | : 2 条                      | 匹配数量     | 该词组匹配的新闻总数                    |
-| [平台名]      | [百度热搜]                  | 来源平台     | 新闻所属的平台名称                      |
-| 🆕            | 🆕 ChatGPT-5正式发布        | 新增标记     | 本轮抓取中首次出现的热点                |
-| [**数字**]    | [**1**]                     | 高排名       | 排名≤阈值的热搜，红色加粗显示           |
-| [数字]        | [7]                         | 普通排名     | 排名>阈值的热搜，普通显示               |
-| - 时间        | - 09时15分                  | 首次时间     | 该新闻首次被发现的时间                  |
-| [时间~时间]   | [08时30分 ~ 10时45分]       | 持续时间     | 从首次出现到最后出现的时间范围          |
-| (N次)         | (3次)                       | 出现频率     | 在监控期间出现的总次数                  |
-| **新增区域**  | 🆕 **本次新增热点新闻**      | 新话题汇总   | 单独展示本轮新出现的热点话题            |
+| 🔥📈📌        | 🔥 [1/3] AI ChatGPT        | Popularity Level | 🔥High Popularity(≥10 items) 📈Medium Popularity(5-9 items) 📌Normal Popularity(<5 items) |
+| [Index/Total] | [1/3]                       | Sort Position | Ranking of the current phrase among all matched phrases |
+| Frequency Phrase | AI ChatGPT               | Keyword Phrase | Phrases in the config file, titles must contain these words |
+| : N items     | : 2 items                   | Match Count  | Total number of news matched by this phrase |
+| [Platform Name] | [Baidu Hot Search]        | Source Platform | Name of the platform the news belongs to |
+| 🆕            | 🆕 ChatGPT-5 officially released | New Tag      | Hot topics appearing for the first time in this scraping round |
+| [**Number**]  | [**1**]                     | High Ranking | Hot searches with ranking ≤ threshold, displayed in bold red |
+| [Number]      | [7]                         | Normal Ranking | Hot searches with ranking > threshold, displayed normally |
+| - Time        | - 09:15                     | First Time   | Time when the news was first discovered |
+| [Time~Time]   | [08:30 ~ 10:45]             | Duration     | Time range from first appearance to last appearance |
+| (N times)     | (3 times)                   | Appearance Frequency | Total number of appearances during the monitoring period |
+| **New Area**  | 🆕 **Newly added hot news this time** | New Topic Summary | Separately display newly appeared hot topics in this round |
 
 </details>
 
 
-### 6. Docker 部署
+### 6. Docker Deployment
 
-**镜像说明：**
+**Image Description:**
 
-TrendRadar 提供两个独立的 Docker 镜像，可根据需求选择部署：
+TrendRadar provides two independent Docker images, which can be deployed according to your needs:
 
-| 镜像名称 | 用途 | 说明 |
+| Image Name | Purpose | Description |
 |---------|------|------|
-| `wantcat/trendradar` | 新闻推送服务 | 定时抓取新闻、推送通知（必选） |
-| `wantcat/trendradar-mcp` | AI 分析服务 | MCP 协议支持、AI 对话分析（可选） |
+| `wantcat/trendradar` | News Push Service | Scheduled news scraping, push notifications (Required) |
+| `wantcat/trendradar-mcp` | AI Analysis Service | MCP protocol support, AI dialogue analysis (Optional) |
 
-> 💡 **建议**：
-> - 只需要推送功能：仅部署 `wantcat/trendradar` 镜像
-> - 需要 AI 分析功能：同时部署两个镜像
+> 💡 **Suggestion**:
+> - Only need push function: Deploy only the `wantcat/trendradar` image
+> - Need AI analysis function: Deploy both images simultaneously
 
 <details>
-<summary>👉 点击展开：<strong>Docker 部署完整指南</strong></summary>
+<summary>👉 Click to expand: <strong>Complete Docker Deployment Guide</strong></summary>
 <br>
 
-#### 方式一：使用 docker compose（推荐）
+#### Method 1: Using docker compose (Recommended)
 
-1. **创建项目目录和配置**:
+1. **Create project directory and configuration**:
 
    ```bash
-   # 克隆项目到本地
+   # Clone the project locally
    git clone https://github.com/sansan0/TrendRadar.git
    cd TrendRadar
    ```
 
-   > 💡 **说明**：Docker 部署需要的关键目录结构如下：
+   > 💡 **Note**: The key directory structure required for Docker deployment is as follows:
 ```
-当前目录/
+Current Directory/
 ├── config/
-│   ├── config.yaml                 # 核心功能配置（必需）
-│   ├── frequency_words.txt         # 关键词配置（必需）
-│   ├── timeline.yaml               # 时间线配置
-│   ├── ai_analysis_prompt.txt      # AI 分析提示词（可选）
-│   ├── ai_translation_prompt.txt   # AI 翻译提示词（可选）
-│   ├── ai_interests.txt            # AI 兴趣过滤配置（可选）
-│   ├── ai_filter/                  # AI 过滤相关提示词
+│   ├── config.yaml                 # Core function configuration (Required)
+│   ├── frequency_words.txt         # Keyword configuration (Required)
+│   ├── timeline.yaml               # Timeline configuration
+│   ├── ai_analysis_prompt.txt      # AI analysis prompt (Optional)
+│   ├── ai_translation_prompt.txt   # AI translation prompt (Optional)
+│   ├── ai_interests.txt            # AI interest filtering configuration (Optional)
+│   ├── ai_filter/                  # AI filtering related prompts
 │   │   ├── prompt.txt
 │   │   ├── extract_prompt.txt
 │   │   └── update_tags_prompt.txt
-│   └── custom/                     # 用户自定义配置（可选）
-│       ├── ai/                     # 自定义 AI 提示词
-│       └── keyword/                # 自定义关键词文件
+│   └── custom/                     # User custom configuration (Optional)
+│       ├── ai/                     # Custom AI prompts
+│       └── keyword/                # Custom keyword files
 └── docker/
-    ├── .env                        # 敏感信息 + Docker 特有配置
-    └── docker-compose.yml          # Docker Compose 编排文件
+    ├── .env                        # Sensitive information + Docker specific configuration
+    └── docker-compose.yml          # Docker Compose orchestration file
 ```
 
-2. **配置文件说明**:
+2. **Configuration file description**:
 
-   **配置分工原则（v4.6.0 优化）**：
+   **Configuration Division Principles (v4.6.0 Optimized)**:
 
-   | 文件 | 用途 | 修改频率 | 说明 |
+   | File | Purpose | Modification Frequency | Description |
    |------|------|---------|------|
-   | `config/config.yaml` | **核心功能配置** | 低 | 报告模式、推送设置、存储格式、推送窗口、AI 分析开关、平台启用等全局行为控制 |
-   | `config/frequency_words.txt` | **关键词配置** | 高 | 设置你关心的热点词汇，支持分组、正则、别名等高级语法 |
-   | `config/timeline.yaml` | **时间线配置** | 低 | 控制新闻时间线的展示和过滤规则 |
-   | `config/ai_analysis_prompt.txt` | **AI 分析提示词** | 中 | 自定义 AI 分析的角色定义和输出格式（v5.0.0+） |
-   | `config/ai_translation_prompt.txt` | **AI 翻译提示词** | 低 | 自定义 AI 翻译的提示词模板 |
-   | `config/ai_interests.txt` | **AI 兴趣过滤** | 中 | 定义 AI 基于兴趣自动过滤新闻的规则 |
-   | `config/ai_filter/` | **AI 过滤提示词** | 低 | AI 过滤模块的内部提示词（一般无需修改） |
-   | `config/custom/` | **用户自定义扩展** | 按需 | `custom/ai/` 放自定义 AI 提示词，`custom/keyword/` 放自定义关键词文件 |
-   | `docker/.env` | **敏感信息 + Docker 特有配置** | 低 | webhook URLs、API Key、S3 密钥、定时任务等，**不会被 git 追踪** |
+   | `config/config.yaml` | **Core Function Configuration** | Low | Global behavior control such as report mode, push settings, storage format, push window, AI analysis switch, platform enablement, etc. |
+   | `config/frequency_words.txt` | **Keyword Configuration** | High | Set the hot words you care about, supporting advanced syntax like grouping, regex, aliases, etc. |
+   | `config/timeline.yaml` | **Timeline Configuration** | Low | Control the display and filtering rules of the news timeline |
+   | `config/ai_analysis_prompt.txt` | **AI Analysis Prompt** | Medium | Customize the role definition and output format of AI analysis (v5.0.0+) |
+   | `config/ai_translation_prompt.txt` | **AI Translation Prompt** | Low | Customize the prompt template for AI translation |
+   | `config/ai_interests.txt` | **AI Interest Filtering** | Medium | Define rules for AI to automatically filter news based on interests |
+   | `config/ai_filter/` | **AI Filter Prompts** | Low | Internal prompts for the AI filtering module (generally no need to modify) |
+   | `config/custom/` | **User Custom Extensions** | As needed | `custom/ai/` for custom AI prompts, `custom/keyword/` for custom keyword files |
+   | `docker/.env` | **Sensitive Information + Docker Specific Configuration** | Low | webhook URLs, API Key, S3 keys, cron jobs, etc., **will not be tracked by git** |
 
-   > 💡 **分工要点**：
-   > - **功能行为** → 改 `config.yaml`（如开启/关闭某个平台、调整推送模式）
-   > - **关注内容** → 改 `frequency_words.txt`（如添加新的关注关键词）
-   > - **AI 输出风格** → 改 `ai_analysis_prompt.txt` 或 `ai_translation_prompt.txt`
-   > - **密钥与凭证** → 改 `docker/.env`（API Key、Webhook URL 等敏感信息统一放这里）
-   > - **个性化扩展** → 使用 `config/custom/` 目录，避免直接修改默认配置被升级覆盖
+   > 💡 **Division Key Points**:
+   > - **Functional Behavior** → Modify `config.yaml` (e.g., enable/disable a platform, adjust push mode)
+   > - **Followed Content** → Modify `frequency_words.txt` (e.g., add new followed keywords)
+   > - **AI Output Style** → Modify `ai_analysis_prompt.txt` or `ai_translation_prompt.txt`
+   > - **Keys and Credentials** → Modify `docker/.env` (API Key, Webhook URL, and other sensitive information are uniformly placed here)
+   > - **Personalized Extensions** → Use the `config/custom/` directory to avoid direct modifications to default configurations being overwritten by upgrades
 
-   > 💡 **配置修改生效**：修改 `config.yaml` 后，执行 `docker compose up -d` 重启容器即可生效
+   > 💡 **Configuration Modification Takes Effect**: After modifying `config.yaml`, execute `docker compose up -d` to restart the container to take effect
 
-   **⚙️ 环境变量覆盖机制（v3.0.5+）**
+   **⚙️ Environment Variable Override Mechanism (v3.0.5+)**
 
-   `.env` 文件中的环境变量会覆盖 `config.yaml` 中的对应配置：
+   Environment variables in the `.env` file will override the corresponding configurations in `config.yaml`:
 
-   | 环境变量 | 对应配置 | 示例值 | 说明 |
+   | Environment Variable | Corresponding Configuration | Example Value | Description |
    |---------|---------|-------|------|
-   | `WEBSERVER_PORT` | - | `8080` | Web 服务器端口 |
-   | `FEISHU_WEBHOOK_URL` | `notification.channels.feishu.webhook_url` | `https://...` | 飞书 Webhook（多账号用 `;` 分隔） |
-   | `AI_ANALYSIS_ENABLED` | `ai_analysis.enabled` | `true` / `false` | 是否启用 AI 分析（v5.0.0 新增） |
-   | `AI_API_KEY` | `ai.api_key` | `sk-xxx...` | AI API Key（ai_analysis 和 ai_translation 共享） |
-   | `AI_PROVIDER` | `ai.provider` | `deepseek` / `openai` / `gemini` | AI 提供商 |
-   | `S3_*` | `storage.remote.*` | - | 远程存储配置（5 个参数） |
+   | `WEBSERVER_PORT` | - | `8080` | Web server port |
+   | `FEISHU_WEBHOOK_URL` | `notification.channels.feishu.webhook_url` | `https://...` | Feishu Webhook (use `;` to separate multiple accounts) |
+   | `AI_ANALYSIS_ENABLED` | `ai_analysis.enabled` | `true` / `false` | Whether to enable AI analysis (added in v5.0.0) |
+   | `AI_API_KEY` | `ai.api_key` | `sk-xxx...` | AI API Key (shared by ai_analysis and ai_translation) |
+   | `AI_PROVIDER` | `ai.provider` | `deepseek` / `openai` / `gemini` | AI Provider |
+   | `S3_*` | `storage.remote.*` | - | Remote storage configuration (5 parameters) |
 
-   **配置优先级**：环境变量 > config.yaml
+   **Configuration Priority**: Environment Variables > config.yaml
 
-   **使用方法**：
-   - 修改 `.env` 文件，填写需要的配置
-   - 或在 NAS/群晖 Docker 管理界面的"环境变量"中直接添加
-   - 重启容器后生效：`docker compose up -d`
+   **Usage**:
+   - Modify the `.env` file and fill in the required configurations
+   - Or add directly in the "Environment Variables" of the NAS/Synology Docker management interface
+   - Takes effect after restarting the container: `docker compose up -d`
 
 
-3. **启动服务**:
+3. **Start Services**:
 
-   **选项 A：启动所有服务（推送 + AI 分析）**
+   **Option A: Start all services (Push + AI Analysis)**
    ```bash
-   # 拉取最新镜像
+   # Pull the latest image
    docker compose pull
 
-   # 启动所有服务（trendradar + trendradar-mcp）
+   # Start all services (trendradar + trendradar-mcp)
    docker compose up -d
    ```
 
-   **选项 B：仅启动新闻推送服务**
+   **Option B: Start only the news push service**
    ```bash
-   # 只启动 trendradar（定时抓取和推送）
+   # Start only trendradar (scheduled scraping and pushing)
    docker compose pull trendradar
    docker compose up -d trendradar
    ```
 
-   **选项 C：仅启动 MCP AI 分析服务**
+   **Option C: Start only the MCP AI analysis service**
    ```bash
-   # 只启动 trendradar-mcp（提供 AI 分析接口）
+   # Start only trendradar-mcp (provides AI analysis interface)
    docker compose pull trendradar-mcp
    docker compose up -d trendradar-mcp
    ```
 
-   > 💡 **提示**：
-   > - 大多数用户只需启动 `trendradar` 即可实现新闻推送功能
-   > - 只有需要使用 ChatGPT/Gemini 进行 AI 对话分析时，才需启动 `trendradar-mcp`
-   > - 两个服务相互独立，可根据需求灵活组合
+   > 💡 **Tip**:
+   > - Most users only need to start `trendradar` to enable the news push functionality
+   > - You only need to start `trendradar-mcp` if you want to use ChatGPT/Gemini for AI conversation analysis
+   > - The two services are independent and can be flexibly combined according to your needs
 
-4. **查看运行状态**:
+4. **Check running status**:
    ```bash
-   # 查看新闻推送服务日志
+   # View news push service logs
    docker logs -f trendradar
 
-   # 查看 MCP AI 分析服务日志
+   # View MCP AI analysis service logs
    docker logs -f trendradar-mcp
 
-   # 查看所有容器状态
+   # View all container statuses
    docker ps | grep trendradar
 
-   # 停止特定服务
-   docker compose stop trendradar      # 停止推送服务
-   docker compose stop trendradar-mcp  # 停止 MCP 服务
+   # Stop specific services
+   docker compose stop trendradar      # Stop push service
+   docker compose stop trendradar-mcp  # Stop MCP service
    ```
 
-#### 方式二：本地构建（开发者选项）
+#### Method 2: Local Build (Developer Option)
 
-如果需要自定义修改代码或构建自己的镜像：
+If you need to customize the code or build your own image:
 
 ```bash
-# 克隆项目
+# Clone the project
 git clone https://github.com/sansan0/TrendRadar.git
 cd TrendRadar
 
-# 修改配置文件
+# Modify configuration files
 vim config/config.yaml
 vim config/frequency_words.txt
 
-# 使用构建版本的 docker compose
+# Use the build version of docker compose
 cd docker
 cp docker-compose-build.yml docker-compose.yml
 ```
 
-**构建并启动服务**：
+**Build and start services**:
 
 ```bash
-# 选项 A：构建并启动所有服务
+# Option A: Build and start all services
 docker compose build
 docker compose up -d
 
-# 选项 B：仅构建并启动新闻推送服务
+# Option B: Build and start only the news push service
 docker compose build trendradar
 docker compose up -d trendradar
 
-# 选项 C：仅构建并启动 MCP AI 分析服务
+# Option C: Build and start only the MCP AI analysis service
 docker compose build trendradar-mcp
 docker compose up -d trendradar-mcp
 ```
 
-> 💡 **架构参数说明**：
-> - 默认构建 `amd64` 架构镜像（适用于大多数 x86_64 服务器）
-> - 如需构建 `arm64` 架构（Apple Silicon、树莓派等），设置环境变量：
+> 💡 **Architecture parameter description**:
+> - Builds `amd64` architecture images by default (suitable for most x86_64 servers)
+> - If you need to build for `arm64` architecture (Apple Silicon, Raspberry Pi, etc.), set the environment variable:
 >   ```bash
 >   export DOCKER_ARCH=arm64
 >   docker compose build
 >   ```
 
-#### 镜像更新
+#### Image Update
 
 ```bash
-# 方式一：手动更新（爬虫 + MCP 镜像）
+# Method 1: Manual update (Crawler + MCP images)
 docker pull wantcat/trendradar:latest
 docker pull wantcat/trendradar-mcp:latest
 docker compose down
 docker compose up -d
 
-# 方式二：使用 docker compose 更新
+# Method 2: Update using docker compose
 docker compose pull
 docker compose up -d
 ```
 
-**可用镜像**：
+**Available images**:
 
-| 镜像名称 | 用途 | 说明 |
+| Image Name | Purpose | Description |
 |---------|------|------|
-| `wantcat/trendradar` | 新闻推送服务 | 定时抓取新闻、推送通知 |
-| `wantcat/trendradar-mcp` | MCP 服务 | AI 分析功能（可选） |
+| `wantcat/trendradar` | News push service | Scheduled news crawling, push notifications |
+| `wantcat/trendradar-mcp` | MCP service | AI analysis features (optional) |
 
-#### 服务管理命令
+#### Service Management Commands
 
 ```bash
-# 查看运行状态
+# View running status
 docker exec -it trendradar python manage.py status
 
-# 手动执行一次爬虫
+# Manually run the crawler once
 docker exec -it trendradar python manage.py run
 
-# 查看实时日志
+# View real-time logs
 docker exec -it trendradar python manage.py logs
 
-# 显示当前配置
+# Show current configuration
 docker exec -it trendradar python manage.py config
 
-# 显示输出文件
+# Show output files
 docker exec -it trendradar python manage.py files
 
-# Web 服务器管理（用于浏览器访问生成的报告）
-docker exec -it trendradar python manage.py start_webserver   # 启动 Web 服务器
-docker exec -it trendradar python manage.py stop_webserver    # 停止 Web 服务器
-docker exec -it trendradar python manage.py webserver_status  # 查看 Web 服务器状态
+# Web server management (for browser access to generated reports)
+docker exec -it trendradar python manage.py start_webserver   # Start Web server
+docker exec -it trendradar python manage.py stop_webserver    # Stop Web server
+docker exec -it trendradar python manage.py webserver_status  # View Web server status
 
-# 查看帮助信息
+# View help information
 docker exec -it trendradar python manage.py help
 
-# 重启容器
+# Restart the container
 docker restart trendradar
 
-# 停止容器
+# Stop the container
 docker stop trendradar
 
-# 删除容器（保留数据）
+# Delete the container (keep data)
 docker rm trendradar
 ```
 
-> 💡 **Web 服务器说明**：
-> - cron 模式下自动启动，通过浏览器访问 `http://localhost:8080` 查看最新报告
-> - 通过目录导航访问历史报告（如：`http://localhost:8080/2025-xx-xx/`）
-> - 端口可在 `.env` 文件中配置 `WEBSERVER_PORT` 参数
-> - 手动停止：`docker exec -it trendradar python manage.py stop_webserver`
-> - 手动启动：`docker exec -it trendradar python manage.py start_webserver`
-> - 安全提示：仅提供静态文件访问，限制在 output 目录，只绑定本地访问
+> 💡 **Web Server Instructions**:
+> - Starts automatically in cron mode, access `http://localhost:8080` via browser to view the latest report
+> - Access historical reports via directory navigation (e.g., `http://localhost:8080/2025-xx-xx/`)
+> - The port can be configured via the `WEBSERVER_PORT` parameter in the `.env` file
+> - Manual stop: `docker exec -it trendradar python manage.py stop_webserver`
+> - Manual start: `docker exec -it trendradar python manage.py start_webserver`
+> - Security tip: Only provides static file access, restricted to the output directory, and bound to local access only
 
-#### 数据持久化
+#### Data Persistence
 
-生成的报告和数据默认保存在 `./output` 目录下，即使容器重启或删除，数据也会保留。
+Generated reports and data are saved in the `./output` directory by default, and the data will be retained even if the container is restarted or deleted.
 
-**📊 网页版报告访问路径**：
+**📊 Web Report Access Paths**:
 
-TrendRadar 生成的当日汇总 HTML 报告会同时保存到两个位置：
+The daily summary HTML report generated by TrendRadar will be saved to two locations simultaneously:
 
-| 文件位置 | 访问方式 | 适用场景 |
+| File Location | Access Method | Applicable Scenario |
 |---------|---------|---------|
-| `output/index.html` | 宿主机直接访问 | **Docker 部署**（通过 Volume 挂载，宿主机可见） |
-| `index.html` | 根目录访问 | **GitHub Pages**（仓库根目录，Pages 自动识别） |
-| `output/html/YYYY-MM-DD/当日汇总.html` | 历史报告访问 | 所有环境（按日期归档） |
+| `output/index.html` | Direct access from host | **Docker Deployment** (visible to host via Volume mount) |
+| `index.html` | Root directory access | **GitHub Pages** (repository root, automatically recognized by Pages) |
+| `output/html/YYYY-MM-DD/Daily Summary.html` | Historical report access | All environments (archived by date) |
 
-**本地访问示例**：
+**Local Access Examples**:
 ```bash
-# 方式 1：通过 Web 服务器访问（推荐，Docker 环境）
-# 1. 启动 Web 服务器
+# Method 1: Access via Web Server (Recommended, Docker environment)
+# 1. Start the Web Server
 docker exec -it trendradar python manage.py start_webserver
-# 2. 在浏览器访问
-http://localhost:8080                           # 访问最新报告（默认 index.html）
-http://localhost:8080/html/2025-xx-xx/          # 访问指定日期的报告
+# 2. Access in browser
+http://localhost:8080                           # Access the latest report (default index.html)
+http://localhost:8080/html/2025-xx-xx/          # Access the report for a specific date
 
-# 方式 2：直接打开文件（本地环境）
+# Method 2: Open the file directly (Local environment)
 open ./output/index.html             # macOS
 start ./output/index.html            # Windows
 xdg-open ./output/index.html         # Linux
 
-# 方式 3：访问历史归档
-open ./output/html/2025-xx-xx/当日汇总.html
+# Method 3: Access historical archives
+open ./output/html/2025-xx-xx/summary of the day.html
 ```
 
-**为什么有两个 index.html？**
-- `output/index.html`：Docker Volume 挂载到宿主机，本地可直接打开
-- `index.html`：GitHub Actions 推送到仓库，GitHub Pages 自动部署
+**Why are there two index.html files?**
+- `output/index.html`: Docker Volume mounted to the host, can be opened directly locally
+- `index.html`: Pushed to the repository by GitHub Actions, automatically deployed by GitHub Pages
 
-> 💡 **提示**：两个文件内容完全相同，选择任意一个访问即可。
+> 💡 **Tip**: The contents of the two files are exactly the same, you can choose either one to access.
 
-#### 故障排查
+#### Troubleshooting
 
 ```bash
-# 检查容器状态
+# Check container status
 docker inspect trendradar
 
-# 查看容器日志
+# View container logs
 docker logs --tail 100 trendradar
 
-# 进入容器调试
+# Enter container for debugging
 docker exec -it trendradar /bin/bash
 
-# 验证配置文件
+# Verify configuration file
 docker exec -it trendradar ls -la /app/config/
 ```
 
-#### MCP 服务部署（AI 分析功能）
+#### MCP Service Deployment (AI Analysis Feature)
 
-如果需要使用 AI 分析功能，可以部署独立的 MCP 服务容器。
+If you need to use the AI analysis feature, you can deploy an independent MCP service container.
 
-**架构说明**：
+**Architecture Description**:
 
 ```mermaid
 flowchart TB
     subgraph trendradar["trendradar"]
-        A1[定时抓取新闻]
-        A2[推送通知]
+        A1[Scheduled news fetching]
+        A2[Push notifications]
     end
     
     subgraph trendradar-mcp["trendradar-mcp"]
         B1[127.0.0.1:3333]
-        B2[AI 分析接口]
+        B2[AI analysis API]
     end
     
-    subgraph shared["共享卷"]
+    subgraph shared["Shared volume"]
         C1["config/ (ro)"]
         C2["output/ (ro)"]
     end
@@ -2990,19 +2990,19 @@ flowchart TB
     trendradar-mcp --> shared
 ```
 
-**快速启动**：
+**Quick Start**:
 
-如果已按照 [方式一：使用 docker compose](#方式一使用-docker-compose推荐) 完成部署，只需启动 MCP 服务：
+If you have already deployed using [Method 1: Using docker compose](# Method 1 using-docker-compose recommended), simply start the MCP service:
 
 ```bash
 cd TrendRadar/docker
 docker compose up -d trendradar-mcp
 
-# 查看运行状态
+# Check running status
 docker ps | grep trendradar-mcp
 ```
 
-**单独启动 MCP 服务**（不使用 docker compose）：
+**Start MCP service independently** (without docker compose):
 
 ```bash
 # Linux/Mac
@@ -3022,28 +3022,28 @@ docker run -d --name trendradar-mcp `
   wantcat/trendradar-mcp:latest
 ```
 
-> ⚠️ **注意**：单独运行时，确保当前目录下有 `config/` 和 `output/` 文件夹，且包含配置文件和新闻数据。
+> ⚠️ **Note**: When running independently, ensure the `config/` and `output/` folders exist in the current directory, and contain the configuration files and news data.
 
-**验证服务**：
+**Verify service**:
 
 ```bash
-# 检查 MCP 服务健康状态
+# Check MCP service health status
 curl http://127.0.0.1:3333/mcp
 
-# 查看 MCP 服务日志
+# View MCP service logs
 docker logs -f trendradar-mcp
 ```
 
-**在 AI 客户端中配置**：
+**Configure in AI clients**:
 
-MCP 服务启动后，根据不同客户端进行配置：
+After the MCP service is started, configure it according to the different clients:
 
-**Cherry Studio**（推荐，GUI 配置）：
-- 设置 → MCP 服务器 → 添加
-- 类型：`streamableHttp`
+**Cherry Studio** (Recommended, GUI configuration):
+- Settings → MCP Server → Add
+- Type: `streamableHttp`
 - URL：`http://127.0.0.1:3333/mcp`
 
-**Claude Desktop / Cline**（JSON 配置）：
+**Claude Desktop / Cline** (JSON configuration):
 ```json
 {
   "mcpServers": {
@@ -3055,471 +3055,471 @@ MCP 服务启动后，根据不同客户端进行配置：
 }
 ```
 
-> 💡 **提示**：MCP 服务仅监听本地端口（127.0.0.1），确保安全性。如需远程访问，请自行配置反向代理和认证。
+> 💡 **Tip**: The MCP service only listens on the local port (127.0.0.1) to ensure security. If remote access is required, please configure a reverse proxy and authentication yourself.
 
 </details>
 
-### 7. 推送内容怎么显示？
+### 7. How is the pushed content displayed?
 
 <details>
-<summary>👉 点击展开：<strong>自定义推送样式和内容</strong></summary>
+<summary>👉 Click to expand: <strong>Customize push style and content</strong></summary>
 <br>
 
-**配置位置：** `config/config.yaml` 的 `report` 和 `display` 部分
+**Configuration location:** `report` and `display` sections in `config/config.yaml`
 
 ```yaml
 report:
-  mode: "daily"                    # 推送模式
-  display_mode: "keyword"          # 显示模式（v4.6.0 新增）
-  rank_threshold: 5                # 排名高亮阈值
-  sort_by_position_first: false    # 排序优先级
-  max_news_per_keyword: 0          # 每个关键词最大显示数量
+  mode: "daily"                    # Push mode
+  display_mode: "keyword"          # Display mode (Added in v4.6.0)
+  rank_threshold: 5                # Rank highlight threshold
+  sort_by_position_first: false    # Sorting priority
+  max_news_per_keyword: 0          # Maximum display quantity per keyword
 
 display:
-  region_order:                    # 区域显示顺序（v5.2.0 新增）
-    - new_items                    # 新增热点区域
-    - hotlist                      # 热榜区域
-    - rss                          # RSS 订阅区域
-    - standalone                   # 独立展示区
-    - ai_analysis                  # AI 分析区域
+  region_order:                    # Region display order (Added in v5.2.0)
+    - new_items                    # New hot items region
+    - hotlist                      # Hotlist region
+    - rss                          # RSS subscription region
+    - standalone                   # Standalone display region
+    - ai_analysis                  # AI analysis region
 ```
 
-#### 常用配置项说明
+#### Common configuration items explanation
 
-| 我想调整什么 | 修改哪个参数 | 默认值 | 说明 |
+| What I want to adjust | Which parameter to modify | Default value | Description |
 |-------------|-------------|-------|------|
-| **推送模式** | `mode` | `daily` | 决定推送时机和内容，详见 [推送模式详解](#3-推送模式详解) |
-| **分组方式** | `display_mode` | `keyword` | `keyword`=按关键词分组(如"AI")，`platform`=按平台分组(如"微博") |
-| **高亮重点** | `rank_threshold` | `5` | 排名在前 5 的新闻会**加粗**显示，一眼看到最火的 |
-| **排序规则** | `sort_by_position_first` | `false` | `false`=热度高的排前面，`true`=你配置的词排前面 |
-| **数量限制** | `max_news_per_keyword` | `0` | 每个关键词最多看几条？`0`表示不限制 |
-| **显示顺序** | `display.region_order` | 见上方配置 | 调整列表顺序即可控制各区域的显示位置 |
+| **Push mode** | `mode` | `daily` | Determines push timing and content, see [Push mode details](#3-Push mode details) |
+| **Grouping method** | `display_mode` | `keyword` | `keyword`=Group by keyword (e.g., "AI"), `platform`=Group by platform (e.g., "Weibo") |
+| **Highlight focus** | `rank_threshold` | `5` | News ranked in the top 5 will be displayed in **bold**, letting you see the hottest ones at a glance |
+| **Sorting rules** | `sort_by_position_first` | `false` | `false`=Higher popularity ranks first, `true`=Your configured words rank first |
+| **Quantity limit** | `max_news_per_keyword` | `0` | Maximum number of news per keyword? `0` means unlimited |
+| **Display Order** | `display.region_order` | See configuration above | Adjust the list order to control the display position of each region |
 
-#### 分组方式对比（display_mode）
+#### Grouping Method Comparison (display_mode)
 
-你是想看"这个话题下有哪些新闻"，还是"这个平台上有哪些新闻"？
+Do you want to see "what news is under this topic" or "what news is on this platform"?
 
-| 模式 | 分组方式 | 标题前缀 | 适用场景 |
+| Mode | Grouping Method | Title Prefix | Applicable Scenario |
 |------|---------|---------|---------|
-| `keyword`（默认） | **按关键词聚合** | `[平台名]` | 我关注"AI"，想看各平台关于AI的新闻 |
-| `platform` | **按平台聚合** | `[关键词]` | 我关注"微博"，想看微博上关于我关注词的新闻 |
+| `keyword` (Default) | **Aggregate by Keyword** | `[Platform Name]` | I follow "AI" and want to see news about AI across all platforms |
+| `platform` | **Aggregate by Platform** | `[Keyword]` | I follow "Weibo" and want to see news on Weibo about my followed keywords |
 
-#### 区域显示顺序（region_order）
+#### Region Display Order (region_order)
 
-通过调整 `display.region_order` 列表的顺序，可以控制推送消息中各区域的显示位置。
+By adjusting the order of the `display.region_order` list, you can control the display position of each region in the push message.
 
-**默认顺序**：新增热点 → 热榜 → RSS → 独立展示区 → AI 分析
+**Default Order**: New Hot Topics → Hotlist → RSS → Standalone Display Area → AI Analysis
 
-**自定义示例**：想让 AI 分析放在最前面？
+**Custom Example**: Want to put AI Analysis at the very beginning?
 
 ```yaml
 display:
   region_order:
-    - ai_analysis                  # 移到第一行
+    - ai_analysis                  # Move to the first line
     - new_items
     - hotlist
     - rss
     - standalone
 ```
 
-**注意**：区域需同时满足两个条件才会显示：
-1. 在 `region_order` 列表中
-2. 在 `display.regions` 中对应开关为 `true`
+**Note**: A region will only be displayed if it meets both of the following conditions:
+1. It is in the `region_order` list
+2. The corresponding switch in `display.regions` is `true`
 
-#### 区域开关（regions）
+#### Region Switches (regions)
 
-通过 `display.regions` 控制各区域是否在推送中显示：
+Control whether each region is displayed in the push message via `display.regions`:
 
 ```yaml
 display:
   regions:
-    hotlist: true                    # 热榜区域（关键词匹配的热点新闻）
-    new_items: false                 # 新增热点区域（含热榜新增 + RSS 新增）
-    rss: true                       # RSS 订阅区域（关键词匹配的 RSS 内容）
-    standalone: false                # 独立展示区（完整热榜/RSS，不受关键词过滤）
-    ai_analysis: true                # AI 分析区域
+    hotlist: true                    # Hotlist region (hot news matching keywords)
+    new_items: false                 # New hot topics region (includes new hotlist items + new RSS items)
+    rss: true                       # RSS subscription region (RSS content matching keywords)
+    standalone: false                # Standalone display area (complete hotlist/RSS, unaffected by keyword filtering)
+    ai_analysis: true                # AI analysis region
 ```
 
-| 区域 | 配置键 | 默认值 | 说明 |
+| Region | Configuration Key | Default Value | Description |
 |------|--------|-------|------|
-| **热榜** | `hotlist` | `true` | 按关键词匹配的热点新闻聚合 |
-| **新增热点** | `new_items` | `false` | 本轮新出现的热点话题（含热榜新增 + RSS 新增）。注：热榜区域中的 🆕 标记不受此开关影响 |
-| **RSS** | `rss` | `true` | 按关键词匹配的 RSS 订阅内容。关闭后跳过 RSS 分析，但独立展示区中的 RSS 不受影响 |
-| **独立展示区** | `standalone` | `false` | 指定平台/RSS 的完整内容展示，不受关键词过滤 |
-| **AI 分析** | `ai_analysis` | `true` | AI 生成的热点分析摘要 |
+| **Hotlist** | `hotlist` | `true` | Aggregation of hot news matching keywords |
+| **New Hot Topics** | `new_items` | `false` | Newly emerged hot topics in this round (includes new hotlist items + new RSS items). Note: The 🆕 mark in the hotlist region is not affected by this switch |
+| **RSS** | `rss` | `true` | RSS subscription content matching keywords. If disabled, RSS analysis is skipped, but RSS in the standalone display area is not affected |
+| **Standalone Display Area** | `standalone` | `false` | Complete content display of specified platforms/RSS, unaffected by keyword filtering |
+| **AI Analysis** | `ai_analysis` | `true` | AI-generated hot topic analysis summary |
 
-#### 排序优先级（sort_by_position_first）
+#### Sorting Priority (sort_by_position_first)
 
-假设你配置了关键词：1.特斯拉，2.比亚迪。
-实际热度：比亚迪(10条)，特斯拉(3条)。
+Suppose you configured the keywords: 1. Tesla, 2. BYD.
+Actual popularity: BYD (10 items), Tesla (3 items).
 
-| 配置值 | 排序结果 | 你的想法 |
+| Configuration Value | Sorting Result | Your Thought |
 |-------|---------|---------|
-| `false`（默认） | 比亚迪(10条) → 特斯拉(3条) | "谁火谁排前面" |
-| `true` | 特斯拉(3条) → 比亚迪(10条) | "我配置的顺序就是优先级，不管它火不火" |
+| `false` (Default) | BYD (10 items) → Tesla (3 items) | "Whatever is more popular goes first" |
+| `true` | Tesla (3 items) → BYD (10 items) | "My configured order is the priority, regardless of popularity" |
 
-#### 独立展示区（standalone）
+#### Standalone Display Area (standalone)
 
-**场景**：有些平台（比如知乎热榜、HackerNews），我想**完整看一遍**，不管有没有匹配我的关键词。
+**Scenario**: For some platforms (like Zhihu Hotlist, HackerNews), I want to **read them completely**, regardless of whether they match my keywords.
 
 ```yaml
 display:
   regions:
-    standalone: true                  # 推送中展示独立展示区（关闭不影响 AI 分析）
+    standalone: true                  # Display standalone display area in push message (disabling does not affect AI analysis)
 
   standalone:
-    platforms: ["zhihu", "weibo"]     # 这些平台的热榜给我完整显示
-    rss_feeds: ["hacker-news"]        # 这些RSS源的内容给我完整显示
-    max_items: 20                     # 最多显示多少条
+    platforms: ["zhihu", "weibo"]     # Display the hotlists of these platforms completely
+    rss_feeds: ["hacker-news"]        # Display the content of these RSS feeds completely
+    max_items: 20                     # Maximum number of items to display
 ```
 
-> 💡 **推送展示与 AI 分析独立控制**：`regions.standalone` 只控制推送中是否显示独立展示区。即使关闭推送展示，只要在 AI 配置中开启 `include_standalone: true`，AI 仍会分析这些平台的完整数据。适合想让 AI 做深度分析、但不想推送消息太长的用户。
+> 💡 **Independent Control of Push Display and AI Analysis**: `regions.standalone` only controls whether the standalone display area is shown in the push message. Even if the push display is disabled, as long as `include_standalone: true` is enabled in the AI configuration, the AI will still analyze the complete data of these platforms. Suitable for users who want the AI to do deep analysis but don't want the push message to be too long.
 
 </details>
 
-### 8. 什么时候给我推送？
+### 8. When will I receive pushes?
 
 <details>
-<summary>👉 点击展开：<strong>设置推送时间（调度系统）</strong></summary>
+<summary>👉 Click to expand: <strong>Set push time (Scheduling System)</strong></summary>
 <br>
 
-**配置位置：** `config/config.yaml` 的 `schedule` 部分 + `config/timeline.yaml`
+**Configuration location:** `schedule` section in `config/config.yaml` + `config/timeline.yaml`
 
-#### 快速上手
+#### Quick Start
 
-只需在 `config.yaml` 中选一个预设模板，不需要编辑 `timeline.yaml`：
+Just select a preset template in `config.yaml`, no need to edit `timeline.yaml`:
 
 ```yaml
 schedule:
   enabled: true
-  preset: "morning_evening"     # 改这里就行
+  preset: "morning_evening"     # Just change this
 ```
 
-#### 可选预设模板
+#### Available Preset Templates
 
-| 模板名 | 说明 | 推送行为 |
+| Template Name | Description | Push Behavior |
 |-------|------|---------|
-| `morning_evening` | 全天增量 + 晚间汇总（推荐） | 全天有新增就推 + 19:00-21:00 晚间当日汇总 |
-| `always_on` | 全天候监控 | 全天有新增就推送，不划分时间段 |
-| `office_hours` | 办公时间 | 工作日三段式（到岗速览→午间热点→收工汇总），周末增量自由推 |
-| `night_owl` | 夜猫子 | 午后速览 + 深夜全天汇总（22:00-01:00 跨午夜） |
-| `custom` | 完全自定义 | 编辑 `timeline.yaml` 底部的 custom 段 |
+| `morning_evening` | All-day incremental + Evening summary (Recommended) | Push on new updates all day + 19:00-21:00 evening daily summary |
+| `always_on` | 24/7 monitoring | Push on new updates all day, no time periods |
+| `office_hours` | Office hours | Weekday 3-phase (Arrival quick look → Noon hot topics → Off-work summary), weekend incremental free push |
+| `night_owl` | Night owl | Afternoon quick look + Late night all-day summary (22:00-01:00 across midnight) |
+| `custom` | Fully custom | Edit the custom section at the bottom of `timeline.yaml` |
 
-#### 完全自定义
+#### Fully Custom
 
-如果预设模板都不满足需求，可以编辑 `config/timeline.yaml` 底部的 `custom` 段，自由定义时间段、日计划和周映射。详见 `timeline.yaml` 文件内的注释说明。
+If none of the preset templates meet your needs, you can edit the `custom` section at the bottom of `config/timeline.yaml` to freely define time periods, daily plans, and weekly mappings. See the comments in the `timeline.yaml` file for details.
 
-#### 重要提示
+#### Important Notes
 
-> ⚠️ **从旧版本升级的用户注意：**
-> - v6.0.0 移除了旧的 `notification.push_window` 和 `ai_analysis.analysis_window` 配置
-> - 请改用新的 `schedule` + `timeline.yaml` 调度系统
-> - 旧的"每天推送一次"可用 `morning_evening` 预设替代
-> - 旧的"工作时间推送"可用 `office_hours` 预设替代
+> ⚠️ **Note for users upgrading from older versions:**
+> - v6.0.0 removed the old `notification.push_window` and `ai_analysis.analysis_window` configurations
+> - Please use the new `schedule` + `timeline.yaml` scheduling system instead
+> - The old "push once a day" can be replaced by the `morning_evening` preset
+> - The old "push during working hours" can be replaced by the `office_hours` preset
 
-> ⚠️ **GitHub Actions 用户注意：**
-> - GitHub Actions 执行时间不稳定，可能有 ±15 分钟的偏差
-> - 时间段范围建议至少留足 **2 小时**
-> - 如果想要精准的定时推送，建议使用 **Docker 部署**在个人服务器上
+> ⚠️ **Note for GitHub Actions users:**
+> - GitHub Actions execution time is unstable, there may be a deviation of ±15 minutes
+> - It is recommended to leave at least **2 hours** for the time period range
+> - If you want precise scheduled pushes, it is recommended to use **Docker deployment** on a personal server
 
 </details>
 
-### 9. 多久运行一次？
+### 9. How often does it run?
 
 <details>
-<summary>👉 点击展开：<strong>设置自动运行频率</strong></summary>
+<summary>👉 Click to expand: <strong>Set automatic run frequency</strong></summary>
 <br>
 
-**配置位置：** `.github/workflows/crawler.yml` 的 `schedule` 部分
+**Configuration location:** `schedule` section in `.github/workflows/crawler.yml`
 
 ```yaml
 on:
   schedule:
-    - cron: "0 * * * *"  # 每小时运行一次
+    - cron: "0 * * * *"  # Run once an hour
 ```
 
-#### 怎么修改运行频率？
+#### How to modify the run frequency?
 
-GitHub Actions 使用一种叫 "Cron" 的时间格式，不需要深入理解，直接复制下面的代码替换即可。
+GitHub Actions uses a time format called "Cron". You don't need to understand it deeply, just copy the code below and replace it.
 
-**配置位置：** `.github/workflows/crawler.yml` 文件中的 `schedule` 部分
+**Configuration location:** `schedule` section in the `.github/workflows/crawler.yml` file
 
-| 我想要... | 复制这行代码 | 说明 |
+| I want to... | Copy this line of code | Description |
 |-----------|------------|------|
-| **每小时一次** | `- cron: "0 * * * *"` | **默认配置**，第 0 分钟运行 |
-| **每 30 分钟** | `- cron: "*/30 * * * *"` | 每隔 30 分钟运行一次 |
-| **每天早 8 点** | `- cron: "0 0 * * *"` | ⚠️ 写 `0` 是因为 UTC 时间 (0点) = 北京时间 (8点) |
-| **工作时间每半小时** | `- cron: "*/30 0-14 * * *"` | 对应北京时间 8:00 - 22:00 |
-| **一日三餐点** | `- cron: "0 0,6,12 * * *"` | 对应北京时间 8:00、14:00、20:00 |
+| **Once an hour** | `- cron: "0 * * * *"` | **Default configuration**, runs at the 0th minute |
+| **Every 30 minutes** | `- cron: "*/30 * * * *"` | Runs every 30 minutes |
+| **Every day at 8 AM** | `- cron: "0 0 * * *"` | ⚠️ Write `0` because UTC time (0:00) = Beijing time (8:00) |
+| **Every half hour during working hours** | `- cron: "*/30 0-14 * * *"` | Corresponds to Beijing time 8:00 - 22:00 |
+| **Three meals a day** | `- cron: "0 0,6,12 * * *"` | Corresponds to Beijing time 8:00, 14:00, 20:00 |
 
-#### ⚠️ 两个重要提醒
+#### ⚠️ Two Important Reminders
 
-1. **时差问题**：GitHub 的服务器在国外，用的是 UTC 时间。
-   - **简单的算术题**：你想设定的北京时间 **减去 8 小时** = 你要填的时间。
-   - *例子：想让它北京时间 20:00 运行，设置里要填 12:00*
+1. **Time zone difference**: GitHub's servers are abroad and use UTC time.
+   - **Simple math**: The Beijing time you want to set **minus 8 hours** = the time you need to fill in.
+   - *Example: If you want it to run at 20:00 Beijing time, you need to fill in 12:00 in the settings*
 
-2. **不要太频繁**：建议间隔不要少于 30 分钟。
-   - GitHub 免费资源有限，跑得太勤可能会被官方限制账号。
-   - 而且 Actions 启动本身就有几分钟延迟，太精确的控制没有意义。
+2. **Not too frequent**: It is recommended that the interval is not less than 30 minutes.
+   - GitHub's free resources are limited; running it too frequently may result in your account being restricted.
+   - Moreover, Actions startup itself has a delay of a few minutes, so overly precise control is meaningless.
 
-#### 手把手修改步骤
+#### Step-by-step modification steps
 
-1. 在你的 GitHub 仓库中，找到 `.github/workflows/crawler.yml` 文件
-2. 点击右上角的 ✏️ (Edit) 按钮
-3. 找到 `cron: "..."` 那一行，把引号里的内容换成上面的"代码"
-4. 点击右上角的绿色 **Commit changes** 按钮保存
+1. In your GitHub repository, find the `.github/workflows/crawler.yml` file
+2. Click the ✏️ (Edit) button in the top right corner
+3. Find the line with `cron: "..."`, and replace the content inside the quotes with the "code" above
+4. Click the green **Commit changes** button in the top right corner to save
 
 </details>
 
-### 10. 推送到多个群/设备
+### 10. Push to multiple groups/devices
 
 <details>
-<summary>👉 点击展开：<strong>同时推送给多个接收者</strong></summary>
+<summary>👉 Click to expand: <strong>Push to multiple recipients simultaneously</strong></summary>
 
-> ### ⚠️ **安全第一**
-> **不要在 `config.yaml` 里直接写密码/Token！**
-> 如果你把包含密码的文件上传到 GitHub，全世界都能看到。
+> ### ⚠️ **Safety first**
+> **Do not write passwords/Tokens directly in `config.yaml`!**
+> If you upload a file containing passwords to GitHub, the whole world can see it.
 >
-> **正确做法**：
-> - **GitHub Actions 用户**：去 Settings -> Secrets 里添加
-> - **Docker 用户**：写在 `.env` 文件里（这个文件不会被上传）
+> **Correct approach**:
+> - **GitHub Actions users**: Go to Settings -> Secrets to add them
+> - **Docker users**: Write them in the `.env` file (this file will not be uploaded)
 
-#### 怎么同时推送到多个地方？
+#### How to push to multiple places simultaneously?
 
-很简单，在配置时用分号 `;` 把多个地址隔开就行了。
+It's very simple, just use a semicolon `;` to separate multiple addresses when configuring.
 
-**举个例子**：
-假设你有两个飞书群，想同时收到推送：
-- 群1地址：`https://.../webhook/aaa`
-- 群2地址：`https://.../webhook/bbb`
+**For example**:
+Suppose you have two Feishu groups and want to receive pushes simultaneously:
+- Group 1 address: `https://.../webhook/aaa`
+- Group 2 address: `https://.../webhook/bbb`
 
-配置时填写：
+Fill in during configuration:
 `https://.../webhook/aaa;https://.../webhook/bbb`
 
-#### 支持多账号的平台
+#### Platforms supporting multiple accounts
 
-| 平台 | 配置方法 | 注意事项 |
+| Platform | Configuration Method | Notes |
 |------|---------|----------|
-| **飞书/钉钉/企微** | 用 `;` 分隔多个 Webhook URL | 最简单，直接串起来就行 |
-| **Bark (iOS)** | 用 `;` 分隔多个 Key URL | 推送到多台 iPhone |
-| **Telegram** | Token 和 ChatID 都要用 `;` 分隔 | ⚠️ **注意顺序要对应**：<br>Token1 对应 ChatID1<br>Token2 对应 ChatID2 |
-| **ntfy** | Topic 和 Token 都要用 `;` 分隔 | 如果某个Topic不需要Token，留空即可：<br>`token1;;token3` (中间那个是空的) |
+| **Feishu/DingTalk/WeCom** | Use `;` to separate multiple Webhook URLs | The simplest, just string them together |
+| **Bark (iOS)** | Use `;` to separate multiple Key URLs | Push to multiple iPhones |
+| **Telegram** | Both Token and ChatID must be separated by `;` | ⚠️ **Note the order must correspond**: <br>Token1 corresponds to ChatID1<br>Token2 corresponds to ChatID2 |
+| **ntfy** | Both Topic and Token must be separated by `;` | If a Topic doesn't need a Token, just leave it blank: <br>`token1;;token3` (the middle one is empty) |
 
-#### 常用配置示例 (GitHub Secrets / .env)
+#### Common configuration examples (GitHub Secrets / .env)
 
 ```bash
-# 飞书发给 3 个群
+# Feishu sends to 3 groups
 FEISHU_WEBHOOK_URL=https://hook1...;https://hook2...;https://hook3...
 
-# 钉钉发给 2 个群
+# DingTalk sends to 2 groups
 DINGTALK_WEBHOOK_URL=https://oapi...;https://oapi...
 
-# Telegram 发给 2 个人 (注意一一对应)
+# Telegram sends to 2 people (note one-to-one correspondence)
 TELEGRAM_BOT_TOKEN=tokenA;tokenB
 TELEGRAM_CHAT_ID=userA;userB
 ```
 
-> **提示**：为了防止滥用，默认限制每个平台最多推送到 3 个账号。如果需要更多，可以修改 `MAX_ACCOUNTS_PER_CHANNEL` 配置。
+> **Tip**: To prevent abuse, the default limit is a maximum of 3 accounts per platform. If you need more, you can modify the `MAX_ACCOUNTS_PER_CHANNEL` configuration.
 
 </details>
 
-### 11. 数据保存在哪里？
+### 11. Where is the data saved?
 
 <details id="storage-config">
-<summary>👉 点击展开：<strong>选择数据存储位置</strong></summary>
+<summary>👉 Click to expand: <strong>Select data storage location</strong></summary>
 <br>
 
-#### 数据会存在哪里？
+#### Where will the data be stored?
 
-系统会自动帮你选择最合适的地方，你通常不需要操心：
+The system will automatically choose the most suitable place for you, you usually don't need to worry about it:
 
-| 你的运行环境 | 数据存在哪 | 说明 |
+| Your Environment | Where Data is Stored | Description |
 |-------------|-----------|------|
-| **Docker / 本地运行** | **本地硬盘** | 存在项目目录下的 `output/` 文件夹里，随时可以查看。 |
-| **GitHub Actions** | **云端存储** | 因为 GitHub Actions 运行完就会销毁环境，所以必须配置云存储（例如 Cloudflare R2）。 |
+| **Docker / Local Run** | **Local Hard Drive** | Stored in the `output/` folder under the project directory, can be viewed at any time. |
+| **GitHub Actions** | **Cloud Storage** | Because GitHub Actions destroys the environment after running, you must configure cloud storage (e.g., Cloudflare R2). |
 
-#### 怎么配置云存储？(GitHub Actions 用户必看)
+#### How to Configure Cloud Storage? (Must-read for GitHub Actions Users)
 
-如果你是用 GitHub Actions 运行，你需要一个"云端硬盘"来存数据。例如使用 Cloudflare R2（因为有免费额度）。
+If you are running with GitHub Actions, you need a "cloud drive" to store data. For example, use Cloudflare R2 (because it has a free tier).
 
-**在 GitHub Secrets 里添加这 5 个变量：**
+**Add these 5 variables in GitHub Secrets:**
 
-| 变量名 | 填什么 |
+| Variable Name | What to Fill In |
 |-------|-------|
 | `STORAGE_BACKEND` | `remote` |
-| `S3_BUCKET_NAME` | 你的存储桶名字 |
-| `S3_ACCESS_KEY_ID` | 你的 Access Key |
-| `S3_SECRET_ACCESS_KEY` | 你的 Secret Key |
-| `S3_ENDPOINT_URL` | 你的 R2 接口地址 |
+| `S3_BUCKET_NAME` | Your bucket name |
+| `S3_ACCESS_KEY_ID` | Your Access Key |
+| `S3_SECRET_ACCESS_KEY` | Your Secret Key |
+| `S3_ENDPOINT_URL` | Your R2 endpoint URL |
 
-> 💡 **详细教程**：怎么申请 R2？请看 [快速开始 - 远程存储配置](#-快速开始)
+> 💡 **Detailed Tutorial**: How to apply for R2? Please see [Quick Start - Remote Storage Configuration](#-Quick Start)
 
-#### 数据会保存多久？
+#### How Long Will Data Be Saved?
 
-默认情况下，我们不会自动删除你的数据。但如果你觉得数据太多占空间，可以设置"自动清理"。
+By default, we will not automatically delete your data. But if you feel there is too much data taking up space, you can set up "auto-cleanup".
 
-**配置位置**：`config/config.yaml`
+**Configuration Location**: `config/config.yaml`
 
 ```yaml
 storage:
   local:
-    retention_days: 30    # 本地数据只保留 30 天 (0 表示永久)
+    retention_days: 30    # Local data is only kept for 30 days (0 means permanent)
   remote:
-    retention_days: 30    # 云端数据只保留 30 天
+    retention_days: 30    # Cloud data is only kept for 30 days
 ```
 
-#### 推送时间不对？(时区设置)
+#### Push Time is Incorrect? (Timezone Settings)
 
-如果你身在海外，或者发现推送时间跟你的本地时间对不上，可以修改时区。
+If you are overseas, or find that the push time does not match your local time, you can modify the timezone.
 
-**配置位置**：`config/config.yaml`
+**Configuration Location**: `config/config.yaml`
 
 ```yaml
 app:
-  timezone: "Asia/Shanghai"  # 默认是中国时间
+  timezone: "Asia/Shanghai"  # Default is China time
 ```
-- 比如你在美国洛杉矶，改成：`America/Los_Angeles`
-- 比如你在英国伦敦，改成：`Europe/London`
+- For example, if you are in Los Angeles, USA, change it to: `America/Los_Angeles`
+- For example, if you are in London, UK, change it to: `Europe/London`
 
 </details>
 
-### 12. 让 AI 帮我分析热点
+### 12. Let AI Help Me Analyze Trending Topics
 
 <details id="ai-analysis-config">
-<summary>👉 点击展开：<strong>开启 AI 智能分析功能</strong></summary>
+<summary>👉 Click to expand: <strong>Enable AI Smart Analysis Feature</strong></summary>
 <br>
 
-#### AI 能帮我做什么？
+#### What Can AI Do for Me?
 
-开启这个功能后，AI 会像一个专业的分析师，在推送每一批新闻时：
-1. **自动阅读**：阅读所有匹配到的热点新闻
-2. **深度思考**：分析原本孤立的新闻之间的关联
-3. **撰写报告**：在推送消息的末尾，附上一份简短深刻的"洞察报告"
+After enabling this feature, AI will act like a professional analyst when pushing each batch of news:
+1. **Auto-read**: Read all matched trending news
+2. **Deep Thinking**: Analyze the connections between originally isolated news
+3. **Write Reports**: Attach a short and profound "insight report" at the end of the push message
 
-**包含内容**：热点趋势总结、舆论风向判断、跨平台关联分析、潜在影响评估等。
+**Included Content**: Trending trend summary, public opinion direction judgment, cross-platform correlation analysis, potential impact assessment, etc.
 
-#### 怎么开启 AI 分析？
+#### How to Enable AI Analysis?
 
-最简单的方法是通过环境变量配置（推荐 GitHub Secrets 或 .env）。
+The simplest method is through environment variable configuration (GitHub Secrets or .env is recommended).
 
-**必需的配置项**：
+**Required Configuration Items**:
 
-| 变量名 | 填什么 | 说明 |
+| Variable Name | What to Fill In | Description |
 |-------|-------|------|
-| `AI_ANALYSIS_ENABLED` | `true` | 开启开关 |
-| `AI_API_KEY` | `sk-xxxxxx` | 你的 API Key |
-| `AI_MODEL` | `deepseek/deepseek-chat` | 模型标识（格式：`provider/model`） |
+| `AI_ANALYSIS_ENABLED` | `true` | Enable switch |
+| `AI_API_KEY` | `sk-xxxxxx` | Your API Key |
+| `AI_MODEL` | `deepseek/deepseek-chat` | Model identifier (Format: `provider/model`) |
 
-**支持的 AI 提供商**（基于 LiteLLM，支持 100+ 提供商）：
+**Supported AI Providers** (Based on LiteLLM, supports 100+ providers):
 
-| 提供商 | AI_MODEL 填什么 | 说明 |
+| Provider | What to Fill in AI_MODEL | Description |
 |-------|----------------|------|
-| **DeepSeek** (推荐) | `deepseek/deepseek-chat` | 性价比极高，适合高频分析 |
-| **OpenAI** | `openai/gpt-4o`<br>`openai/gpt-4o-mini` | GPT-4o 系列 |
-| **Google Gemini** | `gemini/gemini-1.5-flash`<br>`gemini/gemini-1.5-pro` | Gemini 系列 |
-| **自定义 API** | 任意格式 | 配合 `AI_API_BASE` 使用 |
+| **DeepSeek** (Recommended) | `deepseek/deepseek-chat` | Extremely cost-effective, suitable for high-frequency analysis |
+| **OpenAI** | `openai/gpt-4o`<br>`openai/gpt-4o-mini` | GPT-4o Series |
+| **Google Gemini** | `gemini/gemini-1.5-flash`<br>`gemini/gemini-1.5-pro` | Gemini Series |
+| **Custom API** | Any format | Use with `AI_API_BASE` |
 
-> 💡 **新特性**：现已基于 [LiteLLM](https://github.com/BerriAI/litellm) 统一接口，支持 100+ AI 提供商，配置更简单、错误处理更完善。
+> 💡 **New Feature**: Now based on the [LiteLLM](https://github.com/BerriAI/litellm) unified interface, supporting 100+ AI providers with simpler configuration and better error handling.
 
-**可选配置项**：
+**Optional Configurations**:
 
-| 变量名 | 默认值 | 说明 |
+| Variable Name | Default Value | Description |
 |-------|-------|------|
-| `AI_API_BASE` | (自动) | 自定义 API 地址（如 OneAPI、本地模型） |
-| `AI_TEMPERATURE` | `1.0` | 采样温度（0-2，越高越随机） |
-| `AI_MAX_TOKENS` | `5000` | 最大生成 token 数 |
-| `AI_TIMEOUT` | `120` | 请求超时时间（秒） |
-| `AI_NUM_RETRIES` | `2` | 失败重试次数 |
+| `AI_API_BASE` | (Auto) | Custom API address (e.g., OneAPI, local models) |
+| `AI_TEMPERATURE` | `1.0` | Sampling temperature (0-2, higher is more random) |
+| `AI_MAX_TOKENS` | `5000` | Maximum generated tokens |
+| `AI_TIMEOUT` | `120` | Request timeout (seconds) |
+| `AI_NUM_RETRIES` | `2` | Number of retries on failure |
 
-#### 进阶玩法：AI 翻译
+#### Advanced Usage: AI Translation
 
-如果你关注了国外的 RSS 源（比如 Hacker News），AI 可以帮你把内容翻译成中文推送。
+If you follow foreign RSS feeds (like Hacker News), AI can help translate the content into Chinese and push it to you.
 
-**配置位置**：`config/config.yaml`
+**Configuration Location**: `config/config.yaml`
 
 ```yaml
 ai_translation:
-  enabled: true          # 开启翻译
-  language: "Chinese"    # 翻译成什么语言 (Chinese, English, Japanese...)
+  enabled: true          # Enable translation
+  language: "Chinese"    # Target language for translation (Chinese, English, Japanese...)
 ```
 
-#### 进阶玩法：自定义 AI "人设"
+#### Advanced Usage: Custom AI "Persona"
 
-觉得 AI 说话太官方？你可以修改它的提示词，让它变成你喜欢的风格（比如"毒舌评论员"、"资深投资顾问"）。
+Think the AI sounds too official? You can modify its prompt to change it to your preferred style (e.g., "sharp-tongued commentator", "senior investment advisor").
 
-- **修改文件**：`config/ai_analysis_prompt.txt`
-- **修改方法**：直接用记事本打开编辑，告诉 AI 你想要什么样的分析风格。
+- **File to Modify**: `config/ai_analysis_prompt.txt`
+- **How to Modify**: Open and edit directly with a text editor, telling the AI what kind of analysis style you want.
 
 </details>
 
 <br>
 
-## ✨ AI 智能分析
+## ✨ AI Intelligent Analysis
 
-TrendRadar v3.0.0 新增了基于 **MCP (Model Context Protocol)** 的 AI 分析功能，让你可以通过自然语言与新闻数据对话，进行深度分析。
-
-
-### ⚠️ 使用前必读
+TrendRadar v3.0.0 adds an AI analysis feature based on **MCP (Model Context Protocol)**, allowing you to converse with news data using natural language for in-depth analysis.
 
 
-**重要提示：AI 功能需要本地新闻数据支持**
-
-AI 分析功能**不是**直接查询网络实时数据，而是分析你**本地已积累的新闻数据**（存储在 `output` 文件夹中）
+### ⚠️ Must Read Before Use
 
 
-#### 使用说明：
+**Important Note: AI features require local news data support**
 
-1. **项目自带测试数据**：`output` 目录默认包含 **2025-12-21～2025-12-27** 一周的热榜新闻数据，可用于快速体验 AI 功能
-
-2. **查询限制**：
-   - ✅ 只能查询已有日期范围内的数据（12月21-27日，共7天）
-   - ❌ 无法查询实时新闻或未来日期
-
-3. **获取最新数据**：
-   - 测试数据仅供快速体验，**建议自行部署项目**获取实时数据
-   - 按照 [快速开始](#-快速开始) 部署运行项目
-   - 等待至少 1 天积累新闻数据后，即可查询最新热点
+The AI analysis feature does **not** directly query real-time network data, but analyzes your **accumulated local news data** (stored in the `output` folder)
 
 
-### 1. 快速部署
+#### Usage Instructions:
 
-Cherry Studio 提供 GUI 配置界面，5 分钟快速部署，复杂的部分是一键安装的。
+1. **Project's built-in test data**: The `output` directory contains a week of trending news data from **2025-12-21 to 2025-12-27** by default, which can be used to quickly experience the AI features
 
-**图文部署教程**：现已更新到我的[公众号](#-支持项目)，回复 "mcp" 即可
+2. **Query Limitations**:
+   - ✅ Can only query data within the existing date range (December 21-27, 7 days in total)
+   - ❌ Cannot query real-time news or future dates
 
-**详细部署教程**：[README-Cherry-Studio.md](README-Cherry-Studio.md)
+3. **Getting the Latest Data**:
+   - Test data is only for a quick experience, **it is recommended to deploy the project yourself** to get real-time data
+   - Follow [Quick Start](#-Quick Start) to deploy and run the project
+   - Wait at least 1 day to accumulate news data, then you can query the latest hot topics
 
-**部署模式说明**：
-- **STDIO 模式（推荐）**：一次配置后续无需重复配置，**图文部署教程**中仅以此模式的配置为例。
-- **HTTP 模式（备选）**：如果 STDIO 模式配置遇到问题，可使用 HTTP 模式。此模式的配置方式与 STDIO 基本一致，但复制粘贴的内容就一行，不易出错。唯一需要注意的是每次使用前都需要手动启动一下服务。详细请参考 [README-Cherry-Studio.md](README-Cherry-Studio.md) 底部的 HTTP 模式说明。
 
-### 2. 学习与 AI 对话的姿势
+### 1. Quick Deployment
 
-**详细对话教程**：[README-MCP-FAQ.md](README-MCP-FAQ.md)
+Cherry Studio provides a GUI configuration interface for a 5-minute quick deployment, and the complex parts are installed with one click.
 
-> 💡 **提示**：实际不建议一次性问多个问题。如果你选择的 AI 模型连下图的按顺序调用都无法做到，建议换一个。
+**Graphic Deployment Tutorial**: Now updated on my [Official Account](#-support project), just reply "mcp"
 
-<img src="/_image/ai4.png" alt="mcp 使用效果图" width="600">
+**Detailed Deployment Tutorial**: [README-Cherry-Studio.md](README-Cherry-Studio.md)
+
+**Deployment Mode Description**:
+- **STDIO Mode (Recommended)**: Configure once and no need to repeat later. The **graphic deployment tutorial** only uses the configuration of this mode as an example.
+- **HTTP Mode (Alternative)**: If you encounter problems configuring STDIO mode, you can use HTTP mode. The configuration method of this mode is basically the same as STDIO, but the content to copy and paste is just one line, making it less prone to errors. The only thing to note is that you need to manually start the service before each use. For details, please refer to the HTTP mode instructions at the bottom of [README-Cherry-Studio.md](README-Cherry-Studio.md).
+
+### 2. Learning How to Converse with AI
+
+**Detailed Conversation Tutorial**: [README-MCP-FAQ.md](README-MCP-FAQ.md)
+
+> 💡 **Tip**: In practice, it is not recommended to ask multiple questions at once. If the AI model you choose cannot even perform the sequential calls shown in the figure below, it is recommended to change to another one.
+
+<img src="/_image/ai4.png" alt="mcp usage effect" width="600">
 
 <br>
 
-## 🔌 MCP 客户端
+## 🔌 MCP Clients
 
-TrendRadar MCP 服务支持标准的 Model Context Protocol (MCP) 协议，可以接入各种支持 MCP 的 AI 客户端进行智能分析。
+The TrendRadar MCP service supports the standard Model Context Protocol (MCP) and can be integrated with various MCP-supported AI clients for intelligent analysis.
 
-### 支持的客户端
+### Supported Clients
 
-**注意事项**：
-- 将 `/path/to/TrendRadar` 替换为你的项目实际路径
-- Windows 路径使用双反斜杠：`C:\\Users\\YourName\\TrendRadar`
-- 保存后记得重启
+**Notes**:
+- Replace `/path/to/TrendRadar` with your actual project path
+- Use double backslashes for Windows paths: `C:\\Users\\YourName\\TrendRadar`
+- Remember to restart after saving
 
 <details>
-<summary>👉 点击展开：<b>Cursor</b></summary>
+<summary>👉 Click to expand: <b>Cursor</b></summary>
 
-#### 方式一：HTTP 模式
+#### Method 1: HTTP Mode
 
-1. **启动 HTTP 服务**：
+1. **Start the HTTP Service**:
    ```bash
    # Windows
    start-http.bat
@@ -3528,32 +3528,32 @@ TrendRadar MCP 服务支持标准的 Model Context Protocol (MCP) 协议，可�
    ./start-http.sh
    ```
 
-2. **配置 Cursor**：
+2. **Configure Cursor**:
 
-   **项目级配置**（推荐）：
-   在项目根目录创建 `.cursor/mcp.json`：
+   **Project-level Configuration** (Recommended):
+   Create `.cursor/mcp.json` in the project root directory:
    ```json
    {
      "mcpServers": {
        "trendradar": {
          "url": "http://localhost:3333/mcp",
-         "description": "TrendRadar 新闻热点聚合分析"
+         "description": "TrendRadar News Hotspot Aggregation Analysis"
        }
      }
    }
    ```
 
-   **全局配置**：
-   在用户目录创建 `~/.cursor/mcp.json`（同样内容）
+   **Global Configuration**:
+   Create `~/.cursor/mcp.json` in the user directory (with the same content)
 
-3. **使用步骤**：
-   - 保存配置文件后重启 Cursor
-   - 在聊天界面的 "Available Tools" 中查看已连接的工具
-   - 开始使用：`搜索今天的"AI"相关新闻`
+3. **Usage Steps**:
+   - Restart Cursor after saving the configuration file
+   - Check the connected tools in "Available Tools" in the chat interface
+   - Start using: `Search for today's "AI" related news`
 
-#### 方式二：STDIO 模式（推荐）
+#### Method 2: STDIO Mode (Recommended)
 
-创建 `.cursor/mcp.json`：
+Create `.cursor/mcp.json`:
 ```json
 {
   "mcpServers": {
@@ -3575,13 +3575,13 @@ TrendRadar MCP 服务支持标准的 Model Context Protocol (MCP) 协议，可�
 </details>
 
 <details>
-<summary>👉 点击展开：<b>VSCode (Cline/Continue)</b></summary>
+<summary>👉 Click to expand: <b>VSCode (Cline/Continue)</b></summary>
 
-#### Cline 配置
+#### Cline Configuration
 
-在 Cline 的 MCP 设置中添加：
+Add to Cline's MCP settings:
 
-**HTTP 模式**：
+**HTTP Mode**:
 ```json
 {
   "trendradar": {
@@ -3593,7 +3593,7 @@ TrendRadar MCP 服务支持标准的 Model Context Protocol (MCP) 协议，可�
 }
 ```
 
-**STDIO 模式**（推荐）：
+**STDIO Mode** (Recommended):
 ```json
 {
   "trendradar": {
@@ -3612,9 +3612,9 @@ TrendRadar MCP 服务支持标准的 Model Context Protocol (MCP) 协议，可�
 }
 ```
 
-#### Continue 配置
+#### Continue Configuration
 
-编辑 `~/.continue/config.json`：
+Edit `~/.continue/config.json`:
 ```json
 {
   "experimental": {
@@ -3638,24 +3638,24 @@ TrendRadar MCP 服务支持标准的 Model Context Protocol (MCP) 协议，可�
 }
 ```
 
-**使用示例**：
+**Usage Examples**:
 ```
-分析最近7天"特斯拉"的热度变化趋势
-生成今天的热点摘要报告
-搜索"比特币"相关新闻并分析情感倾向
+Analyze the popularity trend of "Tesla" over the last 7 days
+Generate today's hotspot summary report
+Search for "Bitcoin" related news and analyze sentiment
 ```
 
 </details>
 
 <details>
-<summary>👉 点击展开：<b>MCP Inspector</b>（调试工具）</summary>
+<summary>👉 Click to expand: <b>MCP Inspector</b> (Debugging Tool)</summary>
 <br>
 
-MCP Inspector 是官方调试工具，用于测试 MCP 连接：
+MCP Inspector is the official debugging tool used to test MCP connections:
 
-#### 使用步骤
+#### Usage Steps
 
-1. **启动 TrendRadar HTTP 服务**：
+1. **Start the TrendRadar HTTP Service**:
    ```bash
    # Windows
    start-http.bat
@@ -3664,46 +3664,46 @@ MCP Inspector 是官方调试工具，用于测试 MCP 连接：
    ./start-http.sh
    ```
 
-2. **启动 MCP Inspector**：
+2. **Start MCP Inspector**:
    ```bash
    npx @modelcontextprotocol/inspector
    ```
 
-3. **在浏览器中连接**：
-   - 访问：`http://localhost:3333/mcp`
-   - 测试 "Ping Server" 功能验证连接
-   - 检查 "List Tools" 是否返回 17 个工具：
-     - 基础查询：get_latest_news, get_news_by_date, get_trending_topics
-     - 智能检索：search_news, find_related_news
-     - 高级分析：analyze_topic_trend, analyze_data_insights, analyze_sentiment, aggregate_news, compare_periods, generate_summary_report
-     - RSS 查询：get_latest_rss, search_rss, get_rss_feeds_status
-     - 系统管理：get_current_config, get_system_status, resolve_date_range
+3. **Connect in the Browser**:
+   - Visit: `http://localhost:3333/mcp`
+   - Test the "Ping Server" function to verify the connection
+   - Check if "List Tools" returns 17 tools:
+     - Basic Queries: get_latest_news, get_news_by_date, get_trending_topics
+     - Smart Retrieval: search_news, find_related_news
+     - Advanced Analysis: analyze_topic_trend, analyze_data_insights, analyze_sentiment, aggregate_news, compare_periods, generate_summary_report
+     - RSS Queries: get_latest_rss, search_rss, get_rss_feeds_status
+     - System Management: get_current_config, get_system_status, resolve_date_range
 
 </details>
 
 <details>
-<summary>👉 点击展开：<b>其他支持 MCP 的客户端</b></summary>
+<summary>👉 Click to expand: <b>Other Clients Supporting MCP</b></summary>
 <br>
 
-任何支持 Model Context Protocol 的客户端都可以连接 TrendRadar：
+Any client that supports the Model Context Protocol can connect to TrendRadar:
 
-#### HTTP 模式
+#### HTTP Mode
 
-**服务地址**：`http://localhost:3333/mcp`
+**Service Address**: `http://localhost:3333/mcp`
 
-**基本配置模板**：
+**Basic Configuration Template**:
 ```json
 {
   "name": "trendradar",
   "url": "http://localhost:3333/mcp",
   "type": "http",
-  "description": "新闻热点聚合分析"
+  "description": "Trending News Aggregation Analysis"
 }
 ```
 
-#### STDIO 模式（推荐）
+#### STDIO Mode (Recommended)
 
-**基本配置模板**：
+**Basic Configuration Template**:
 ```json
 {
   "name": "trendradar",
@@ -3720,23 +3720,23 @@ MCP Inspector 是官方调试工具，用于测试 MCP 连接：
 }
 ```
 
-**注意事项**：
-- 替换 `/path/to/TrendRadar` 为实际项目路径
-- Windows 路径使用反斜杠转义：`C:\\Users\\...`
-- 确保已完成项目依赖安装（运行过 setup 脚本）
+**Notes**:
+- Replace `/path/to/TrendRadar` with the actual project path
+- Windows paths use backslash escaping: `C:\\Users\\...`
+- Ensure project dependencies are installed (setup script has been run)
 
 </details>
 
 
 
-### 常见问题
+### FAQ
 
 <details>
-<summary>👉 点击展开：<b>Q1: HTTP 服务无法启动？</b></summary>
+<summary>👉 Click to expand: <b>Q1: HTTP service fails to start?</b></summary>
 <br>
 
-**检查步骤**：
-1. 确认端口 3333 未被占用：
+**Check Steps**:
+1. Confirm port 3333 is not occupied:
    ```bash
    # Windows
    netstat -ano | findstr :3333
@@ -3745,18 +3745,18 @@ MCP Inspector 是官方调试工具，用于测试 MCP 连接：
    lsof -i :3333
    ```
 
-2. 检查项目依赖是否安装：
+2. Check if project dependencies are installed:
    ```bash
-   # 重新运行安装脚本
-   # Windows: setup-windows.bat 或者 setup-windows-en.bat
+   # Re-run the installation script
+   # Windows: setup-windows.bat or setup-windows-en.bat
    # Mac/Linux: ./setup-mac.sh
    ```
 
-3. 查看详细错误日志：
+3. View detailed error logs:
    ```bash
    uv run python -m mcp_server.server --transport http --port 3333
    ```
-4. 尝试自定义端口:
+4. Try a custom port:
    ```bash
    uv run python -m mcp_server.server --transport http --port 33333
    ```
@@ -3764,75 +3764,75 @@ MCP Inspector 是官方调试工具，用于测试 MCP 连接：
 </details>
 
 <details>
-<summary>👉 点击展开：<b>Q2: 客户端无法连接到 MCP 服务？</b></summary>
+<summary>👉 Click to expand: <b>Q2: Client cannot connect to the MCP service?</b></summary>
 <br>
 
-**解决方案**：
+**Solutions**:
 
-1. **STDIO 模式**：
-   - 确认 UV 路径正确（运行 `which uv` 或 `where uv`）
-   - 确认项目路径正确且无中文字符
-   - 查看客户端错误日志
+1. **STDIO Mode**:
+   - Confirm the UV path is correct (run `which uv` or `where uv`)
+   - Confirm the project path is correct and contains no Chinese characters
+   - Check the client error logs
 
-2. **HTTP 模式**：
-   - 确认服务已启动（访问 `http://localhost:3333/mcp`）
-   - 检查防火墙设置
-   - 尝试使用 127.0.0.1 替代 localhost
+2. **HTTP Mode**:
+   - Confirm the service is started (visit `http://localhost:3333/mcp`)
+   - Check firewall settings
+   - Try using 127.0.0.1 instead of localhost
 
-3. **通用检查**：
-   - 重启客户端应用
-   - 查看 MCP 服务日志
-   - 使用 MCP Inspector 测试连接
+3. **General Checks**:
+   - Restart the client application
+   - Check the MCP service logs
+   - Use MCP Inspector to test the connection
 
 </details>
 
 <details>
-<summary>👉 点击展开：<b>Q3: 工具调用失败或返回错误？</b></summary>
+<summary>👉 Click to expand: <b>Q3: Tool call failed or returned an error?</b></summary>
 <br>
 
-**可能原因**：
+**Possible Causes**:
 
-1. **数据不存在**：
-   - 确认已运行过爬虫（有 output 目录数据）
-   - 检查查询日期范围是否有数据
-   - 查看 output 目录的可用日期
+1. **Data does not exist**:
+   - Confirm the crawler has been run (there is data in the output directory)
+   - Check if there is data for the queried date range
+   - Check the available dates in the output directory
 
-2. **参数错误**：
-   - 检查日期格式：`YYYY-MM-DD`
-   - 确认平台 ID 正确：`zhihu`, `weibo` 等
-   - 查看工具文档中的参数说明
+2. **Parameter Error**:
+   - Check the date format: `YYYY-MM-DD`
+   - Confirm the platform ID is correct: `zhihu`, `weibo`, etc.
+   - Check the parameter descriptions in the tool documentation
 
-3. **配置问题**：
-   - 确认 `config/config.yaml` 存在
-   - 确认 `config/frequency_words.txt` 存在
-   - 检查配置文件格式是否正确
+3. **Configuration Issues**:
+   - Confirm `config/config.yaml` exists
+   - Confirm `config/frequency_words.txt` exists
+   - Check if the configuration file format is correct
 
 </details>
 
 <br>
 
-## 📚 项目相关
+## 📚 Project Related
 
-> **4 篇文章**：
+> **4 Articles**:
 
-- [可在该文章下方留言，方便项目作者用手机答疑](https://mp.weixin.qq.com/s/KYEPfTPVzZNWFclZh4am_g)
-- [2个月破 1000 star，我的GitHub项目推广实战经验](https://mp.weixin.qq.com/s/jzn0vLiQFX408opcfpPPxQ)
-- [github fork 运行本项目的注意事项 ](https://mp.weixin.qq.com/s/C8evK-U7onG1sTTdwdW2zg)
-- [基于本项目，如何开展公众号或者新闻资讯类文章写作](https://mp.weixin.qq.com/s/8ghyfDAtQZjLrnWTQabYOQ)
+- [You can leave a message below this article, making it convenient for the project author to answer questions via mobile phone](https://mp.weixin.qq.com/s/KYEPfTPVzZNWFclZh4am_g)
+- [Breaking 1000 stars in 2 months, my practical experience in promoting GitHub projects](https://mp.weixin.qq.com/s/jzn0vLiQFX408opcfpPPxQ)
+- [Precautions for running this project after a GitHub fork ](https://mp.weixin.qq.com/s/C8evK-U7onG1sTTdwdW2zg)
+- [How to write articles for WeChat official accounts or news feeds based on this project](https://mp.weixin.qq.com/s/8ghyfDAtQZjLrnWTQabYOQ)
 
->**AI 开发**：
-- 如果你有小众需求，完全可以基于我的项目自行开发，零编程基础的也可以试试
-- 我所有的开源项目或多或少都使用了自己写的**AI辅助软件**来提升开发效率，这款工具已开源
-- **核心功能**：迅速筛选项目代码喂给AI，你只需要补充个人需求即可
-- **项目地址**：https://github.com/sansan0/ai-code-context-helper
+>**AI Development**:
+- If you have niche needs, you can completely develop them yourself based on my project; even those with zero programming foundation can give it a try
+- All my open-source projects have more or less used the **AI assistant software** I wrote myself to improve development efficiency, and this tool is now open-source
+- **Core Function**: Quickly filter project code to feed to AI, you only need to supplement your personal requirements
+- **Project Address**: https://github.com/sansan0/ai-code-context-helper
 
-### 其余项目
+### Other Projects
 
-> 📍 毛主席足迹地图 - 交互式动态展示1893-1976年完整轨迹。欢迎诸位同志贡献数据
+> 📍 Chairman Mao's Footprint Map - Interactive dynamic display of the complete trajectory from 1893-1976. Comrades are welcome to contribute data
 
 - https://github.com/sansan0/mao-map
 
-> 哔哩哔哩(bilibili)评论区数据可视化分析软件
+> Bilibili comment section data visualization and analysis software
 
 - https://github.com/sansan0/bilibili-comment-analyzer
 
@@ -3841,7 +3841,7 @@ MCP Inspector 是官方调试工具，用于测试 MCP 连接：
 
 <br>
 
-## 📄 许可证
+## 📄 License
 
 GPL-3.0 License
 
@@ -3849,6 +3849,6 @@ GPL-3.0 License
 
 <div align="center">
 
-[🔝 回到顶部](#trendradar)
+[🔝 Back to Top](#trendradar)
 
 </div>

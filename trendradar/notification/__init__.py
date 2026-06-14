@@ -1,19 +1,19 @@
 # coding=utf-8
 """
-通知推送模块
+Notification push module
 
-提供多渠道通知推送功能，包括：
-- 飞书、钉钉、企业微信
+Provides multi-channel notification push function, including:
+- Feishu, DingTalk, Enterprise WeChat
 - Telegram、Slack
 - Email、ntfy、Bark
 
-模块结构：
-- formatters: 内容格式转换
-- batch: 批次处理工具
-- renderer: 通知内容渲染
-- splitter: 消息分批拆分
-- senders: 消息发送器（各渠道发送函数）
-- dispatcher: 多账号通知调度器
+Module structure:
+- formatters: content format conversion
+- batch: batch processing tool
+- renderer: notification content rendering
+- splitter: split messages in batches
+- senders: message sender (send function for each channel)
+- dispatcher: multi-account notification dispatcher
 """
 
 from trendradar.notification.formatters import (
@@ -48,21 +48,21 @@ from trendradar.notification.senders import (
 from trendradar.notification.dispatcher import NotificationDispatcher
 
 __all__ = [
-    # 格式转换
+    #Format conversion
     "strip_markdown",
     "convert_markdown_to_mrkdwn",
-    # 批次处理
+    # Batch processing
     "get_batch_header",
     "get_max_batch_header_size",
     "truncate_to_bytes",
     "add_batch_headers",
-    # 内容渲染
+    #Content rendering
     "render_feishu_content",
     "render_dingtalk_content",
-    # 消息分批
+    #Message batching
     "split_content_into_batches",
     "DEFAULT_BATCH_SIZES",
-    # 消息发送器
+    # Message sender
     "send_to_feishu",
     "send_to_dingtalk",
     "send_to_wework",
@@ -72,6 +72,6 @@ __all__ = [
     "send_to_bark",
     "send_to_slack",
     "SMTP_CONFIGS",
-    # 通知调度器
+    # Notify the scheduler
     "NotificationDispatcher",
 ]

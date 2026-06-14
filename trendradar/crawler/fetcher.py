@@ -1,12 +1,12 @@
 # coding=utf-8
 """
-数据获取器模块
+data getter module
 
-负责从 NewsNow API 抓取新闻数据，支持：
-- 单个平台数据获取
-- 批量平台数据爬取
-- 自动重试机制
-- 代理支持
+Responsible for grabbing news data from NewsNow API, supporting:
+- Single platform data acquisition
+- Batch platform data crawling
+- Automatic retry mechanism
+- Agent support
 """
 
 import json
@@ -18,12 +18,12 @@ import requests
 
 
 class DataFetcher:
-    """数据获取器"""
+    """Data Getter"""
 
-    # 默认 API 地址
+    #Default API address
     DEFAULT_API_URL = "https://newsnow.busiyi.world/api/s"
 
-    # 默认请求头
+    #Default request header
     DEFAULT_HEADERS = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
         "Accept": "application/json, text/plain, */*",
@@ -38,11 +38,11 @@ class DataFetcher:
         api_url: Optional[str] = None,
     ):
         """
-        初始化数据获取器
+        Initialize data getter
 
         Args:
-            proxy_url: 代理服务器 URL（可选）
-            api_url: API 基础 URL（可选，默认使用 DEFAULT_API_URL）
+            proxy_url: proxy server URL (optional)
+            api_url: API base URL (optional, default is DEFAULT_API_URL)
         """
         self.proxy_url = proxy_url
         self.api_url = api_url or self.DEFAULT_API_URL
@@ -55,16 +55,16 @@ class DataFetcher:
         max_retry_wait: int = 5,
     ) -> Tuple[Optional[str], str, str]:
         """
-        获取指定ID数据，支持重试
+        Get the specified ID data and support retry
 
         Args:
-            id_info: 平台ID 或 (平台ID, 别名) 元组
-            max_retries: 最大重试次数
-            min_retry_wait: 最小重试等待时间（秒）
-            max_retry_wait: 最大重试等待时间（秒）
+            id_info: platform ID or (platform ID, alias) tuple
+            max_retries: Maximum number of retries
+            min_retry_wait: Minimum retry wait time (seconds)
+            max_retry_wait: Maximum retry wait time (seconds)
 
         Returns:
-            (响应文本, 平台ID, 别名) 元组，失败时响应文本为 None
+            (response text, platform ID, alias) tuple, response text is None on failure
         """
         if isinstance(id_info, tuple):
             id_value, alias = id_info
@@ -92,12 +92,12 @@ class DataFetcher:
                 data_text = response.text
                 data_json = json.loads(data_text)
 
-                status = data_json.get("status", "未知")
+                status = data_json.get("status", "Unknown")
                 if status not in ["success", "cache"]:
-                    raise ValueError(f"响应状态异常: {status}")
+                    raise ValueError(f"Response status exception: {status}")
 
-                status_info = "最新数据" if status == "success" else "缓存数据"
-                print(f"获取 {id_value} 成功（{status_info}）")
+                status_info = "Latest data" if status == "success" else "Cache data"
+                print(f"Get {id_value} successfully ({status_info})")
                 return data_text, id_value, alias
 
             except Exception as e:
@@ -106,10 +106,10 @@ class DataFetcher:
                     base_wait = random.uniform(min_retry_wait, max_retry_wait)
                     additional_wait = (retries - 1) * random.uniform(1, 2)
                     wait_time = base_wait + additional_wait
-                    print(f"请求 {id_value} 失败: {e}. {wait_time:.2f}秒后重试...")
+                    print(f"Request {id_value} failed: {e}. {wait_time:.2f} seconds and try again...")
                     time.sleep(wait_time)
                 else:
-                    print(f"请求 {id_value} 失败: {e}")
+                    print(f"Request {id_value} failed: {e}")
                     return None, id_value, alias
 
         return None, id_value, alias
@@ -120,14 +120,14 @@ class DataFetcher:
         request_interval: int = 100,
     ) -> Tuple[Dict, Dict, List]:
         """
-        爬取多个网站数据
+        Crawl data from multiple websites
 
         Args:
-            ids_list: 平台ID列表，每个元素可以是字符串或 (平台ID, 别名) 元组
-            request_interval: 请求间隔（毫秒）
+            ids_list: Platform ID list, each element can be a string or (platform ID, alias) tuple
+            request_interval: request interval (milliseconds)
 
         Returns:
-            (结果字典, ID到名称的映射, 失败ID列表) 元组
+            (dict of results, mapping of IDs to names, list of failed IDs) tuple
         """
         results = {}
         id_to_name = {}
@@ -150,7 +150,7 @@ class DataFetcher:
 
                     for index, item in enumerate(data.get("items", []), 1):
                         title = item.get("title")
-                        # 跳过无效标题（None、float、空字符串）
+                        # Skip invalid headers (None, float, empty string)
                         if title is None or isinstance(title, float) or not str(title).strip():
                             continue
                         title = str(title).strip()
@@ -166,19 +166,19 @@ class DataFetcher:
                                 "mobileUrl": mobile_url,
                             }
                 except json.JSONDecodeError:
-                    print(f"解析 {id_value} 响应失败")
+                    print(f"Failed to parse {id_value} response")
                     failed_ids.append(id_value)
                 except Exception as e:
-                    print(f"处理 {id_value} 数据出错: {e}")
+                    print(f"Error in processing {id_value} data: {e}")
                     failed_ids.append(id_value)
             else:
                 failed_ids.append(id_value)
 
-            # 请求间隔（除了最后一个）
+            # Request interval (except the last one)
             if i < len(ids_list) - 1:
                 actual_interval = request_interval + random.randint(-10, 20)
                 actual_interval = max(50, actual_interval)
                 time.sleep(actual_interval / 1000)
 
-        print(f"成功: {list(results.keys())}, 失败: {failed_ids}")
+        print(f"Success: {list(results.keys())}, Failure: {failed_ids}")
         return results, id_to_name, failed_ids

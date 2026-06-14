@@ -1,8 +1,9 @@
 # coding=utf-8
 """
-爬虫模块 - 数据抓取功能
+Module Crawler - Chức năng thu thập dữ liệu
 """
 
 from trendradar.crawler.fetcher import DataFetcher
+from trendradar.crawler.bot_fetcher import CrawlerBotFetcher
 
-__all__ = ["DataFetcher"]
+__all__ = ["DataFetcher", "CrawlerBotFetcher"]

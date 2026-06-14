@@ -1,8 +1,8 @@
 # coding=utf-8
 """
-存储后端抽象基类和数据模型
+Storage backend abstract base class and data model
 
-定义统一的存储接口，所有存储后端都需要实现这些方法
+Define a unified storage interface, all storage backends need to implement these methods
 """
 
 from abc import ABC, abstractmethod
@@ -12,27 +12,27 @@ from typing import Dict, List, Optional, Any, Set
 
 @dataclass
 class NewsItem:
-    """新闻条目数据模型（热榜数据）"""
+    """News item data model (hot list data)"""
 
-    title: str                          # 新闻标题
-    source_id: str                      # 来源平台ID（如 toutiao, baidu）
-    source_name: str = ""               # 来源平台名称（运行时使用，数据库不存储）
-    rank: int = 0                       # 排名
-    url: str = ""                       # 链接 URL
-    mobile_url: str = ""                # 移动端 URL
-    crawl_time: str = ""                # 抓取时间（HH:MM 格式）
+    title: str                          # News title
+    source_id: str                      # Source platform ID (e.g., toutiao, baidu)
+    source_name: str = ""               # Source platform name (used at runtime, not stored in database)
+    rank: int = 0                       # Rank
+    url: str = ""                       # Link URL
+    mobile_url: str = ""                # Mobile URL
+    crawl_time: str = ""                # Crawl time (HH:MM format)
 
-    # 统计信息（用于分析）
-    ranks: List[int] = field(default_factory=list)  # 历史排名列表
-    first_time: str = ""                # 首次出现时间
-    last_time: str = ""                 # 最后出现时间
-    count: int = 1                      # 出现次数
-    rank_timeline: List[Dict[str, Any]] = field(default_factory=list)  # 完整排名时间线
-                                        # 格式: [{"time": "09:30", "rank": 1}, {"time": "10:00", "rank": 2}, ...]
-                                        # None 表示脱榜: [{"time": "11:00", "rank": None}]
+    # Statistics (used for analysis)
+    ranks: List[int] = field(default_factory=list)  # Historical rank list
+    first_time: str = ""                # First appearance time
+    last_time: str = ""                 # Last appearance time
+    count: int = 1                      # Appearance count
+    rank_timeline: List[Dict[str, Any]] = field(default_factory=list)  # Complete rank timeline
+                                        # Format: [{"time": "09:30", "rank": 1}, {"time": "10:00", "rank": 2}, ...]
+                                        # None indicates dropping off the list: [{"time": "11:00", "rank": None}]
 
     def to_dict(self) -> Dict[str, Any]:
-        """转换为字典"""
+        """Convert to dictionary"""
         return {
             "title": self.title,
             "source_id": self.source_id,
@@ -50,7 +50,7 @@ class NewsItem:
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "NewsItem":
-        """从字典创建"""
+        """Create from dictionary"""
         return cls(
             title=data.get("title", ""),
             source_id=data.get("source_id", ""),
@@ -69,25 +69,25 @@ class NewsItem:
 
 @dataclass
 class RSSItem:
-    """RSS 条目数据模型"""
+    """RSS item data model"""
 
-    title: str                          # 标题
-    feed_id: str                        # RSS 源 ID（如 "hacker-news"）
-    feed_name: str = ""                 # RSS 源名称（运行时使用）
-    url: str = ""                       # 文章链接
-    guid: str = ""                      # GUID/ID（RSS guid 或 Atom id）
-    published_at: str = ""              # RSS 发布时间（ISO 格式）
-    summary: str = ""                   # 摘要/描述
-    author: str = ""                    # 作者
-    crawl_time: str = ""                # 抓取时间（HH:MM 格式）
+    title: str                          # Title
+    feed_id: str                        # RSS feed ID (e.g., "hacker-news")
+    feed_name: str = ""                 # RSS feed name (used at runtime)
+    url: str = ""                       # Article link
+    guid: str = ""                      # GUID/ID (RSS guid or Atom id)
+    published_at: str = ""              # RSS publish time (ISO format)
+    summary: str = ""                   # Summary/description
+    author: str = ""                    # Author
+    crawl_time: str = ""                # Crawl time (HH:MM format)
 
-    # 统计信息
-    first_time: str = ""                # 首次抓取时间
-    last_time: str = ""                 # 最后抓取时间
-    count: int = 1                      # 抓取次数
+    # Statistics
+    first_time: str = ""                # First crawl time
+    last_time: str = ""                 # Last crawl time
+    count: int = 1                      # Crawl count
 
     def to_dict(self) -> Dict[str, Any]:
-        """转换为字典"""
+        """Convert to dictionary"""
         return {
             "title": self.title,
             "feed_id": self.feed_id,
@@ -104,7 +104,7 @@ class RSSItem:
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "RSSItem":
-        """从字典创建"""
+        """Create from dictionary"""
         return cls(
             title=data.get("title", ""),
             feed_id=data.get("feed_id", ""),
@@ -123,24 +123,24 @@ class RSSItem:
 @dataclass
 class RSSData:
     """
-    RSS 数据集合
+    RSS data collection
 
-    结构:
-    - date: 日期（YYYY-MM-DD）
-    - crawl_time: 抓取时间（HH:MM）
-    - items: 按 feed_id 分组的 RSS 条目
-    - id_to_name: feed_id 到名称的映射
-    - failed_ids: 失败的 feed_id 列表
+    Structure:
+    - date: Date (YYYY-MM-DD)
+    - crawl_time: Crawl time (HH:MM)
+    - items: RSS items grouped by feed_id
+    - id_to_name: Mapping from feed_id to name
+    - failed_ids: List of failed feed_ids
     """
 
-    date: str                                   # 日期
-    crawl_time: str                             # 抓取时间
-    items: Dict[str, List[RSSItem]]             # 按 feed_id 分组的条目
-    id_to_name: Dict[str, str] = field(default_factory=dict)   # ID到名称映射
-    failed_ids: List[str] = field(default_factory=list)        # 失败的ID
+    date: str                                   # Date
+    crawl_time: str                             # Crawl time
+    items: Dict[str, List[RSSItem]]             # Items grouped by feed_id
+    id_to_name: Dict[str, str] = field(default_factory=dict)   # ID to name mapping
+    failed_ids: List[str] = field(default_factory=list)        # Failed IDs
 
     def to_dict(self) -> Dict[str, Any]:
-        """转换为字典"""
+        """Convert to dictionary"""
         items_dict = {}
         for feed_id, rss_list in self.items.items():
             items_dict[feed_id] = [item.to_dict() for item in rss_list]
@@ -155,7 +155,7 @@ class RSSData:
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "RSSData":
-        """从字典创建"""
+        """Create from dictionary"""
         items = {}
         items_data = data.get("items", {})
         for feed_id, rss_list in items_data.items():
@@ -170,31 +170,31 @@ class RSSData:
         )
 
     def get_total_count(self) -> int:
-        """获取条目总数"""
+        """Get total number of items"""
         return sum(len(rss_list) for rss_list in self.items.values())
 
 
 @dataclass
 class NewsData:
     """
-    新闻数据集合
+    News data collection
 
-    结构:
-    - date: 日期（YYYY-MM-DD）
-    - crawl_time: 抓取时间（HH时MM分）
-    - items: 按来源ID分组的新闻条目
-    - id_to_name: 来源ID到名称的映射
-    - failed_ids: 失败的来源ID列表
+    Structure:
+    - date: Date (YYYY-MM-DD)
+    - crawl_time: Crawl time (HH:MM)
+    - items: News items grouped by source ID
+    - id_to_name: Mapping from source ID to name
+    - failed_ids: List of failed source IDs
     """
 
-    date: str                                   # 日期
-    crawl_time: str                             # 抓取时间
-    items: Dict[str, List[NewsItem]]            # 按来源分组的新闻
-    id_to_name: Dict[str, str] = field(default_factory=dict)   # ID到名称映射
-    failed_ids: List[str] = field(default_factory=list)        # 失败的ID
+    date: str                                   # Date
+    crawl_time: str                             # Crawl time
+    items: Dict[str, List[NewsItem]]            # News grouped by source
+    id_to_name: Dict[str, str] = field(default_factory=dict)   # ID to name mapping
+    failed_ids: List[str] = field(default_factory=list)        # Failed IDs
 
     def to_dict(self) -> Dict[str, Any]:
-        """转换为字典"""
+        """Convert to dictionary"""
         items_dict = {}
         for source_id, news_list in self.items.items():
             items_dict[source_id] = [item.to_dict() for item in news_list]
@@ -209,7 +209,7 @@ class NewsData:
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "NewsData":
-        """从字典创建"""
+        """Create from dictionary"""
         items = {}
         items_data = data.get("items", {})
         for source_id, news_list in items_data.items():
@@ -224,72 +224,72 @@ class NewsData:
         )
 
     def get_total_count(self) -> int:
-        """获取新闻总数"""
+        """Get total number of news items"""
         return sum(len(news_list) for news_list in self.items.values())
 
     def merge_with(self, other: "NewsData") -> "NewsData":
         """
-        合并另一个 NewsData 到当前数据
+        Merge another NewsData into current data
 
-        合并规则:
-        - 相同 source_id + title 的新闻合并排名历史
-        - Cập nhật last_time 和 count
-        - 保留较早的 first_time
+        Merge rules:
+        - Merge ranking history for news with the same source_id + title
+        - Cập nhật last_time and count
+        - Keep the earlier first_time
         """
         merged_items = {}
 
-        # 复制当前数据
+        # Copy current data
         for source_id, news_list in self.items.items():
             merged_items[source_id] = {item.title: item for item in news_list}
 
-        # 合并其他数据
+        # Merge other data
         for source_id, news_list in other.items.items():
             if source_id not in merged_items:
                 merged_items[source_id] = {}
 
             for item in news_list:
                 if item.title in merged_items[source_id]:
-                    # 合并已存在的新闻
+                    # Merge existing news
                     existing = merged_items[source_id][item.title]
 
-                    # 合并排名
+                    # Merge rankings
                     existing_ranks = set(existing.ranks) if existing.ranks else set()
                     new_ranks = set(item.ranks) if item.ranks else set()
                     merged_ranks = sorted(existing_ranks | new_ranks)
                     existing.ranks = merged_ranks
 
-                    # Cập nhật时间
+                    # Cập nhật time
                     if item.first_time and (not existing.first_time or item.first_time < existing.first_time):
                         existing.first_time = item.first_time
                     if item.last_time and (not existing.last_time or item.last_time > existing.last_time):
                         existing.last_time = item.last_time
 
-                    # Cập nhật计数
+                    # Cập nhật count
                     existing.count += 1
 
-                    # 保留URL（如果原来没有）
+                    # Keep URL (if originally none)
                     if not existing.url and item.url:
                         existing.url = item.url
                     if not existing.mobile_url and item.mobile_url:
                         existing.mobile_url = item.mobile_url
                 else:
-                    # 添加新新闻
+                    # Add new news
                     merged_items[source_id][item.title] = item
 
-        # 转换回列表格式
+        # Convert back to list format
         final_items = {}
         for source_id, items_dict in merged_items.items():
             final_items[source_id] = list(items_dict.values())
 
-        # 合并 id_to_name
+        # Merge id_to_name
         merged_id_to_name = {**self.id_to_name, **other.id_to_name}
 
-        # 合并 failed_ids（去重）
+        # Merge failed_ids (deduplicate)
         merged_failed_ids = list(set(self.failed_ids + other.failed_ids))
 
         return NewsData(
             date=self.date or other.date,
-            crawl_time=other.crawl_time,  # 使用较新的抓取时间
+            crawl_time=other.crawl_time,  # Use the newer crawl time
             items=final_items,
             id_to_name=merged_id_to_name,
             failed_ids=merged_failed_ids,
@@ -298,124 +298,124 @@ class NewsData:
 
 class StorageBackend(ABC):
     """
-    存储后端抽象基类
+    Storage backend abstract base class
 
-    所有存储后端都需要实现这些方法，以支持:
-    - 保存新闻数据
-    - 读取当天所有数据
-    - 检测新增新闻
-    - 生成报告文件（TXT/HTML）
+    All storage backends need to implement these methods to support:
+    - Save news data
+    - Read all data for the day
+    - Detect new news
+    - Generate report files (TXT/HTML)
     """
 
     @abstractmethod
     def save_news_data(self, data: NewsData) -> bool:
         """
-        保存新闻数据
+        Save news data
 
         Args:
-            data: 新闻数据
+            data: News data
 
         Returns:
-            是否保存成功
+            Whether the save was successful
         """
         pass
 
     @abstractmethod
     def get_today_all_data(self, date: Optional[str] = None) -> Optional[NewsData]:
         """
-        获取指定日期的所有新闻数据
+        Get all news data for a specified date
 
         Args:
-            date: 日期字符串（YYYY-MM-DD），默认为今天
+            date: Date string (YYYY-MM-DD), defaults to today
 
         Returns:
-            合并后的新闻数据，如果没有数据返回 None
+            Merged news data, returns None if there is no data
         """
         pass
 
     @abstractmethod
     def get_latest_crawl_data(self, date: Optional[str] = None) -> Optional[NewsData]:
         """
-        获取最新一次抓取的数据
+        Get the latest crawled data
 
         Args:
-            date: 日期字符串，默认为今天
+            date: Date string, defaults to today
 
         Returns:
-            最新抓取的新闻数据
+            Latest crawled news data
         """
         pass
 
     @abstractmethod
     def detect_new_titles(self, current_data: NewsData) -> Dict[str, Dict]:
         """
-        检测新增的标题
+        Detect new titles
 
         Args:
-            current_data: 当前抓取的数据
+            current_data: Currently crawled data
 
         Returns:
-            新增的标题数据，格式: {source_id: {title: title_data}}
+            New title data, format: {source_id: {title: title_data}}
         """
         pass
 
     @abstractmethod
     def save_txt_snapshot(self, data: NewsData) -> Optional[str]:
         """
-        保存 TXT 快照（可选功能，本地环境可用）
+        Save TXT snapshot (optional feature, available in local environment)
 
         Args:
-            data: 新闻数据
+            data: News data
 
         Returns:
-            保存的文件路径，如果不支持返回 None
+            Saved file path, returns None if not supported
         """
         pass
 
     @abstractmethod
     def save_html_report(self, html_content: str, filename: str) -> Optional[str]:
         """
-        保存 HTML 报告
+        Save HTML report
 
         Args:
-            html_content: HTML 内容
-            filename: 文件名
+            html_content: HTML content
+            filename: File name
 
         Returns:
-            保存的文件路径
+            Saved file path
         """
         pass
 
     @abstractmethod
     def is_first_crawl_today(self, date: Optional[str] = None) -> bool:
         """
-        检查是否是当天第一次抓取
+        Check if it is the first crawl of the day
 
         Args:
-            date: 日期字符串，默认为今天
+            date: Date string, defaults to today
 
         Returns:
-            是否是第一次抓取
+            Whether it is the first crawl
         """
         pass
 
     @abstractmethod
     def cleanup(self) -> None:
         """
-        清理资源（如临时文件、数据库连接等）
+        Clean up resources (e.g., temporary files, database connections, etc.)
         """
         pass
 
     @abstractmethod
     def cleanup_old_data(self, retention_days: int) -> int:
         """
-        清理过期数据
+        Clean up expired data
 
         Args:
-            retention_days: 保留天数（0 表示不清理）
+            retention_days: Retention days (0 means no cleanup)
 
         Returns:
-            删除的日期目录数量
+            Number of deleted date directories
         """
         pass
 
@@ -423,7 +423,7 @@ class StorageBackend(ABC):
     @abstractmethod
     def backend_name(self) -> str:
         """
-        存储后端名称
+        Storage backend name
         """
         pass
 
@@ -431,48 +431,48 @@ class StorageBackend(ABC):
     @abstractmethod
     def supports_txt(self) -> bool:
         """
-        是否支持生成 TXT 快照
+        Whether generating TXT snapshots is supported
         """
         pass
 
-    # === 时间段执行记录（调度系统）===
+    # === Time period execution record (scheduling system) ===
 
     def has_period_executed(self, date_str: str, period_key: str, action: str) -> bool:
         """
-        检查指定时间段的某个 action 是否已执行
+        Check if a specific action in a specified time period has been executed
 
         Args:
-            date_str: 日期字符串 YYYY-MM-DD
-            period_key: 时间段 key
-            action: 动作类型 (analyze / push)
+            date_str: Date string YYYY-MM-DD
+            period_key: time period key
+            action: action type (analyze / push)
 
         Returns:
-            是否已执行
+            Whether executed
         """
         return False
 
     def record_period_execution(self, date_str: str, period_key: str, action: str) -> bool:
         """
-        记录时间段的 action 执行
+        Record action execution for the time period
 
         Args:
-            date_str: 日期字符串 YYYY-MM-DD
-            period_key: 时间段 key
-            action: 动作类型 (analyze / push)
+            date_str: date string YYYY-MM-DD
+            period_key: time period key
+            action: action type (analyze / push)
 
         Returns:
-            是否记录成功
+            Whether recorded successfully
         """
         return False
 
-    # === AI 智能筛选（默认实现，子类通过 mixin 覆盖） ===
+    # === AI intelligent filtering (default implementation, subclasses override via mixin) ===
 
     def begin_batch(self) -> None:
-        """开启批量模式（远程后端延迟上传，本地后端无操作）"""
+        """Enable batch mode (remote backend delays upload, local backend no operation)"""
         pass
 
     def end_batch(self) -> None:
-        """结束批量模式"""
+        """End batch mode"""
         pass
 
     def get_active_ai_filter_tags(self, date: Optional[str] = None, interests_file: str = "ai_interests.txt") -> List[Dict]:
@@ -535,17 +535,17 @@ def convert_crawl_results_to_news_data(
     crawl_date: str,
 ) -> NewsData:
     """
-    将爬虫结果转换为 NewsData 格式
+    Convert crawler results to NewsData format
 
     Args:
-        results: 爬虫返回的结果 {source_id: {title: {ranks: [], url: "", mobileUrl: ""}}}
-        id_to_name: 来源ID到名称的映射
-        failed_ids: 失败的来源ID
-        crawl_time: 抓取时间（HH:MM）
-        crawl_date: 抓取日期（YYYY-MM-DD）
+        results: results returned by crawler {source_id: {title: {ranks: [], url: "", mobileUrl: ""}}}
+        id_to_name: mapping from source ID to name
+        failed_ids: failed source IDs
+        crawl_time: crawl time (HH:MM)
+        crawl_date: crawl date (YYYY-MM-DD)
 
     Returns:
-        NewsData 对象
+        NewsData object
     """
     items = {}
 

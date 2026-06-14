@@ -1,8 +1,8 @@
--- TrendRadar 数据库表结构
+-- TrendRadar database table structure
 
 -- ============================================
--- 平台信息表
--- 核心：id 不变，name 可变
+--Platform information table
+-- Core: id remains unchanged, name is variable
 -- ============================================
 CREATE TABLE IF NOT EXISTS platforms (
     id TEXT PRIMARY KEY,
@@ -12,8 +12,8 @@ CREATE TABLE IF NOT EXISTS platforms (
 );
 
 -- ============================================
--- 新闻条目表
--- 以 URL + platform_id 为唯一标识，支持去重存储
+-- News item table
+-- Use URL + platform_id as the unique identifier to support deduplication storage
 -- ============================================
 CREATE TABLE IF NOT EXISTS news_items (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -22,17 +22,17 @@ CREATE TABLE IF NOT EXISTS news_items (
     rank INTEGER NOT NULL,
     url TEXT DEFAULT '',
     mobile_url TEXT DEFAULT '',
-    first_crawl_time TEXT NOT NULL,      -- 首次抓取时间
-    last_crawl_time TEXT NOT NULL,       -- 最后抓取时间
-    crawl_count INTEGER DEFAULT 1,       -- 抓取次数
+    first_crawl_time TEXT NOT NULL, -- first crawl time
+    last_crawl_time TEXT NOT NULL, -- last crawl time
+    crawl_count INTEGER DEFAULT 1, -- number of crawls
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (platform_id) REFERENCES platforms(id)
 );
 
 -- ============================================
--- 标题变更历史表
--- 记录同一 URL 下标题的变化
+-- Title change history table
+--Record title changes under the same URL
 -- ============================================
 CREATE TABLE IF NOT EXISTS title_changes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -44,8 +44,8 @@ CREATE TABLE IF NOT EXISTS title_changes (
 );
 
 -- ============================================
--- 排名历史表
--- 记录每次抓取时的排名变化
+-- Ranking history table
+-- Record ranking changes for each crawl
 -- ============================================
 CREATE TABLE IF NOT EXISTS rank_history (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -57,8 +57,8 @@ CREATE TABLE IF NOT EXISTS rank_history (
 );
 
 -- ============================================
--- 抓取记录表
--- 记录每次抓取的时间和数量
+-- Fetch record table
+-- Record the time and quantity of each crawl
 -- ============================================
 CREATE TABLE IF NOT EXISTS crawl_records (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -68,8 +68,8 @@ CREATE TABLE IF NOT EXISTS crawl_records (
 );
 
 -- ============================================
--- 抓取来源状态表
--- 记录每次抓取各平台的成功/失败状态
+-- Fetch source status table
+-- Record the success/failure status of each platform crawled each time
 -- ============================================
 CREATE TABLE IF NOT EXISTS crawl_source_status (
     crawl_record_id INTEGER NOT NULL,
@@ -81,42 +81,42 @@ CREATE TABLE IF NOT EXISTS crawl_source_status (
 );
 
 -- ============================================
--- 时间段执行记录表
--- 记录每天每个时间段在各 action 维度的执行状态（用于 once 功能）
--- 替代旧的 push_records 表
+-- Time period execution record table
+-- Record the execution status of each action dimension in each time period of each day (used for once function)
+-- Replace the old push_records table
 -- ============================================
 CREATE TABLE IF NOT EXISTS period_executions (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     execution_date TEXT NOT NULL,          -- YYYY-MM-DD
-    period_key TEXT NOT NULL,              -- period 的稳定 key
+    period_key TEXT NOT NULL, -- the stable key of period
     action TEXT NOT NULL,                  -- analyze | push
     executed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE(execution_date, period_key, action)
 );
 
 -- ============================================
--- 索引定义
+-- Index definition
 -- ============================================
 
--- 平台索引
+-- Platform index
 CREATE INDEX IF NOT EXISTS idx_news_platform ON news_items(platform_id);
 
--- 时间索引（用于查询最新数据）
+-- Time index (used to query the latest data)
 CREATE INDEX IF NOT EXISTS idx_news_crawl_time ON news_items(last_crawl_time);
 
--- 标题索引（用于标题搜索）
+-- Title index (for title search)
 CREATE INDEX IF NOT EXISTS idx_news_title ON news_items(title);
 
--- URL + platform_id 唯一索引（仅对非空 URL，实现去重）
+-- URL + platform_id unique index (only for non-empty URLs, deduplication is achieved)
 CREATE UNIQUE INDEX IF NOT EXISTS idx_news_url_platform
     ON news_items(url, platform_id) WHERE url != '';
 
--- 抓取状态索引
+-- Fetch status index
 CREATE INDEX IF NOT EXISTS idx_crawl_status_record ON crawl_source_status(crawl_record_id);
 
--- 排名历史索引
+--Ranking history index
 CREATE INDEX IF NOT EXISTS idx_rank_history_news ON rank_history(news_item_id);
 
--- 时间段执行记录索引
+-- Time period execution record index
 CREATE INDEX IF NOT EXISTS idx_period_exec_lookup
 ON period_executions(execution_date, period_key, action);

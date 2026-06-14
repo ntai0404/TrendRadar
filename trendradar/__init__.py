@@ -1,10 +1,10 @@
 # coding=utf-8
 """
-TrendRadar - 热点新闻聚合与分析工具
+TrendRadar - Công cụ tổng hợp và phân tích tin tức nổi bật
 
-使用方式:
-  python -m trendradar        # 模块执行
-  trendradar                  # 安装后执行
+Cách sử dụng:
+  python -m trendradar        # Chạy module
+  trendradar                  # Chạy sau khi cài đặt
 """
 
 from trendradar.context import AppContext

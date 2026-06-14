@@ -1,10 +1,10 @@
 # coding=utf-8
 """
-远程存储后端（S3 兼容协议）
+Remote storage backend (S3 compatible protocol)
 
-支持 Cloudflare R2、阿里云 OSS、腾讯云 COS、AWS S3、MinIO 等
-使用 S3 兼容 API (boto3) 访问对象存储
-数据流程：下载当天 SQLite → 合并新数据 → 上传回远程
+Supports Cloudflare R2, Alibaba Cloud OSS, Tencent Cloud COS, AWS S3, MinIO, etc.
+Use S3 compatible API (boto3) to access object storage
+Data flow: Download today's SQLite -> Merge new data -> Upload back to remote
 """
 
 import pytz
@@ -40,15 +40,15 @@ from trendradar.utils.time import (
 
 class RemoteStorageBackend(SQLiteStorageMixin, StorageBackend):
     """
-    远程云存储后端（S3 兼容协议）
+    Remote cloud storage backend (S3 compatible protocol)
 
-    特点：
-    - 使用 S3 兼容 API 访问远程存储
-    - 支持 Cloudflare R2、阿里云 OSS、腾讯云 COS、AWS S3、MinIO 等
-    - 下载 SQLite 到临时目录进行操作
-    - 支持数据合并和上传
-    - 支持从远程拉取历史数据到本地
-    - 运行结束后自动清理临时文件
+    Features:
+    - Use S3 compatible API to access remote storage
+    - Supports Cloudflare R2, Alibaba Cloud OSS, Tencent Cloud COS, AWS S3, MinIO, etc.
+    - Download SQLite to temporary directory for operations
+    - Support data merging and uploading
+    - Support pulling historical data from remote to local
+    - Automatically clean up temporary files after running
     """
 
     def __init__(
@@ -58,27 +58,27 @@ class RemoteStorageBackend(SQLiteStorageMixin, StorageBackend):
         secret_access_key: str,
         endpoint_url: str,
         region: str = "",
-        enable_txt: bool = False,  # 远程模式默认不生成 TXT
+        enable_txt: bool = False,  # Remote mode does not generate TXT by default
         enable_html: bool = True,
         temp_dir: Optional[str] = None,
         timezone: str = DEFAULT_TIMEZONE,
     ):
         """
-        初始化远程存储后端
+        Initialize remote storage backend
 
         Args:
-            bucket_name: 存储桶名称
-            access_key_id: 访问密钥 ID
-            secret_access_key: 访问密钥
-            endpoint_url: 服务端点 URL
-            region: 区域（可选，部分服务商需要）
-            enable_txt: 是否启用 TXT 快照（默认关闭）
-            enable_html: 是否启用 HTML 报告
-            temp_dir: 临时目录路径（默认使用系统临时目录）
-            timezone: 时区配置
+            bucket_name: Bucket name
+            access_key_id: Access key ID
+            secret_access_key: Secret access key
+            endpoint_url: Endpoint URL
+            region: Region (optional, required by some providers)
+            enable_txt: Whether to enable TXT snapshot (disabled by default)
+            enable_html: Whether to enable HTML report
+            temp_dir: Temporary directory path (uses system temporary directory by default)
+            timezone: Timezone configuration
         """
         if not HAS_BOTO3:
-            raise ImportError("远程存储后端需要安装 boto3: pip install boto3")
+            raise ImportError("Remote storage backend requires boto3: pip install boto3")
 
         self.bucket_name = bucket_name
         self.endpoint_url = endpoint_url
@@ -87,15 +87,15 @@ class RemoteStorageBackend(SQLiteStorageMixin, StorageBackend):
         self.enable_html = enable_html
         self.timezone = timezone
 
-        # 创建临时目录
+        # Create temporary directory
         self.temp_dir = Path(temp_dir) if temp_dir else Path(tempfile.mkdtemp(prefix="trendradar_"))
         self.temp_dir.mkdir(parents=True, exist_ok=True)
 
-        # 初始化 S3 客户端
-        # 使用 virtual-hosted style addressing（主流）
-        # 根据服务商选择签名版本：
-        # - 腾讯云 COS 和 阿里云 OSS 使用 SigV2 以避免 chunked encoding 问题
-        # - 其他服务商（AWS S3、Cloudflare R2、MinIO 等）默认使用 SigV4
+        # Initialize S3 client
+        # Use virtual-hosted style addressing (mainstream)
+        # Select signature version based on provider:
+        # - Tencent Cloud COS and Alibaba Cloud OSS use SigV2 to avoid chunked encoding issues
+        # - Other providers (AWS S3, Cloudflare R2, MinIO, etc.) use SigV4 by default
         use_sigv2 = "myqcloud.com" in endpoint_url.lower() or "aliyuncs.com" in endpoint_url.lower()
         signature_version = 's3' if use_sigv2 else 's3v4'
 
@@ -115,15 +115,15 @@ class RemoteStorageBackend(SQLiteStorageMixin, StorageBackend):
 
         self.s3_client = boto3.client("s3", **client_kwargs)
 
-        # 跟踪下载的文件（用于清理）
+        # Track downloaded files (for cleanup)
         self._downloaded_files: List[Path] = []
         self._db_connections: Dict[str, sqlite3.Connection] = {}
 
-        # 批量模式：延迟上传，避免频繁上传同一文件
+        # Batch mode: delay upload to avoid frequently uploading the same file
         self._batch_mode = False
-        self._batch_dirty: set = set()  # 待上传的 (date, db_type) 集合
+        self._batch_dirty: set = set()  # Set of (date, db_type) to be uploaded
 
-        print(f"[远程存储] 初始化完成，存储桶: {bucket_name}，签名版本: {signature_version}")
+        print(f"[Remote Storage] Initialization complete, bucket: {bucket_name}, signature version: {signature_version}")
 
     @property
     def backend_name(self) -> str:
@@ -134,45 +134,45 @@ class RemoteStorageBackend(SQLiteStorageMixin, StorageBackend):
         return self.enable_txt
 
     # ========================================
-    # SQLiteStorageMixin 抽象方法实现
+    # SQLiteStorageMixin abstract method implementation
     # ========================================
 
     def _get_configured_time(self) -> datetime:
-        """获取配置时区的当前时间"""
+        """Get current time in configured timezone"""
         return get_configured_time(self.timezone)
 
     def _format_date_folder(self, date: Optional[str] = None) -> str:
-        """格式化日期文件夹名 (ISO 格式: YYYY-MM-DD)"""
+        """Format date folder name (ISO format: YYYY-MM-DD)"""
         return format_date_folder(date, self.timezone)
 
     def _format_time_filename(self) -> str:
-        """格式化时间文件名 (格式: HH-MM)"""
+        """Format time file name (format: HH-MM)"""
         return format_time_filename(self.timezone)
 
     def _get_remote_db_key(self, date: Optional[str] = None, db_type: str = "news") -> str:
         """
-        获取远程存储中 SQLite 文件的对象键
+        Get object key of SQLite file in remote storage
 
         Args:
-            date: 日期字符串
-            db_type: 数据库类型 ("news" 或 "rss")
+            date: Date string
+            db_type: Database type ("news" or "rss")
 
         Returns:
-            远程对象键，如 "news/2025-12-28.db" 或 "rss/2025-12-28.db"
+            Remote object key, e.g., "news/2025-12-28.db" or "rss/2025-12-28.db"
         """
         date_folder = self._format_date_folder(date)
         return f"{db_type}/{date_folder}.db"
 
     def _get_local_db_path(self, date: Optional[str] = None, db_type: str = "news") -> Path:
         """
-        获取本地临时 SQLite 文件路径
+        Get local temporary SQLite file path
 
         Args:
-            date: 日期字符串
-            db_type: 数据库类型 ("news" 或 "rss")
+            date: Date string
+            db_type: Database type ("news" or "rss")
 
         Returns:
-            本地临时文件路径
+            Local temporary file path
         """
         date_folder = self._format_date_folder(date)
         db_dir = self.temp_dir / db_type
@@ -181,84 +181,84 @@ class RemoteStorageBackend(SQLiteStorageMixin, StorageBackend):
 
     def _check_object_exists(self, r2_key: str) -> bool:
         """
-        检查远程存储中对象是否存在
+        Check if object exists in remote storage
 
         Args:
-            r2_key: 远程对象键
+            r2_key: Remote object key
 
         Returns:
-            是否存在
+            Whether it exists
         """
         try:
             self.s3_client.head_object(Bucket=self.bucket_name, Key=r2_key)
             return True
         except ClientError as e:
             error_code = e.response.get("Error", {}).get("Code", "")
-            # S3 兼容存储可能返回 404, NoSuchKey, 或其他变体
+            # S3 compatible storage may return 404, NoSuchKey, or other variants
             if error_code in ("404", "NoSuchKey", "Not Found"):
                 return False
-            # 其他错误（如权限问题）也视为不存在，但打印警告
-            print(f"[远程存储] 检查对象存在性失败 ({r2_key}): {e}")
+            # Other errors (like permission issues) are also treated as non-existent, but print a warning
+            print(f"[Remote Storage] Failed to check object existence ({r2_key}): {e}")
             return False
         except Exception as e:
-            print(f"[远程存储] 检查对象存在性异常 ({r2_key}): {e}")
+            print(f"[Remote Storage] Exception checking object existence ({r2_key}): {e}")
             return False
 
     def _download_sqlite(self, date: Optional[str] = None, db_type: str = "news") -> Optional[Path]:
         """
-        从远程存储下载当天的 SQLite 文件到本地临时目录
+        Download today's SQLite file from remote storage to local temporary directory
 
-        使用 get_object + iter_chunks 替代 download_file，
-        以正确处理腾讯云 COS 的 chunked transfer encoding。
+        Use get_object + iter_chunks instead of download_file,
+        to correctly handle Tencent Cloud COS's chunked transfer encoding.
 
         Args:
-            date: 日期字符串
-            db_type: 数据库类型 ("news" 或 "rss")
+            date: Date string
+            db_type: Database type ("news" or "rss")
 
         Returns:
-            本地文件路径，如果不存在返回 None
+            Local file path, returns None if it does not exist
         """
         r2_key = self._get_remote_db_key(date, db_type)
         local_path = self._get_local_db_path(date, db_type)
 
-        # 确保目录存在
+        # Ensure directory exists
         local_path.parent.mkdir(parents=True, exist_ok=True)
 
-        # 先检查文件是否存在
+        # Check if file exists first
         if not self._check_object_exists(r2_key):
-            print(f"[远程存储] 文件不存在，将创建新数据库: {r2_key}")
+            print(f"[Remote Storage] File does not exist, will create new database: {r2_key}")
             return None
 
         try:
-            # 使用 get_object + iter_chunks 替代 download_file
-            # iter_chunks 会自动处理 chunked transfer encoding
+            # Use get_object + iter_chunks instead of download_file
+            # iter_chunks will automatically handle chunked transfer encoding
             response = self.s3_client.get_object(Bucket=self.bucket_name, Key=r2_key)
             with open(local_path, 'wb') as f:
                 for chunk in response['Body'].iter_chunks(chunk_size=1024*1024):
                     f.write(chunk)
             self._downloaded_files.append(local_path)
-            print(f"[远程存储] 已下载: {r2_key} -> {local_path}")
+            print(f"[Remote Storage] Downloaded: {r2_key} -> {local_path}")
             return local_path
         except ClientError as e:
             error_code = e.response.get("Error", {}).get("Code", "")
-            # S3 兼容存储可能返回不同的错误码
+            # S3 compatible storage may return different error codes
             if error_code in ("404", "NoSuchKey", "Not Found"):
-                print(f"[远程存储] 文件不存在，将创建新数据库: {r2_key}")
+                print(f"[Remote Storage] File does not exist, will create new database: {r2_key}")
                 return None
             else:
-                print(f"[远程存储] 下载失败 (错误码: {error_code}): {e}")
+                print(f"[Remote Storage] Download failed (error code: {error_code}): {e}")
                 raise
         except Exception as e:
-            print(f"[远程存储] 下载异常: {e}")
+            print(f"[Remote Storage] Download exception: {e}")
             raise
 
     def begin_batch(self):
-        """开启批量模式：延迟上传，避免频繁上传同一文件"""
+        """Enable batch mode: delay upload to avoid frequently uploading the same file"""
         self._batch_mode = True
         self._batch_dirty.clear()
 
     def end_batch(self):
-        """结束批量模式：统一上传所有脏数据库"""
+        """End batch mode: uniformly upload all dirty databases"""
         self._batch_mode = False
         for date, db_type in self._batch_dirty:
             self._upload_sqlite(date, db_type)
@@ -266,16 +266,16 @@ class RemoteStorageBackend(SQLiteStorageMixin, StorageBackend):
 
     def _upload_sqlite(self, date: Optional[str] = None, db_type: str = "news") -> bool:
         """
-        上传本地 SQLite 文件到远程存储
+        Upload local SQLite file to remote storage
 
-        批量模式下延迟上传，由 end_batch() 统一触发。
+        Delayed upload in batch mode, uniformly triggered by end_batch().
 
         Args:
-            date: 日期字符串
-            db_type: 数据库类型 ("news" 或 "rss")
+            date: Date string
+            db_type: Database type ("news" or "rss")
 
         Returns:
-            是否上传成功
+            Whether upload is successful
         """
         if self._batch_mode:
             self._batch_dirty.add((date, db_type))
@@ -284,21 +284,21 @@ class RemoteStorageBackend(SQLiteStorageMixin, StorageBackend):
         r2_key = self._get_remote_db_key(date, db_type)
 
         if not local_path.exists():
-            print(f"[远程存储] 本地文件不存在，无法上传: {local_path}")
+            print(f"[Remote Storage] Local file does not exist, cannot upload: {local_path}")
             return False
 
         try:
-            # 获取本地文件大小
+            # Get local file size
             local_size = local_path.stat().st_size
-            print(f"[远程存储] 准备上传: {local_path} ({local_size} bytes) -> {r2_key}")
+            print(f"[Remote Storage] Preparing to upload: {local_path} ({local_size} bytes) -> {r2_key}")
 
-            # 读取文件内容为 bytes 后上传
-            # 避免传入文件对象时 requests 库使用 chunked transfer encoding
-            # 腾讯云 COS 等 S3 兼容服务可能无法正确处理 chunked encoding
+            # Read file content as bytes then upload
+            # Avoid using chunked transfer encoding in the requests library when passing file objects
+            # S3-compatible services like Tencent Cloud COS may not handle chunked encoding correctly
             with open(local_path, 'rb') as f:
                 file_content = f.read()
 
-            # 使用 put_object 并明确设置 ContentLength，确保不使用 chunked encoding
+            # Use put_object and explicitly set ContentLength to ensure chunked encoding is not used
             self.s3_client.put_object(
                 Bucket=self.bucket_name,
                 Key=r2_key,
@@ -306,39 +306,39 @@ class RemoteStorageBackend(SQLiteStorageMixin, StorageBackend):
                 ContentLength=local_size,
                 ContentType='application/x-sqlite3',
             )
-            print(f"[远程存储] 已上传: {local_path} -> {r2_key}")
+            print(f"[Remote Storage] Uploaded: {local_path} -> {r2_key}")
 
-            # 验证上传成功
+            # Verify successful upload
             if self._check_object_exists(r2_key):
-                print(f"[远程存储] 上传验证成功: {r2_key}")
+                print(f"[Remote Storage] Upload verification successful: {r2_key}")
                 return True
             else:
-                print(f"[远程存储] 上传验证失败: 文件未在远程存储中找到")
+                print(f"[Remote Storage] Upload verification failed: File not found in remote storage")
                 return False
 
         except Exception as e:
-            print(f"[远程存储] 上传失败: {e}")
+            print(f"[Remote Storage] Upload failed: {e}")
             return False
 
     def _get_connection(self, date: Optional[str] = None, db_type: str = "news") -> sqlite3.Connection:
         """
-        获取数据库连接
+        Get database connection
 
         Args:
-            date: 日期字符串
-            db_type: 数据库类型 ("news" 或 "rss")
+            date: Date string
+            db_type: Database type ("news" or "rss")
 
         Returns:
-            数据库连接
+            Database connection
         """
         local_path = self._get_local_db_path(date, db_type)
         db_path = str(local_path)
 
         if db_path not in self._db_connections:
-            # 确保目录存在
+            # Ensure directory exists
             local_path.parent.mkdir(parents=True, exist_ok=True)
 
-            # 如果本地不存在，尝试从远程存储下载
+            # If it does not exist locally, try downloading from remote storage
             if not local_path.exists():
                 self._download_sqlite(date, db_type)
 
@@ -350,140 +350,140 @@ class RemoteStorageBackend(SQLiteStorageMixin, StorageBackend):
         return self._db_connections[db_path]
 
     # ========================================
-    # StorageBackend 接口实现（委托给 mixin + 上传）
+    # StorageBackend interface implementation (delegated to mixin + upload)
     # ========================================
 
     def save_news_data(self, data: NewsData) -> bool:
         """
-        保存新闻数据到远程存储
+        Save news data to remote storage
 
-        流程：下载现有数据库 → 插入/Cập nhật数据 → 上传回远程存储
+        Process: Download existing database → Insert/Cập nhật data → Upload back to remote storage
         """
-        # 查询已有记录数
+        # Query the number of existing records
         conn = self._get_connection(data.date)
         cursor = conn.cursor()
         cursor.execute("SELECT COUNT(*) as count FROM news_items")
         row = cursor.fetchone()
         existing_count = row[0] if row else 0
         if existing_count > 0:
-            print(f"[远程存储] 已有 {existing_count} 条历史记录，将合并新数据")
+            print(f"[Remote Storage] Already have {existing_count} historical records, will merge new data")
 
-        # 使用 mixin 的实现保存数据
+        # Use mixin implementation to save data
         success, new_count, updated_count, title_changed_count, off_list_count = \
-            self._save_news_data_impl(data, "[远程存储]")
+            self._save_news_data_impl(data, "[Remote Storage]")
 
         if not success:
             return False
 
-        # 查询合并后的总记录数
+        # Query the total number of records after merging
         cursor.execute("SELECT COUNT(*) as count FROM news_items")
         row = cursor.fetchone()
         final_count = row[0] if row else 0
 
-        # 输出详细的存储统计日志
-        log_parts = [f"[远程存储] 处理完成：新增 {new_count} 条"]
+        # Output detailed storage statistics log
+        log_parts = [f"[Remote Storage] Processing complete: Added {new_count} items"]
         if updated_count > 0:
-            log_parts.append(f"Cập nhật {updated_count} 条")
+            log_parts.append(f"Cập nhật {updated_count} items")
         if title_changed_count > 0:
-            log_parts.append(f"标题变更 {title_changed_count} 条")
+            log_parts.append(f"Title changed {title_changed_count} items")
         if off_list_count > 0:
-            log_parts.append(f"脱榜 {off_list_count} 条")
-        log_parts.append(f"(去重后总计: {final_count} 条)")
+            log_parts.append(f"Dropped off list {off_list_count} items")
+        log_parts.append(f"(Total after deduplication: {final_count} items)")
         print("，".join(log_parts))
 
-        # 上传到远程存储
+        # Upload to remote storage
         if self._upload_sqlite(data.date):
-            print(f"[远程存储] 数据已同步到远程存储")
+            print(f"[Remote Storage] Data synchronized to remote storage")
             return True
         else:
-            print(f"[远程存储] 上传远程存储失败")
+            print(f"[Remote Storage] Failed to upload to remote storage")
             return False
 
     def get_today_all_data(self, date: Optional[str] = None) -> Optional[NewsData]:
-        """获取指定日期的所有新闻数据（合并后）"""
+        """Get all news data for the specified date (after merging)"""
         return self._get_today_all_data_impl(date)
 
     def get_latest_crawl_data(self, date: Optional[str] = None) -> Optional[NewsData]:
-        """获取最新一次抓取的数据"""
+        """Get the data from the latest scrape"""
         return self._get_latest_crawl_data_impl(date)
 
     def detect_new_titles(self, current_data: NewsData) -> Dict[str, Dict]:
-        """检测新增的标题"""
+        """Detect newly added titles"""
         return self._detect_new_titles_impl(current_data)
 
     def is_first_crawl_today(self, date: Optional[str] = None) -> bool:
-        """检查是否是当天第一次抓取"""
+        """Check if it is the first scrape of the day"""
         return self._is_first_crawl_today_impl(date)
 
     # ========================================
-    # 时间段执行记录（调度系统）
+    # Time period execution record (scheduling system)
     # ========================================
 
     def has_period_executed(self, date_str: str, period_key: str, action: str) -> bool:
-        """检查指定时间段的某个 action 是否已执行"""
+        """Check if a specific action in the specified time period has been executed"""
         return self._has_period_executed_impl(date_str, period_key, action)
 
     def record_period_execution(self, date_str: str, period_key: str, action: str) -> bool:
-        """记录时间段的 action 执行"""
+        """Record the execution of an action for a time period"""
         success = self._record_period_execution_impl(date_str, period_key, action)
 
         if success:
             now_str = self._get_configured_time().strftime("%Y-%m-%d %H:%M:%S")
-            print(f"[远程存储] 时间段执行记录已保存: {period_key}/{action} at {now_str}")
+            print(f"[Remote Storage] Time period execution record saved: {period_key}/{action} at {now_str}")
 
-            # 上传到远程存储确保记录持久化
+            # Upload to remote storage to ensure record persistence
             if self._upload_sqlite(date_str):
-                print(f"[远程存储] 时间段执行记录已同步到远程存储")
+                print(f"[Remote Storage] Time period execution records have been synchronized to remote storage")
                 return True
             else:
-                print(f"[远程存储] 时间段执行记录同步到远程存储失败")
+                print(f"[Remote Storage] Failed to synchronize time period execution records to remote storage")
                 return False
 
         return False
 
     # ========================================
-    # RSS 数据存储方法
+    # RSS data storage method
     # ========================================
 
     def save_rss_data(self, data: RSSData) -> bool:
         """
-        保存 RSS 数据到远程存储
+        Save RSS data to remote storage
 
-        流程：下载现有数据库 → 插入/Cập nhật数据 → 上传回远程存储
+        Process: Download existing database → Insert/Cập nhật data → Upload back to remote storage
         """
-        success, new_count, updated_count = self._save_rss_data_impl(data, "[远程存储]")
+        success, new_count, updated_count = self._save_rss_data_impl(data, "[Remote Storage]")
 
         if not success:
             return False
 
-        # 输出统计日志
-        log_parts = [f"[远程存储] RSS 处理完成：新增 {new_count} 条"]
+        # Output statistics log
+        log_parts = [f"[Remote Storage] RSS processing completed: added {new_count} items"]
         if updated_count > 0:
-            log_parts.append(f"Cập nhật {updated_count} 条")
+            log_parts.append(f"Cập nhật {updated_count} items")
         print("，".join(log_parts))
 
-        # 上传到远程存储
+        # Upload to remote storage
         if self._upload_sqlite(data.date, db_type="rss"):
-            print(f"[远程存储] RSS 数据已同步到远程存储")
+            print(f"[Remote Storage] RSS data has been synchronized to remote storage")
             return True
         else:
-            print(f"[远程存储] RSS 上传远程存储失败")
+            print(f"[Remote Storage] Failed to upload RSS to remote storage")
             return False
 
     def get_rss_data(self, date: Optional[str] = None) -> Optional[RSSData]:
-        """获取指定日期的所有 RSS 数据"""
+        """Get all RSS data for a specified date"""
         return self._get_rss_data_impl(date)
 
     def detect_new_rss_items(self, current_data: RSSData) -> Dict[str, List[RSSItem]]:
-        """检测新增的 RSS 条目"""
+        """Detect newly added RSS items"""
         return self._detect_new_rss_items_impl(current_data)
 
     def get_latest_rss_data(self, date: Optional[str] = None) -> Optional[RSSData]:
-        """获取最新一次抓取的 RSS 数据"""
+        """Get the latest fetched RSS data"""
         return self._get_latest_rss_data_impl(date)
 
     # ========================================
-    # AI 智能筛选存储方法
+    # AI intelligent filtering storage method
     # ========================================
 
     def get_active_ai_filter_tags(self, date=None, interests_file="ai_interests.txt"):
@@ -568,15 +568,15 @@ class RemoteStorageBackend(SQLiteStorageMixin, StorageBackend):
         return self._get_all_rss_ids_impl(date)
 
     # ========================================
-    # 远程特有功能：TXT/HTML 快照（临时目录）
+    # Remote specific features: TXT/HTML snapshots (temporary directory)
     # ========================================
 
     def save_txt_snapshot(self, data: NewsData) -> Optional[str]:
-        """保存 TXT 快照（远程存储模式下默认不支持）"""
+        """Save TXT snapshot (not supported by default in remote storage mode)"""
         if not self.enable_txt:
             return None
 
-        # 如果启用，保存到本地临时目录
+        # If enabled, save to local temporary directory
         try:
             date_folder = self._format_date_folder(data.date)
             txt_dir = self.temp_dir / date_folder / "txt"
@@ -606,19 +606,19 @@ class RemoteStorageBackend(SQLiteStorageMixin, StorageBackend):
                     f.write("\n")
 
                 if data.failed_ids:
-                    f.write("==== 以下ID请求失败 ====\n")
+                    f.write("==== The following ID requests failed ====\n")
                     for failed_id in data.failed_ids:
                         f.write(f"{failed_id}\n")
 
-            print(f"[远程存储] TXT 快照已保存: {file_path}")
+            print(f"[Remote Storage] TXT snapshot saved: {file_path}")
             return str(file_path)
 
         except Exception as e:
-            print(f"[远程存储] 保存 TXT 快照失败: {e}")
+            print(f"[Remote Storage] Failed to save TXT snapshot: {e}")
             return None
 
     def save_html_report(self, html_content: str, filename: str) -> Optional[str]:
-        """保存 HTML 报告到临时目录"""
+        """Save HTML report to temporary directory"""
         if not self.enable_html:
             return None
 
@@ -632,46 +632,46 @@ class RemoteStorageBackend(SQLiteStorageMixin, StorageBackend):
             with open(file_path, "w", encoding="utf-8") as f:
                 f.write(html_content)
 
-            print(f"[远程存储] HTML 报告已保存: {file_path}")
+            print(f"[Remote Storage] HTML report saved: {file_path}")
             return str(file_path)
 
         except Exception as e:
-            print(f"[远程存储] 保存 HTML 报告失败: {e}")
+            print(f"[Remote Storage] Failed to save HTML report: {e}")
             return None
 
     # ========================================
-    # 远程特有功能：资源清理
+    # Remote specific features: Resource cleanup
     # ========================================
 
     def cleanup(self) -> None:
-        """清理资源（关闭连接和删除临时文件）"""
-        # 检查 Python 是否正在关闭
+        """Clean up resources (close connections and delete temporary files)"""
+        # Check if Python is shutting down
         if sys.meta_path is None:
             return
 
-        # 关闭数据库连接
+        # Close database connection
         db_connections = getattr(self, "_db_connections", {})
         for db_path, conn in list(db_connections.items()):
             try:
                 conn.close()
-                print(f"[远程存储] 关闭数据库连接: {db_path}")
+                print(f"[Remote Storage] Close database connection: {db_path}")
             except Exception as e:
-                print(f"[远程存储] 关闭连接失败 {db_path}: {e}")
+                print(f"[Remote Storage] Failed to close connection {db_path}: {e}")
 
         if db_connections:
             db_connections.clear()
 
-        # 删除临时目录
+        # Delete temporary directory
         temp_dir = getattr(self, "temp_dir", None)
         if temp_dir:
             try:
                 if temp_dir.exists():
                     shutil.rmtree(temp_dir)
-                    print(f"[远程存储] 临时目录已清理: {temp_dir}")
+                    print(f"[Remote Storage] Temporary directory cleaned up: {temp_dir}")
             except Exception as e:
-                # 忽略 Python 关闭时的错误
+                # Ignore errors during Python shutdown
                 if sys.meta_path is not None:
-                    print(f"[远程存储] 清理临时目录失败: {e}")
+                    print(f"[Remote Storage] Failed to clean up temporary directory: {e}")
 
         downloaded_files = getattr(self, "_downloaded_files", None)
         if downloaded_files:
@@ -679,13 +679,13 @@ class RemoteStorageBackend(SQLiteStorageMixin, StorageBackend):
 
     def cleanup_old_data(self, retention_days: int) -> int:
         """
-        清理远程存储上的过期数据
+        Clean up expired data on remote storage
 
         Args:
-            retention_days: 保留天数（0 表示不清理）
+            retention_days: Retention days (0 means no cleanup)
 
         Returns:
-            删除的数据库文件数量
+            Number of deleted database files
         """
         if retention_days <= 0:
             return 0
@@ -694,11 +694,11 @@ class RemoteStorageBackend(SQLiteStorageMixin, StorageBackend):
         cutoff_date = self._get_configured_time() - timedelta(days=retention_days)
 
         try:
-            # 列出远程存储中 news/ 前缀下的所有对象
+            # List all objects under the news/ prefix in remote storage
             paginator = self.s3_client.get_paginator('list_objects_v2')
             pages = paginator.paginate(Bucket=self.bucket_name, Prefix="news/")
 
-            # 收集需要删除的对象键
+            # Collect object keys to be deleted
             objects_to_delete = []
             deleted_dates = set()
 
@@ -709,7 +709,7 @@ class RemoteStorageBackend(SQLiteStorageMixin, StorageBackend):
                 for obj in page['Contents']:
                     key = obj['Key']
 
-                    # 解析日期（格式: news/YYYY-MM-DD.db）
+                    # Parse date (format: news/YYYY-MM-DD.db)
                     folder_date = None
                     date_str = None
                     try:
@@ -729,7 +729,7 @@ class RemoteStorageBackend(SQLiteStorageMixin, StorageBackend):
                         objects_to_delete.append({'Key': key})
                         deleted_dates.add(date_str)
 
-            # 批量删除对象（每次最多 1000 个）
+            # Batch delete objects (max 1000 at a time)
             if objects_to_delete:
                 batch_size = 1000
                 for i in range(0, len(objects_to_delete), batch_size):
@@ -739,47 +739,47 @@ class RemoteStorageBackend(SQLiteStorageMixin, StorageBackend):
                             Bucket=self.bucket_name,
                             Delete={'Objects': batch}
                         )
-                        print(f"[远程存储] 删除 {len(batch)} 个对象")
+                        print(f"[Remote Storage] Delete {len(batch)} objects")
                     except Exception as e:
-                        print(f"[远程存储] 批量删除失败: {e}")
+                        print(f"[Remote Storage] Batch delete failed: {e}")
 
                 deleted_count = len(deleted_dates)
                 for date_str in sorted(deleted_dates):
-                    print(f"[远程存储] 清理过期数据: news/{date_str}.db")
+                    print(f"[Remote Storage] Clean up expired data: news/{date_str}.db")
 
-                print(f"[远程存储] 共清理 {deleted_count} 个过期日期数据库文件")
+                print(f"[Remote Storage] Cleaned up a total of {deleted_count} expired date database files")
 
             return deleted_count
 
         except Exception as e:
-            print(f"[远程存储] 清理过期数据失败: {e}")
+            print(f"[Remote Storage] Failed to clean up expired data: {e}")
             return deleted_count
 
     def __del__(self):
-        """析构函数"""
-        # 检查 Python 是否正在关闭
+        """Destructor"""
+        # Check if Python is shutting down
         if sys.meta_path is None:
             return
         try:
             self.cleanup()
         except Exception:
-            # Python 关闭时可能会出错，忽略即可
+            # Errors may occur when Python shuts down, just ignore them
             pass
 
     # ========================================
-    # 远程特有功能：数据拉取和列表
+    # Remote-specific features: data pulling and listing
     # ========================================
 
     def pull_recent_days(self, days: int, local_data_dir: str = "output") -> int:
         """
-        从远程拉取最近 N 天的数据到本地
+        Pull data from the last N days from remote to local
 
         Args:
-            days: 拉取天数
-            local_data_dir: 本地数据目录
+            days: Number of days to pull
+            local_data_dir: Local data directory
 
         Returns:
-            成功拉取的数据库文件数量
+            Number of successfully pulled database files
         """
         if days <= 0:
             return 0
@@ -790,50 +790,50 @@ class RemoteStorageBackend(SQLiteStorageMixin, StorageBackend):
         pulled_count = 0
         now = self._get_configured_time()
 
-        print(f"[远程存储] 开始拉取最近 {days} 天的数据...")
+        print(f"[Remote Storage] Start pulling data for the last {days} days...")
 
         for i in range(days):
             date = now - timedelta(days=i)
             date_str = date.strftime("%Y-%m-%d")
 
-            # 本地目标路径
+            # Local target path
             local_date_dir = local_dir / date_str
             local_db_path = local_date_dir / "news.db"
 
-            # 如果本地已存在，跳过
+            # If it already exists locally, skip
             if local_db_path.exists():
-                print(f"[远程存储] 跳过（本地已存在）: {date_str}")
+                print(f"[Remote Storage] Skipped (already exists locally): {date_str}")
                 continue
 
-            # 远程对象键
+            # Remote object key
             remote_key = f"news/{date_str}.db"
 
-            # 检查远程是否存在
+            # Check if it exists remotely
             if not self._check_object_exists(remote_key):
-                print(f"[远程存储] 跳过（远程不存在）: {date_str}")
+                print(f"[Remote Storage] Skipped (does not exist remotely): {date_str}")
                 continue
 
-            # 下载（使用 get_object + iter_chunks 处理 chunked encoding）
+            # Download (use get_object + iter_chunks to handle chunked encoding)
             try:
                 local_date_dir.mkdir(parents=True, exist_ok=True)
                 response = self.s3_client.get_object(Bucket=self.bucket_name, Key=remote_key)
                 with open(local_db_path, 'wb') as f:
                     for chunk in response['Body'].iter_chunks(chunk_size=1024*1024):
                         f.write(chunk)
-                print(f"[远程存储] 已拉取: {remote_key} -> {local_db_path}")
+                print(f"[Remote Storage] Pulled: {remote_key} -> {local_db_path}")
                 pulled_count += 1
             except Exception as e:
-                print(f"[远程存储] 拉取失败 ({date_str}): {e}")
+                print(f"[Remote Storage] Pull failed ({date_str}): {e}")
 
-        print(f"[远程存储] 拉取完成，共下载 {pulled_count} 个数据库文件")
+        print(f"[Remote Storage] Pull complete, downloaded a total of {pulled_count} database files")
         return pulled_count
 
     def list_remote_dates(self) -> List[str]:
         """
-        列出远程存储中所有可用的日期
+        List all available dates in remote storage
 
         Returns:
-            日期字符串列表（YYYY-MM-DD 格式）
+            List of date strings (YYYY-MM-DD format)
         """
         dates = []
 
@@ -847,7 +847,7 @@ class RemoteStorageBackend(SQLiteStorageMixin, StorageBackend):
 
                 for obj in page['Contents']:
                     key = obj['Key']
-                    # 解析日期
+                    # Parse date
                     date_match = re.match(r'news/(\d{4}-\d{2}-\d{2})\.db$', key)
                     if date_match:
                         dates.append(date_match.group(1))
@@ -855,5 +855,5 @@ class RemoteStorageBackend(SQLiteStorageMixin, StorageBackend):
             return sorted(dates, reverse=True)
 
         except Exception as e:
-            print(f"[远程存储] 列出远程日期失败: {e}")
+            print(f"[Remote Storage] Failed to list remote dates: {e}")
             return []

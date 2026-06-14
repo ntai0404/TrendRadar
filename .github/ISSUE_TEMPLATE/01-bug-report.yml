@@ -1,95 +1,95 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-issue-forms.json
 
-name: 🐛 遇到问题了
-description: 程序运行不正常、报错或功能失效（含 AI 分析问题）
-title: "[问题] "
+name: 🐛 encountered a problem
+description: The program runs abnormally, reports an error, or has function failure (including AI analysis problems)
+title: "[Question] "
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        ### ⚠️ 提交前必读
-        **请确保你正在使用 TrendRadar 的最新版本。**
-        很多问题在最新代码中可能已经修复。如果你使用的是旧版本，我将无法处理，请先更新后再试。
+        ### ⚠️ Must read before submitting
+        **Please make sure you are using the latest version of TrendRadar. **
+        Many issues may have been fixed in the latest code. If you are using an old version, I will not be able to handle it, please update first and try again.
 
-        **简单的描述 + 关键截图** 是最有效的沟通方式。
+        **Simple description + key screenshots** is the most effective way to communicate.
 
         ---
-        ### 📌 如何查看版本号？
+        ### 📌 How to check the version number?
 
-        | 部署方式 | 查看方法 |
+        | Deployment method | View method |
         |---------|---------|
-        | **Docker** | 查看容器启动日志，版本号显示在日志开头 |
-        | **GitHub Actions** | 查看 [README 文档](https://github.com/sansan0/TrendRadar) 顶部的 ![version](https://img.shields.io/badge/version-blue) 徽章 |
-        | **本地 Python** | 查看项目根目录的 `version` 文件 |
+        | **Docker** | View the container startup log, the version number is displayed at the beginning of the log |
+        | **GitHub Actions** | View the ![version](https://img.shields.io/badge/version-blue) badge at the top of the [README document](https://github.com/sansan0/TrendRadar) |
+        | **Local Python** | View the `version` file in the project root directory |
 
   - type: input
     id: version
     attributes:
-      label: 📦 TrendRadar 版本
+      label: 📦 TrendRadar version
       description: |
-        请务必提供版本号（如：v5.2.0 或 git commit id）
-        💡 Docker 用户：查看容器启动日志 | GitHub Actions 用户：查看文档顶部 version 徽章
-      placeholder: v5.2.0 或 commit hash
+        Please be sure to provide a version number (eg: v5.2.0 or git commit id)
+        💡 Docker users: View the container startup log | GitHub Actions users: View the version badge at the top of the document
+      placeholder: v5.2.0 or commit hash
     validations:
       required: true
 
   - type: input
     id: mcp-version
     attributes:
-      label: 🔌 MCP Server 版本 (可选)
-      description: 如果你是通过 MCP 使用，请填写 MCP Server 的版本。
-      placeholder: v3.1.6 (非 MCP 用户留空)
+      label: 🔌 MCP Server version (optional)
+      description: If you are using MCP, please fill in the version of MCP Server.
+      placeholder: v3.1.6 (leave blank for non-MCP users)
     validations:
       required: false
 
   - type: dropdown
     id: bug-category
     attributes:
-      label: 🏷️ 问题类别
+      label: 🏷️ Question category
       options:
-        - AI 分析相关（报错、内容异常、提示词失效等）
-        - 数据获取相关（爬不到新闻、平台失效等）
-        - 通知推送相关（收不到消息、推送报错等）
-        - 部署运行相关（Docker、Actions、Python 报错）
-        - 其他
+        - AI analysis related (error reporting, abnormal content, invalid prompt words, etc.)
+        - Data acquisition related (news cannot be crawled, platform failure, etc.)
+        - Notification push related (message not received, push error, etc.)
+        - Deployment and operation related (Docker, Actions, Python error reporting)
+        - other
     validations:
       required: true
 
   - type: input
     id: ai-model
     attributes:
-      label: 🤖 AI 模型名称（AI 问题必填）
+      label: 🤖 AI model name (required for AI questions)
       description: |
-        如果是 AI 分析相关问题，请提供你使用的具体模型名称。
-        AI 问题与模型能力密切相关，不同模型表现差异很大。
-      placeholder: "例如：deepseek/deepseek-chat、openai/gpt-4o、gemini/gemini-2.5-flash"
+        If the question is about AI analysis, please provide the specific model name you use.
+        AI problems are closely related to model capabilities, and the performance of different models varies greatly.
+      placeholder: "For example: deepseek/deepseek-chat, openai/gpt-4o, gemini/gemini-2.5-flash"
     validations:
       required: false
 
   - type: textarea
     id: bug-description
     attributes:
-      label: 📝 描述发生了什么
+      label: 📝 describe what happened
       placeholder: |
-        请描述：
-        1. 你在做什么？
-        2. 出现了什么错误？（如果是 AI 问题，请贴出分析失败的错误提示）
-        3. 建议上传一张截图，这比文字更有力！
+        Please describe:
+        1. What are you doing?
+        2. What error occurred? (If it is an AI problem, please post an error message indicating that the analysis failed)
+        3. It is recommended to upload a screenshot, which is more powerful than text!
     validations:
       required: true
 
   - type: textarea
     id: error-logs
     attributes:
-      label: 📋 错误日志/配置（可选）
+      label: 📋 Error log/configuration (optional)
       description: |
-        贴出相关的错误日志或 config.yaml 片段（记得隐藏 API Key 等敏感信息）
-        💡 Docker 用户：使用 `docker logs trendradar` 查看日志
+        Post relevant error logs or config.yaml fragments (remember to hide sensitive information such as API Key)
+        💡 Docker users: Use `docker logs trendradar` to view logs
       placeholder: |
-        贴出相关的错误日志或 config.yaml 片段：
+        Post relevant error logs or config.yaml snippets:
         ```
-        在这里贴内容...
+        Post content here...
         ```
     validations:
       required: false
@@ -97,26 +97,26 @@ body:
   - type: textarea
     id: screenshots
     attributes:
-      label: 📷 截图（强烈建议）
+      label: 📷 Screenshot (strongly recommended)
       description: |
-        ⚠️ **重要提示**：请提供**完整截图**，不要只截取局部！
-        - 错误截图应包含完整的错误信息和上下文
-        - 推送截图应包含完整的消息内容
-        - 配置截图应包含相关配置段的完整内容
+        ⚠️ **IMPORTANT NOTE**: Please provide **full screenshot**, don’t just take a partial screenshot!
+        - Error screenshots should contain the complete error message and context
+        - Push screenshots should contain the complete message content
+        - Configuration screenshots should contain the complete content of the relevant configuration section
 
-        局部截图往往缺少关键信息，会导致问题难以定位。
-      placeholder: 拖拽截图到这里，请确保截图完整，包含足够的上下文信息。
+        Partial screenshots often lack key information, making it difficult to locate the problem.
+      placeholder: Drag the screenshot here. Please make sure the screenshot is complete and contains enough contextual information.
     validations:
       required: false
 
   - type: dropdown
     id: environment
     attributes:
-      label: 🖥️ 使用环境
+      label: 🖥️ usage environment
       options:
-        - Docker (本地/NAS)
+        - Docker (local/NAS)
         - GitHub Actions
-        - 本地 Python 运行
-        - MCP Server 客户端 (Cherry Studio等)
+        - Local Python run
+        - MCP Server client (Cherry Studio, etc.)
     validations:
       required: true

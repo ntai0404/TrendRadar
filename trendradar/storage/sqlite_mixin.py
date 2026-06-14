@@ -1,8 +1,8 @@
 # coding=utf-8
 """
-SQLite 存储 Mixin
+SQLite Storage Mixin
 
-提供共用的 SQLite 数据库操作逻辑，供 LocalStorageBackend 和 RemoteStorageBackend 复用。
+Provide common SQLite database operation logic for LocalStorageBackend and RemoteStorageBackend to reuse.
 """
 
 import sqlite3
@@ -17,9 +17,9 @@ from trendradar.utils.url import normalize_url
 
 class SQLiteStorageMixin:
     """
-    SQLite 存储操作 Mixin
+    SQLite storage operation Mixin
 
-    子类需要实现以下抽象方法：
+    Subclasses need to implement the following abstract methods:
     - _get_connection(date, db_type) -> sqlite3.Connection
     - _get_configured_time() -> datetime
     - _format_date_folder(date) -> str
@@ -27,58 +27,58 @@ class SQLiteStorageMixin:
     """
 
     # ========================================
-    # 抽象方法 - 子类必须实现
+    # Abstract methods - subclasses must implement
     # ========================================
 
     @abstractmethod
     def _get_connection(self, date: Optional[str] = None, db_type: str = "news") -> sqlite3.Connection:
-        """获取数据库连接"""
+        """Get database connection"""
         pass
 
     @abstractmethod
     def _get_configured_time(self) -> datetime:
-        """获取配置时区的当前时间"""
+        """Get current time in configured timezone"""
         pass
 
     @abstractmethod
     def _format_date_folder(self, date: Optional[str] = None) -> str:
-        """格式化日期文件夹名 (ISO 格式: YYYY-MM-DD)"""
+        """Format date folder name (ISO format: YYYY-MM-DD)"""
         pass
 
     @abstractmethod
     def _format_time_filename(self) -> str:
-        """格式化时间文件名 (格式: HH-MM)"""
+        """Format time file name (format: HH-MM)"""
         pass
 
     # ========================================
-    # Schema 管理
+    # Schema management
     # ========================================
 
     def _get_schema_path(self, db_type: str = "news") -> Path:
         """
-        获取 schema.sql 文件路径
+        Get schema.sql file path
 
         Args:
-            db_type: 数据库类型 ("news" 或 "rss")
+            db_type: Database type ("news" or "rss")
 
         Returns:
-            schema 文件路径
+            schema file path
         """
         if db_type == "rss":
             return Path(__file__).parent / "rss_schema.sql"
         return Path(__file__).parent / "schema.sql"
 
     def _get_ai_filter_schema_path(self) -> Path:
-        """获取 AI 筛选 schema 文件路径"""
+        """Get AI filter schema file path"""
         return Path(__file__).parent / "ai_filter_schema.sql"
 
     def _init_tables(self, conn: sqlite3.Connection, db_type: str = "news") -> None:
         """
-        从 schema.sql 初始化数据库表结构
+        Initialize database table structure from schema.sql
 
         Args:
-            conn: 数据库连接
-            db_type: 数据库类型 ("news" 或 "rss")
+            conn: Database connection
+            db_type: Database type ("news" or "rss")
         """
         schema_path = self._get_schema_path(db_type)
 
@@ -89,7 +89,7 @@ class SQLiteStorageMixin:
         else:
             raise FileNotFoundError(f"Schema file not found: {schema_path}")
 
-        # news 库额外加载 AI 筛选表结构
+        # news database additionally loads AI filter table structure
         if db_type == "news":
             ai_filter_schema = self._get_ai_filter_schema_path()
             if ai_filter_schema.exists():
@@ -102,7 +102,7 @@ class SQLiteStorageMixin:
         conn.commit()
 
     def _migrate_rss_schema(self, conn: sqlite3.Connection) -> None:
-        """迁移 rss_items 表结构（为已有数据库添加 guid 列）"""
+        """Migrate rss_items table structure (add guid column to existing database)"""
         cursor = conn.execute("PRAGMA table_info(rss_items)")
         columns = {row[1] for row in cursor.fetchall()}
         if "guid" not in columns:
@@ -113,16 +113,16 @@ class SQLiteStorageMixin:
             """)
 
     # ========================================
-    # 新闻数据存储
+    # News data storage
     # ========================================
 
-    def _save_news_data_impl(self, data: NewsData, log_prefix: str = "[存储]") -> tuple[bool, int, int, int, int]:
+    def _save_news_data_impl(self, data: NewsData, log_prefix: str = "[Storage]") -> tuple[bool, int, int, int, int]:
         """
-        保存新闻数据到 SQLite（核心实现）
+        Save news data to SQLite (core implementation)
 
         Args:
-            data: 新闻数据
-            log_prefix: 日志前缀
+            data: News data
+            log_prefix: Log prefix
 
         Returns:
             (success, new_count, updated_count, title_changed_count, off_list_count)
@@ -131,10 +131,10 @@ class SQLiteStorageMixin:
             conn = self._get_connection(data.date)
             cursor = conn.cursor()
 
-            # 获取配置时区的当前时间
+            # Get current time in configured timezone
             now_str = self._get_configured_time().strftime("%Y-%m-%d %H:%M:%S")
 
-            # 首先同步平台信息到 platforms 表
+            # First synchronize platform information to platforms table
             for source_id, source_name in data.id_to_name.items():
                 cursor.execute("""
                     INSERT INTO platforms (id, name, updated_at)
@@ -144,7 +144,7 @@ class SQLiteStorageMixin:
                         updated_at = excluded.updated_at
                 """, (source_id, source_name, now_str))
 
-            # 统计计数器
+            # Statistics counter
             new_count = 0
             updated_count = 0
             title_changed_count = 0
@@ -155,10 +155,10 @@ class SQLiteStorageMixin:
 
                 for item in news_list:
                     try:
-                        # 标准化 URL（去除动态参数，如微博的 band_rank）
+                        # Standardize URL (remove dynamic parameters, such as Weibo's band_rank)
                         normalized_url = normalize_url(item.url, source_id) if item.url else ""
 
-                        # 检查是否已存在（通过标准化 URL + platform_id）
+                        # Check if it already exists (via standardized URL + platform_id)
                         if normalized_url:
                             cursor.execute("""
                                 SELECT id, title FROM news_items
@@ -167,7 +167,7 @@ class SQLiteStorageMixin:
                             existing = cursor.fetchone()
 
                             if existing:
-                                # 已存在，Cập nhật记录
+                                # Already exists, Cập nhật record
                                 existing_id, existing_title = existing
 
                                 update_title = item.title
@@ -175,9 +175,9 @@ class SQLiteStorageMixin:
                                         and existing_title and not existing_title.strip().startswith(("http://", "https://", "//"))):
                                     update_title = existing_title
 
-                                # 检查标题是否变化
+                                # Check if title has changed
                                 if existing_title != update_title:
-                                    # 记录标题变更
+                                    # Record title change
                                     cursor.execute("""
                                         INSERT INTO title_changes
                                         (news_item_id, old_title, new_title, changed_at)
@@ -185,14 +185,14 @@ class SQLiteStorageMixin:
                                     """, (existing_id, existing_title, update_title, now_str))
                                     title_changed_count += 1
 
-                                # 记录排名历史
+                                # Record ranking history
                                 cursor.execute("""
                                     INSERT INTO rank_history
                                     (news_item_id, rank, crawl_time, created_at)
                                     VALUES (?, ?, ?, ?)
                                 """, (existing_id, item.rank, data.crawl_time, now_str))
 
-                                # Cập nhật现有记录
+                                # Cập nhật existing record
                                 cursor.execute("""
                                     UPDATE news_items SET
                                         title = ?,
@@ -206,7 +206,7 @@ class SQLiteStorageMixin:
                                       data.crawl_time, now_str, existing_id))
                                 updated_count += 1
                             else:
-                                # 不存在，插入新记录（存储标准化后的 URL）
+                                # Does not exist, insert new record (store standardized URL)
                                 cursor.execute("""
                                     INSERT INTO news_items
                                     (title, platform_id, rank, url, mobile_url,
@@ -217,7 +217,7 @@ class SQLiteStorageMixin:
                                       item.mobile_url, data.crawl_time, data.crawl_time,
                                       now_str, now_str))
                                 new_id = cursor.lastrowid
-                                # 记录初始排名
+                                # Record initial ranking
                                 cursor.execute("""
                                     INSERT INTO rank_history
                                     (news_item_id, rank, crawl_time, created_at)
@@ -225,7 +225,7 @@ class SQLiteStorageMixin:
                                 """, (new_id, item.rank, data.crawl_time, now_str))
                                 new_count += 1
                         else:
-                            # URL 为空的情况，直接插入（不做去重）
+                            # If URL is empty, insert directly (no deduplication)
                             cursor.execute("""
                                 INSERT INTO news_items
                                 (title, platform_id, rank, url, mobile_url,
@@ -236,7 +236,7 @@ class SQLiteStorageMixin:
                                   item.mobile_url, data.crawl_time, data.crawl_time,
                                   now_str, now_str))
                             new_id = cursor.lastrowid
-                            # 记录初始排名
+                            # Record initial ranking
                             cursor.execute("""
                                 INSERT INTO rank_history
                                 (news_item_id, rank, crawl_time, created_at)
@@ -245,16 +245,16 @@ class SQLiteStorageMixin:
                             new_count += 1
 
                     except sqlite3.Error as e:
-                        print(f"{log_prefix} 保存新闻条目失败 [{item.title[:30]}...]: {e}")
+                        print(f"{log_prefix} Failed to save news item [{item.title[:30]}...]: {e}")
 
             total_items = new_count + updated_count
 
             # ========================================
-            # 脱榜检测：检测上次在榜但这次不在榜的新闻
+            # Drop-off detection: detect news that was on the list last time but not this time
             # ========================================
             off_list_count = 0
 
-            # 获取上一次抓取时间
+            # Get the last crawl time
             cursor.execute("""
                 SELECT crawl_time FROM crawl_records
                 WHERE crawl_time < ?
@@ -266,17 +266,17 @@ class SQLiteStorageMixin:
             if prev_record:
                 prev_crawl_time = prev_record[0]
 
-                # 对于每个成功抓取的平台，检测脱榜
+                # For each successfully crawled platform, detect dropping off the ranking
                 for source_id in success_sources:
-                    # 获取当前抓取中该平台的所有标准化 URL
+                    # Get all standardized URLs for this platform in the current crawl
                     current_urls = set()
                     for item in data.items.get(source_id, []):
                         normalized_url = normalize_url(item.url, source_id) if item.url else ""
                         if normalized_url:
                             current_urls.add(normalized_url)
 
-                    # 查询上次在榜（last_crawl_time = prev_crawl_time）但这次不在榜的新闻
-                    # 这些新闻是"第一次脱榜"，需要记录
+                    # Query news that were on the ranking last time (last_crawl_time = prev_crawl_time) but are not on the ranking this time
+                    # These news are "dropping off the ranking for the first time" and need to be recorded
                     cursor.execute("""
                         SELECT id, url FROM news_items
                         WHERE platform_id = ?
@@ -287,7 +287,7 @@ class SQLiteStorageMixin:
                     for row in cursor.fetchall():
                         news_id, url = row[0], row[1]
                         if url not in current_urls:
-                            # 插入脱榜记录（rank=0 表示脱榜）
+                            # Insert drop-off record (rank=0 indicates dropping off the ranking)
                             cursor.execute("""
                                 INSERT INTO rank_history
                                 (news_item_id, rank, crawl_time, created_at)
@@ -295,14 +295,14 @@ class SQLiteStorageMixin:
                             """, (news_id, data.crawl_time, now_str))
                             off_list_count += 1
 
-            # 记录抓取信息
+            # Record crawl information
             cursor.execute("""
                 INSERT OR REPLACE INTO crawl_records
                 (crawl_time, total_items, created_at)
                 VALUES (?, ?, ?)
             """, (data.crawl_time, total_items, now_str))
 
-            # 获取刚插入的 crawl_record 的 ID
+            # Get the ID of the newly inserted crawl_record
             cursor.execute("""
                 SELECT id FROM crawl_records WHERE crawl_time = ?
             """, (data.crawl_time,))
@@ -310,7 +310,7 @@ class SQLiteStorageMixin:
             if record_row:
                 crawl_record_id = record_row[0]
 
-                # 记录成功的来源
+                # Record successful sources
                 for source_id in success_sources:
                     cursor.execute("""
                         INSERT OR REPLACE INTO crawl_source_status
@@ -318,9 +318,9 @@ class SQLiteStorageMixin:
                         VALUES (?, ?, 'success')
                     """, (crawl_record_id, source_id))
 
-                # 记录失败的来源
+                # Record failed sources
                 for failed_id in data.failed_ids:
-                    # 确保失败的平台也在 platforms 表中
+                    # Ensure failed platforms are also in the platforms table
                     cursor.execute("""
                         INSERT OR IGNORE INTO platforms (id, name, updated_at)
                         VALUES (?, ?, ?)
@@ -337,24 +337,24 @@ class SQLiteStorageMixin:
             return True, new_count, updated_count, title_changed_count, off_list_count
 
         except Exception as e:
-            print(f"{log_prefix} 保存失败: {e}")
+            print(f"{log_prefix} Save failed: {e}")
             return False, 0, 0, 0, 0
 
     def _get_today_all_data_impl(self, date: Optional[str] = None) -> Optional[NewsData]:
         """
-        获取指定日期的所有新闻数据（合并后）
+        Get all news data for the specified date (after merging)
 
         Args:
-            date: 日期字符串，默认为今天
+            date: Date string, defaults to today
 
         Returns:
-            合并后的新闻数据
+            Merged news data
         """
         try:
             conn = self._get_connection(date)
             cursor = conn.cursor()
 
-            # 获取所有新闻数据（包含 id 用于查询排名历史）
+            # Get all news data (including id for querying ranking history)
             cursor.execute("""
                 SELECT n.id, n.title, n.platform_id, p.name as platform_name,
                        n.rank, n.url, n.mobile_url,
@@ -368,12 +368,12 @@ class SQLiteStorageMixin:
             if not rows:
                 return None
 
-            # 收集所有 news_item_id
+            # Collect all news_item_id
             news_ids = [row[0] for row in rows]
 
-            # 批量查询排名历史（同时获取时间和排名）
-            # 过滤逻辑：只保留 last_crawl_time 之前的脱榜记录（rank=0）
-            # 这样可以避免显示新闻永久脱榜后的无意义记录
+            # Batch query ranking history (get time and rank simultaneously)
+            # Filtering logic: only keep drop-off records (rank=0) before last_crawl_time
+            # This avoids showing meaningless records after the news permanently drops off the ranking
             rank_history_map: Dict[int, List[int]] = {}
             rank_timeline_map: Dict[int, List[Dict[str, Any]]] = {}
             if news_ids:
@@ -392,26 +392,26 @@ class SQLiteStorageMixin:
                     if not crawl_time:
                         continue
 
-                    # 构建 ranks 列表（去重，排除脱榜记录 rank=0）
+                    # Build ranks list (deduplicated, excluding drop-off records rank=0)
                     if news_id not in rank_history_map:
                         rank_history_map[news_id] = []
                     if rank != 0 and rank not in rank_history_map[news_id]:
                         rank_history_map[news_id].append(rank)
 
-                    # 构建 rank_timeline 列表（完整时间线，包含脱榜）
+                    # Build rank_timeline list (complete timeline, including drop-offs)
                     if news_id not in rank_timeline_map:
                         rank_timeline_map[news_id] = []
-                    # 提取时间部分（HH:MM）
+                    # Extract time part (HH:MM)
                     try:
                         time_part = crawl_time.split()[1][:5] if ' ' in crawl_time else crawl_time[:5]
                     except (IndexError, AttributeError):
                         time_part = "??:??"
                     rank_timeline_map[news_id].append({
                         "time": time_part,
-                        "rank": rank if rank != 0 else None  # 0 转为 None 表示脱榜
+                        "rank": rank if rank != 0 else None  # 0 converted to None indicates dropping off the ranking
                     })
 
-            # 按 platform_id 分组
+            # Group by platform_id
             items: Dict[str, List[NewsItem]] = {}
             id_to_name: Dict[str, str] = {}
             crawl_date = self._format_date_folder(date)
@@ -427,7 +427,7 @@ class SQLiteStorageMixin:
                 if platform_id not in items:
                     items[platform_id] = []
 
-                # 获取排名历史，如果没有则使用当前排名
+                # Get ranking history, if none then use current rank
                 ranks = rank_history_map.get(news_id, [row[4]])
                 rank_timeline = rank_timeline_map.get(news_id, [])
 
@@ -448,7 +448,7 @@ class SQLiteStorageMixin:
 
             final_items = items
 
-            # 获取失败的来源
+            # Get failed sources
             cursor.execute("""
                 SELECT DISTINCT css.platform_id
                 FROM crawl_source_status css
@@ -457,7 +457,7 @@ class SQLiteStorageMixin:
             """)
             failed_ids = [row[0] for row in cursor.fetchall()]
 
-            # 获取最新的抓取时间
+            # Get the latest crawl time
             cursor.execute("""
                 SELECT crawl_time FROM crawl_records
                 ORDER BY crawl_time DESC
@@ -476,24 +476,24 @@ class SQLiteStorageMixin:
             )
 
         except Exception as e:
-            print(f"[存储] 读取数据失败: {e}")
+            print(f"[Storage] Failed to read data: {e}")
             return None
 
     def _get_latest_crawl_data_impl(self, date: Optional[str] = None) -> Optional[NewsData]:
         """
-        获取最新一次抓取的数据
+        Get the data from the latest crawl
 
         Args:
-            date: 日期字符串，默认为今天
+            date: Date string, defaults to today
 
         Returns:
-            最新抓取的新闻数据
+            Latest crawled news data
         """
         try:
             conn = self._get_connection(date)
             cursor = conn.cursor()
 
-            # 获取最新的抓取时间
+            # Get the latest crawl time
             cursor.execute("""
                 SELECT crawl_time FROM crawl_records
                 ORDER BY crawl_time DESC
@@ -506,7 +506,7 @@ class SQLiteStorageMixin:
 
             latest_time = time_row[0]
 
-            # 获取该时间的新闻数据（包含 id 用于查询排名历史）
+            # Get news data for this time (including id for querying ranking history)
             cursor.execute("""
                 SELECT n.id, n.title, n.platform_id, p.name as platform_name,
                        n.rank, n.url, n.mobile_url,
@@ -520,12 +520,12 @@ class SQLiteStorageMixin:
             if not rows:
                 return None
 
-            # 收集所有 news_item_id
+            # Collect all news_item_id
             news_ids = [row[0] for row in rows]
 
-            # 批量查询排名历史（同时获取时间和排名）
-            # 过滤逻辑：只保留 last_crawl_time 之前的脱榜记录（rank=0）
-            # 这样可以避免显示新闻永久脱榜后的无意义记录
+            # Batch query ranking history (get time and rank simultaneously)
+            # Filtering logic: only keep drop-off records (rank=0) before last_crawl_time
+            # This avoids showing meaningless records after the news permanently drops off the ranking
             rank_history_map: Dict[int, List[int]] = {}
             rank_timeline_map: Dict[int, List[Dict[str, Any]]] = {}
             if news_ids:
@@ -544,23 +544,23 @@ class SQLiteStorageMixin:
                     if not crawl_time:
                         continue
 
-                    # 构建 ranks 列表（去重，排除脱榜记录 rank=0）
+                    # Build ranks list (deduplicated, excluding drop-off records rank=0)
                     if news_id not in rank_history_map:
                         rank_history_map[news_id] = []
                     if rank != 0 and rank not in rank_history_map[news_id]:
                         rank_history_map[news_id].append(rank)
 
-                    # 构建 rank_timeline 列表（完整时间线，包含脱榜）
+                    # Build rank_timeline list (complete timeline, including drop-offs)
                     if news_id not in rank_timeline_map:
                         rank_timeline_map[news_id] = []
-                    # 提取时间部分（HH:MM）
+                    # Extract time part (HH:MM)
                     try:
                         time_part = crawl_time.split()[1][:5] if ' ' in crawl_time else crawl_time[:5]
                     except (IndexError, AttributeError):
                         time_part = "??:??"
                     rank_timeline_map[news_id].append({
                         "time": time_part,
-                        "rank": rank if rank != 0 else None  # 0 转为 None 表示脱榜
+                        "rank": rank if rank != 0 else None  # 0 converted to None means unranked
                     })
 
             items: Dict[str, List[NewsItem]] = {}
@@ -576,7 +576,7 @@ class SQLiteStorageMixin:
                 if platform_id not in items:
                     items[platform_id] = []
 
-                # 获取排名历史，如果没有则使用当前排名
+                # Get ranking history, if none then use current ranking
                 ranks = rank_history_map.get(news_id, [row[4]])
                 rank_timeline = rank_timeline_map.get(news_id, [])
 
@@ -595,7 +595,7 @@ class SQLiteStorageMixin:
                     rank_timeline=rank_timeline,
                 ))
 
-            # 获取失败的来源（针对最新一次抓取）
+            # Get failed sources (for the latest scrape)
             cursor.execute("""
                 SELECT css.platform_id
                 FROM crawl_source_status css
@@ -614,38 +614,38 @@ class SQLiteStorageMixin:
             )
 
         except Exception as e:
-            print(f"[存储] 获取最新数据失败: {e}")
+            print(f"[Storage] Failed to get latest data: {e}")
             return None
 
     def _detect_new_titles_impl(self, current_data: NewsData) -> Dict[str, Dict]:
         """
-        检测新增的标题
+        Detect newly added titles
 
-        该方法比较当前抓取数据与历史数据，找出新增的标题。
-        关键逻辑：只有在历史批次中从未出现过的标题才算新增。
+        This method compares currently scraped data with historical data to find newly added titles.
+        Key logic: Only titles that have never appeared in historical batches are considered newly added.
 
         Args:
-            current_data: 当前抓取的数据
+            current_data: Currently scraped data
 
         Returns:
-            新增的标题数据 {source_id: {title: NewsItem}}
+            Newly added title data {source_id: {title: NewsItem}}
         """
         try:
-            # 获取历史数据
+            # Get historical data
             historical_data = self._get_today_all_data_impl(current_data.date)
 
             if not historical_data:
-                # 没有历史数据，所有都是新的
+                # No historical data, everything is new
                 new_titles = {}
                 for source_id, news_list in current_data.items.items():
                     new_titles[source_id] = {item.title: item for item in news_list}
                 return new_titles
 
-            # 获取当前批次时间
+            # Get current batch time
             current_time = current_data.crawl_time
 
-            # 收集历史标题（first_time < current_time 的标题）
-            # 这样可以正确处理同一标题因 URL 变化而产生多条记录的情况
+            # Collect historical titles (titles with first_time < current_time)
+            # This correctly handles the situation where the same title generates multiple records due to URL changes
             historical_titles: Dict[str, set] = {}
             for source_id, news_list in historical_data.items.items():
                 historical_titles[source_id] = set()
@@ -654,13 +654,13 @@ class SQLiteStorageMixin:
                     if first_time < current_time:
                         historical_titles[source_id].add(item.title)
 
-            # 检查是否有历史数据
+            # Check if there is historical data
             has_historical_data = any(len(titles) > 0 for titles in historical_titles.values())
             if not has_historical_data:
-                # 第一次抓取，没有"新增"概念
+                # First scrape, no concept of "newly added"
                 return {}
 
-            # 检测新增
+            # Detect newly added
             new_titles = {}
             for source_id, news_list in current_data.items.items():
                 hist_set = historical_titles.get(source_id, set())
@@ -673,18 +673,18 @@ class SQLiteStorageMixin:
             return new_titles
 
         except Exception as e:
-            print(f"[存储] 检测新标题失败: {e}")
+            print(f"[Storage] Failed to detect new titles: {e}")
             return {}
 
     def _is_first_crawl_today_impl(self, date: Optional[str] = None) -> bool:
         """
-        检查是否是当天第一次抓取
+        Check if it is the first scrape of the day
 
         Args:
-            date: 日期字符串，默认为今天
+            date: Date string, defaults to today
 
         Returns:
-            是否是第一次抓取
+            Whether it is the first scrape
         """
         try:
             conn = self._get_connection(date)
@@ -697,22 +697,22 @@ class SQLiteStorageMixin:
             row = cursor.fetchone()
             count = row[0] if row else 0
 
-            # 如果只有一条或没有记录，视为第一次抓取
+            # If there is only one or no record, consider it the first scrape
             return count <= 1
 
         except Exception as e:
-            print(f"[存储] 检查首次抓取失败: {e}")
+            print(f"[Storage] Failed to check first scrape: {e}")
             return True
 
     def _get_crawl_times_impl(self, date: Optional[str] = None) -> List[str]:
         """
-        获取指定日期的所有抓取时间列表
+        Get a list of all scrape times for a specified date
 
         Args:
-            date: 日期字符串，默认为今天
+            date: Date string, defaults to today
 
         Returns:
-            抓取时间列表（按时间排序）
+            List of scrape times (sorted by time)
         """
         try:
             conn = self._get_connection(date)
@@ -727,30 +727,30 @@ class SQLiteStorageMixin:
             return [row[0] for row in rows]
 
         except Exception as e:
-            print(f"[存储] 获取抓取时间列表失败: {e}")
+            print(f"[Storage] Failed to get scrape time list: {e}")
             return []
 
     # ========================================
-    # 时间段执行记录（调度系统）
+    # Time period execution records (scheduling system)
     # ========================================
 
     def _has_period_executed_impl(self, date_str: str, period_key: str, action: str) -> bool:
         """
-        检查指定时间段的某个 action 今天是否已执行
+        Check if a certain action for a specified time period has been executed today
 
         Args:
-            date_str: 日期字符串 YYYY-MM-DD
-            period_key: 时间段 key
-            action: 动作类型 (analyze / push)
+            date_str: Date string YYYY-MM-DD
+            period_key: Time period key
+            action: Action type (analyze / push)
 
         Returns:
-            是否已执行
+            Whether it has been executed
         """
         try:
             conn = self._get_connection(date_str)
             cursor = conn.cursor()
 
-            # 先检查表是否存在
+            # First check if the table exists
             cursor.execute("""
                 SELECT name FROM sqlite_master
                 WHERE type='table' AND name='period_executions'
@@ -766,26 +766,26 @@ class SQLiteStorageMixin:
             return cursor.fetchone() is not None
 
         except Exception as e:
-            print(f"[存储] 检查时间段执行记录失败: {e}")
+            print(f"[Storage] Failed to check time period execution record: {e}")
             return False
 
     def _record_period_execution_impl(self, date_str: str, period_key: str, action: str) -> bool:
         """
-        记录时间段的 action 执行
+        Record the action execution for a time period
 
         Args:
-            date_str: 日期字符串 YYYY-MM-DD
-            period_key: 时间段 key
-            action: 动作类型 (analyze / push)
+            date_str: Date string YYYY-MM-DD
+            period_key: Time period key
+            action: Action type (analyze / push)
 
         Returns:
-            是否记录成功
+            Whether recording was successful
         """
         try:
             conn = self._get_connection(date_str)
             cursor = conn.cursor()
 
-            # 确保表存在
+            # Ensure the table exists
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS period_executions (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -808,20 +808,20 @@ class SQLiteStorageMixin:
             return True
 
         except Exception as e:
-            print(f"[存储] 记录时间段执行失败: {e}")
+            print(f"[Storage] Failed to record time period execution: {e}")
             return False
 
     # ========================================
-    # RSS 数据存储
+    # RSS data storage
     # ========================================
 
-    def _save_rss_data_impl(self, data: RSSData, log_prefix: str = "[存储]") -> tuple[bool, int, int]:
+    def _save_rss_data_impl(self, data: RSSData, log_prefix: str = "[Storage]") -> tuple[bool, int, int]:
         """
-        保存 RSS 数据到 SQLite（以 URL 为唯一标识）
+        Save RSS data to SQLite (using URL as unique identifier)
 
         Args:
-            data: RSS 数据
-            log_prefix: 日志前缀
+            data: RSS data
+            log_prefix: Log prefix
 
         Returns:
             (success, new_count, updated_count)
@@ -832,7 +832,7 @@ class SQLiteStorageMixin:
 
             now_str = self._get_configured_time().strftime("%Y-%m-%d %H:%M:%S")
 
-            # 同步 RSS 源信息到 rss_feeds 表
+            # Sync RSS feed info to rss_feeds table
             for feed_id, feed_name in data.id_to_name.items():
                 cursor.execute("""
                     INSERT INTO rss_feeds (id, name, updated_at)
@@ -842,7 +842,7 @@ class SQLiteStorageMixin:
                         updated_at = excluded.updated_at
                 """, (feed_id, feed_name, now_str))
 
-            # 统计计数器
+            # Statistics counter
             new_count = 0
             updated_count = 0
 
@@ -852,7 +852,7 @@ class SQLiteStorageMixin:
                         item_guid = getattr(item, "guid", "") or ""
                         existing = None
 
-                        # 去重优先级：guid > url
+                        # Deduplication priority: guid > url
                         if item_guid:
                             cursor.execute("""
                                 SELECT id, title FROM rss_items
@@ -908,18 +908,18 @@ class SQLiteStorageMixin:
                                 pass
 
                     except sqlite3.Error as e:
-                        print(f"{log_prefix} 保存 RSS 条目失败 [{item.title[:30]}...]: {e}")
+                        print(f"{log_prefix} Failed to save RSS item [{item.title[:30]}...]: {e}")
 
             total_items = new_count + updated_count
 
-            # 记录抓取信息
+            # Record crawl info
             cursor.execute("""
                 INSERT OR REPLACE INTO rss_crawl_records
                 (crawl_time, total_items, created_at)
                 VALUES (?, ?, ?)
             """, (data.crawl_time, total_items, now_str))
 
-            # 记录抓取状态
+            # Record crawl status
             cursor.execute("""
                 SELECT id FROM rss_crawl_records WHERE crawl_time = ?
             """, (data.crawl_time,))
@@ -927,7 +927,7 @@ class SQLiteStorageMixin:
             if record_row:
                 crawl_record_id = record_row[0]
 
-                # 记录成功的源
+                # Record successful feeds
                 for feed_id in data.items.keys():
                     cursor.execute("""
                         INSERT OR REPLACE INTO rss_crawl_status
@@ -935,7 +935,7 @@ class SQLiteStorageMixin:
                         VALUES (?, ?, 'success')
                     """, (crawl_record_id, feed_id))
 
-                # 记录失败的源
+                # Record failed feeds
                 for failed_id in data.failed_ids:
                     cursor.execute("""
                         INSERT OR IGNORE INTO rss_feeds (id, name, updated_at)
@@ -953,24 +953,24 @@ class SQLiteStorageMixin:
             return True, new_count, updated_count
 
         except Exception as e:
-            print(f"{log_prefix} 保存 RSS 数据失败: {e}")
+            print(f"{log_prefix} Failed to save RSS data: {e}")
             return False, 0, 0
 
     def _get_rss_data_impl(self, date: Optional[str] = None) -> Optional[RSSData]:
         """
-        获取指定日期的所有 RSS 数据
+        Get all RSS data for a specified date
 
         Args:
-            date: 日期字符串（YYYY-MM-DD），默认为今天
+            date: Date string (YYYY-MM-DD), defaults to today
 
         Returns:
-            RSSData 对象，如果没有数据返回 None
+            RSSData object, returns None if no data
         """
         try:
             conn = self._get_connection(date, db_type="rss")
             cursor = conn.cursor()
 
-            # 获取所有 RSS 数据
+            # Get all RSS data
             cursor.execute("""
                 SELECT i.id, i.title, i.feed_id, f.name as feed_name,
                        i.url, i.published_at, i.summary, i.author,
@@ -1011,7 +1011,7 @@ class SQLiteStorageMixin:
                     count=row[10],
                 ))
 
-            # 获取最新的抓取时间
+            # Get the latest crawl time
             cursor.execute("""
                 SELECT crawl_time FROM rss_crawl_records
                 ORDER BY crawl_time DESC
@@ -1020,7 +1020,7 @@ class SQLiteStorageMixin:
             time_row = cursor.fetchone()
             crawl_time = time_row[0] if time_row else self._format_time_filename()
 
-            # 获取失败的源
+            # Get failed feeds
             cursor.execute("""
                 SELECT DISTINCT cs.feed_id
                 FROM rss_crawl_status cs
@@ -1038,34 +1038,34 @@ class SQLiteStorageMixin:
             )
 
         except Exception as e:
-            print(f"[存储] 读取 RSS 数据失败: {e}")
+            print(f"[Storage] Failed to read RSS data: {e}")
             return None
 
     def _detect_new_rss_items_impl(self, current_data: RSSData) -> Dict[str, List[RSSItem]]:
         """
-        检测新增的 RSS 条目（增量模式）
+        Detect new RSS items (incremental mode)
 
-        该方法比较当前抓取数据与历史数据，找出新增的 RSS 条目。
-        关键逻辑：只有在历史批次中从未出现过的 URL 才算新增。
+        This method compares current crawl data with historical data to find new RSS items.
+        Key logic: Only URLs that have never appeared in historical batches are considered new.
 
         Args:
-            current_data: 当前抓取的 RSS 数据
+            current_data: Currently crawled RSS data
 
         Returns:
-            新增的 RSS 条目 {feed_id: [RSSItem, ...]}
+            New RSS items {feed_id: [RSSItem, ...]}
         """
         try:
-            # 获取历史数据
+            # Get historical data
             historical_data = self._get_rss_data_impl(current_data.date)
 
             if not historical_data:
-                # 没有历史数据，所有都是新的
+                # No historical data, all are new
                 return current_data.items.copy()
 
-            # 获取当前批次时间
+            # Get current batch time
             current_time = current_data.crawl_time
 
-            # 收集历史 URL（first_time < current_time 的条目）
+            # Collect historical URLs (items with first_time < current_time)
             historical_urls: Dict[str, set] = {}
             for feed_id, rss_list in historical_data.items.items():
                 historical_urls[feed_id] = set()
@@ -1075,18 +1075,18 @@ class SQLiteStorageMixin:
                         if item.url:
                             historical_urls[feed_id].add(item.url)
 
-            # 检查是否有历史数据
+            # Check if there is historical data
             has_historical_data = any(len(urls) > 0 for urls in historical_urls.values())
             if not has_historical_data:
-                # 第一次抓取，没有"新增"概念
+                # First crawl, no concept of "new"
                 return {}
 
-            # 检测新增
+            # Detect new
             new_items: Dict[str, List[RSSItem]] = {}
             for feed_id, rss_list in current_data.items.items():
                 hist_set = historical_urls.get(feed_id, set())
                 for item in rss_list:
-                    # 通过 URL 判断是否新增
+                    # Determine if new by URL
                     if item.url and item.url not in hist_set:
                         if feed_id not in new_items:
                             new_items[feed_id] = []
@@ -1095,24 +1095,24 @@ class SQLiteStorageMixin:
             return new_items
 
         except Exception as e:
-            print(f"[存储] 检测新 RSS 条目失败: {e}")
+            print(f"[Storage] Failed to detect new RSS items: {e}")
             return {}
 
     def _get_latest_rss_data_impl(self, date: Optional[str] = None) -> Optional[RSSData]:
         """
-        获取最新一次抓取的 RSS 数据（Bảng xếp hạng hiện tại模式）
+        Get the latest crawled RSS data (Bảng xếp hạng hiện tại mode)
 
         Args:
-            date: 日期字符串（YYYY-MM-DD），默认为今天
+            date: Date string (YYYY-MM-DD), defaults to today
 
         Returns:
-            最新抓取的 RSS 数据，如果没有数据返回 None
+            The latest fetched RSS data, returns None if there is no data
         """
         try:
             conn = self._get_connection(date, db_type="rss")
             cursor = conn.cursor()
 
-            # 获取最新的抓取时间
+            # Get the latest fetch time
             cursor.execute("""
                 SELECT crawl_time FROM rss_crawl_records
                 ORDER BY crawl_time DESC
@@ -1125,7 +1125,7 @@ class SQLiteStorageMixin:
 
             latest_time = time_row[0]
 
-            # 获取该时间的 RSS 数据
+            # Get the RSS data for this time
             cursor.execute("""
                 SELECT i.id, i.title, i.feed_id, f.name as feed_name,
                        i.url, i.published_at, i.summary, i.author,
@@ -1167,7 +1167,7 @@ class SQLiteStorageMixin:
                     count=row[10],
                 ))
 
-            # 获取失败的源（针对最新一次抓取）
+            # Get failed sources (for the latest fetch)
             cursor.execute("""
                 SELECT cs.feed_id
                 FROM rss_crawl_status cs
@@ -1186,15 +1186,15 @@ class SQLiteStorageMixin:
             )
 
         except Exception as e:
-            print(f"[存储] 获取最新 RSS 数据失败: {e}")
+            print(f"[Storage] Failed to get the latest RSS data: {e}")
             return None
 
     # ========================================
-    # AI 智能筛选 - 标签管理
+    # AI Smart Filtering - Tag Management
     # ========================================
 
     def _get_active_tags_impl(self, date: Optional[str] = None, interests_file: str = "ai_interests.txt") -> List[Dict[str, Any]]:
-        """获取指定兴趣文件的 active 标签列表"""
+        """Get the list of active tags for the specified interest file"""
         try:
             conn = self._get_connection(date)
             cursor = conn.cursor()
@@ -1214,11 +1214,11 @@ class SQLiteStorageMixin:
                 for row in cursor.fetchall()
             ]
         except Exception as e:
-            print(f"[AI筛选] 获取标签失败: {e}")
+            print(f"[AI Filtering] Failed to get tags: {e}")
             return []
 
     def _get_latest_prompt_hash_impl(self, date: Optional[str] = None, interests_file: str = "ai_interests.txt") -> Optional[str]:
-        """获取指定兴趣文件最新版本标签的 prompt_hash"""
+        """Get the prompt_hash of the latest version tags for the specified interest file"""
         try:
             conn = self._get_connection(date)
             cursor = conn.cursor()
@@ -1232,11 +1232,11 @@ class SQLiteStorageMixin:
             row = cursor.fetchone()
             return row[0] if row else None
         except Exception as e:
-            print(f"[AI筛选] 获取 prompt_hash 失败: {e}")
+            print(f"[AI Filtering] Failed to get prompt_hash: {e}")
             return None
 
     def _get_latest_tag_version_impl(self, date: Optional[str] = None) -> int:
-        """获取最新版本号"""
+        """Get the latest version number"""
         try:
             conn = self._get_connection(date)
             cursor = conn.cursor()
@@ -1247,17 +1247,17 @@ class SQLiteStorageMixin:
             row = cursor.fetchone()
             return row[0] if row and row[0] is not None else 0
         except Exception as e:
-            print(f"[AI筛选] 获取版本号失败: {e}")
+            print(f"[AI Filtering] Failed to get version number: {e}")
             return 0
 
     def _deprecate_all_tags_impl(self, date: Optional[str] = None, interests_file: str = "ai_interests.txt") -> int:
-        """将指定兴趣文件的 active 标签和关联的分类结果标记为 deprecated"""
+        """Mark the active tags and associated classification results of the specified interest file as deprecated"""
         try:
             conn = self._get_connection(date)
             cursor = conn.cursor()
             now_str = self._get_configured_time().strftime("%Y-%m-%d %H:%M:%S")
 
-            # 获取该兴趣文件的 active 标签 id
+            # Get the active tag ids for this interest file
             cursor.execute(
                 "SELECT id FROM ai_filter_tags WHERE status = 'active' AND interests_file = ?",
                 (interests_file,)
@@ -1267,7 +1267,7 @@ class SQLiteStorageMixin:
             if not tag_ids:
                 return 0
 
-            # 废弃标签
+            # Deprecate tags
             placeholders = ",".join("?" * len(tag_ids))
             cursor.execute(f"""
                 UPDATE ai_filter_tags
@@ -1276,7 +1276,7 @@ class SQLiteStorageMixin:
             """, [now_str] + tag_ids)
             tag_count = cursor.rowcount
 
-            # 废弃关联的分类结果
+            # Deprecate associated classification results
             placeholders = ",".join("?" * len(tag_ids))
             cursor.execute(f"""
                 UPDATE ai_filter_results
@@ -1285,17 +1285,17 @@ class SQLiteStorageMixin:
             """, [now_str] + tag_ids)
 
             conn.commit()
-            print(f"[AI筛选] 已废弃 {tag_count} 个标签及关联分类结果")
+            print(f"[AI Filtering] Deprecated {tag_count} tags and associated classification results")
             return tag_count
         except Exception as e:
-            print(f"[AI筛选] 废弃标签失败: {e}")
+            print(f"[AI Filtering] Failed to deprecate tags: {e}")
             return 0
 
     def _save_tags_impl(
         self, date: Optional[str], tags: List[Dict], version: int, prompt_hash: str,
         interests_file: str = "ai_interests.txt"
     ) -> int:
-        """保存新提取的标签"""
+        """Save newly extracted tags"""
         try:
             conn = self._get_connection(date)
             cursor = conn.cursor()
@@ -1326,13 +1326,13 @@ class SQLiteStorageMixin:
             conn.commit()
             return count
         except Exception as e:
-            print(f"[AI筛选] 保存标签失败: {e}")
+            print(f"[AI Filtering] Failed to save tags: {e}")
             return 0
 
     def _deprecate_specific_tags_impl(
         self, date: Optional[str], tag_ids: List[int]
     ) -> int:
-        """废弃指定 ID 的标签及其关联分类结果（Cập nhật thêm时使用）"""
+        """Deprecate the tag with the specified ID and its associated classification results (used during Cập nhật thêm)"""
         if not tag_ids:
             return 0
         try:
@@ -1358,13 +1358,13 @@ class SQLiteStorageMixin:
             conn.commit()
             return tag_count
         except Exception as e:
-            print(f"[AI筛选] 废弃指定标签失败: {e}")
+            print(f"[AI Filtering] Failed to deprecate the specified tag: {e}")
             return 0
 
     def _update_tags_hash_impl(
         self, date: Optional[str], interests_file: str, new_hash: str
     ) -> int:
-        """Cập nhật指定兴趣文件所有 active 标签的 prompt_hash（Cập nhật thêm时使用）"""
+        """Cập nhật the prompt_hash of all active tags for the specified interest file (used during Cập nhật thêm)"""
         try:
             conn = self._get_connection(date)
             cursor = conn.cursor()
@@ -1379,18 +1379,18 @@ class SQLiteStorageMixin:
             conn.commit()
             return count
         except Exception as e:
-            print(f"[AI筛选] Cập nhật标签 hash 失败: {e}")
+            print(f"[AI Filtering] Failed to Cập nhật tag hash: {e}")
             return 0
 
     # ========================================
-    # AI 智能筛选 - 分类结果管理
+    # AI Smart Filtering - Classification Result Management
     # ========================================
 
     def _update_tag_descriptions_impl(
         self, date: Optional[str], tag_updates: List[Dict],
         interests_file: str = "ai_interests.txt"
     ) -> int:
-        """按 tag 名匹配，Cập nhật active 标签的 description 字段"""
+        """Match by tag name, Cập nhật the description field of active tags"""
         try:
             conn = self._get_connection(date)
             cursor = conn.cursor()
@@ -1411,14 +1411,14 @@ class SQLiteStorageMixin:
             conn.commit()
             return count
         except Exception as e:
-            print(f"[AI筛选] Cập nhật标签描述失败: {e}")
+            print(f"[AI Filtering] Failed to Cập nhật tag description: {e}")
             return 0
 
     def _update_tag_priorities_impl(
         self, date: Optional[str], tag_priorities: List[Dict],
         interests_file: str = "ai_interests.txt"
     ) -> int:
-        """按 tag 名匹配，Cập nhật active 标签的 priority 字段"""
+        """Match by tag name, Cập nhật the priority field of active tags"""
         try:
             conn = self._get_connection(date)
             cursor = conn.cursor()
@@ -1443,18 +1443,18 @@ class SQLiteStorageMixin:
             conn.commit()
             return count
         except Exception as e:
-            print(f"[AI筛选] Cập nhật标签优先级失败: {e}")
+            print(f"[AI Filtering] Failed to Cập nhật tag priority: {e}")
             return 0
 
     # ========================================
-    # AI 智能筛选 - 已分析新闻追踪
+    # AI Smart Filtering - Analyzed News Tracking
     # ========================================
 
     def _save_analyzed_news_impl(
         self, date: Optional[str], news_ids: List[int], source_type: str,
         interests_file: str, prompt_hash: str, matched_ids: set
     ) -> int:
-        """批量记录已分析的新闻（匹配与不匹配都记录）"""
+        """Batch record analyzed news (record both matched and unmatched)"""
         try:
             conn = self._get_connection(date)
             cursor = conn.cursor()
@@ -1479,14 +1479,14 @@ class SQLiteStorageMixin:
             conn.commit()
             return count
         except Exception as e:
-            print(f"[AI筛选] 保存已分析记录失败: {e}")
+            print(f"[AI Filtering] Failed to save analyzed records: {e}")
             return 0
 
     def _get_analyzed_news_ids_impl(
         self, date: Optional[str] = None, source_type: str = "hotlist",
         interests_file: str = "ai_interests.txt"
     ) -> set:
-        """获取已分析过的新闻 ID 集合（用于去重）"""
+        """Get the set of analyzed news IDs (used for deduplication)"""
         try:
             conn = self._get_connection(date)
             cursor = conn.cursor()
@@ -1498,13 +1498,13 @@ class SQLiteStorageMixin:
 
             return {row[0] for row in cursor.fetchall()}
         except Exception as e:
-            print(f"[AI筛选] 获取已分析ID失败: {e}")
+            print(f"[AI Filtering] Failed to get analyzed IDs: {e}")
             return set()
 
     def _clear_analyzed_news_impl(
         self, date: Optional[str] = None, interests_file: str = "ai_interests.txt"
     ) -> int:
-        """清除指定兴趣文件的所有已分析记录（全量重分类时使用）"""
+        """Clear all analyzed records for the specified interest file (used during full reclassification)"""
         try:
             conn = self._get_connection(date)
             cursor = conn.cursor()
@@ -1518,13 +1518,13 @@ class SQLiteStorageMixin:
             conn.commit()
             return count
         except Exception as e:
-            print(f"[AI筛选] 清除已分析记录失败: {e}")
+            print(f"[AI Filtering] Failed to clear analyzed records: {e}")
             return 0
 
     def _clear_unmatched_analyzed_news_impl(
         self, date: Optional[str] = None, interests_file: str = "ai_interests.txt"
     ) -> int:
-        """清除不匹配的已分析记录，让这些新闻有机会被新标签重新分析"""
+        """Clear unmatched analyzed records, allowing these news to have a chance to be re-analyzed by new tags"""
         try:
             conn = self._get_connection(date)
             cursor = conn.cursor()
@@ -1538,17 +1538,17 @@ class SQLiteStorageMixin:
             conn.commit()
             return count
         except Exception as e:
-            print(f"[AI筛选] 清除不匹配记录失败: {e}")
+            print(f"[AI Filtering] Failed to clear unmatched records: {e}")
             return 0
 
     # ========================================
-    # AI 智能筛选 - 分类结果管理（原有）
+    # AI Smart Filtering - Classification Result Management (Original)
     # ========================================
 
     def _save_filter_results_impl(
         self, date: Optional[str], results: List[Dict]
     ) -> int:
-        """批量保存分类结果"""
+        """Batch save classification results"""
         try:
             conn = self._get_connection(date)
             cursor = conn.cursor()
@@ -1570,21 +1570,21 @@ class SQLiteStorageMixin:
                     ))
                     count += 1
                 except sqlite3.IntegrityError:
-                    pass  # 重复记录，跳过
+                    pass  # Duplicate record, skip
 
             conn.commit()
             return count
         except Exception as e:
-            print(f"[AI筛选] 保存分类结果失败: {e}")
+            print(f"[AI Filter] Failed to save classification result: {e}")
             return 0
 
     def _get_active_filter_results_impl(self, date: Optional[str] = None, interests_file: str = "ai_interests.txt") -> List[Dict[str, Any]]:
-        """获取指定兴趣文件的 active 分类结果，JOIN news_items 获取新闻详情"""
+        """Get the active classification results of the specified interest file, JOIN news_items to get news details"""
         try:
             conn = self._get_connection(date)
             cursor = conn.cursor()
 
-            # 热榜结果
+            # Trending results
             cursor.execute("""
                 SELECT
                     r.news_item_id, r.source_type, r.tag_id, r.relevance_score,
@@ -1617,7 +1617,7 @@ class SQLiteStorageMixin:
                 })
                 hotlist_news_ids.append(row[0])
 
-            # 批量查排名历史（热榜）
+            # Batch query ranking history (Trending)
             ranks_map: Dict[int, List[int]] = {}
             rank_timeline_map: Dict[int, List[Dict[str, Any]]] = {}
             if hotlist_news_ids:
@@ -1654,12 +1654,12 @@ class SQLiteStorageMixin:
                 item["ranks"] = ranks_map.get(item["news_item_id"], [item["rank"]])
                 item["rank_timeline"] = rank_timeline_map.get(item["news_item_id"], [])
 
-            # RSS 结果（如果有 rss 库）
+            # RSS results (if rss database exists)
             try:
                 rss_conn = self._get_connection(date, db_type="rss")
                 rss_cursor = rss_conn.cursor()
 
-                # 从 news 库获取 rss 类型的分类结果 ID
+                # Get classification result IDs of rss type from news database
                 cursor.execute("""
                     SELECT r.news_item_id, r.tag_id, r.relevance_score,
                            t.tag, t.description, t.priority
@@ -1708,15 +1708,15 @@ class SQLiteStorageMixin:
                                 "count": 1,
                             })
             except Exception:
-                pass  # RSS 库不存在时静默跳过
+                pass  # Silently skip when RSS database does not exist
 
             return results
         except Exception as e:
-            print(f"[AI筛选] 获取分类结果失败: {e}")
+            print(f"[AI Filter] Failed to get classification results: {e}")
             return []
 
     def _get_all_news_ids_impl(self, date: Optional[str] = None) -> List[Dict]:
-        """获取当日所有新闻的 id 和标题（用于 AI 筛选分类）"""
+        """Get the id and title of all news for the day (used for AI filter classification)"""
         try:
             conn = self._get_connection(date)
             cursor = conn.cursor()
@@ -1736,11 +1736,11 @@ class SQLiteStorageMixin:
                 for row in cursor.fetchall()
             ]
         except Exception as e:
-            print(f"[AI筛选] 获取新闻列表失败: {e}")
+            print(f"[AI Filter] Failed to get news list: {e}")
             return []
 
     def _get_all_rss_ids_impl(self, date: Optional[str] = None) -> List[Dict]:
-        """获取当日所有 RSS 条目的 id 和标题（用于 AI 筛选分类）"""
+        """Get the id and title of all RSS items for the day (used for AI filter classification)"""
         try:
             conn = self._get_connection(date, db_type="rss")
             cursor = conn.cursor()
@@ -1761,5 +1761,5 @@ class SQLiteStorageMixin:
                 for row in cursor.fetchall()
             ]
         except Exception as e:
-            print(f"[AI筛选] 获取 RSS 列表失败: {e}")
+            print(f"[AI Filter] Failed to get RSS list: {e}")
             return []

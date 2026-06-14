@@ -1,5 +1,5 @@
 """
-MCP 工具模块
+MCP tool module
 
-包含所有MCP工具的实现。
+Contains implementations of all MCP tools.
 """

@@ -1,8 +1,8 @@
 # coding=utf-8
 """
-RSS 抓取模块
+RSS crawling module
 
-提供 RSS 2.0、Atom 和 JSON Feed 1.1 订阅源的解析和抓取功能
+Provides parsing and crawling capabilities for RSS 2.0, Atom and JSON Feed 1.1 feeds
 """
 
 from .parser import RSSParser

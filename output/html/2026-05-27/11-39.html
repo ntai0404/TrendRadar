@@ -406,16 +406,16 @@
                 color: #7c3aed;
             }
 
-            /* 通用区域分割线样式 */
+            /* General section divider style */
             .section-divider {
                 margin-top: 32px;
                 padding-top: 24px;
                 border-top: 2px solid #e5e7eb;
             }
 
-            /* 热榜统计区样式 */
+            /* Hot list statistics area style */
             .hotlist-section {
-                /* 默认无边框，由 section-divider 动态添加 */
+                /* Default no border, dynamically added by section-divider */
             }
 
             .new-section {
@@ -585,7 +585,7 @@
                 }
             }
 
-            /* RSS 订阅内容样式 */
+            /* RSS subscription content style */
             .rss-section {
                 margin-top: 32px;
                 padding-top: 24px;
@@ -697,7 +697,7 @@
                 overflow: hidden;
             }
 
-            /* Khu vực trưng bày độc lập样式 - 复用热点词汇统计区样式 */
+            /* Khu vực trưng bày độc lập style - reuse hot words statistics area style */
             .standalone-section {
                 margin-top: 32px;
                 padding-top: 24px;
@@ -750,7 +750,7 @@
                 font-weight: 500;
             }
 
-            /* AI Phân tích区块样式 */
+            /* AI Phân tích block style */
             .ai-section {
                 margin-top: 32px;
                 padding: 24px;
@@ -834,14 +834,14 @@
                 font-size: 14px;
             }
 
-            /* ===== 浏览器增强样式（渐进增强，邮件客户端无影响） ===== */
+            /* ===== Browser enhancement styles (progressive enhancement, no impact on email clients) ===== */
 
-            /* 宽屏模式 - 基础 */
+            /* Widescreen mode - basic */
             body.wide-mode .container { max-width: 1200px; }
             body.wide-mode .header-info { grid-template-columns: repeat(4, 1fr); }
             body.wide-mode .content { padding: 32px 40px; }
 
-            /* 宽屏模式 - RSS feed-group 两列 */
+            /* Widescreen mode - RSS feed-group two columns */
             body.wide-mode .rss-feeds-grid {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
@@ -849,7 +849,7 @@
             }
             body.wide-mode .feed-group { margin-bottom: 0; }
 
-            /* 宽屏模式 - AI Phân tích区两列网格 */
+            /* Widescreen mode - AI Phân tích area two-column grid */
             body.wide-mode .ai-section .ai-blocks-grid {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
@@ -857,7 +857,7 @@
             }
             body.wide-mode .ai-block { margin-bottom: 0; }
 
-            /* 宽屏模式 - Điểm nóng mới多列 */
+            /* Widescreen mode - Điểm nóng mới multi-column */
             body.wide-mode .new-section .new-sources-grid {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
@@ -865,7 +865,7 @@
             }
             body.wide-mode .new-source-group { margin-bottom: 0; }
 
-            /* 宽屏模式 - Khu vực trưng bày độc lập多列 */
+            /* Widescreen mode - Khu vực trưng bày độc lập multi-column */
             body.wide-mode .standalone-section .standalone-groups-grid {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
@@ -873,7 +873,7 @@
             }
             body.wide-mode .standalone-group { margin-bottom: 0; }
 
-            /* Tab 栏 */
+            /* Tab bar */
             .tab-bar-wrapper {
                 position: sticky;
                 top: 0;
@@ -971,7 +971,7 @@
             }
             .tab-btn.active .tab-count { background: rgba(255,255,255,0.3); }
 
-            /* Tìm kiếm栏 */
+            /* Tìm kiếm bar */
             .search-bar { display: none; padding: 0 0 16px 0; }
             .search-input {
                 width: 100%;
@@ -986,7 +986,7 @@
             .search-input:focus { border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79,70,229,0.1); }
             .search-input::placeholder { color: #9ca3af; }
 
-            /* 右下角悬浮工具栏 */
+            /* Bottom right floating toolbar */
             .fab-bar {
                 position: fixed;
                 bottom: 24px;
@@ -1025,7 +1025,7 @@
             body.dark-mode .fab-btn { background: #533483; }
             body.dark-mode .fab-btn:hover { background: #6d28d9; }
 
-            /* 快捷键 tooltip */
+            /* Shortcut key tooltip */
             .fab-tooltip {
                 position: absolute;
                 bottom: 0;
@@ -1068,7 +1068,7 @@
                 margin-left: 8px;
             }
 
-            /* 折叠/展开 */
+            /* Collapse/Expand */
             .collapse-icon {
                 display: none;
                 margin-right: 6px;
@@ -1088,14 +1088,14 @@
             .word-group.collapsed .news-item { display: none; }
             .word-group.collapsed .collapse-icon { transform: rotate(-90deg); }
 
-            /* Tab 切换动画 */
+            /* Tab switch animation */
             body.wide-mode .word-group[data-tab-index] { animation: tabFadeIn 0.2s ease; }
             @keyframes tabFadeIn {
                 from { opacity: 0; transform: translateY(8px); }
                 to { opacity: 1; transform: translateY(0); }
             }
 
-            /* 宽屏切换按钮 */
+            /* Widescreen toggle button */
             .toggle-wide-btn {
                 background: rgba(255, 255, 255, 0.2);
                 border: 1px solid rgba(255, 255, 255, 0.3);
@@ -1131,7 +1131,7 @@
                 background: #1e293b;
             }
 
-            /* 文字颜色 */
+            /* Text color */
             body.dark-mode .word-name,
             body.dark-mode .new-section-title,
             body.dark-mode .standalone-name,
@@ -1152,7 +1152,7 @@
             body.dark-mode .rss-summary { color: #94a3b8; }
             body.dark-mode .info-value { color: white; }
 
-            /* 链接 */
+            /* Links */
             body.dark-mode .news-title a,
             body.dark-mode .rss-title a,
             body.dark-mode .new-item a,
@@ -1161,7 +1161,7 @@
             body.dark-mode .news-title a:visited { color: #c4b5fd; }
             body.dark-mode .rss-link:hover { color: #6ee7b7; }
 
-            /* 强调色 */
+            /* Accent color */
             body.dark-mode .keyword-tag {
                 background: rgba(99,102,241,0.15);
                 color: #a5b4fc;
@@ -1172,7 +1172,7 @@
             body.dark-mode .rss-section-title,
             body.dark-mode .standalone-section-title { color: #6ee7b7; }
 
-            /* 边框与分割线 */
+            /* Borders and dividers */
             body.dark-mode .word-header,
             body.dark-mode .news-item,
             body.dark-mode .new-item,
@@ -1183,17 +1183,17 @@
             body.dark-mode .feed-header { border-bottom-color: #166534; }
             body.dark-mode .tab-bar { border-bottom-color: #334155; }
 
-            /* 序号圆圈 */
+            /* Number circle */
             body.dark-mode .news-number,
             body.dark-mode .new-item-number {
                 background: #334155;
                 color: #94a3b8;
             }
 
-            /* 折叠 hover */
+            /* Collapse hover */
             body.dark-mode .word-header.collapsible:hover { background: #253347; }
 
-            /* Tab 栏 */
+            /* Tab bar */
             body.dark-mode .tab-bar-wrapper {
                 background: #1e293b;
                 border-bottom-color: #334155;
@@ -1216,7 +1216,7 @@
             body.dark-mode .tab-bar::-webkit-scrollbar-track { background: #1e293b; }
             body.dark-mode .tab-bar::-webkit-scrollbar-thumb { background: #475569; }
 
-            /* Tìm kiếm框 */
+            /* Tìm kiếm box */
             body.dark-mode .search-input {
                 background: #1e293b;
                 border-color: #334155;
@@ -1228,13 +1228,13 @@
             }
             body.dark-mode .search-input::placeholder { color: #64748b; }
 
-            /* RSS 卡片 */
+            /* RSS card */
             body.dark-mode .rss-item {
                 background: #1a2e25;
                 border-left-color: #059669;
             }
 
-            /* AI Phân tích区 */
+            /* AI Phân tích area */
             body.dark-mode .ai-section {
                 background: linear-gradient(135deg, #1e1b4b 0%, #1e293b 100%);
                 border-color: #334155;
@@ -1264,7 +1264,7 @@
                 color: #93c5fd;
             }
 
-            /* 错误区 */
+            /* Error area */
             body.dark-mode .error-section {
                 background: #1c1917;
                 border-color: #78350f;
@@ -1281,11 +1281,11 @@
             body.dark-mode .footer-link { color: #93c5fd; }
             body.dark-mode .footer-link:hover { color: #c4b5fd; }
 
-            /* 悬浮按钮 */
+            /* Floating button */
             body.dark-mode .fab-btn { background: #6d28d9; }
             body.dark-mode .fab-btn:hover { background: #7c3aed; }
 
-            /* 下拉菜单 */
+            /* Dropdown menu */
             body.dark-mode .save-dropdown-menu {
                 background: rgba(30,41,59,0.95);
                 border-color: #475569;
@@ -1299,7 +1299,7 @@
                 color: #c4b5fd;
             }
 
-            /* Chế độ Tối切换按钮 */
+            /* Chế độ Tối toggle button */
             .toggle-dark-btn {
                 background: rgba(255, 255, 255, 0.2);
                 border: 1px solid rgba(255, 255, 255, 0.3);
@@ -1319,9 +1319,9 @@
                 transform: translateY(-1px);
             }
 
-            /* 快捷键面板已集成到 fab-tooltip */
+            /* Shortcut panel integrated into fab-tooltip */
 
-            /* 阅读进度条 */
+            /* Reading progress bar */
             .reading-progress {
                 position: fixed;
                 top: 0; left: 0;
@@ -1335,11 +1335,11 @@
                 background: linear-gradient(90deg, #8ab4f8, #c58af9);
             }
 
-            /* 复制按钮样式已集成到 .news-number */
+            /* Copy button style integrated into .news-number */
 
 
 
-            /* Mới lọt top标记 */
+            /* Mới lọt top tag */
             .badge-new {
                 display: inline-block;
                 background: linear-gradient(135deg, #f43f5e, #ec4899);
@@ -1419,13 +1419,13 @@
                 <div class="rss-section">
                     <div class="rss-section-header">
                         <div class="rss-section-title">Cập nhật RSS</div>
-                        <div class="rss-section-count">2 条</div>
+                        <div class="rss-section-count">2 items</div>
                     </div>
                     <div class="rss-feeds-grid">
                     <div class="feed-group">
                         <div class="feed-header">
                             <div class="feed-name">Tin tức AI</div>
-                            <div class="feed-count">2 条</div>
+                            <div class="feed-count">2 items</div>
                         </div>
                         <div class="rss-item">
                             <div class="rss-meta"><span class="rss-time">05-27 09:14</span><span class="rss-author">VnExpress</span>
@@ -1478,7 +1478,7 @@
 
             <div class="footer">
                 <div class="footer-content">
-                    由 <span class="project-name">TrendRadar</span> 生成 ·
+                    Generated by <span class="project-name">TrendRadar</span> ·
                     <a href="https://github.com/sansan0/TrendRadar" target="_blank" class="footer-link">
                         GitHub Dự án mã nguồn mở
                     </a>
@@ -1496,13 +1496,13 @@
                     <div class="tip-row"><span>Tìm kiếm</span><span class="tip-key">/</span></div>
                     <div class="tip-row"><span>Tab trước</span><span class="tip-key">←</span></div>
                     <div class="tip-row"><span>Tab sau</span><span class="tip-key">→</span></div>
-                    <div class="tip-row"><span>Copy số thứ tự</span><span class="tip-key">点击</span></div>
+                    <div class="tip-row"><span>Copy số thứ tự</span><span class="tip-key">Click</span></div>
                 </div>
             </button>
         </div>
 
         <script>
-            // ===== 浏览器增强功能 =====
+            // ===== Browser enhancements =====
 
             function toggleWideMode() {
                 document.body.classList.toggle('wide-mode');
@@ -1713,7 +1713,7 @@
                 }
             }
 
-            // Khu vực trưng bày độc lập Tab 切换
+            // Khu vực trưng bày độc lập Tab switch
             function initStandaloneTabs() {
                 var tabBar = document.querySelector('.standalone-tab-bar');
                 if (!tabBar) return;
@@ -1738,7 +1738,7 @@
                     });
                 });
 
-                // 初始状态
+                // Initial state
                 initStandaloneTabVisibility();
             }
 
@@ -1820,7 +1820,7 @@
                 if (fabBar && window.scrollY > 300) fabBar.classList.add('visible');
             }
 
-            // ===== 截图功能 =====
+            // ===== Screenshot feature =====
 
             async function saveAsImage(e) {
                 const button = e.target.closest('.save-dropdown-item') || e.target;
@@ -1832,17 +1832,17 @@
                     button.disabled = true;
                     window.scrollTo(0, 0);
 
-                    // 等待页面稳定
+                    // Wait for page to stabilize
                     await new Promise(resolve => setTimeout(resolve, 200));
 
-                    // 截图前准备：切回窄屏布局
+                    // Preparation before screenshot: switch back to narrow screen layout
                     screenshotState = prepareForScreenshot();
 
-                    // 截图前隐藏按钮
+                    // Hide buttons before screenshot
                     const buttons = document.querySelector('.save-buttons');
                     buttons.style.visibility = 'hidden';
 
-                    // 再次等待确保按钮完全隐藏
+                    // Wait again to ensure buttons are completely hidden
                     await new Promise(resolve => setTimeout(resolve, 100));
 
                     const container = document.querySelector('.container');
@@ -1876,7 +1876,7 @@
                     link.download = filename;
                     link.href = canvas.toDataURL('image/png', 1.0);
 
-                    // 触发下载
+                    // Trigger download
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
@@ -1912,7 +1912,7 @@
                     button.textContent = 'Đang phân tích...';
                     button.disabled = true;
 
-                    // 获取所有可能的分割元素
+                    // Get all possible split elements
                     const newsItems = Array.from(container.querySelectorAll('.news-item'));
                     const wordGroups = Array.from(container.querySelectorAll('.word-group'));
                     const newSection = container.querySelector('.new-section');
@@ -1920,11 +1920,11 @@
                     const header = container.querySelector('.header');
                     const footer = container.querySelector('.footer');
 
-                    // 计算元素位置和高度
+                    // Calculate element position and height
                     const containerRect = container.getBoundingClientRect();
                     const elements = [];
 
-                    // 添加header作为必须包含的元素
+                    // Add header as a required element
                     elements.push({
                         type: 'header',
                         element: header,
@@ -1933,7 +1933,7 @@
                         height: header.offsetHeight
                     });
 
-                    // 添加错误信息（如果存在）
+                    // Add error message (if any)
                     if (errorSection) {
                         const rect = errorSection.getBoundingClientRect();
                         elements.push({
@@ -1945,12 +1945,12 @@
                         });
                     }
 
-                    // 按word-group分组处理news-item
+                    // Process news-item grouped by word-group
                     wordGroups.forEach(group => {
                         const groupRect = group.getBoundingClientRect();
                         const groupNewsItems = group.querySelectorAll('.news-item');
 
-                        // 添加word-group的header部分
+                        // Add header part of word-group
                         const wordHeader = group.querySelector('.word-header');
                         if (wordHeader) {
                             const headerRect = wordHeader.getBoundingClientRect();
@@ -1964,7 +1964,7 @@
                             });
                         }
 
-                        // 添加每个news-item
+                        // Add each news-item
                         groupNewsItems.forEach(item => {
                             const rect = item.getBoundingClientRect();
                             elements.push({
@@ -1978,7 +1978,7 @@
                         });
                     });
 
-                    // 添加Mới增Mới闻部分
+                    // Add Mới added Mới news section
                     if (newSection) {
                         const rect = newSection.getBoundingClientRect();
                         elements.push({
@@ -1990,7 +1990,7 @@
                         });
                     }
 
-                    // 添加footer
+                    // Add footer
                     const footerRect = footer.getBoundingClientRect();
                     elements.push({
                         type: 'footer',
@@ -2000,7 +2000,7 @@
                         height: footer.offsetHeight
                     });
 
-                    // 计算分割点
+                    // Calculate split points
                     const segments = [];
                     let currentSegment = { start: 0, end: 0, height: 0, includeHeader: true };
                     let headerHeight = header.offsetHeight;
@@ -2010,13 +2010,13 @@
                         const element = elements[i];
                         const potentialHeight = element.bottom - currentSegment.start;
 
-                        // 检查是否需要创建Mới分段
+                        // Check if need to create Mới segment
                         if (potentialHeight > maxHeight && currentSegment.height > headerHeight) {
-                            // 在前一个元素结束处分割
+                            // Split at the end of the previous element
                             currentSegment.end = elements[i - 1].bottom;
                             segments.push(currentSegment);
 
-                            // 开始Mới分段
+                            // Start Mới segment
                             currentSegment = {
                                 start: currentSegment.end,
                                 end: 0,
@@ -2029,7 +2029,7 @@
                         }
                     }
 
-                    // 添加最后一个分段
+                    // Add the last segment
                     if (currentSegment.height > 0) {
                         currentSegment.end = container.offsetHeight;
                         segments.push(currentSegment);
@@ -2037,17 +2037,17 @@
 
                     button.textContent = `Đang tạo (0/${segments.length})...`;
 
-                    // 隐藏保存按钮
+                    // Hide save button
                     const buttons = document.querySelector('.save-buttons');
                     buttons.style.visibility = 'hidden';
 
-                    // 为每个分段生成图片
+                    // Generate image for each segment
                     const images = [];
                     for (let i = 0; i < segments.length; i++) {
                         const segment = segments[i];
                         button.textContent = `Đang tạo (${i + 1}/${segments.length})...`;
 
-                        // 创建临时容器用于截图
+                        // Create temporary container for screenshot
                         const tempContainer = document.createElement('div');
                         tempContainer.style.cssText = `
                             position: absolute;
@@ -2058,10 +2058,10 @@
                         `;
                         tempContainer.className = 'container';
 
-                        // 克隆容器内容
+                        // Clone container content
                         const clonedContainer = container.cloneNode(true);
 
-                        // 移除克隆内容中的保存按钮
+                        // Remove save button from cloned content
                         const clonedButtons = clonedContainer.querySelector('.save-buttons');
                         if (clonedButtons) {
                             clonedButtons.style.display = 'none';
@@ -2070,10 +2070,10 @@
                         tempContainer.appendChild(clonedContainer);
                         document.body.appendChild(tempContainer);
 
-                        // 等待DOM更Mới
+                        // Wait for DOM upMới
                         await new Promise(resolve => setTimeout(resolve, 100));
 
-                        // 使用html2canvas截取特定区域
+                        // Use html2canvas to capture specific area
                         const canvas = await html2canvas(clonedContainer, {
                             backgroundColor: '#ffffff',
                             scale: scale,
@@ -2091,14 +2091,14 @@
 
                         images.push(canvas.toDataURL('image/png', 1.0));
 
-                        // 清理临时容器
+                        // Clean up temporary container
                         document.body.removeChild(tempContainer);
                     }
 
-                    // 恢复按钮显示
+                    // Restore button display
                     buttons.style.visibility = 'visible';
 
-                    // 下载所有图片
+                    // Download all images
                     const now = new Date();
                     const baseFilename = `TrendRadar_Phân tích Tin tức Hot_${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}_${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}`;
 
@@ -2110,7 +2110,7 @@
                         link.click();
                         document.body.removeChild(link);
 
-                        // 延迟一下避免浏览器阻止多个下载
+                        // Delay a bit to prevent browser from blocking multiple downloads
                         await new Promise(resolve => setTimeout(resolve, 100));
                     }
 
@@ -2122,7 +2122,7 @@
                     }, 2000);
 
                 } catch (error) {
-                    console.error('分段Lưu thất bại:', error);
+                    console.error('Segment Lưu thất bại:', error);
                     const buttons = document.querySelector('.save-buttons');
                     buttons.style.visibility = 'visible';
                     if (screenshotState2) { restoreAfterScreenshot(screenshotState2); }
@@ -2140,12 +2140,12 @@
                 var dateStr = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
                 var timeStr = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
 
-                // 标题
+                // Title
                 var headerTitle = document.querySelector('.header-title');
                 lines.push('# ' + (headerTitle ? headerTitle.textContent.trim() : 'TrendRadar'));
                 lines.push('');
 
-                // 报告元信息
+                // Report meta information
                 var infoItems = document.querySelectorAll('.header-info .info-item');
                 if (infoItems.length) {
                     infoItems.forEach(function(item) {
@@ -2158,7 +2158,7 @@
                     lines.push('');
                 }
 
-                // 提取 news-item 通用函数
+                // Extract news-item common function
                 function extractItem(item, idx) {
                     var titleEl = item.querySelector('.news-title a');
                     var titleText = '';
@@ -2194,7 +2194,7 @@
                     return line;
                 }
 
-                // 热点关键词区
+                // Hot keywords area
                 var wordGroups = document.querySelectorAll('.hotlist-section > .word-group');
                 if (wordGroups.length) {
                     lines.push('## Tin Hot');
@@ -2215,7 +2215,7 @@
                     });
                 }
 
-                // Điểm nóng mới区
+                // Điểm nóng mới section
                 var newSection = document.querySelector('.new-section');
                 if (newSection) {
                     var newTitle = newSection.querySelector('.new-section-title');
@@ -2237,7 +2237,7 @@
                     });
                 }
 
-                // Cập nhật RSS区
+                // Cập nhật RSS section
                 var rssSection = document.querySelector('.rss-section');
                 if (rssSection) {
                     var rssSectionTitle = rssSection.querySelector('.rss-section-title');
@@ -2272,7 +2272,7 @@
                     });
                 }
 
-                // AI Phân tích điểm nóng区
+                // AI Phân tích điểm nóng section
                 var aiSection = document.querySelector('.ai-section');
                 if (aiSection) {
                     var aiError = aiSection.querySelector('.ai-error') || aiSection.querySelector('.ai-warning');
@@ -2283,7 +2283,7 @@
                         lines.push('> ' + aiError.textContent.trim());
                         lines.push('');
                     } else if (aiInfo) {
-                        // 跳过 info 提示（如"跳过"）
+                        // Skip info prompt (e.g., "Skip")
                     } else {
                         var aiTitle = aiSection.querySelector('.ai-section-title');
                         lines.push('## ' + (aiTitle ? aiTitle.textContent.trim() : 'AI Phân tích điểm nóng'));
@@ -2327,7 +2327,7 @@
                     });
                 }
 
-                // 错误区
+                // Error section
                 var errorSection = document.querySelector('.error-section');
                 if (errorSection) {
                     var errorItems = errorSection.querySelectorAll('.error-item');
@@ -2341,11 +2341,11 @@
                     }
                 }
 
-                // 页脚
+                // Footer
                 lines.push('---');
                 lines.push('*Generated by TrendRadar*');
 
-                // 下载
+                // Download
                 var md = lines.join('\n');
                 var blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
                 var link = document.createElement('a');
@@ -2361,7 +2361,7 @@
             document.addEventListener('DOMContentLoaded', function() {
                 window.scrollTo(0, 0);
 
-                // 自动检测宽屏模式
+                // Auto-detect widescreen mode
                 var savedMode = null;
                 try { savedMode = localStorage.getItem('trendradar-wide-mode'); } catch(e) {}
                 if (savedMode === '1' || (savedMode === null && window.innerWidth > 768)) {
@@ -2370,7 +2370,7 @@
                     if (btn) btn.textContent = '⊡';
                 }
 
-                // Chế độ Tối恢复
+                // Chế độ Tối restore
                 var savedDark = null;
                 try { savedDark = localStorage.getItem('trendradar-dark-mode'); } catch(e) {}
                 if (savedDark === '1') {
@@ -2379,17 +2379,17 @@
                     if (darkBtn) darkBtn.textContent = '☀';
                 }
 
-                // 启用Tìm kiếm栏
+                // Enable Tìm kiếm bar
                 var searchBar = document.querySelector('.search-bar');
                 if (searchBar) searchBar.style.display = 'block';
 
-                // 初始化增强功能
+                // Initialize enhanced features
                 initTabs();
                 initBackToTop();
                 initCollapse();
                 initStandaloneTabs();
 
-                // 键盘快捷键
+                // Keyboard shortcuts
                 document.addEventListener('keydown', function(e) {
                     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
                     var helpBtn = document.querySelector('.fab-help');
@@ -2410,7 +2410,7 @@
                     }
                 });
 
-                // 阅读进度条
+                // Reading progress bar
                 var progressBar = document.querySelector('.reading-progress');
                 if (progressBar) {
                     var progressTicking = false;
@@ -2426,7 +2426,7 @@
                     });
                 }
 
-                // 一键复制：hover 时数字变复制图标
+                // One-click copy: number changes to copy icon on hover
                 var copySvg = '<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M5 11H3.5A1.5 1.5 0 012 9.5v-7A1.5 1.5 0 013.5 1h7A1.5 1.5 0 0112 2.5V5"/></svg>';
                 var checkSvg = '<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#22c55e" stroke-width="2"><path d="M3 8.5l3.5 3.5 7-7"/></svg>';
                 document.querySelectorAll('.news-item .news-number').forEach(function(numEl) {
@@ -2466,7 +2466,7 @@
 
 
 
-                // Header watermark 鼠标跟随揭示
+                // Header watermark reveal on mouse follow
                 (function() {
                     var header = document.querySelector('.header');
                     var watermark = document.querySelector('.header-watermark');

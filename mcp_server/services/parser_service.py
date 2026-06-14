@@ -1,8 +1,8 @@
 """
-数据解析服务
+Data analysis service
 
-v2.0.0: 仅支持 SQLite 数据库，移除 TXT 文件支持
-新存储结构：output/{type}/{date}.db
+v2.0.0: Only supports SQLite database, removes TXT file support
+New storage structure: output/{type}/{date}.db
 """
 
 import re
@@ -18,14 +18,14 @@ from .cache_service import get_cache
 
 
 class ParserService:
-    """数据解析服务类"""
+    """Data parsing service class"""
 
     def __init__(self, project_root: str = None):
         """
-        初始化解析服务
+        Initialize parsing service
 
         Args:
-            project_root: 项目根目录，默认为当前目录的父目录
+            project_root: project root directory, defaults to the parent directory of the current directory
         """
         if project_root is None:
             current_file = Path(__file__)
@@ -35,26 +35,26 @@ class ParserService:
 
         self.cache = get_cache()
 
-        # frequency_words.txt mtime 缓存
+        # frequency_words.txt mtime cache
         self._freq_words_cache: Optional[List[Dict]] = None
         self._freq_words_mtime: float = 0.0
 
     @staticmethod
     def clean_title(title: str) -> str:
-        """清理标题文本"""
+        """Clean title text"""
         title = re.sub(r'\s+', ' ', title)
         title = title.strip()
         return title
 
     def get_date_folder_name(self, date: datetime = None) -> str:
         """
-        获取日期字符串（ISO 格式）
+        Get date string (ISO format)
 
         Args:
-            date: 日期对象，默认为今天
+            date: date object, default is today
 
         Returns:
-            日期字符串（YYYY-MM-DD）
+            Date string (YYYY-MM-DD)
         """
         if date is None:
             date = datetime.now()
@@ -62,16 +62,16 @@ class ParserService:
 
     def _get_db_path(self, date: datetime = None, db_type: str = "news") -> Optional[Path]:
         """
-        获取数据库文件路径
+        Get database file path
 
-        新结构：output/{type}/{date}.db
+        New structure: output/{type}/{date}.db
 
         Args:
-            date: 日期对象，默认为今天
-            db_type: 数据库类型 ("news" 或 "rss")
+            date: date object, default is today
+            db_type: database type ("news" or "rss")
 
         Returns:
-            数据库文件路径，如果不存在则返回 None
+            Database file path, returns None if it does not exist
         """
         date_str = self.get_date_folder_name(date)
         db_path = self.project_root / "output" / db_type / f"{date_str}.db"
@@ -86,15 +86,15 @@ class ParserService:
         db_type: str = "news"
     ) -> Optional[Tuple[Dict, Dict, Dict]]:
         """
-        从 SQLite 数据库读取数据
+        Read data from SQLite database
 
         Args:
-            date: 日期对象，默认为今天
-            platform_ids: 平台ID列表，None表示所有平台
-            db_type: 数据库类型 ("news" 或 "rss")
+            date: date object, default is today
+            platform_ids: list of platform IDs, None means all platforms
+            db_type: database type ("news" or "rss")
 
         Returns:
-            (all_titles, id_to_name, all_timestamps) 元组，如果数据库不存在返回 None
+            (all_titles, id_to_name, all_timestamps) tuple, returns None if the database does not exist
         """
         db_path = self._get_db_path(date, db_type)
         if db_path is None:
@@ -115,7 +115,7 @@ class ParserService:
                 return self._read_rss_from_sqlite(cursor, platform_ids, all_titles, id_to_name, all_timestamps)
 
         except Exception as e:
-            print(f"Warning: 从 SQLite 读取数据失败: {e}")
+            print(f"Warning: Failed to read data from SQLite: {e}")
             return None
         finally:
             if 'conn' in locals():
@@ -129,8 +129,8 @@ class ParserService:
         id_to_name: Dict,
         all_timestamps: Dict
     ) -> Optional[Tuple[Dict, Dict, Dict]]:
-        """从热榜数据库读取数据"""
-        # 检查表是否存在
+        """Read data from the hot list database"""
+        # Check if the table exists
         cursor.execute("""
             SELECT name FROM sqlite_master
             WHERE type='table' AND name='news_items'
@@ -138,7 +138,7 @@ class ParserService:
         if not cursor.fetchone():
             return None
 
-        # 构建查询
+        # Build query
         if platform_ids:
             placeholders = ','.join(['?' for _ in platform_ids])
             query = f"""
@@ -161,7 +161,7 @@ class ParserService:
 
         rows = cursor.fetchall()
 
-        # 收集所有 news_item_id 用于查询历史排名
+        # Collect all news_item_id for querying historical rankings
         news_ids = [row['id'] for row in rows]
         rank_history_map = {}
 
@@ -203,7 +203,7 @@ class ParserService:
                 "count": row['crawl_count'] or 1,
             }
 
-        # 获取抓取时间作为 timestamps
+        # Get the crawl time as timestamps
         cursor.execute("""
             SELECT crawl_time, created_at FROM crawl_records
             ORDER BY crawl_time
@@ -230,8 +230,8 @@ class ParserService:
         id_to_name: Dict,
         all_timestamps: Dict
     ) -> Optional[Tuple[Dict, Dict, Dict]]:
-        """从 RSS 数据库读取数据"""
-        # 检查表是否存在
+        """Read data from RSS database"""
+        # Check if the table exists
         cursor.execute("""
             SELECT name FROM sqlite_master
             WHERE type='table' AND name='rss_items'
@@ -239,7 +239,7 @@ class ParserService:
         if not cursor.fetchone():
             return None
 
-        # 构建查询
+        # Build query
         if feed_ids:
             placeholders = ','.join(['?' for _ in feed_ids])
             query = f"""
@@ -285,7 +285,7 @@ class ParserService:
                 "count": row['crawl_count'] or 1,
             }
 
-        # 获取抓取时间
+        # Get the crawl time
         cursor.execute("""
             SELECT crawl_time, created_at FROM rss_crawl_records
             ORDER BY crawl_time
@@ -311,18 +311,18 @@ class ParserService:
         db_type: str = "news"
     ) -> Tuple[Dict, Dict, Dict]:
         """
-        读取指定日期的所有数据（带缓存）
+        Read all data for a specified date (with cache)
 
         Args:
-            date: 日期对象，默认为今天
-            platform_ids: 平台/Feed ID列表，None表示所有
-            db_type: 数据库类型 ("news" 或 "rss")
+            date: date object, default is today
+            platform_ids: Platform/Feed ID list, None means all
+            db_type: database type ("news" or "rss")
 
         Returns:
-            (all_titles, id_to_name, all_timestamps) 元组
+            (all_titles, id_to_name, all_timestamps) tuple
 
         Raises:
-            DataNotFoundError: 数据不存在
+            DataNotFoundError: data does not exist
         """
         date_str = self.get_date_folder_name(date)
         platform_key = ','.join(sorted(platform_ids)) if platform_ids else 'all'
@@ -341,22 +341,22 @@ class ParserService:
             return result
 
         raise DataNotFoundError(
-            f"未找到 {date_str} 的 {db_type} 数据",
-            suggestion="请先运行爬虫或检查日期是否正确"
+            f"{db_type} data for {date_str} not found",
+            suggestion="Please run the crawler first or check if the date is correct"
         )
 
     def parse_yaml_config(self, config_path: str = None) -> dict:
         """
-        解析YAML配置文件
+        Parse YAML configuration files
 
         Args:
-            config_path: 配置文件路径，默认为 config/config.yaml
+            config_path: Configuration file path, default is config/config.yaml
 
         Returns:
-            配置字典
+            Configuration dictionary
 
         Raises:
-            FileParseError: 配置文件解析错误
+            FileParseError: Configuration file parsing error
         """
         if config_path is None:
             config_path = self.project_root / "config" / "config.yaml"
@@ -364,7 +364,7 @@ class ParserService:
             config_path = Path(config_path)
 
         if not config_path.exists():
-            raise FileParseError(str(config_path), "配置文件不存在")
+            raise FileParseError(str(config_path), "Configuration file does not exist")
 
         try:
             with open(config_path, "r", encoding="utf-8") as f:
@@ -375,29 +375,29 @@ class ParserService:
 
     def parse_frequency_words(self, words_file: str = None) -> List[Dict]:
         """
-        解析关键词配置文件（带 mtime 缓存）
+        Parse keyword configuration files (with mtime cache)
 
-        仅当 frequency_words.txt 被修改时才重新解析，避免循环内重复 IO。
+        Only re-parse frequency_words.txt when it is modified to avoid repeated IO within the loop.
 
-        复用 trendradar.core.frequency 的解析逻辑，支持：
-        - # 开头的注释行
-        - 空行分隔词组
-        - [组别名] 作为词组第一行，给整组指定别名
-        - +前缀必须词、!前缀过滤词、@数量限制
-        - /pattern/ 正则表达式语法
-        - => 别名 显示名称语法
-        - [GLOBAL_FILTER] 全局过滤区域
+        Reuse the parsing logic of trendradar.core.frequency and support:
+        - Comment lines starting with #
+        - Blank lines separate phrases
+        - [Group Alias] As the first line of the phrase, assign an alias to the entire group
+        - + prefix required words, ! prefix filter words, @ quantity limit
+        - /pattern/ regular expression syntax
+        - => alias display name syntax
+        - [GLOBAL_FILTER] Global filter area
 
-        显示名称优先级：组别名 > 行别名拼接 > 关键词拼接
+        Display name priority: Group alias > Row alias splicing > Keyword splicing
 
         Args:
-            words_file: 关键词文件路径，默认为 config/frequency_words.txt
+            words_file: keyword file path, default is config/frequency_words.txt
 
         Returns:
-            词组列表
+            phrase list
 
         Raises:
-            FileParseError: 文件解析错误
+            FileParseError: File parsing error
         """
         import os
         from trendradar.core.frequency import load_frequency_words
@@ -424,13 +424,13 @@ class ParserService:
 
     def get_available_dates(self, db_type: str = "news") -> List[str]:
         """
-        获取可用的日期列表
+        Get a list of available dates
 
         Args:
-            db_type: 数据库类型 ("news" 或 "rss")
+            db_type: database type ("news" or "rss")
 
         Returns:
-            日期字符串列表（YYYY-MM-DD 格式，降序排列）
+            List of date strings (YYYY-MM-DD format, sorted in descending order)
         """
         db_dir = self.project_root / "output" / db_type
         if not db_dir.exists():
@@ -446,13 +446,13 @@ class ParserService:
 
     def get_available_date_range(self, db_type: str = "news") -> Tuple[Optional[datetime], Optional[datetime]]:
         """
-        获取可用的日期范围
+        Get available date range
 
         Args:
-            db_type: 数据库类型 ("news" 或 "rss")
+            db_type: database type ("news" or "rss")
 
         Returns:
-            (最早日期, 最新日期) 元组，如果没有数据则返回 (None, None)
+            (earliest date, latest date) tuple, or (None, None) if there is no data
         """
         dates = self.get_available_dates(db_type)
         if not dates:

@@ -1,7 +1,7 @@
 """
-缓存服务
+Caching service
 
-实现TTL缓存机制，提升数据访问性能。
+Implement TTL caching mechanism to improve data access performance.
 """
 
 import hashlib
@@ -13,16 +13,16 @@ from threading import Lock
 
 def make_cache_key(namespace: str, **params) -> str:
     """
-    生成结构化缓存 key
+    Generate structured cache key
 
-    通过对参数排序和哈希，确保相同参数组合总是生成相同的 key。
+    By sorting and hashing parameters, it is ensured that the same parameter combination always generates the same key.
 
     Args:
-        namespace: 缓存命名空间，如 "latest_news", "trending_topics"
-        **params: 缓存参数
+        namespace: cache namespace, such as "latest_news", "trending_topics"
+        **params: cache parameters
 
     Returns:
-        格式化的缓存 key，如 "latest_news:a1b2c3d4"
+        Formatted cache key, such as "latest_news:a1b2c3d4"
 
     Examples:
         >>> make_cache_key("latest_news", platforms=["zhihu"], limit=50)
@@ -33,68 +33,68 @@ def make_cache_key(namespace: str, **params) -> str:
     if not params:
         return namespace
 
-    # 对参数进行规范化处理
+    # Normalize parameters
     normalized_params = {}
     for k, v in params.items():
         if v is None:
-            continue  # 跳过 None 值
+            continue # skip None values
         elif isinstance(v, (list, tuple)):
-            # 列表排序后转为字符串
+            # Convert the list to string after sorting
             normalized_params[k] = json.dumps(sorted(v) if all(isinstance(i, str) for i in v) else list(v), ensure_ascii=False)
         elif isinstance(v, dict):
-            # 字典按键排序后转为字符串
+            # Sort the dictionary by key and convert it to a string
             normalized_params[k] = json.dumps(v, sort_keys=True, ensure_ascii=False)
         else:
             normalized_params[k] = str(v)
 
-    # 排序参数并生成哈希
+    # Sort parameters and generate hash
     sorted_params = sorted(normalized_params.items())
     param_str = "&".join(f"{k}={v}" for k, v in sorted_params)
 
-    # 使用 MD5 生成短哈希（取前8位）
+    # Use MD5 to generate a short hash (take the first 8 bits)
     hash_value = hashlib.md5(param_str.encode('utf-8')).hexdigest()[:8]
 
     return f"{namespace}:{hash_value}"
 
 
 class CacheService:
-    """缓存服务类"""
+    """Cache service class"""
 
     def __init__(self):
-        """初始化缓存服务"""
+        """Initialize cache service"""
         self._cache = {}
         self._timestamps = {}
         self._lock = Lock()
 
     def get(self, key: str, ttl: int = 900) -> Optional[Any]:
         """
-        获取缓存数据
+        Get cached data
 
         Args:
-            key: 缓存键
-            ttl: 存活时间（秒），默认15分钟
+            key: cache key
+            ttl: survival time (seconds), default 15 minutes
 
         Returns:
-            缓存的值，如果不存在或已过期则返回None
+            The cached value, returns None if it does not exist or has expired
         """
         with self._lock:
             if key in self._cache:
-                # 检查是否过期
+                # Check if it is expired
                 if time.time() - self._timestamps[key] < ttl:
                     return self._cache[key]
                 else:
-                    # 已过期，删除缓存
+                    # Expired, delete cache
                     del self._cache[key]
                     del self._timestamps[key]
         return None
 
     def set(self, key: str, value: Any) -> None:
         """
-        设置缓存数据
+        Set cache data
 
         Args:
-            key: 缓存键
-            value: 缓存值
+            key: cache key
+            value: cache value
         """
         with self._lock:
             self._cache[key] = value
@@ -102,13 +102,13 @@ class CacheService:
 
     def delete(self, key: str) -> bool:
         """
-        删除缓存
+        Delete cache
 
         Args:
-            key: 缓存键
+            key: cache key
 
         Returns:
-            是否成功删除
+            Deleted successfully or not
         """
         with self._lock:
             if key in self._cache:
@@ -118,20 +118,20 @@ class CacheService:
         return False
 
     def clear(self) -> None:
-        """清空所有缓存"""
+        """Clear all caches"""
         with self._lock:
             self._cache.clear()
             self._timestamps.clear()
 
     def cleanup_expired(self, ttl: int = 900) -> int:
         """
-        清理过期缓存
+        Clear expired cache
 
         Args:
-            ttl: 存活时间（秒）
+            ttl: time to live (seconds)
 
         Returns:
-            清理的条目数量
+            Number of entries cleaned
         """
         with self._lock:
             current_time = time.time()
@@ -148,10 +148,10 @@ class CacheService:
 
     def get_stats(self) -> dict:
         """
-        获取缓存统计信息
+        Get cache statistics
 
         Returns:
-            统计信息字典
+            Statistics Dictionary
         """
         with self._lock:
             return {
@@ -167,16 +167,16 @@ class CacheService:
             }
 
 
-# 全局缓存实例
+# Global cache instance
 _global_cache = None
 
 
 def get_cache() -> CacheService:
     """
-    获取全局缓存实例
+    Get global cache instance
 
     Returns:
-        全局缓存服务实例
+        Global cache service instance
     """
     global _global_cache
     if _global_cache is None:

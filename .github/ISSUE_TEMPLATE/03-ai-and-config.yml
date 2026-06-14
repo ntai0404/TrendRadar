@@ -1,83 +1,83 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-issue-forms.json
 
-name: ✨ AI 提示词分享与配置求助
-description: 分享你调优的 ai_analysis_prompt.txt 或寻求设置帮助
-title: "[AI/配置] "
+name: ✨ AI prompt word sharing and configuration help
+description: Share your tuned ai_analysis_prompt.txt or ask for help setting it up
+title: "[AI/Configuration] "
 labels: ["config", "AI"]
 body:
   - type: markdown
     attributes:
       value: |
-        ### ✨ 提示词分享计划
-        欢迎在此分享你精心调优的 `ai_analysis_prompt.txt` 内容！
-        优秀的提示词可以让 AI 分析更精准、更有趣。
+        ### ✨ Prompt word sharing plan
+        Feel free to share your carefully tuned `ai_analysis_prompt.txt` content here!
+        Excellent prompt words can make AI analysis more accurate and interesting.
 
         ---
-        如果是**寻求配置帮助**，请尽量贴出你的错误表现。
+        If you are **seeking configuration help**, please try to post your error performance.
 
         ---
-        ### 📌 如何查看版本号？
+        ### 📌 How to check the version number?
 
-        | 部署方式 | 查看方法 |
+        | Deployment method | View method |
         |---------|---------|
-        | **Docker** | 查看容器启动日志，版本号显示在日志开头 |
-        | **GitHub Actions** | 查看 [README 文档](https://github.com/sansan0/TrendRadar) 顶部的 ![version](https://img.shields.io/badge/version-blue) 徽章 |
-        | **本地 Python** | 查看项目根目录的 `version` 文件 |
+        | **Docker** | View the container startup log, the version number is displayed at the beginning of the log |
+        | **GitHub Actions** | View the ![version](https://img.shields.io/badge/version-blue) badge at the top of the [README document](https://github.com/sansan0/TrendRadar) |
+        | **Local Python** | View the `version` file in the project root directory |
 
   - type: dropdown
     id: category
     attributes:
-      label: 🏷️ 目的
+      label: 🏷️ purpose
       options:
-        - 分享我的 AI 提示词 (ai_analysis_prompt.txt)
-        - 寻求 AI 分析设置帮助
-        - 寻求基础功能配置帮助 (Webhook/RSS等)
+        - Share my AI prompts (ai_analysis_prompt.txt)
+        - Get help setting up AI analytics
+        - Seek help with basic function configuration (Webhook/RSS, etc.)
     validations:
       required: true
 
   - type: input
     id: version
     attributes:
-      label: 📦 TrendRadar 版本（求助时必填）
+      label: 📦 TrendRadar version (required when asking for help)
       description: |
-        如果是寻求帮助，请提供版本号。
-        💡 Docker 用户：查看容器启动日志 | GitHub Actions 用户：查看文档顶部 version 徽章
-      placeholder: v5.2.0 或 commit hash（分享提示词可留空）
+        If you are asking for help, please provide the version number.
+        💡 Docker users: View the container startup log | GitHub Actions users: View the version badge at the top of the document
+      placeholder: v5.2.0 or commit hash (the sharing prompt word can be left blank)
     validations:
       required: false
 
   - type: input
     id: ai-model
     attributes:
-      label: 🤖 AI 模型名称
+      label: 🤖 AI model name
       description: |
-        请提供你使用的具体模型名称。
-        AI 分析效果与模型能力密切相关，不同模型表现差异很大。
-        分享提示词时也请注明，方便其他用户参考。
-      placeholder: "例如：deepseek/deepseek-chat、openai/gpt-4o、gemini/gemini-2.5-flash"
+        Please provide the specific model name you are using.
+        AI analysis results are closely related to model capabilities, and the performance of different models varies greatly.
+        Please indicate this when sharing the prompt words so that other users can refer to them.
+      placeholder: "For example: deepseek/deepseek-chat, openai/gpt-4o, gemini/gemini-2.5-flash"
     validations:
       required: false
 
   - type: textarea
     id: share-content
     attributes:
-      label: 📄 内容描述
+      label: 📄 Content description
       placeholder: |
-        - 如果是分享：请贴出你的提示词代码块，并简述它的分析风格。
-        - 如果是求助：请贴出你的配置片段（隐藏 Key）和遇到的现象。
+        - If sharing: please post your prompt word code block and briefly describe its analysis style.
+        - If you are asking for help: please post your configuration fragment (hidden key) and the phenomenon you encountered.
     validations:
       required: true
 
   - type: textarea
     id: screenshots
     attributes:
-      label: 📷 效果截图（推荐）
+      label: 📷 Effect screenshot (recommended)
       description: |
-        ⚠️ **重要提示**：请提供**完整截图**，不要只截取局部！
-        - 分享时：展示 AI 分析的完整输出效果
-        - 求助时：展示完整的错误信息或异常表现
+        ⚠️ **IMPORTANT NOTE**: Please provide **full screenshot**, don’t just take a partial screenshot!
+        - When sharing: Show the complete output of AI analysis
+        - When asking for help: display the complete error message or abnormal behavior
 
-        局部截图往往缺少关键信息，会导致问题难以定位。
-      placeholder: 拖拽分析结果截图或配置截图到这里，请确保截图完整。
+        Partial screenshots often lack key information, making it difficult to locate the problem.
+      placeholder: Drag the analysis result screenshot or configuration screenshot here. Please make sure the screenshot is complete.
     validations:
       required: false

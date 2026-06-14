@@ -1,7 +1,7 @@
 """
-系统管理工具
+System management tool
 
-实现系统状态查询和爬虫触发功能。
+Implement system status query and crawler trigger functions.
 """
 
 from pathlib import Path
@@ -13,29 +13,29 @@ from ..utils.errors import MCPError, CrawlTaskError
 
 
 class SystemManagementTools:
-    """系统管理工具类"""
+    """System management tool class"""
 
     def __init__(self, project_root: str = None):
         """
-        初始化系统管理工具
+        Initialize system management tool
 
         Args:
-            project_root: 项目根目录
+            project_root: Project root directory
         """
         self.data_service = DataService(project_root)
         if project_root:
             self.project_root = Path(project_root)
         else:
-            # 获取项目根目录
+            # Get project root directory
             current_file = Path(__file__)
             self.project_root = current_file.parent.parent.parent
 
     def get_system_status(self) -> Dict:
         """
-        获取系统运行状态和健康检查信息
+        Get system running status and health check information
 
         Returns:
-            系统状态字典
+            System status dictionary
 
         Example:
             >>> tools = SystemManagementTools()
@@ -43,13 +43,13 @@ class SystemManagementTools:
             >>> print(result['system']['version'])
         """
         try:
-            # 获取系统状态
+            # Get system status
             status = self.data_service.get_system_status()
 
             return {
                 "success": True,
                 "summary": {
-                    "description": "系统运行状态和健康检查信息"
+                    "description": "System running status and health check information"
                 },
                 "data": status
             }
@@ -69,14 +69,14 @@ class SystemManagementTools:
             }
 
     def _load_crawl_config(self):
-        """加载爬取配置，返回 (config_data, target_platforms_config)"""
+        """Load crawl configuration, return (config_data, target_platforms_config)"""
         import yaml
 
         config_path = self.project_root / "config" / "config.yaml"
         if not config_path.exists():
             raise CrawlTaskError(
-                "配置文件不存在",
-                suggestion=f"请确保配置文件存在: {config_path}"
+                "Configuration file does not exist",
+                suggestion=f"Please ensure the configuration file exists: {config_path}"
             )
 
         with open(config_path, "r", encoding="utf-8") as f:
@@ -85,26 +85,26 @@ class SystemManagementTools:
         platforms_config = config_data.get("platforms", {})
         if not platforms_config.get("enabled", True):
             raise CrawlTaskError(
-                "热榜平台已禁用",
-                suggestion="请检查 config/config.yaml 中的 platforms.enabled 配置"
+                "Hotlist platforms are disabled",
+                suggestion="Please check the platforms.enabled configuration in config/config.yaml"
             )
         all_platforms = [p for p in platforms_config.get("sources", []) if p.get("enabled", True)]
         if not all_platforms:
             raise CrawlTaskError(
-                "配置文件中没有平台配置",
-                suggestion="请检查 config/config.yaml 中的 platforms.sources 配置"
+                "No platform configuration in the configuration file",
+                suggestion="Please check the platforms.sources configuration in config/config.yaml"
             )
 
         return config_data, all_platforms
 
     def _resolve_target_platforms(self, all_platforms: list, platforms: Optional[List[str]]):
-        """根据用户指定的平台列表过滤，返回 (target_platforms, ids_list)"""
+        """Filter according to the user-specified platform list, return (target_platforms, ids_list)"""
         if platforms:
             target_platforms = [p for p in all_platforms if p["id"] in platforms]
             if not target_platforms:
                 raise CrawlTaskError(
-                    f"指定的平台不存在: {platforms}",
-                    suggestion=f"可用平台: {[p['id'] for p in all_platforms]}"
+                    f"Specified platforms do not exist: {platforms}",
+                    suggestion=f"Available platforms: {[p['id'] for p in all_platforms]}"
                 )
         else:
             target_platforms = all_platforms
@@ -119,7 +119,7 @@ class SystemManagementTools:
         return target_platforms, ids
 
     def _persist_crawl_data(self, storage, news_data, save_to_local, results, id_to_name, failed_ids, current_time, crawl_time_str):
-        """持久化爬取数据，返回 (save_success, save_error_msg, saved_files)"""
+        """Persist crawled data, return (save_success, save_error_msg, saved_files)"""
         save_success = False
         save_error_msg = ""
         saved_files = {}
@@ -140,7 +140,7 @@ class SystemManagementTools:
                     saved_files["html"] = html_path
 
         except Exception as e:
-            print(f"[System] 数据保存失败: {e}")
+            print(f"[System] Data save failed: {e}")
             save_success = False
             save_error_msg = str(e)
 
@@ -148,7 +148,7 @@ class SystemManagementTools:
 
     def _build_crawl_response(self, results, id_to_name, failed_ids, current_time, include_url,
                                save_success, save_to_local, save_error_msg, saved_files):
-        """构建爬取结果响应字典"""
+        """Build crawl result response dictionary"""
         import time
 
         news_response_data = []
@@ -169,7 +169,7 @@ class SystemManagementTools:
         result = {
             "success": True,
             "summary": {
-                "description": "爬取任务执行结果",
+                "description": "Crawl task execution results",
                 "task_id": f"crawl_{int(time.time())}",
                 "status": "completed",
                 "crawl_time": current_time.strftime("%Y-%m-%d %H:%M:%S"),
@@ -184,30 +184,30 @@ class SystemManagementTools:
         if save_success:
             if save_to_local:
                 result["saved_files"] = saved_files
-                result["note"] = "数据已保存到 SQLite 数据库及 output 文件夹"
+                result["note"] = "Data saved to SQLite database and output folder"
             else:
-                result["note"] = "数据已保存到 SQLite 数据库 (仅内存中返回结果，未生成TXT快照)"
+                result["note"] = "Data saved to SQLite database (results returned in memory only, no TXT snapshot generated)"
         else:
             result["saved_to_local"] = False
             result["save_error"] = save_error_msg
             if "Read-only file system" in save_error_msg or "Permission denied" in save_error_msg:
-                result["note"] = "爬取成功，但无法写入数据库（Docker只读模式）。数据仅在本次返回中有效。"
+                result["note"] = "Crawl successful, but cannot write to database (Docker read-only mode). Data is only valid in this return."
             else:
-                result["note"] = f"爬取成功但保存失败: {save_error_msg}"
+                result["note"] = f"Crawl successful but save failed: {save_error_msg}"
 
         return result
 
     def trigger_crawl(self, platforms: Optional[List[str]] = None, save_to_local: bool = False, include_url: bool = False) -> Dict:
         """
-        手动触发一次临时爬取任务（可选持久化）
+        Manually trigger a temporary crawl task (optional persistence)
 
         Args:
-            platforms: 指定平台列表，为空则爬取所有平台
-            save_to_local: 是否保存到本地 output 目录，默认 False
-            include_url: 是否包含URL链接，默认False（节省token）
+            platforms: Specified platform list, if empty, crawl all platforms
+            save_to_local: Whether to save to local output directory, default False
+            include_url: Whether to include URL links, default False (saves tokens)
 
         Returns:
-            爬取结果字典，包含新闻数据和保存路径（如果保存）
+            Crawl result dictionary, including news data and save path (if saved)
         """
         try:
             from trendradar.crawler.fetcher import DataFetcher
@@ -218,13 +218,13 @@ class SystemManagementTools:
 
             platforms = validate_platforms(platforms)
 
-            # 1. 加载配置
+            # 1. Load configuration
             config_data, all_platforms = self._load_crawl_config()
             target_platforms, ids = self._resolve_target_platforms(all_platforms, platforms)
 
-            print(f"开始临时爬取，平台: {[p.get('name', p['id']) for p in target_platforms]}")
+            print(f"Start temporary crawl, platforms: {[p.get('name', p['id']) for p in target_platforms]}")
 
-            # 2. 执行爬取
+            # 2. Execute crawl
             advanced = config_data.get("advanced", {})
             crawler_config = advanced.get("crawler", {})
             proxy_url = crawler_config.get("default_proxy") if crawler_config.get("use_proxy") else None
@@ -235,7 +235,7 @@ class SystemManagementTools:
                 request_interval=crawler_config.get("request_interval", 100)
             )
 
-            # 3. 转换与持久化
+            # 3. Conversion and persistence
             timezone = config_data.get("app", {}).get("timezone", "Asia/Shanghai")
             current_time = get_configured_time(timezone)
             crawl_date = format_date_folder(None, timezone)
@@ -257,10 +257,10 @@ class SystemManagementTools:
                 )
             finally:
                 get_cache().clear()
-                print("[System] 缓存已清除")
+                print("[System] Cache cleared")
                 storage.cleanup()
 
-            # 4. 构建响应
+            # 4. Build response
             return self._build_crawl_response(
                 results, id_to_name, failed_ids, current_time, include_url,
                 save_success, save_to_local, save_error_msg, saved_files
@@ -280,13 +280,13 @@ class SystemManagementTools:
             }
 
     def _generate_simple_html(self, results: Dict, id_to_name: Dict, failed_ids: List, now) -> str:
-        """生成简化的 HTML 报告"""
+        """Generate simplified HTML report"""
         html = """<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MCP 爬取结果</title>
+    <title>MCP Crawl Results</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
         .container { max-width: 900px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
@@ -305,19 +305,19 @@ class SystemManagementTools:
 </head>
 <body>
     <div class="container">
-        <h1>MCP 爬取结果</h1>
+        <h1>MCP Crawl Results</h1>
 """
 
-        # 添加时间戳
-        html += f'        <p class="timestamp">爬取时间: {now.strftime("%Y-%m-%d %H:%M:%S")}</p>\n\n'
+        # Add timestamp
+        html += f'        <p class="timestamp">Crawl time: {now.strftime("%Y-%m-%d %H:%M:%S")}</p>\n\n'
 
-        # 遍历每个平台
+        # Iterate through each platform
         for platform_id, titles_data in results.items():
             platform_name = id_to_name.get(platform_id, platform_id)
             html += f'        <div class="platform">\n'
             html += f'            <div class="platform-name">{platform_name}</div>\n'
 
-            # 排序标题
+            # Sort titles
             sorted_items = []
             for title, info in titles_data.items():
                 ranks = info.get("ranks", [])
@@ -328,23 +328,23 @@ class SystemManagementTools:
 
             sorted_items.sort(key=lambda x: x[0])
 
-            # 显示新闻
+            # Display news
             for rank, title, url, mobile_url in sorted_items:
                 html += f'            <div class="news-item">\n'
                 html += f'                <span class="rank">{rank}.</span>\n'
                 html += f'                <span class="title">{self._html_escape(title)}</span>\n'
                 if url:
-                    html += f'                <a class="link" href="{self._html_escape(url)}" target="_blank">链接</a>\n'
+                    html += f'                <a class="link" href="{self._html_escape(url)}" target="_blank">Link</a>\n'
                 if mobile_url and mobile_url != url:
-                    html += f'                <a class="link" href="{self._html_escape(mobile_url)}" target="_blank">移动版</a>\n'
+                    html += f'                <a class="link" href="{self._html_escape(mobile_url)}" target="_blank">Mobile version</a>\n'
                 html += '            </div>\n'
 
             html += '        </div>\n\n'
 
-        # 失败的平台
+        # Failed platforms
         if failed_ids:
             html += '        <div class="failed">\n'
-            html += '            <h3>请求失败的平台</h3>\n'
+            html += '            <h3>Platforms with failed requests</h3>\n'
             html += '            <ul>\n'
             for platform_id in failed_ids:
                 html += f'                <li>{self._html_escape(platform_id)}</li>\n'
@@ -358,7 +358,7 @@ class SystemManagementTools:
         return html
 
     def _html_escape(self, text: str) -> str:
-        """HTML 转义"""
+        """HTML escape"""
         if not isinstance(text, str):
             text = str(text)
         return (
@@ -371,22 +371,22 @@ class SystemManagementTools:
 
     def check_version(self, proxy_url: Optional[str] = None) -> Dict:
         """
-        检查版本更新
+        Check for version updates
 
-        同时检查 TrendRadar 和 MCP Server 两个组件的版本更新。
-        远程版本 URL 从 config.yaml 获取：
-        - version_check_url: TrendRadar 版本
-        - mcp_version_check_url: MCP Server 版本
+        Check for version updates of both TrendRadar and MCP Server components simultaneously.
+        Remote version URLs are obtained from config.yaml:
+        - version_check_url: TrendRadar version
+        - mcp_version_check_url: MCP Server version
 
         Args:
-            proxy_url: 可选的代理URL，用于访问远程版本
+            proxy_url: Optional proxy URL, used to access remote versions
 
         Returns:
-            版本检查结果字典，包含：
-            - success: 是否成功
-            - trendradar: TrendRadar 版本检查结果
-            - mcp: MCP Server 版本检查结果
-            - any_update: 是否有任何组件需要更新
+            Version check result dictionary, containing:
+            - success: Whether successful
+            - trendradar: TrendRadar version check result
+            - mcp: MCP Server version check result
+            - any_update: Whether any component needs updating
 
         Example:
             >>> tools = SystemManagementTools()
@@ -397,11 +397,11 @@ class SystemManagementTools:
         import requests
 
         def parse_version(version_str: str):
-            """将版本号字符串解析为元组"""
+            """Parse version number string into a tuple"""
             try:
                 parts = version_str.strip().split(".")
                 if len(parts) != 3:
-                    raise ValueError("版本号格式不正确")
+                    raise ValueError("Incorrect version number format")
                 return int(parts[0]), int(parts[1]), int(parts[2])
             except (ValueError, AttributeError, TypeError):
                 return 0, 0, 0
@@ -413,7 +413,7 @@ class SystemManagementTools:
             proxies: Optional[Dict],
             headers: Dict
         ) -> Dict:
-            """检查单个组件的版本（支持 CDN 多源回退）"""
+            """Check the version of a single component (supports CDN multi-source fallback)"""
             try:
                 from trendradar.core.cdn import fetch_with_fallback
                 proxy_url = None
@@ -426,7 +426,7 @@ class SystemManagementTools:
                         "success": False,
                         "name": name,
                         "current_version": local_version,
-                        "error": "所有版本检查源均不可用"
+                        "error": "All version check sources are unavailable"
                     }
 
                 local_tuple = parse_version(local_version)
@@ -434,11 +434,11 @@ class SystemManagementTools:
                 need_update = local_tuple < remote_tuple
 
                 if need_update:
-                    message = f"发现新版本 {remote_version}，当前版本 {local_version}，建议更新"
+                    message = f"New version {remote_version} found, current version {local_version}, update recommended"
                 elif local_tuple > remote_tuple:
-                    message = f"当前版本 {local_version} 高于远程版本 {remote_version}（可能是开发版本）"
+                    message = f"Current version {local_version} is higher than remote version {remote_version} (might be a development version)"
                 else:
-                    message = f"当前版本 {local_version} 已是最新版本"
+                    message = f"Current version {local_version} is already the latest version"
 
                 return {
                     "success": True,
@@ -459,18 +459,18 @@ class SystemManagementTools:
                 }
 
         try:
-            # 导入本地版本
+            # Import local version
             from trendradar import __version__ as trendradar_version
             from mcp_server import __version__ as mcp_version
 
-            # 从配置文件获取远程版本 URL
+            # Get remote version URL from configuration file
             config_path = self.project_root / "config" / "config.yaml"
             if not config_path.exists():
                 return {
                     "success": False,
                     "error": {
                         "code": "CONFIG_NOT_FOUND",
-                        "message": f"配置文件不存在: {config_path}"
+                        "message": f"Configuration file does not exist: {config_path}"
                     }
                 }
 
@@ -487,19 +487,19 @@ class SystemManagementTools:
                 "https://raw.githubusercontent.com/sansan0/TrendRadar/refs/heads/master/version_mcp"
             )
 
-            # 配置代理
+            # Configure proxy
             proxies = None
             if proxy_url:
                 proxies = {"http": proxy_url, "https": proxy_url}
 
-            # 请求头
+            # Request headers
             headers = {
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
                 "Accept": "text/plain, */*",
                 "Cache-Control": "no-cache",
             }
 
-            # 检查两个版本
+            # Check both versions
             trendradar_result = check_single_version(
                 "TrendRadar", trendradar_version, trendradar_url, proxies, headers
             )
@@ -507,7 +507,7 @@ class SystemManagementTools:
                 "MCP Server", mcp_version, mcp_url, proxies, headers
             )
 
-            # 判断是否有任何更新
+            # Determine if there are any updates
             any_update = (
                 (trendradar_result.get("success") and trendradar_result.get("need_update", False)) or
                 (mcp_result.get("success") and mcp_result.get("need_update", False))
@@ -516,7 +516,7 @@ class SystemManagementTools:
             return {
                 "success": True,
                 "summary": {
-                    "description": "版本检查结果（TrendRadar + MCP Server）",
+                    "description": "Version check results (TrendRadar + MCP Server)",
                     "any_update": any_update
                 },
                 "data": {
@@ -531,7 +531,7 @@ class SystemManagementTools:
                 "success": False,
                 "error": {
                     "code": "IMPORT_ERROR",
-                    "message": f"无法导入版本信息: {str(e)}"
+                    "message": f"Unable to import version information: {str(e)}"
                 }
             }
         except Exception as e:

@@ -39,7 +39,7 @@ Deploy in <strong>30 seconds</strong> — Say goodbye to endless scrolling, only
 
 <div align="center">
 
-**[中文](README.md)** | **English**
+**[Chinese](README.md)** | **English**
 
 </div>
 
@@ -93,7 +93,7 @@ After communication, the author indicated no concerns about server pressure, but
 
 > Thanks to the following platforms and individuals for recommendations (in chronological order)
 
-- [Appinn (小众软件)](https://mp.weixin.qq.com/s/fvutkJ_NPUelSW9OGK39aA) - Open source software recommendation platform
+- [Appinn (niche software)](https://mp.weixin.qq.com/s/fvutkJ_NPUelSW9OGK39aA) - Open source software recommendation platform
 - [LinuxDo Community](https://linux.do/) - Tech enthusiasts community
 - [Ruan Yifeng's Weekly](https://github.com/ruanyf/weekly) - Influential tech weekly in Chinese tech circle
 
@@ -107,23 +107,23 @@ After communication, the author indicated no concerns about server pressure, but
 | Supporter | Amount (CNY) | Date | Note |
 | :-------: | :----------: | :--: | :--: |
 | D*5 | 1.8 * 3 | 2025.11.24 | |
-| *鬼 | 1 | 2025.11.17 | |
-| *超 | 10 | 2025.11.17 | |
+| *Ghost | 1 | 2025.11.17 | |
+| *Super | 10 | 2025.11.17 | |
 | R*w | 10 | 2025.11.17 | Great agent work! |
 | J*o | 1 | 2025.11.17 | Thanks for open source |
-| *晨 | 8.88 | 2025.11.16 | Nice project |
-| *海 | 1 | 2025.11.15 | |
-| *德 | 1.99 | 2025.11.15 | |
-| *疏 | 8.8 | 2025.11.14 | Great project |
+| *morning | 8.88 | 2025.11.16 | Nice project |
+| * | 1 | 2025.11.15 | |
+| *DE | 1.99 | 2025.11.15 | |
+| *sparse | 8.8 | 2025.11.14 | Great project |
 | M*e | 10 | 2025.11.14 | Open source is not easy |
-| **柯 | 1 | 2025.11.14 | |
-| *云 | 88 | 2025.11.13 | Good project |
+| **Ke | 1 | 2025.11.14 | |
+| *Cloud | 88 | 2025.11.13 | Good project |
 | *W | 6 | 2025.11.13 | |
-| *凯 | 1 | 2025.11.13 | |
-| 对*. | 1 | 2025.11.13 | Thanks for TrendRadar |
+| *kai | 1 | 2025.11.13 | |
+| Right*. | 1 | 2025.11.13 | Thanks for TrendRadar |
 | s*y | 1 | 2025.11.13 | |
-| **翔 | 10 | 2025.11.13 | Wish I found it earlier |
-| *韦 | 9.9 | 2025.11.13 | TrendRadar is awesome |
+| **xiang | 10 | 2025.11.13 | Wish I found it earlier |
+| *Wei | 9.9 | 2025.11.13 | TrendRadar is awesome |
 | h*p | 5 | 2025.11.12 | Support Chinese open source |
 | c*r | 6 | 2025.11.12 | |
 | a*n | 5 | 2025.11.12 | |
@@ -172,7 +172,7 @@ This contributes to the sustainable maintenance of the project and the growth of
 
 * **GitHub Issues**: Best for specific technical issues. Please provide complete information (screenshots, error logs, etc.) to help locate the problem quickly.
 * **WeChat Official Account**: It is recommended to leave comments under relevant articles. If you need to ask questions in the background, **liking/recommending** the article first is the best "icebreaker," and I can feel your appreciation (´▽`ʃ♡ƪ).
-* **QQ Group**: Follow the WeChat Official Account and reply "**交流群**" to join. Whether you're an AI beginner or a seasoned developer, looking for help or sharing ideas, you're welcome here. The group is all about mutual help and brainstorming — please read the group announcement first; describe your issue clearly with screenshots, and fellow members will help when available. Community wisdom is often faster and more comprehensive than any single person 🤝
+* **QQ Group**: Follow the WeChat Official Account and reply "**Communication Group**" to join. Whether you're an AI beginner or a seasoned developer, looking for help or sharing ideas, you're welcome here. The group is all about mutual help and brainstorming — please read the group announcement first; describe your issue clearly with screenshots, and fellow members will help when available. Community wisdom is often faster and more comprehensive than any single person 🤝
 
 > **Friendly Reminder**:
 > This project is for open-source sharing, not a commercial product. Treat the author as a friend, not customer service, for better communication efficiency!
@@ -919,17 +919,17 @@ frequency_words.txt file added **required word** feature, using + sign
 
 ### **Multi-Platform Trending News Aggregation**
 
-- Zhihu (知乎)
-- Douyin (抖音)
+- Zhihu (Zhihu)
+- Douyin (Douyin)
 - Bilibili Hot Search
-- Wallstreetcn (华尔街见闻)
-- Tieba (贴吧)
+- Wallstreetcn (Wall Street News)
+- Tieba (tieba)
 - Baidu Hot Search
-- Yicai (财联社)
-- Thepaper (澎湃新闻)
-- Ifeng (凤凰网)
-- Toutiao (今日头条)
-- Weibo (微博)
+- Yicai (Financial Associated Press)
+- Thepaper (The Paper)
+- Ifeng (ifeng.com)
+- Toutiao (Today's Headlines)
+- Weibo ()
 
 Default monitoring of 11 mainstream platforms, with support for adding custom platforms.
 
@@ -1357,7 +1357,7 @@ Method 1 discovered and suggested by **ziventian**, thanks to them. Default is p
 2. **Configure Bot**:
    - Set bot name
    - **Security Settings**:
-     - **Custom Keywords**: Set "Trending" or "热点"
+     - **Custom Keywords**: Set "Trending" or "hotspot"
 
 3. **Complete Setup**:
    - Check service terms agreement → Click "Done"
@@ -2870,7 +2870,7 @@ TrendRadar generates daily summary HTML reports to two locations simultaneously:
 |--------------|---------------|----------|
 | `output/index.html` | Direct host access | **Docker Deployment** (via Volume mount, visible on host) |
 | `index.html` | Root directory access | **GitHub Pages** (repository root, auto-detected by Pages) |
-| `output/html/YYYY-MM-DD/当日汇总.html` | Historical reports | All environments (archived by date) |
+| `output/html/YYYY-MM-DD/Daily Summary.html` | Historical reports | All environments (archived by date) |
 
 **Local Access Examples**:
 ```bash
@@ -2887,7 +2887,7 @@ start ./output/index.html            # Windows
 xdg-open ./output/index.html         # Linux
 
 # Method 3: Access historical archives
-open ./output/html/2025-xx-xx/当日汇总.html
+open ./output/html/2025-xx-xx/summary of the day.html
 ```
 
 **Why two index.html files?**

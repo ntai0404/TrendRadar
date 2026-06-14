@@ -1,10 +1,10 @@
 # coding=utf-8
 """
-报告生成模块
+report generation module
 
-提供报告数据准备和 HTML 生成功能：
-- prepare_report_data: 准备报告数据
-- generate_html_report: 生成 HTML 报告
+Provides report data preparation and HTML generation capabilities:
+- prepare_report_data: prepare report data
+- generate_html_report: generate HTML report
 """
 
 from pathlib import Path
@@ -23,25 +23,25 @@ def prepare_report_data(
     show_new_section: bool = True,
 ) -> Dict:
     """
-    准备报告数据
+    Prepare reporting data
 
     Args:
-        stats: 统计结果列表
-        failed_ids: 失败的 ID 列表
-        new_titles: 新增标题
-        id_to_name: ID 到名称的映射
-        mode: 报告模式 (daily/incremental/current)
-        rank_threshold: 排名阈值
-        matches_word_groups_func: 词组匹配函数
-        load_frequency_words_func: 加载频率词函数
-        show_new_section: 是否显示新增热点区域
+        stats: list of statistical results
+        failed_ids: list of failed IDs
+        new_titles: add new titles
+        id_to_name: ID to name mapping
+        mode: reporting mode (daily/incremental/current)
+        rank_threshold: ranking threshold
+        matches_word_groups_func: word matching function
+        load_frequency_words_func: Load frequency word function
+        show_new_section: Whether to display new hotspot areas
 
     Returns:
-        Dict: 准备好的报告数据
+        Dict: Prepared report data
     """
     processed_new_titles = []
 
-    # 始终过滤新增标题用于计数（头部统计需要），但区域展示受配置控制
+    #Always filter new titles for counting (required for header statistics), but regional display is controlled by configuration
     filtered_new_titles = {}
     if new_titles and id_to_name:
         if matches_word_groups_func and load_frequency_words_func:
@@ -59,9 +59,9 @@ def prepare_report_data(
         original_new_count = sum(len(titles) for titles in new_titles.values()) if new_titles else 0
         filtered_new_count = sum(len(titles) for titles in filtered_new_titles.values()) if filtered_new_titles else 0
         if original_new_count > 0:
-            print(f"频率词过滤后：{filtered_new_count} 条新增热点匹配（原始 {original_new_count} 条）")
+            print(f"After frequency word filtering: {filtered_new_count} new hotspot matches (original {original_new_count})")
 
-    # 在增量模式下或配置关闭时隐藏新增新闻区域（但计数已完成）
+    # Hide the new news area in incremental mode or when configuration is turned off (but counting is complete)
     hide_new_section = mode == "incremental" or not show_new_section
 
     if not hide_new_section and filtered_new_titles and id_to_name:
@@ -127,7 +127,7 @@ def prepare_report_data(
             }
         )
 
-    # total_new_count 始终从过滤结果计算（用于头部统计），不受 hide_new_section 影响
+    # total_new_count is always calculated from filtered results (used for header statistics) and is not affected by hide_new_section
     total_new_count = sum(len(titles) for titles in filtered_new_titles.values())
 
     return {
@@ -156,41 +156,41 @@ def generate_html_report(
     report_metadata: Optional[Dict] = None,
 ) -> str:
     """
-    生成 HTML 报告
+    Generate HTML report
 
-    每次生成 HTML 后会：
-    1. 保存时间戳快照到 output/html/日期/时间.html（历史记录）
-    2. 复制到 output/html/latest/{mode}.html（最新报告）
-    3. 复制到 output/index.html 和根目录 index.html（入口）
+    Each time HTML is generated:
+    1. Save the timestamp snapshot to output/html/date/time.html (history)
+    2. Copy to output/html/latest/{mode}.html (latest report)
+    3. Copy to output/index.html and root directory index.html (entry)
 
     Args:
-        stats: 统计结果列表
-        total_titles: 总标题数
-        failed_ids: 失败的 ID 列表
-        new_titles: 新增标题
-        id_to_name: ID 到名称的映射
-        mode: 报告模式 (daily/incremental/current)
-        update_info: Cập nhật信息
-        rank_threshold: 排名阈值
-        output_dir: 输出目录
-        date_folder: 日期文件夹名称
-        time_filename: 时间文件名
-        render_html_func: HTML 渲染函数
-        matches_word_groups_func: 词组匹配函数
-        load_frequency_words_func: 加载频率词函数
+        stats: list of statistical results
+        total_titles: total number of titles
+        failed_ids: list of failed IDs
+        new_titles: add new titles
+        id_to_name: ID to name mapping
+        mode: reporting mode (daily/incremental/current)
+        update_info: Cập nhật information
+        rank_threshold: ranking threshold
+        output_dir: output directory
+        date_folder: date folder name
+        time_filename: time file name
+        render_html_func: HTML rendering function
+        matches_word_groups_func: word matching function
+        load_frequency_words_func: Load frequency word function
 
     Returns:
-        str: 生成的 HTML 文件路径（时间戳快照路径）
+        str: generated HTML file path (time stamp snapshot path)
     """
-    # 时间戳快照文件名
+    # Timestamp snapshot file name
     snapshot_filename = f"{time_filename}.html"
 
-    # 构建输出路径（扁平化结构：output/html/日期/）
+    # Build the output path (flattened structure: output/html/date/)
     snapshot_path = Path(output_dir) / "html" / date_folder
     snapshot_path.mkdir(parents=True, exist_ok=True)
     snapshot_file = str(snapshot_path / snapshot_filename)
 
-    # 准备报告数据
+    # Prepare report data
     report_data = prepare_report_data(
         stats,
         failed_ids,
@@ -211,33 +211,33 @@ def generate_html_report(
             if key in report_metadata:
                 report_data[key] = report_metadata[key]
 
-    # 渲染 HTML 内容
+    # Render HTML content
     if render_html_func:
         html_content = render_html_func(
             report_data, total_titles, mode, update_info
         )
     else:
-        # 默认简单 HTML
+        # Default simple HTML
         html_content = f"<html><body><h1>Report</h1><pre>{report_data}</pre></body></html>"
 
-    # 1. 保存时间戳快照（历史记录）
+    # 1. Save timestamp snapshot (history)
     with open(snapshot_file, "w", encoding="utf-8") as f:
         f.write(html_content)
 
-    # 2. 复制到 html/latest/{mode}.html（最新报告）
+    # 2. Copy to html/latest/{mode}.html (latest report)
     latest_dir = Path(output_dir) / "html" / "latest"
     latest_dir.mkdir(parents=True, exist_ok=True)
     latest_file = latest_dir / f"{mode}.html"
     with open(latest_file, "w", encoding="utf-8") as f:
         f.write(html_content)
 
-    # 3. 复制到 index.html（入口）
-    # output/index.html（供 Docker Volume 挂载访问）
+    # 3. Copy to index.html (entry)
+    # output/index.html (for Docker Volume mounting access)
     output_index = Path(output_dir) / "index.html"
     with open(output_index, "w", encoding="utf-8") as f:
         f.write(html_content)
 
-    # 根目录 index.html（供 GitHub Pages 访问）
+    # Root directory index.html (accessed by GitHub Pages)
     root_index = Path("index.html")
     with open(root_index, "w", encoding="utf-8") as f:
         f.write(html_content)

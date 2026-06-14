@@ -1,8 +1,8 @@
 # coding=utf-8
 """
-存储同步工具
+Storage sync tool
 
-实现从远程存储拉取数据到本地、获取存储状态、列出可用日期等功能。
+Implement functions such as pulling data from remote storage to local, obtaining storage status, listing available dates, etc.
 """
 
 import os
@@ -17,14 +17,14 @@ from ..utils.errors import MCPError
 
 
 class StorageSyncTools:
-    """存储同步工具类"""
+    """Storage synchronization tool class"""
 
     def __init__(self, project_root: str = None):
         """
-        初始化存储同步工具
+        Initialize the storage synchronization tool
 
         Args:
-            project_root: 项目根目录
+            project_root: project root directory
         """
         if project_root:
             self.project_root = Path(project_root)
@@ -36,7 +36,7 @@ class StorageSyncTools:
         self._remote_backend = None
 
     def _load_config(self) -> dict:
-        """加载配置文件"""
+        """Load configuration file"""
         if self._config is None:
             config_path = self.project_root / "config" / "config.yaml"
             if config_path.exists():
@@ -47,13 +47,13 @@ class StorageSyncTools:
         return self._config
 
     def _get_storage_config(self) -> dict:
-        """获取存储配置"""
+        """Get storage configuration"""
         config = self._load_config()
         return config.get("storage", {})
 
     def _get_remote_config(self) -> dict:
         """
-        获取远程存储配置（合并配置文件和环境变量）
+        Get remote storage configuration (merging configuration files and environment variables)
         """
         storage_config = self._get_storage_config()
         remote_config = storage_config.get("remote", {})
@@ -67,7 +67,7 @@ class StorageSyncTools:
         }
 
     def _has_remote_config(self) -> bool:
-        """检查是否有有效的远程存储配置"""
+        """Check if there is a valid remote storage configuration"""
         config = self._get_remote_config()
         return bool(
             config.get("bucket_name") and
@@ -77,7 +77,7 @@ class StorageSyncTools:
         )
 
     def _get_remote_backend(self):
-        """获取远程存储后端实例"""
+        """Get the remote storage backend instance"""
         if self._remote_backend is not None:
             return self._remote_backend
 
@@ -101,14 +101,14 @@ class StorageSyncTools:
             )
             return self._remote_backend
         except ImportError:
-            print("[存储同步] 远程存储后端需要安装 boto3: pip install boto3")
+            print("[Storage synchronization] The remote storage backend needs to install boto3: pip install boto3")
             return None
         except Exception as e:
-            print(f"[存储同步] 创建远程后端失败: {e}")
+            print(f"[Storage Synchronization] Failed to create remote backend: {e}")
             return None
 
     def _get_local_data_dir(self) -> Path:
-        """获取本地数据目录"""
+        """Get local data directory"""
         storage_config = self._get_storage_config()
         local_config = storage_config.get("local", {})
         data_dir = local_config.get("data_dir", "output")
@@ -116,13 +116,13 @@ class StorageSyncTools:
 
     def _parse_date_folder_name(self, folder_name: str) -> Optional[datetime]:
         """
-        解析日期文件夹名称（兼容中文和 ISO 格式）
+        Parse date folder names (compatible with Chinese and ISO formats)
 
-        支持两种格式：
-        - 中文格式：YYYY年MM月DD日
-        - ISO 格式：YYYY-MM-DD
+        Two formats are supported:
+        - Chinese format: YYYY year MM month DD day
+        - ISO format: YYYY-MM-DD
         """
-        # 尝试 ISO 格式
+        # Try ISO format
         iso_match = re.match(r'(\d{4})-(\d{2})-(\d{2})', folder_name)
         if iso_match:
             try:
@@ -134,8 +134,8 @@ class StorageSyncTools:
             except ValueError:
                 pass
 
-        # 尝试中文格式
-        chinese_match = re.match(r'(\d{4})年(\d{2})月(\d{2})日', folder_name)
+        # Try Chinese format
+        chinese_match = re.match(r'(\d{4})year(\d{2})month(\d{2})day', folder_name)
         if chinese_match:
             try:
                 return datetime(
@@ -150,16 +150,16 @@ class StorageSyncTools:
 
     def _get_local_dates(self, db_type: str = "news") -> List[str]:
         """
-        获取本地可用的日期列表
+        Get a list of locally available dates
 
-        存储结构: output/{db_type}/{date}.db
-        例如: output/news/2025-12-30.db, output/rss/2025-12-30.db
+        Storage structure: output/{db_type}/{date}.db
+        For example: output/news/2025-12-30.db, output/rss/2025-12-30.db
 
         Args:
-            db_type: 数据库类型 ("news" 或 "rss")，默认 "news"
+            db_type: database type ("news" or "rss"), default "news"
 
         Returns:
-            日期列表（按时间倒序）
+            List of dates (in reverse chronological order)
         """
         local_dir = self._get_local_data_dir()
         dates = set()
@@ -167,13 +167,13 @@ class StorageSyncTools:
         if not local_dir.exists():
             return []
 
-        # 扫描 output/{db_type}/{date}.db 文件
+        # Scan the output/{db_type}/{date}.db file
         type_dir = local_dir / db_type
         if type_dir.exists():
             for item in type_dir.iterdir():
                 if item.is_file() and item.suffix == ".db":
-                    # 从文件名解析日期 (2025-12-30.db -> 2025-12-30)
-                    date_str = item.stem  # 去除 .db 后缀
+                    # Parse date from file name (2025-12-30.db -> 2025-12-30)
+                    date_str = item.stem # Remove .db suffix
                     folder_date = self._parse_date_folder_name(date_str)
                     if folder_date:
                         dates.add(folder_date.strftime("%Y-%m-%d"))
@@ -182,13 +182,13 @@ class StorageSyncTools:
 
     def _get_all_local_dates(self) -> Dict[str, List[str]]:
         """
-        获取所有本地可用的日期列表（包括 news 和 rss）
+        Get a list of all locally available dates (including news and rss)
 
         Returns:
             {
                 "news": ["2025-12-30", ...],
                 "rss": ["2025-12-30", ...],
-                "all": ["2025-12-30", ...]  # 合并去重
+                "all": ["2025-12-30", ...] # Merge and remove duplicates
             }
         """
         news_dates = set(self._get_local_dates("news"))
@@ -202,7 +202,7 @@ class StorageSyncTools:
         }
 
     def _calculate_dir_size(self, path: Path) -> int:
-        """计算目录大小（字节）"""
+        """Calculate directory size (bytes)"""
         total_size = 0
         if path.exists():
             for item in path.rglob("*"):
@@ -212,49 +212,49 @@ class StorageSyncTools:
 
     def sync_from_remote(self, days: int = 7) -> Dict:
         """
-        从远程存储拉取数据到本地
+        Pull data from remote storage to local
 
         Args:
-            days: 拉取最近 N 天的数据，默认 7 天
+            days: Pull the data of the last N days, the default is 7 days
 
         Returns:
-            同步结果字典
+            Synchronized result dictionary
         """
         try:
-            # 检查远程配置
+            # Check remote configuration
             if not self._has_remote_config():
                 return {
                     "success": False,
                     "error": {
                         "code": "REMOTE_NOT_CONFIGURED",
-                        "message": "未配置远程存储",
-                        "suggestion": "请在 config/config.yaml 中配置 storage.remote 或设置环境变量"
+                        "message": "Remote storage not configured",
+                        "suggestion": "Please configure storage.remote or set environment variables in config/config.yaml"
                     }
                 }
 
-            # 获取远程后端
+            # Get the remote backend
             remote_backend = self._get_remote_backend()
             if remote_backend is None:
                 return {
                     "success": False,
                     "error": {
                         "code": "REMOTE_BACKEND_FAILED",
-                        "message": "无法创建远程存储后端",
-                        "suggestion": "请检查远程存储配置和 boto3 是否已安装"
+                        "message": "Unable to create remote storage backend",
+                        "suggestion": "Please check the remote storage configuration and whether boto3 is installed"
                     }
                 }
 
-            # 获取本地数据目录
+            # Get the local data directory
             local_dir = self._get_local_data_dir()
             local_dir.mkdir(parents=True, exist_ok=True)
 
-            # 获取远程可用日期
+            # Get the remote available date
             remote_dates = remote_backend.list_remote_dates()
 
-            # 获取本地已有日期
+            # Get the local existing date
             local_dates = set(self._get_local_dates())
 
-            # 计算需要拉取的日期（最近 N 天）
+            # Calculate the date to be pulled (last N days)
             from trendradar.utils.time import get_configured_time
             config = self._load_config()
             timezone = config.get("app", {}).get("timezone", "Asia/Shanghai")
@@ -267,18 +267,18 @@ class StorageSyncTools:
                 if date_str in remote_dates:
                     target_dates.append(date_str)
 
-            # 执行拉取
+            # Execute pull
             synced_dates = []
             skipped_dates = []
             failed_dates = []
 
             for date_str in target_dates:
-                # 检查本地是否已存在
+                # Check if it exists locally
                 if date_str in local_dates:
                     skipped_dates.append(date_str)
                     continue
 
-                # 拉取单个日期
+                # Pull a single date
                 try:
                     local_date_dir = local_dir / date_str
                     local_db_path = local_date_dir / "news.db"
@@ -291,15 +291,15 @@ class StorageSyncTools:
                         str(local_db_path)
                     )
                     synced_dates.append(date_str)
-                    print(f"[存储同步] 已拉取: {date_str}")
+                    print(f"[Storage Synchronization] Pulled: {date_str}")
                 except Exception as e:
                     failed_dates.append({"date": date_str, "error": str(e)})
-                    print(f"[存储同步] 拉取失败 ({date_str}): {e}")
+                    print(f"[Storage Synchronization] Fetch failed ({date_str}): {e}")
 
             return {
                 "success": True,
                 "summary": {
-                    "description": "远程存储同步结果",
+                    "description": "Remote storage synchronization results",
                     "synced_files": len(synced_dates),
                     "skipped_count": len(skipped_dates),
                     "failed_count": len(failed_dates)
@@ -309,10 +309,10 @@ class StorageSyncTools:
                     "skipped_dates": skipped_dates,
                     "failed_dates": failed_dates
                 },
-                "message": f"成功同步 {len(synced_dates)} 天数据" + (
-                    f"，跳过 {len(skipped_dates)} 天（本地已存在）" if skipped_dates else ""
+                "message": f"Successfully synchronized {len(synced_dates)} days of data" + (
+                    f", skip {len(skipped_dates)} days (existing locally)" if skipped_dates else ""
                 ) + (
-                    f"，失败 {len(failed_dates)} 天" if failed_dates else ""
+                    f", failed {len(failed_dates)} days" if failed_dates else ""
                 )
             }
 
@@ -332,21 +332,21 @@ class StorageSyncTools:
 
     def get_storage_status(self) -> Dict:
         """
-        获取存储配置和状态
+        Get storage configuration and status
 
         Returns:
-            存储状态字典
+            Store state dictionary
         """
         try:
             storage_config = self._get_storage_config()
             config = self._load_config()
 
-            # 本地存储状态
+            #Local storage status
             local_config = storage_config.get("local", {})
             local_dir = self._get_local_data_dir()
             local_size = self._calculate_dir_size(local_dir)
 
-            # 获取分类的日期列表
+            # Get the date list of categories
             all_dates = self._get_all_local_dates()
             news_dates = all_dates["news"]
             rss_dates = all_dates["rss"]
@@ -362,15 +362,15 @@ class StorageSyncTools:
                 "latest_date": combined_dates[0] if combined_dates else None,
                 "news": {
                     "date_count": len(news_dates),
-                    "dates": news_dates[:10],  # 最近 10 天
+                    "dates": news_dates[:10], # Last 10 days
                 },
                 "rss": {
                     "date_count": len(rss_dates),
-                    "dates": rss_dates[:10],  # 最近 10 天
+                    "dates": rss_dates[:10], # Last 10 days
                 },
             }
 
-            # 远程存储状态
+            #Remote storage state
             remote_config = storage_config.get("remote", {})
             has_remote = self._has_remote_config()
 
@@ -381,13 +381,13 @@ class StorageSyncTools:
 
             if has_remote:
                 merged_config = self._get_remote_config()
-                # 脱敏显示
+                # Desensitized display
                 endpoint = merged_config.get("endpoint_url", "")
                 bucket = merged_config.get("bucket_name", "")
                 remote_status["endpoint_url"] = endpoint
                 remote_status["bucket_name"] = bucket
 
-                # 尝试获取远程日期列表
+                # Try to get a list of remote dates
                 remote_backend = self._get_remote_backend()
                 if remote_backend:
                     try:
@@ -398,7 +398,7 @@ class StorageSyncTools:
                     except Exception as e:
                         remote_status["error"] = str(e)
 
-            # 拉取配置状态
+            # Pull configuration status
             pull_config = storage_config.get("pull", {})
             pull_status = {
                 "enabled": pull_config.get("enabled", False),
@@ -408,7 +408,7 @@ class StorageSyncTools:
             return {
                 "success": True,
                 "summary": {
-                    "description": "存储配置和状态信息",
+                    "description": "Storage configuration and status information",
                     "backend": storage_config.get("backend", "auto")
                 },
                 "data": {
@@ -434,25 +434,25 @@ class StorageSyncTools:
 
     def list_available_dates(self, source: str = "both") -> Dict:
         """
-        列出可用的日期范围
+        List available date ranges
 
         Args:
-            source: 数据来源
-                - "local": 仅本地
-                - "remote": 仅远程
-                - "both": 两者都列出（默认）
+            source: data source
+                - "local": local only
+                - "remote": remote only
+                - "both": list both (default)
 
         Returns:
-            日期列表字典
+            date list dictionary
         """
         try:
             data_result = {}
             summary_info = {
-                "description": "可用日期列表",
+                "description": "Available date list",
                 "source": source
             }
 
-            # 本地日期
+            # local date
             if source in ("local", "both"):
                 all_dates = self._get_all_local_dates()
                 news_dates = all_dates["news"]
@@ -474,7 +474,7 @@ class StorageSyncTools:
                     },
                 }
 
-            # 远程日期
+            # Remote date
             if source in ("remote", "both"):
                 if not self._has_remote_config():
                     data_result["remote"] = {
@@ -483,7 +483,7 @@ class StorageSyncTools:
                         "count": 0,
                         "earliest": None,
                         "latest": None,
-                        "error": "未配置远程存储"
+                        "error": "Remote storage not configured"
                     }
                 else:
                     remote_backend = self._get_remote_backend()
@@ -513,10 +513,10 @@ class StorageSyncTools:
                             "count": 0,
                             "earliest": None,
                             "latest": None,
-                            "error": "无法创建远程存储后端"
+                            "error": "Unable to create remote storage backend"
                         }
 
-            # 如果同时查询两者，计算差异
+            # If you query both at the same time, calculate the difference
             if source == "both" and "local" in data_result and "remote" in data_result:
                 local_set = set(data_result["local"]["dates"])
                 remote_set = set(data_result["remote"].get("dates", []))

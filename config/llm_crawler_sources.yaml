@@ -1,0 +1,27 @@
+sources:
+  # Ví dụ cấu hình cho Facebook Page/Group
+  - id: "fb_group_chungkhoan"
+    type: "facebook"
+    url: "https://www.facebook.com/groups/placeholder_group"
+    username: ""      # Tài khoản dùng để đăng nhập (nếu cần)
+    password: ""      # Mật khẩu
+    instruction: "Lấy bài viết mới nhất trong nhóm, tập trung vào các nhận định thị trường và phân tích cổ phiếu."
+    enabled: false
+    
+  # Ví dụ cấu hình cho YouTube Channel
+  - id: "yt_taichinh_channel"
+    type: "youtube"
+    url: "https://www.youtube.com/@placeholder_channel/videos"
+    username: ""
+    password: ""
+    instruction: "Lấy thông tin video mới nhất, tóm tắt tiêu đề và mô tả video."
+    enabled: false
+
+  # Ví dụ cấu hình cho Báo điện tử/Web tin tức yêu cầu login (VD: Bloomberg, WSJ, v.v...)
+  - id: "news_premium"
+    type: "news_website"
+    url: "https://example-premium-news.com/latest"
+    username: ""
+    password: ""
+    instruction: "Cào 3 bài viết nổi bật nhất trang chủ, lấy metadata, ảnh và nội dung bài."
+    enabled: false

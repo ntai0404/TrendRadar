@@ -1,9 +1,9 @@
 # coding=utf-8
 """
-AI 客户端模块
+AI client module
 
-基于 LiteLLM 的统一 AI 模型接口
-支持 100+ AI 提供商（OpenAI、DeepSeek、Gemini、Claude、国内模型等）
+Unified AI model interface based on LiteLLM
+Supports 100+ AI providers (OpenAI, DeepSeek, Gemini, Claude, domestic models, etc.)
 """
 
 import os
@@ -13,22 +13,22 @@ from litellm import completion
 
 
 class AIClient:
-    """统一的 AI 客户端（基于 LiteLLM）"""
+    """Unified AI client (based on LiteLLM)"""
 
     def __init__(self, config: Dict[str, Any]):
         """
-        初始化 AI 客户端
+        Initialize AI client
 
         Args:
-            config: AI 配置字典
-                - MODEL: 模型标识（格式: provider/model_name）
-                - API_KEY: API 密钥
-                - API_BASE: API 基础 URL（可选）
-                - TEMPERATURE: 采样温度
-                - MAX_TOKENS: 最大生成 token 数
-                - TIMEOUT: 请求超时时间（秒）
-                - NUM_RETRIES: 重试次数（可选）
-                - FALLBACK_MODELS: 备用模型列表（可选）
+            config: AI configuration dictionary
+                - MODEL: model identification (format: provider/model_name)
+                - API_KEY: API key
+                - API_BASE: API base URL (optional)
+                - TEMPERATURE: sampling temperature
+                - MAX_TOKENS: Maximum number of generated tokens
+                - TIMEOUT: request timeout (seconds)
+                - NUM_RETRIES: Number of retries (optional)
+                - FALLBACK_MODELS: list of alternative models (optional)
         """
         self.model = config.get("MODEL", "deepseek/deepseek-chat")
         self.api_key = config.get("API_KEY") or os.environ.get("AI_API_KEY", "")
@@ -45,19 +45,19 @@ class AIClient:
         **kwargs
     ) -> str:
         """
-        调用 AI 模型进行对话
+        Call an AI model to have a conversation
 
         Args:
-            messages: 消息列表，格式: [{"role": "system/user/assistant", "content": "..."}]
-            **kwargs: 额外参数，会覆盖默认配置
+            messages: message list, format: [{"role": "system/user/assistant", "content": "..."}]
+            **kwargs: additional parameters, which will override the default configuration
 
         Returns:
-            str: AI 响应内容
+            str: AI response content
 
         Raises:
-            Exception: API 调用失败时抛出异常
+            Exception: Exception thrown when API call fails
         """
-        # 构建请求参数
+        # Build request parameters
         params = {
             "model": self.model,
             "messages": messages,
@@ -66,24 +66,24 @@ class AIClient:
             "num_retries": kwargs.get("num_retries", self.num_retries),
         }
 
-        # 添加 API Key
+        #Add API Key
         if self.api_key:
             params["api_key"] = self.api_key
 
-        # 添加 API Base（如果配置了）
+        # Add API Base (if configured)
         if self.api_base:
             params["api_base"] = self.api_base
 
-        # 添加 max_tokens（如果配置了且不为 0）
+        # Add max_tokens (if configured and not 0)
         max_tokens = kwargs.get("max_tokens", self.max_tokens)
         if max_tokens and max_tokens > 0:
             params["max_tokens"] = max_tokens
 
-        # 添加 fallback 模型（如果配置了）
+        #Add fallback model (if configured)
         if self.fallback_models:
             params["fallbacks"] = self.fallback_models
 
-        # 合并其他额外参数
+        #Incorporate other additional parameters
         for key, value in kwargs.items():
             if key not in params:
                 params[key] = value
@@ -91,10 +91,10 @@ class AIClient:
         # Bật stream để tương thích với 9router (luôn trả về định dạng chunk streaming)
         params["stream"] = True
 
-        # 调用 LiteLLM
+        # Call LiteLLM
         response = completion(**params)
 
-        # 提取响应内容 (xử lý stream)
+        # Extract response content (xử lý stream)
         content = ""
         for chunk in response:
             if chunk.choices and chunk.choices[0].delta.content:
@@ -104,19 +104,19 @@ class AIClient:
 
     def validate_config(self) -> tuple[bool, str]:
         """
-        验证配置是否有效
+        Verify that the configuration is valid
 
         Returns:
-            tuple: (是否有效, 错误信息)
+            tuple: (valid, error message)
         """
         if not self.model:
-            return False, "未配置 AI 模型（model）"
+            return False, "AI model not configured (model)"
 
         if not self.api_key:
-            return False, "未配置 AI API Key，请在 config.yaml 或环境变量 AI_API_KEY 中设置"
+            return False, "AI API Key is not configured, please set it in config.yaml or environment variable AI_API_KEY"
 
-        # 验证模型格式（应该包含 provider/model）
+        # Verify model format (should contain provider/model)
         if "/" not in self.model:
-            return False, f"模型格式错误: {self.model}，应为 'provider/model' 格式（如 'deepseek/deepseek-chat'）"
+            return False, f"Model format error: {self.model}, should be in 'provider/model' format (such as 'deepseek/deepseek-chat')"
 
         return True, ""

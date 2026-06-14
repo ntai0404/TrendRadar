@@ -1,8 +1,8 @@
 # coding=utf-8
 """
-应用上下文模块
+Module ngữ cảnh ứng dụng
 
-提供配置上下文类，封装所有依赖配置的操作，消除全局状态和包装函数。
+Cung cấp lớp ngữ cảnh cấu hình, đóng gói tất cả các thao tác phụ thuộc vào cấu hình, loại bỏ trạng thái toàn cục và các hàm bao bọc.
 """
 
 from datetime import datetime
@@ -45,142 +45,142 @@ from trendradar.storage import get_storage_manager
 
 class AppContext:
     """
-    应用上下文类
+    Lớp ngữ cảnh ứng dụng
 
-    封装所有依赖配置的操作，提供统一的接口。
-    消除对全局 CONFIG 的依赖，提高可测试性。
+    Đóng gói tất cả các thao tác phụ thuộc vào cấu hình, cung cấp một giao diện thống nhất.
+    Loại bỏ sự phụ thuộc vào CONFIG toàn cục, cải thiện khả năng kiểm thử.
 
-    使用示例:
+    Ví dụ sử dụng:
         config = load_config()
         ctx = AppContext(config)
 
-        # 时间操作
+        # Thao tác thời gian
         now = ctx.get_time()
         date_folder = ctx.format_date()
 
-        # 存储操作
+        # Thao tác lưu trữ
         storage = ctx.get_storage_manager()
 
-        # 报告生成
+        # Tạo báo cáo
         html = ctx.generate_html_report(stats, total_titles, ...)
     """
 
     def __init__(self, config: Dict[str, Any]):
         """
-        初始化应用上下文
+        Khởi tạo ngữ cảnh ứng dụng
 
         Args:
-            config: 完整的配置字典
+            config: Từ điển cấu hình hoàn chỉnh
         """
         self.config = config
         self._storage_manager = None
         self._scheduler = None
 
-    # === 配置访问 ===
+    # === Truy cập cấu hình ===
 
     @property
     def timezone(self) -> str:
-        """获取配置的时区"""
+        """Lấy múi giờ đã cấu hình"""
         return self.config.get("TIMEZONE", DEFAULT_TIMEZONE)
 
     @property
     def rank_threshold(self) -> int:
-        """获取排名阈值"""
+        """Lấy ngưỡng xếp hạng"""
         return self.config.get("RANK_THRESHOLD", 50)
 
     @property
     def weight_config(self) -> Dict:
-        """获取权重配置"""
+        """Lấy cấu hình trọng số"""
         return self.config.get("WEIGHT_CONFIG", {})
 
     @property
     def platforms(self) -> List[Dict]:
-        """获取平台配置列表"""
+        """Lấy danh sách cấu hình nền tảng"""
         return self.config.get("PLATFORMS", [])
 
     @property
     def platform_ids(self) -> List[str]:
-        """获取平台ID列表"""
+        """Lấy danh sách ID nền tảng"""
         return [p["id"] for p in self.platforms]
 
     @property
     def rss_config(self) -> Dict:
-        """获取 RSS 配置"""
+        """Lấy cấu hình RSS"""
         return self.config.get("RSS", {})
 
     @property
     def rss_enabled(self) -> bool:
-        """RSS 是否启用"""
+        """RSS có được bật hay không"""
         return self.rss_config.get("ENABLED", False)
 
     @property
     def rss_feeds(self) -> List[Dict]:
-        """获取 RSS 源列表"""
+        """Lấy danh sách nguồn RSS"""
         return self.rss_config.get("FEEDS", [])
 
     @property
     def display_mode(self) -> str:
-        """获取显示模式 (keyword | platform)"""
+        """Lấy chế độ hiển thị (keyword | platform)"""
         return self.config.get("DISPLAY_MODE", "keyword")
 
     @property
     def show_new_section(self) -> bool:
-        """是否显示新增热点区域"""
+        """Có hiển thị khu vực điểm nóng mới hay không"""
         return self.config.get("DISPLAY", {}).get("REGIONS", {}).get("NEW_ITEMS", True)
 
     @property
     def region_order(self) -> List[str]:
-        """获取区域显示顺序"""
+        """Lấy thứ tự hiển thị khu vực"""
         default_order = ["hotlist", "rss", "new_items", "standalone", "ai_analysis"]
         return self.config.get("DISPLAY", {}).get("REGION_ORDER", default_order)
 
     @property
     def filter_method(self) -> str:
-        """获取筛选策略: keyword | ai"""
+        """Lấy chiến lược lọc: keyword | ai"""
         return self.config.get("FILTER", {}).get("METHOD", "keyword")
 
     @property
     def ai_priority_sort_enabled(self) -> bool:
-        """AI 模式标签排序开关（与 keyword 的 sort_by_position_first 解耦）"""
+        """Công tắc sắp xếp thẻ chế độ AI (tách biệt với sort_by_position_first của keyword)"""
         return self.config.get("FILTER", {}).get("PRIORITY_SORT_ENABLED", False)
 
     @property
     def ai_filter_config(self) -> Dict:
-        """获取 AI 筛选配置"""
+        """Lấy cấu hình lọc AI"""
         return self.config.get("AI_FILTER", {})
 
     @property
     def ai_filter_enabled(self) -> bool:
-        """AI 筛选是否启用（基于 filter.method 判断）"""
+        """Lọc AI có được bật hay không (dựa trên filter.method)"""
         return self.filter_method == "ai"
 
-    # === 时间操作 ===
+    # === Thao tác thời gian ===
 
     def get_time(self) -> datetime:
-        """获取当前配置时区的时间"""
+        """Lấy thời gian của múi giờ được cấu hình hiện tại"""
         return get_configured_time(self.timezone)
 
     def format_date(self) -> str:
-        """格式化日期文件夹 (YYYY-MM-DD)"""
+        """Định dạng thư mục ngày (YYYY-MM-DD)"""
         return format_date_folder(timezone=self.timezone)
 
     def format_time(self) -> str:
-        """格式化时间文件名 (HH-MM)"""
+        """Định dạng tên tệp thời gian (HH-MM)"""
         return format_time_filename(self.timezone)
 
     def get_time_display(self) -> str:
-        """获取时间显示 (HH:MM)"""
+        """Lấy hiển thị thời gian (HH:MM)"""
         return get_current_time_display(self.timezone)
 
     @staticmethod
     def convert_time_display(time_str: str) -> str:
-        """将 HH-MM 转换为 HH:MM"""
+        """Chuyển đổi HH-MM thành HH:MM"""
         return convert_time_for_display(time_str)
 
-    # === 存储操作 ===
+    # === Thao tác lưu trữ ===
 
     def get_storage_manager(self):
-        """获取存储管理器（延迟初始化，单例）"""
+        """Lấy trình quản lý lưu trữ (khởi tạo trễ, singleton)"""
         if self._storage_manager is None:
             storage_config = self.config.get("STORAGE", {})
             remote_config = storage_config.get("REMOTE", {})
@@ -208,35 +208,35 @@ class AppContext:
         return self._storage_manager
 
     def get_output_path(self, subfolder: str, filename: str) -> str:
-        """获取输出路径（扁平化结构：output/类型/日期/文件名）"""
+        """Lấy đường dẫn đầu ra (cấu trúc phẳng: output/loại/ngày/tên_tệp)"""
         output_dir = Path("output") / subfolder / self.format_date()
         output_dir.mkdir(parents=True, exist_ok=True)
         return str(output_dir / filename)
 
-    # === 数据处理 ===
+    # === Xử lý dữ liệu ===
 
     def read_today_titles(
         self, platform_ids: Optional[List[str]] = None, quiet: bool = False
     ) -> Tuple[Dict, Dict, Dict]:
-        """读取当天所有标题"""
+        """Đọc tất cả tiêu đề trong ngày"""
         return read_all_today_titles(self.get_storage_manager(), platform_ids, quiet=quiet)
 
     def detect_new_titles(
         self, platform_ids: Optional[List[str]] = None, quiet: bool = False
     ) -> Dict:
-        """检测最新批次的新增标题"""
+        """Phát hiện các tiêu đề mới thêm của đợt mới nhất"""
         return detect_latest_new_titles(self.get_storage_manager(), platform_ids, quiet=quiet)
 
     def is_first_crawl(self) -> bool:
-        """检测是否是当天第一次爬取"""
+        """Kiểm tra xem có phải là lần thu thập dữ liệu đầu tiên trong ngày hay không"""
         return self.get_storage_manager().is_first_crawl_today()
 
-    # === 频率词处理 ===
+    # === Xử lý từ tần suất ===
 
     def load_frequency_words(
         self, frequency_file: Optional[str] = None
     ) -> Tuple[List[Dict], List[str], List[str]]:
-        """加载频率词配置"""
+        """Tải cấu hình từ tần suất"""
         return load_frequency_words(frequency_file)
 
     def matches_word_groups(
@@ -246,10 +246,10 @@ class AppContext:
         filter_words: List[str],
         global_filters: Optional[List[str]] = None,
     ) -> bool:
-        """检查标题是否匹配词组规则"""
+        """Kiểm tra xem tiêu đề có khớp với quy tắc cụm từ không"""
         return matches_word_groups(title, word_groups, filter_words, global_filters)
 
-    # === 统计分析 ===
+    # === Phân tích thống kê ===
 
     def count_frequency(
         self,
@@ -263,7 +263,7 @@ class AppContext:
         global_filters: Optional[List[str]] = None,
         quiet: bool = False,
     ) -> Tuple[List[Dict], int]:
-        """统计词频"""
+        """Thống kê tần suất từ"""
         return count_word_frequency(
             results=results,
             word_groups=word_groups,
@@ -282,7 +282,7 @@ class AppContext:
             quiet=quiet,
         )
 
-    # === 报告生成 ===
+    # === Tạo báo cáo ===
 
     def prepare_report(
         self,
@@ -293,7 +293,7 @@ class AppContext:
         mode: str = "daily",
         frequency_file: Optional[str] = None,
     ) -> Dict:
-        """准备报告数据"""
+        """Chuẩn bị dữ liệu báo cáo"""
         return prepare_report_data(
             stats=stats,
             failed_ids=failed_ids,
@@ -322,7 +322,7 @@ class AppContext:
         frequency_file: Optional[str] = None,
         report_metadata: Optional[Dict] = None,
     ) -> str:
-        """生成HTML报告"""
+        """Tạo báo cáo HTML"""
         return generate_html_report(
             stats=stats,
             total_titles=total_titles,
@@ -352,7 +352,7 @@ class AppContext:
         ai_analysis: Optional[Any] = None,
         standalone_data: Optional[Dict] = None,
     ) -> str:
-        """渲染HTML内容"""
+        """Render nội dung HTML"""
         return render_html_content(
             report_data=report_data,
             total_titles=total_titles,
@@ -368,7 +368,7 @@ class AppContext:
             standalone_data=standalone_data,
         )
 
-    # === 通知内容渲染 ===
+    # === Render nội dung thông báo ===
 
     def render_feishu(
         self,
@@ -376,7 +376,7 @@ class AppContext:
         update_info: Optional[Dict] = None,
         mode: str = "daily",
     ) -> str:
-        """渲染飞书内容"""
+        """Render nội dung Feishu"""
         return render_feishu_content(
             report_data=report_data,
             update_info=update_info,
@@ -393,7 +393,7 @@ class AppContext:
         update_info: Optional[Dict] = None,
         mode: str = "daily",
     ) -> str:
-        """渲染钉钉内容"""
+        """Render nội dung DingTalk"""
         return render_dingtalk_content(
             report_data=report_data,
             update_info=update_info,
@@ -415,25 +415,25 @@ class AppContext:
         ai_content: Optional[str] = None,
         standalone_data: Optional[Dict] = None,
         ai_stats: Optional[Dict] = None,
-        report_type: str = "热点分析报告",
+        report_type: str = "Báo cáo phân tích điểm nóng",
     ) -> List[str]:
-        """分批处理消息内容（支持热榜+RSS合并+AI分析+独立展示区）
+        """Xử lý nội dung tin nhắn theo lô (hỗ trợ danh sách hot + gộp RSS + phân tích AI + khu vực hiển thị độc lập)
 
         Args:
-            report_data: 报告数据
-            format_type: 格式类型
-            update_info: Cập nhật信息
-            max_bytes: 最大字节数
-            mode: 报告模式
-            rss_items: RSS 统计条目列表
-            rss_new_items: RSS 新增条目列表
-            ai_content: AI 分析内容（已渲染的字符串）
-            standalone_data: 独立展示区数据
-            ai_stats: AI 分析统计数据
-            report_type: 报告类型
+            report_data: Dữ liệu báo cáo
+            format_type: Loại định dạng
+            update_info: Thông tin cập nhật
+            max_bytes: Số byte tối đa
+            mode: Chế độ báo cáo
+            rss_items: Danh sách mục thống kê RSS
+            rss_new_items: Danh sách mục RSS mới thêm
+            ai_content: Nội dung phân tích AI (chuỗi đã render)
+            standalone_data: Dữ liệu khu vực hiển thị độc lập
+            ai_stats: Dữ liệu thống kê phân tích AI
+            report_type: Loại báo cáo
 
         Returns:
-            分批后的消息内容列表
+            Danh sách nội dung tin nhắn sau khi chia lô
         """
         return split_content_into_batches(
             report_data=report_data,
@@ -461,11 +461,11 @@ class AppContext:
             show_new_section=self.show_new_section,
         )
 
-    # === 通知发送 ===
+    # === Gửi thông báo ===
 
     def create_notification_dispatcher(self) -> NotificationDispatcher:
-        """创建通知调度器"""
-        # 创建翻译器（如果启用）
+        """Tạo bộ lập lịch thông báo"""
+        # Tạo trình dịch (nếu được bật)
         translator = None
         trans_config = self.config.get("AI_TRANSLATION", {})
         if trans_config.get("ENABLED", False):
@@ -481,9 +481,9 @@ class AppContext:
 
     def create_scheduler(self) -> Scheduler:
         """
-        创建调度器（延迟初始化，单例）
+        Tạo bộ lập lịch (khởi tạo trễ, singleton)
 
-        基于 config.yaml 的 schedule 段 + timeline.yaml 构建。
+        Xây dựng dựa trên phần schedule của config.yaml + timeline.yaml.
         """
         if self._scheduler is None:
             schedule_config = self.config.get("SCHEDULE", {})
@@ -498,11 +498,11 @@ class AppContext:
             )
         return self._scheduler
 
-    # === AI 智能筛选 ===
+    # === Lọc thông minh AI ===
 
     @staticmethod
     def _with_ordered_priorities(tags: List[Dict], start_priority: int = 1) -> List[Dict]:
-        """按当前列表顺序补齐优先级（值越小优先级越高）"""
+        """Bổ sung độ ưu tiên theo thứ tự danh sách hiện tại (giá trị càng nhỏ độ ưu tiên càng cao)"""
         normalized: List[Dict] = []
         priority = start_priority
         for tag_data in tags:
@@ -520,20 +520,20 @@ class AppContext:
 
     def run_ai_filter(self, interests_file: Optional[str] = None) -> Optional[AIFilterResult]:
         """
-        执行 AI 智能筛选完整流程
+        Thực thi toàn bộ quy trình lọc thông minh AI
 
         Args:
-            interests_file: 兴趣描述文件名（位于 config/custom/ai/），None=使用默认 config/ai_interests.txt
+            interests_file: Tên tệp mô tả sở thích (nằm ở config/custom/ai/), None=sử dụng mặc định config/ai_interests.txt
 
-        1. 读取兴趣描述文件，计算 hash
-        2. 对比数据库 prompt_hash，决定是否重新提取标签
-        3. 收集待分类新闻（去重）
-        4. 按 batch_size 分组调用 AI 分类
-        5. 保存结果
-        6. 查询 active 结果，按标签分组返回
+        1. Đọc tệp mô tả sở thích, tính toán hash
+        2. So sánh prompt_hash trong cơ sở dữ liệu, quyết định xem có trích xuất lại thẻ hay không
+        3. Thu thập tin tức chờ phân loại (loại bỏ trùng lặp)
+        4. Gọi phân loại AI theo nhóm batch_size
+        5. Lưu kết quả
+        6. Truy vấn kết quả active, nhóm theo nhãn và trả về
 
         Returns:
-            AIFilterResult 或 None（未启用或出错）
+            AIFilterResult hoặc None (chưa bật hoặc có lỗi)
         """
         if not self.ai_filter_enabled:
             return None
@@ -542,78 +542,78 @@ class AppContext:
         ai_config = self.config.get("AI", {})
         debug = self.config.get("DEBUG", False)
 
-        # 创建 AIFilter 实例
+        # Tạo instance AIFilter
         ai_filter = AIFilter(ai_config, filter_config, self.get_time, debug)
 
-        # 确定实际使用的兴趣文件名
-        # None = 使用默认 config/ai_interests.txt，指定文件名 = config/custom/ai/{name}
+        # Xác định tên tệp sở thích thực tế được sử dụng
+        # None = Sử dụng mặc định config/ai_interests.txt, chỉ định tên tệp = config/custom/ai/{name}
         configured_interests = interests_file or filter_config.get("INTERESTS_FILE")
         effective_interests_file = configured_interests or "ai_interests.txt"
 
         if debug:
-            print(f"[AI筛选][DEBUG] === 配置信息 ===")
-            print(f"[AI筛选][DEBUG] 存储后端: {self.get_storage_manager().backend_name}")
-            print(f"[AI筛选][DEBUG] batch_size={filter_config.get('BATCH_SIZE', 200)}, "
+            print(f"[Lọc AI][DEBUG] === Thông tin cấu hình ===")
+            print(f"[Lọc AI][DEBUG] Backend lưu trữ: {self.get_storage_manager().backend_name}")
+            print(f"[Lọc AI][DEBUG] batch_size={filter_config.get('BATCH_SIZE', 200)}, "
                   f"batch_interval={filter_config.get('BATCH_INTERVAL', 5)}")
-            print(f"[AI筛选][DEBUG] interests_file={effective_interests_file}")
-            print(f"[AI筛选][DEBUG] prompt_file={filter_config.get('PROMPT_FILE', 'prompt.txt')}")
-            print(f"[AI筛选][DEBUG] extract_prompt_file={filter_config.get('EXTRACT_PROMPT_FILE', 'extract_prompt.txt')}")
+            print(f"[Lọc AI][DEBUG] interests_file={effective_interests_file}")
+            print(f"[Lọc AI][DEBUG] prompt_file={filter_config.get('PROMPT_FILE', 'prompt.txt')}")
+            print(f"[Lọc AI][DEBUG] extract_prompt_file={filter_config.get('EXTRACT_PROMPT_FILE', 'extract_prompt.txt')}")
 
-        # 1. 读取兴趣描述
-        # 传 configured_interests（可能为 None）给 load_interests_content，
-        # 让它区分"默认文件(config/ai_interests.txt)"和"自定义文件(config/custom/ai/)"
+        # 1. Đọc mô tả sở thích
+        # Truyền configured_interests (có thể là None) cho load_interests_content,
+        # Để nó phân biệt "tệp mặc định (config/ai_interests.txt)" và "tệp tùy chỉnh (config/custom/ai/)"
         interests_content = ai_filter.load_interests_content(configured_interests)
         if not interests_content:
-            return AIFilterResult(success=False, error="兴趣描述文件为空或不存在")
+            return AIFilterResult(success=False, error="Tệp mô tả sở thích trống hoặc không tồn tại")
 
         current_hash = ai_filter.compute_interests_hash(interests_content, effective_interests_file)
         storage = self.get_storage_manager()
 
         if debug:
-            print(f"[AI筛选][DEBUG] 兴趣描述 hash: {current_hash}")
-            print(f"[AI筛选][DEBUG] 兴趣描述内容 ({len(interests_content)} 字符):\n{interests_content}")
+            print(f"[Lọc AI][DEBUG] Hash mô tả sở thích: {current_hash}")
+            print(f"[Lọc AI][DEBUG] Nội dung mô tả sở thích ({len(interests_content)} ký tự):\n{interests_content}")
 
-        # 2. 开启批量模式（远程后端延迟上传，所有写操作完成后统一上传）
+        # 2. Bật chế độ hàng loạt (backend từ xa trì hoãn tải lên, tải lên đồng loạt sau khi hoàn tất mọi thao tác ghi)
         storage.begin_batch()
 
-        # 3. 检查提示词是否变更
+        # 3. Kiểm tra xem prompt có thay đổi không
         stored_hash = storage.get_latest_prompt_hash(interests_file=effective_interests_file)
 
         if debug:
-            print(f"[AI筛选][DEBUG] 数据库存储 hash: {stored_hash}")
-            print(f"[AI筛选][DEBUG] hash 对比: stored={stored_hash} vs current={current_hash} → {'匹配' if stored_hash == current_hash else '不匹配'}")
+            print(f"[Lọc AI][DEBUG] Hash lưu trữ cơ sở dữ liệu: {stored_hash}")
+            print(f"[Lọc AI][DEBUG] so sánh hash: stored={stored_hash} vs current={current_hash} → {'Khớp' if stored_hash == current_hash else 'Không khớp'}")
 
         if stored_hash != current_hash:
             new_version = storage.get_latest_ai_filter_tag_version() + 1
             threshold = filter_config.get("RECLASSIFY_THRESHOLD", 0.6)
 
             if stored_hash is None:
-                # 首次运行，直接提取并保存全部标签
-                print(f"[AI筛选] 首次运行 ({effective_interests_file})，提取标签...")
+                # Chạy lần đầu, trực tiếp trích xuất và lưu tất cả các thẻ
+                print(f"[Lọc AI] Chạy lần đầu ({effective_interests_file}), trích xuất thẻ...")
                 tags_data = ai_filter.extract_tags(interests_content)
                 if not tags_data:
                     storage.end_batch()
-                    return AIFilterResult(success=False, error="标签提取失败")
+                    return AIFilterResult(success=False, error="Trích xuất thẻ thất bại")
                 tags_data = self._with_ordered_priorities(tags_data, start_priority=1)
                 saved_count = storage.save_ai_filter_tags(tags_data, new_version, current_hash, interests_file=effective_interests_file)
-                print(f"[AI筛选] 已保存 {saved_count} 个标签 (版本 {new_version})")
+                print(f"[Lọc AI] Đã lưu {saved_count} thẻ (phiên bản {new_version})")
             else:
-                # 兴趣描述已变更，让 AI 对比旧标签和新兴趣，给出Cập nhật方案
+                # Mô tả sở thích đã thay đổi, để AI so sánh thẻ cũ và sở thích mới, đưa ra phương án Cập nhật
                 old_tags = storage.get_active_ai_filter_tags(interests_file=effective_interests_file)
                 update_result = ai_filter.update_tags(old_tags, interests_content)
 
                 if update_result is None:
-                    # AI 标签Cập nhật失败，回退到重新提取全部标签
-                    print(f"[AI筛选] AI 标签Cập nhật失败，回退到重新提取")
+                    # AI Cập nhật thẻ thất bại, quay lại trích xuất lại tất cả các thẻ
+                    print(f"[Lọc AI] AI Cập nhật thẻ thất bại, quay lại trích xuất lại")
                     tags_data = ai_filter.extract_tags(interests_content)
                     if not tags_data:
                         storage.end_batch()
-                        return AIFilterResult(success=False, error="标签提取失败")
+                        return AIFilterResult(success=False, error="Trích xuất thẻ thất bại")
                     tags_data = self._with_ordered_priorities(tags_data, start_priority=1)
                     deprecated_count = storage.deprecate_all_ai_filter_tags(interests_file=effective_interests_file)
                     storage.clear_analyzed_news(interests_file=effective_interests_file)
                     saved_count = storage.save_ai_filter_tags(tags_data, new_version, current_hash, interests_file=effective_interests_file)
-                    print(f"[AI筛选] 废弃 {deprecated_count} 个旧标签, 保存 {saved_count} 个新标签 (版本 {new_version})")
+                    print(f"[Lọc AI] Loại bỏ {deprecated_count} thẻ cũ, lưu {saved_count} thẻ mới (phiên bản {new_version})")
                 else:
                     change_ratio = update_result["change_ratio"]
                     keep_tags = update_result["keep"]
@@ -621,91 +621,91 @@ class AppContext:
                     remove_tags = update_result["remove"]
 
                     if debug:
-                        print(f"[AI筛选][DEBUG] AI 标签Cập nhật: keep={len(keep_tags)}, add={len(add_tags)}, remove={len(remove_tags)}, change_ratio={change_ratio:.2f}, threshold={threshold:.2f}")
+                        print(f"[Lọc AI][DEBUG] AI Cập nhật thẻ: keep={len(keep_tags)}, add={len(add_tags)}, remove={len(remove_tags)}, change_ratio={change_ratio:.2f}, threshold={threshold:.2f}")
 
                     if change_ratio >= threshold:
-                        # 全量重分类：废弃所有旧标签，用 extract_tags 重新提取
-                        print(f"[AI筛选] 兴趣文件变更: {effective_interests_file} (AI change_ratio={change_ratio:.2f} >= threshold={threshold:.2f} → 全量重分类)")
+                        # Phân loại lại toàn bộ: loại bỏ tất cả thẻ cũ, dùng extract_tags để trích xuất lại
+                        print(f"[Lọc AI] Tệp sở thích thay đổi: {effective_interests_file} (AI change_ratio={change_ratio:.2f} >= threshold={threshold:.2f} → Phân loại lại toàn bộ)")
                         tags_data = ai_filter.extract_tags(interests_content)
                         if not tags_data:
                             storage.end_batch()
-                            return AIFilterResult(success=False, error="标签提取失败")
+                            return AIFilterResult(success=False, error="Trích xuất thẻ thất bại")
                         tags_data = self._with_ordered_priorities(tags_data, start_priority=1)
                         deprecated_count = storage.deprecate_all_ai_filter_tags(interests_file=effective_interests_file)
                         storage.clear_analyzed_news(interests_file=effective_interests_file)
                         saved_count = storage.save_ai_filter_tags(tags_data, new_version, current_hash, interests_file=effective_interests_file)
-                        print(f"[AI筛选] 废弃 {deprecated_count} 个旧标签, 保存 {saved_count} 个新标签 (版本 {new_version})")
+                        print(f"[Lọc AI] Loại bỏ {deprecated_count} thẻ cũ, lưu {saved_count} thẻ mới (phiên bản {new_version})")
                     else:
-                        # Cập nhật thêm：按 AI 指示操作
-                        print(f"[AI筛选] 兴趣文件变更: {effective_interests_file} (AI change_ratio={change_ratio:.2f} < threshold={threshold:.2f} → Cập nhật thêm)")
-                        print(f"[AI筛选]   保留 {len(keep_tags)} 个标签, 新增 {len(add_tags)} 个, 废弃 {len(remove_tags)} 个")
+                        # Cập nhật thêm: thao tác theo chỉ thị của AI
+                        print(f"[Lọc AI] Tệp sở thích thay đổi: {effective_interests_file} (AI change_ratio={change_ratio:.2f} < threshold={threshold:.2f} → Cập nhật thêm)")
+                        print(f"[Lọc AI]   Giữ lại {len(keep_tags)} thẻ, thêm mới {len(add_tags)} thẻ, loại bỏ {len(remove_tags)} thẻ")
 
-                        # 废弃 AI 标记移除的标签
+                        # Loại bỏ các thẻ được AI đánh dấu xóa
                         if remove_tags:
                             remove_set = set(remove_tags)
                             removed_ids = [t["id"] for t in old_tags if t["tag"] in remove_set]
                             if removed_ids:
                                 storage.deprecate_specific_ai_filter_tags(removed_ids)
                                 if debug:
-                                    print(f"[AI筛选][DEBUG] 废弃标签 IDs: {removed_ids}")
+                                    print(f"[Lọc AI][DEBUG] IDs thẻ bị loại bỏ: {removed_ids}")
 
-                        # Cập nhật保留标签的描述
+                        # Cập nhật mô tả của các thẻ được giữ lại
                         keep_with_priority = []
                         if keep_tags:
                             storage.update_ai_filter_tag_descriptions(keep_tags, interests_file=effective_interests_file)
                             keep_with_priority = self._with_ordered_priorities(keep_tags, start_priority=1)
                             storage.update_ai_filter_tag_priorities(keep_with_priority, interests_file=effective_interests_file)
 
-                        # 保存新增标签
+                        # Lưu các thẻ mới thêm
                         if add_tags:
                             add_start = keep_with_priority[-1]["priority"] + 1 if keep_with_priority else 1
                             add_with_priority = self._with_ordered_priorities(add_tags, start_priority=add_start)
                             saved_count = storage.save_ai_filter_tags(add_with_priority, new_version, current_hash, interests_file=effective_interests_file)
                             if debug:
-                                print(f"[AI筛选][DEBUG] 新增保存 {saved_count} 个标签")
+                                print(f"[Lọc AI][DEBUG] Đã lưu thêm {saved_count} thẻ")
 
-                        # Cập nhật保留标签的 hash（标记为已处理）
+                        # Cập nhật hash của các thẻ được giữ lại (đánh dấu là đã xử lý)
                         storage.update_ai_filter_tags_hash(effective_interests_file, current_hash)
 
-                        # Cập nhật thêm：清除不匹配新闻的分析记录，让它们有机会被新标签集重新分析
+                        # Cập nhật thêm: xóa bản ghi phân tích của các tin tức không khớp, để chúng có cơ hội được phân tích lại bởi tập thẻ mới
                         if add_tags:
                             cleared = storage.clear_unmatched_analyzed_news(interests_file=effective_interests_file)
                             if cleared > 0:
-                                print(f"[AI筛选]   清除 {cleared} 条不匹配记录，将在新标签下重新分析")
+                                print(f"[Lọc AI]   Đã xóa {cleared} bản ghi không khớp, sẽ được phân tích lại dưới các thẻ mới")
 
-        # 3. 获取当前 active 标签
+        # 3. Lấy các thẻ active hiện tại
         active_tags = storage.get_active_ai_filter_tags(interests_file=effective_interests_file)
         if debug:
-            print(f"[AI筛选][DEBUG] 从数据库获取 active 标签: {len(active_tags)} 个")
+            print(f"[Lọc AI][DEBUG] Lấy các thẻ active từ cơ sở dữ liệu: {len(active_tags)} thẻ")
             for t in active_tags:
-                print(f"[AI筛选][DEBUG]   id={t['id']} tag={t['tag']} priority={t.get('priority', 9999)} version={t.get('version')} hash={t.get('prompt_hash', '')[:8]}...")
+                print(f"[Lọc AI][DEBUG]   id={t['id']} tag={t['tag']} priority={t.get('priority', 9999)} version={t.get('version')} hash={t.get('prompt_hash', '')[:8]}...")
 
         if not active_tags:
             storage.end_batch()
-            return AIFilterResult(success=False, error="没有可用的标签")
+            return AIFilterResult(success=False, error="Không có thẻ nào khả dụng")
 
-        print(f"[AI筛选] 使用 {len(active_tags)} 个标签")
+        print(f"[Lọc AI] Sử dụng {len(active_tags)} thẻ")
 
-        # 4. 收集待分类新闻
-        # 热榜
+        # 4. Thu thập tin tức chờ phân loại
+        # Danh sách hot
         all_news = storage.get_all_news_ids()
         analyzed_hotlist = storage.get_analyzed_news_ids("hotlist", interests_file=effective_interests_file)
         pending_news = [n for n in all_news if n["id"] not in analyzed_hotlist]
 
-        # RSS（先做新鲜度过滤，再去除已分类的）
+        # RSS (lọc theo độ mới trước, sau đó loại bỏ những tin đã phân loại)
         pending_rss = []
         freshness_filtered_rss = 0
         if self.rss_enabled:
             all_rss = storage.get_all_rss_ids()
 
-            # 应用新鲜度过滤（与推送阶段一致）
+            # Áp dụng lọc theo độ mới (giống với giai đoạn đẩy)
             rss_config = self.rss_config
             freshness_config = rss_config.get("FRESHNESS_FILTER", {})
             freshness_enabled = freshness_config.get("ENABLED", True)
             default_max_age_days = freshness_config.get("MAX_AGE_DAYS", 3)
             timezone = self.config.get("TIMEZONE", DEFAULT_TIMEZONE)
 
-            # 构建 feed_id -> max_age_days 的映射
+            # Xây dựng ánh xạ feed_id -> max_age_days
             feed_max_age_map = {}
             for feed_cfg in self.rss_feeds:
                 feed_id = feed_cfg.get("id", "")
@@ -730,33 +730,33 @@ class AppContext:
             analyzed_rss = storage.get_analyzed_news_ids("rss", interests_file=effective_interests_file)
             pending_rss = [n for n in fresh_rss if n["id"] not in analyzed_rss]
 
-        # 始终打印总量/已分析/待分析 的详细数据
+        # Luôn in dữ liệu chi tiết về tổng số/đã phân tích/chờ phân tích
         hotlist_total = len(all_news)
         hotlist_skipped = len(analyzed_hotlist)
         hotlist_pending = len(pending_news)
-        print(f"[AI筛选] 热榜: 总计 {hotlist_total} 条, 已分析跳过 {hotlist_skipped} 条, 本次发送AI分析 {hotlist_pending} 条")
+        print(f"[Lọc AI] Danh sách hot: Tổng cộng {hotlist_total} tin, đã phân tích bỏ qua {hotlist_skipped} tin, gửi phân tích AI lần này {hotlist_pending} tin")
         if self.rss_enabled:
             rss_total = len(all_rss)
             rss_skipped = len(analyzed_rss)
             rss_pending = len(pending_rss)
-            freshness_info = f", 新鲜度过滤 {freshness_filtered_rss} 条" if freshness_filtered_rss > 0 else ""
-            print(f"[AI筛选] RSS: 总计 {rss_total} 条{freshness_info}, 已分析跳过 {rss_skipped} 条, 本次发送AI分析 {rss_pending} 条")
+            freshness_info = f", lọc theo độ mới {freshness_filtered_rss} tin" if freshness_filtered_rss > 0 else ""
+            print(f"[Lọc AI] RSS: Tổng cộng {rss_total} tin{freshness_info}, đã phân tích bỏ qua {rss_skipped} tin, gửi phân tích AI lần này {rss_pending} tin")
 
         total_pending = len(pending_news) + len(pending_rss)
         if total_pending == 0:
-            print("[AI筛选] 没有新增新闻需要分类")
+            print("[AI Lọc] Không có tin tức mới nào cần phân loại")
 
-        # 5. 批量分类
+        # 5. Phân loại hàng loạt
         batch_size = filter_config.get("BATCH_SIZE", 200)
         batch_interval = filter_config.get("BATCH_INTERVAL", 5)
         total_results = []
-        batch_count = 0  # 跨热榜和 RSS 的全局批次计数
+        batch_count = 0  # Đếm số batch toàn cục qua hot trend và RSS
 
-        # 处理热榜
+        # Xử lý hot trend
         for i in range(0, len(pending_news), batch_size):
             if batch_count > 0 and batch_interval > 0:
                 import time
-                print(f"[AI筛选] 批次间隔等待 {batch_interval} 秒...")
+                print(f"[AI Lọc] Khoảng thời gian chờ giữa các batch là {batch_interval} giây...")
                 time.sleep(batch_interval)
             batch = pending_news[i:i + batch_size]
             titles_for_ai = [
@@ -768,13 +768,13 @@ class AppContext:
                 r["source_type"] = "hotlist"
             total_results.extend(batch_results)
             batch_count += 1
-            print(f"[AI筛选] 热榜批次 {i // batch_size + 1}: {len(batch)} 条 → {len(batch_results)} 条匹配")
+            print(f"[AI Lọc] Batch hot trend {i // batch_size + 1}: {len(batch)} mục → {len(batch_results)} mục khớp")
 
-        # 处理 RSS
+        # Xử lý RSS
         for i in range(0, len(pending_rss), batch_size):
             if batch_count > 0 and batch_interval > 0:
                 import time
-                print(f"[AI筛选] 批次间隔等待 {batch_interval} 秒...")
+                print(f"[AI Lọc] Khoảng thời gian chờ giữa các batch là {batch_interval} giây...")
                 time.sleep(batch_interval)
             batch = pending_rss[i:i + batch_size]
             titles_for_ai = [
@@ -786,16 +786,16 @@ class AppContext:
                 r["source_type"] = "rss"
             total_results.extend(batch_results)
             batch_count += 1
-            print(f"[AI筛选] RSS 批次 {i // batch_size + 1}: {len(batch)} 条 → {len(batch_results)} 条匹配")
+            print(f"[AI Lọc] Batch RSS {i // batch_size + 1}: {len(batch)} mục → {len(batch_results)} mục khớp")
 
-        # 6. 保存结果
+        # 6. Lưu kết quả
         if total_results:
             saved = storage.save_ai_filter_results(total_results)
-            print(f"[AI筛选] 保存 {saved} 条分类结果")
+            print(f"[AI Lọc] Lưu {saved} kết quả phân loại")
             if debug and saved != len(total_results):
-                print(f"[AI筛选][DEBUG] !! 保存数量不一致: 期望 {len(total_results)}, 实际 {saved}（可能有重复记录被跳过）")
+                print(f"[AI Lọc][DEBUG] !! Số lượng lưu không khớp: mong đợi {len(total_results)}, thực tế {saved} (có thể các bản ghi trùng lặp đã bị bỏ qua)")
 
-        # 6.5 记录所有已分析的新闻（匹配+不匹配，用于去重）
+        # 6.5 Ghi lại tất cả tin tức đã phân tích (khớp + không khớp, dùng để loại bỏ trùng lặp)
         matched_hotlist_ids = {r["news_item_id"] for r in total_results if r.get("source_type") == "hotlist"}
         matched_rss_ids = {r["news_item_id"] for r in total_results if r.get("source_type") == "rss"}
 
@@ -816,18 +816,18 @@ class AppContext:
         if pending_news or pending_rss:
             total_analyzed = len(pending_news) + len(pending_rss)
             total_matched = len(matched_hotlist_ids) + len(matched_rss_ids)
-            print(f"[AI筛选] 已记录 {total_analyzed} 条新闻分析状态 (匹配 {total_matched}, 不匹配 {total_analyzed - total_matched})")
+            print(f"[AI Lọc] Đã ghi lại trạng thái phân tích của {total_analyzed} tin tức (khớp {total_matched}, không khớp {total_analyzed - total_matched})")
 
-        # 7. 结束批量模式（统一上传数据库到远程存储）
+        # 7. Kết thúc chế độ hàng loạt (tải đồng loạt cơ sở dữ liệu lên lưu trữ từ xa)
         storage.end_batch()
 
-        # 8. 查询并组装返回结果
+        # 8. Truy vấn và lắp ráp kết quả trả về
         all_results = storage.get_active_ai_filter_results(interests_file=effective_interests_file)
 
         if debug:
-            print(f"[AI筛选][DEBUG] === 最终汇总 ===")
-            print(f"[AI筛选][DEBUG] 数据库 active 分类结果: {len(all_results)} 条")
-            # 按标签统计
+            print(f"[AI Lọc][DEBUG] === Tổng hợp cuối cùng ===")
+            print(f"[AI Lọc][DEBUG] Kết quả phân loại active trong cơ sở dữ liệu: {len(all_results)} mục")
+            # Thống kê theo thẻ
             tag_counts: dict = {}
             for r in all_results:
                 tag_name = r.get("tag", "?")
@@ -835,7 +835,7 @@ class AppContext:
                 key = f"{tag_name}({src_type})"
                 tag_counts[key] = tag_counts.get(key, 0) + 1
             for key, count in sorted(tag_counts.items()):
-                print(f"[AI筛选][DEBUG]   {key}: {count} 条")
+                print(f"[AI Lọc][DEBUG]   {key}: {count} mục")
 
         return self._build_filter_result(all_results, active_tags, total_pending)
 
@@ -845,7 +845,7 @@ class AppContext:
         tags: List[Dict],
         total_processed: int,
     ) -> AIFilterResult:
-        """将数据库查询结果组装为 AIFilterResult"""
+        """Lắp ráp kết quả truy vấn cơ sở dữ liệu thành AIFilterResult"""
         priority_sort_enabled = self.ai_priority_sort_enabled
         tag_priority_map = {}
         for idx, t in enumerate(tags, start=1):
@@ -857,9 +857,9 @@ class AppContext:
             except (TypeError, ValueError):
                 tag_priority_map[tag_name] = idx
 
-        # 按标签分组
+        # Nhóm theo thẻ
         tag_groups: Dict[str, Dict] = {}
-        seen_titles: Dict[str, set] = {}  # 每个标签下去重
+        seen_titles: Dict[str, set] = {}  # Loại bỏ trùng lặp dưới mỗi thẻ
 
         for r in raw_results:
             tag_name = r["tag"]
@@ -899,7 +899,7 @@ class AppContext:
             })
             tag_groups[tag_name]["count"] += 1
 
-        # 根据配置排序：位置优先 / 数量优先
+        # Sắp xếp theo cấu hình: ưu tiên vị trí / ưu tiên số lượng
         if priority_sort_enabled:
             sorted_tags = sorted(
                 tag_groups.values(),
@@ -928,30 +928,30 @@ class AppContext:
         rss_new_urls: Optional[set] = None,
     ) -> tuple:
         """
-        将 AI 筛选结果转换为与关键词匹配相同的数据结构
+        Chuyển đổi kết quả lọc AI thành cấu trúc dữ liệu giống với khớp từ khóa
 
-        AIFilterResult.tags 中每个 tag 对应一个 "word"（关键词组）。
-        tag.items 中 source_type="hotlist" 的条目进入热榜 stats，
-        source_type="rss" 的条目进入 rss_items stats。
+        Mỗi tag trong AIFilterResult.tags tương ứng với một "word" (nhóm từ khóa).
+        Các mục có source_type="hotlist" trong tag.items sẽ vào stats của hotlist,
+        Các mục có source_type="rss" sẽ vào stats của rss_items.
 
         Args:
-            ai_filter_result: AI 筛选结果
-            mode: 报告模式 ("daily" | "current" | "incremental")
-            new_titles: 热榜新增标题 {source_id: {title: data}}，用于 is_new 检测
-            rss_new_urls: 新增 RSS 条目的 URL 集合，用于 is_new 检测
+            ai_filter_result: Kết quả lọc AI
+            mode: Chế độ báo cáo ("daily" | "current" | "incremental")
+            new_titles: Tiêu đề mới thêm vào hotlist {source_id: {title: data}}, dùng để kiểm tra is_new
+            rss_new_urls: Tập hợp URL của các mục RSS mới thêm, dùng để kiểm tra is_new
 
         Returns:
             (hotlist_stats, rss_stats):
-            - hotlist_stats: 与 count_word_frequency() 产出格式一致
-            - rss_stats: 与 rss_items 格式一致
+            - hotlist_stats: Định dạng đầu ra giống với count_word_frequency()
+            - rss_stats: Định dạng giống với rss_items
         """
         hotlist_stats = []
         rss_stats = []
         max_news = self.config.get("MAX_NEWS_PER_KEYWORD", 0)
         min_score = self.ai_filter_config.get("MIN_SCORE", 0)
 
-        # current 模式：计算最新时间，只保留当前在榜的热榜新闻
-        # 与 count_word_frequency(mode="current") 的过滤逻辑对齐
+        # Chế độ current: tính toán thời gian mới nhất, chỉ giữ lại các tin tức hiện đang trên hotlist
+        # Căn chỉnh với logic lọc của count_word_frequency(mode="current")
         latest_time = None
         if mode == "current":
             for tag_data in ai_filter_result.tags:
@@ -961,9 +961,9 @@ class AppContext:
                         if last_time and (latest_time is None or last_time > latest_time):
                             latest_time = last_time
             if latest_time:
-                print(f"[AI筛选] current 模式：最新时间 {latest_time}，过滤已下榜新闻")
+                print(f"[Lọc AI] Chế độ current: thời gian mới nhất {latest_time}, lọc các tin tức đã rớt khỏi hotlist")
 
-        # RSS 新鲜度过滤配置（与推送阶段一致）
+        # Cấu hình lọc độ mới của RSS (giống với giai đoạn push)
         rss_config = self.rss_config
         freshness_config = rss_config.get("FRESHNESS_FILTER", {})
         freshness_enabled = freshness_config.get("ENABLED", True)
@@ -993,36 +993,36 @@ class AppContext:
             for item in items:
                 source_type = item.get("source_type", "hotlist")
 
-                # current 模式：跳过已下榜的热榜新闻
+                # Chế độ current: bỏ qua các tin tức đã rớt khỏi hotlist
                 if mode == "current" and latest_time and source_type == "hotlist":
                     if item.get("last_time", "") != latest_time:
                         filtered_count += 1
                         continue
 
-                # 分数阈值过滤：跳过相关度低于 min_score 的新闻
+                # Lọc theo ngưỡng điểm: bỏ qua các tin tức có độ liên quan thấp hơn min_score
                 if min_score > 0:
                     score = item.get("relevance_score", 0)
                     if score < min_score:
                         continue
 
-                # 构建时间显示
+                # Xây dựng hiển thị thời gian
                 first_time = item.get("first_time", "")
                 last_time = item.get("last_time", "")
                 if source_type == "rss":
-                    # RSS 新鲜度过滤：跳过超过 max_age_days 的旧文章
+                    # Lọc độ mới RSS: Bỏ qua các bài viết cũ vượt quá max_age_days
                     if freshness_enabled and first_time:
                         feed_id = item.get("source_id", "")
                         max_days = feed_max_age_map.get(feed_id, default_max_age_days)
                         if max_days > 0 and not is_within_days(first_time, max_days, timezone):
                             continue
 
-                    # RSS 条目：first_time 是 ISO 格式，用友好格式显示
+                    # Mục RSS: first_time ở định dạng ISO, hiển thị bằng định dạng thân thiện
                     if first_time:
                         time_display = format_iso_time_friendly(first_time, timezone, include_date=True)
                     else:
                         time_display = ""
                 else:
-                    # 热榜条目：使用 [HH:MM ~ HH:MM] 格式（与 keyword 模式一致）
+                    # Mục danh sách hot: Sử dụng định dạng [HH:MM ~ HH:MM] (nhất quán với chế độ keyword)
                     if first_time and last_time and first_time != last_time:
                         first_display = convert_time_for_display(first_time)
                         last_display = convert_time_for_display(last_time)
@@ -1032,7 +1032,7 @@ class AppContext:
                     else:
                         time_display = ""
 
-                # 计算 is_new（与 keyword 模式 core/analyzer.py:335-342 对齐）
+                # Tính toán is_new (căn chỉnh với chế độ keyword core/analyzer.py:335-342)
                 if source_type == "rss":
                     is_new = False
                     if rss_new_urls:
@@ -1046,9 +1046,9 @@ class AppContext:
                         if item_source_id in new_titles:
                             is_new = item_title in new_titles[item_source_id]
 
-                # incremental 模式下仅保留本轮新增命中的条目。
-                # run_ai_filter() 返回的是 active 结果集合，因此这里需要
-                # 显式过滤掉历史已命中的旧条目，才能与 keyword 模式行为对齐。
+                # Trong chế độ incremental, chỉ giữ lại các mục mới trúng đích trong vòng này.
+                # run_ai_filter() trả về tập kết quả active, do đó ở đây cần
+                # lọc bỏ rõ ràng các mục cũ đã trúng đích trong lịch sử để căn chỉnh với hành vi của chế độ keyword.
                 if mode == "incremental" and not is_new:
                     continue
 
@@ -1092,16 +1092,16 @@ class AppContext:
 
         if mode == "current" and filtered_count > 0:
             total_kept = sum(s["count"] for s in hotlist_stats)
-            print(f"[AI筛选] current 模式：过滤 {filtered_count} 条已下榜新闻，保留 {total_kept} 条当前在榜")
+            print(f"[Lọc AI] chế độ current: Đã lọc {filtered_count} tin tức rớt hạng, giữ lại {total_kept} tin tức đang trong bảng xếp hạng")
 
         if min_score > 0:
             hotlist_kept = sum(s["count"] for s in hotlist_stats)
             rss_kept = sum(s["count"] for s in rss_stats)
             total_kept = hotlist_kept + rss_kept
-            parts = [f"热榜 {hotlist_kept} 条"]
+            parts = [f"Danh sách hot {hotlist_kept} mục"]
             if rss_kept > 0:
-                parts.append(f"RSS {rss_kept} 条")
-            print(f"[AI筛选] 分数过滤：min_score={min_score}，保留 {total_kept} 条 score≥{min_score} ({', '.join(parts)})")
+                parts.append(f"RSS {rss_kept} mục")
+            print(f"[Lọc AI] Lọc theo điểm: min_score={min_score}, giữ lại {total_kept} mục có score≥{min_score} ({', '.join(parts)})")
 
         priority_sort_enabled = self.ai_priority_sort_enabled
         if priority_sort_enabled:
@@ -1113,10 +1113,10 @@ class AppContext:
 
         return hotlist_stats, rss_stats
 
-    # === 资源清理 ===
+    # === Dọn dẹp tài nguyên ===
 
     def cleanup(self):
-        """清理资源"""
+        """Dọn dẹp tài nguyên"""
         if self._storage_manager:
             self._storage_manager.cleanup_old_data()
             self._storage_manager.cleanup()

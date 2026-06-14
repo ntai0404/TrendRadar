@@ -1,5 +1,5 @@
 """
-工具类模块
+Tool module
 
-提供参数验证、错误处理等辅助功能。
+Provides auxiliary functions such as parameter verification and error handling.
 """

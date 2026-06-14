@@ -1,32 +1,32 @@
 """
-自定义错误类
+Custom error class
 
-定义MCP Server使用的所有自定义异常类型。
+Define all custom exception types used by MCP Server.
 """
 
 from typing import Optional, List, Callable
 
 
-# ==================== 延迟加载支持的平台列表 ====================
+# ==================== List of supported platforms for lazy loading ====================
 
 _get_supported_platforms: Optional[Callable[[], List[str]]] = None
 
 
 def _load_supported_platforms() -> List[str]:
-    """延迟加载支持的平台列表"""
+    """Lazy loading supported platform list"""
     global _get_supported_platforms
     if _get_supported_platforms is None:
         try:
             from .validators import get_supported_platforms
             _get_supported_platforms = get_supported_platforms
         except ImportError:
-            # 降级：返回空列表
+            # Downgrade: return empty list
             return []
     return _get_supported_platforms()
 
 
 class MCPError(Exception):
-    """MCP工具错误基类"""
+    """MCP Tool Error Base Class"""
 
     def __init__(self, message: str, code: str = "MCP_ERROR", suggestion: Optional[str] = None):
         super().__init__(message)
@@ -35,7 +35,7 @@ class MCPError(Exception):
         self.suggestion = suggestion
 
     def to_dict(self) -> dict:
-        """转换为字典格式"""
+        """Convert to dictionary format"""
         error_dict = {
             "code": self.code,
             "message": self.message
@@ -46,68 +46,68 @@ class MCPError(Exception):
 
 
 class DataNotFoundError(MCPError):
-    """数据不存在错误"""
+    """There is no error in the data"""
 
     def __init__(self, message: str, suggestion: Optional[str] = None):
         super().__init__(
             message=message,
             code="DATA_NOT_FOUND",
-            suggestion=suggestion or "请检查日期范围或等待爬取任务完成"
+            suggestion=suggestion or "Please check the date range or wait for the crawl task to complete"
         )
 
 
 class InvalidParameterError(MCPError):
-    """参数无效错误"""
+    """Invalid parameter error"""
 
     def __init__(self, message: str, suggestion: Optional[str] = None):
         super().__init__(
             message=message,
             code="INVALID_PARAMETER",
-            suggestion=suggestion or "请检查参数格式是否正确"
+            suggestion=suggestion or "Please check whether the parameter format is correct"
         )
 
 
 class ConfigurationError(MCPError):
-    """配置错误"""
+    """Configuration error"""
 
     def __init__(self, message: str, suggestion: Optional[str] = None):
         super().__init__(
             message=message,
             code="CONFIGURATION_ERROR",
-            suggestion=suggestion or "请检查配置文件是否正确"
+            suggestion=suggestion or "Please check whether the configuration file is correct"
         )
 
 
 class PlatformNotSupportedError(MCPError):
-    """平台不支持错误"""
+    """Platform not supported error"""
 
     def __init__(self, platform: str):
         supported = _load_supported_platforms()
-        suggestion = f"支持的平台: {', '.join(supported)}" if supported else "请检查 config/config.yaml 中的平台配置"
+        suggestion = f"Supported platforms: {', '.join(supported)}" if supported else "Please check the platform configuration in config/config.yaml"
         super().__init__(
-            message=f"平台 '{platform}' 不受支持",
+            message=f"Platform '{platform}' is not supported",
             code="PLATFORM_NOT_SUPPORTED",
             suggestion=suggestion
         )
 
 
 class CrawlTaskError(MCPError):
-    """爬取任务错误"""
+    """Crawling task error"""
 
     def __init__(self, message: str, suggestion: Optional[str] = None):
         super().__init__(
             message=message,
             code="CRAWL_TASK_ERROR",
-            suggestion=suggestion or "请稍后重试或查看日志"
+            suggestion=suggestion or "Please try again later or check the log"
         )
 
 
 class FileParseError(MCPError):
-    """文件解析错误"""
+    """File parsing error"""
 
     def __init__(self, file_path: str, reason: str):
         super().__init__(
-            message=f"解析文件 {file_path} 失败: {reason}",
+            message=f"Failed to parse file {file_path}: {reason}",
             code="FILE_PARSE_ERROR",
-            suggestion="请检查文件格式是否正确"
+            suggestion="Please check whether the file format is correct"
         )

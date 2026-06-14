@@ -1,8 +1,8 @@
 # coding=utf-8
 """
-报告辅助函数模块
+Report helper module
 
-提供报告生成相关的通用辅助函数
+Provides general auxiliary functions related to report generation
 """
 
 import re
@@ -10,18 +10,18 @@ from typing import Dict, List, Optional
 
 
 def clean_title(title: str) -> str:
-    """清理标题中的特殊字符
+    """Clean special characters in titles
 
-    清理规则：
-    - 将换行符(\n, \r)替换为空格
-    - 将多个连续空白字符合并为单个空格
-    - 去除首尾空白
+    Cleanup rules:
+    - Replace newlines (\n, \r) with spaces
+    - Combine multiple consecutive whitespace characters into a single space
+    - Remove leading and trailing whitespace
 
     Args:
-        title: 原始标题字符串
+        title: original title string
 
     Returns:
-        清理后的标题字符串
+        Cleaned title string
     """
     if not isinstance(title, str):
         title = str(title)
@@ -32,9 +32,9 @@ def clean_title(title: str) -> str:
 
 
 def html_escape(text: str) -> str:
-    """HTML特殊字符转义
+    """HTML special character escaping
 
-    转义规则（按顺序）：
+    Escape rules (in order):
     - & → &amp;
     - < → &lt;
     - > → &gt;
@@ -42,10 +42,10 @@ def html_escape(text: str) -> str:
     - ' → &#x27;
 
     Args:
-        text: 原始文本
+        text: original text
 
     Returns:
-        转义后的文本
+        escaped text
     """
     if not isinstance(text, str):
         text = str(text)
@@ -60,14 +60,14 @@ def html_escape(text: str) -> str:
 
 
 def calculate_rank_trend(rank_timeline=None, ranks=None):
-    """根据排名时间线或排名列表计算趋势方向
+    """Calculate trend direction based on ranking timeline or ranking list
 
     Args:
-        rank_timeline: 按时间顺序的排名记录列表，如 [{"time": "10:00", "rank": 5}, ...]
-        ranks: 排名列表
+        rank_timeline: List of ranking records in chronological order, such as [{"time": "10:00", "rank": 5}, ...]
+        ranks: ranking list
 
     Returns:
-        "up" (排名上升/数值变小), "down" (排名下降/数值变大), 或 None
+        "up" (the ranking increases/the value becomes smaller), "down" (the ranking decreases/the value becomes larger), or None
     """
     prev_rank = None
     curr_rank = None
@@ -95,27 +95,27 @@ def format_rank_display(
     format_type: str,
     rank_timeline: Optional[List[Dict]] = None,
 ) -> str:
-    """格式化排名显示
+    """Format ranking display
 
-    根据不同平台类型生成对应格式的排名字符串。
-    当最小排名小于等于阈值时，使用高亮格式。
+    Generate ranking strings in corresponding formats according to different platform types.
+    When the minimum ranking is less than or equal to the threshold, highlight format is used.
 
     Args:
-        ranks: 排名列表（去重后的唯一值，用于范围显示）
-        rank_threshold: 高亮阈值，小于等于此值的排名会高亮显示
-        format_type: 平台类型，支持:
-            - "html": HTML格式
-            - "feishu": 飞书格式
-            - "dingtalk": 钉钉格式
-            - "wework": 企业微信格式
-            - "telegram": Telegram格式
-            - "slack": Slack格式
-            - 其他: 默认markdown格式
-        rank_timeline: 按时间顺序的排名记录列表（可选，用于计算趋势）
+        ranks: Ranking list (unique value after deduplication, used for range display)
+        rank_threshold: Highlighting threshold, rankings less than or equal to this value will be highlighted.
+        format_type: platform type, supports:
+            - "html": HTML format
+            - "feishu": Feishu format
+            - "dingtalk": DingTalk format
+            - "wework": Enterprise WeChat format
+            - "telegram": Telegram format
+            - "slack": Slack format
+            - Others: Default markdown format
+        rank_timeline: List of ranked records in chronological order (optional, used to calculate trends)
 
     Returns:
-        格式化后的排名字符串，如 "[1]" 或 "[1 - 5]"
-        如果排名列表为空，返回空字符串
+        Formatted ranking string, such as "[1]" or "[1 - 5]"
+        If the ranking list is empty, returns an empty string
     """
     if not ranks:
         return ""
@@ -124,7 +124,7 @@ def format_rank_display(
     min_rank = unique_ranks[0]
     max_rank = unique_ranks[-1]
 
-    # 根据平台类型选择高亮格式
+    #Select the highlighting format according to the platform type
     if format_type == "html":
         highlight_start = "<font color='red'><strong>"
         highlight_end = "</strong></font>"
@@ -144,11 +144,11 @@ def format_rank_display(
         highlight_start = "*"
         highlight_end = "*"
     else:
-        # 默认 markdown 格式
+        #Default markdown format
         highlight_start = "**"
         highlight_end = "**"
 
-    # 生成排名显示
+    # Generate ranking display
     rank_str = ""
     if min_rank <= rank_threshold:
         if min_rank == max_rank:

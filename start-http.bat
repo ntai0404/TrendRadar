@@ -2,15 +2,15 @@
 chcp 65001 >nul
 
 echo ============================================================
-echo   TrendRadar MCP Server (HTTP 模式)
+echo TrendRadar MCP Server (HTTP mode)
 echo ============================================================
 echo.
 
 
 
-echo [模式] HTTP (适合远程访问)
-echo [地址] http://localhost:3333/mcp
-echo [提示] 按 Ctrl+C 停止服务
+echo [mode] HTTP (suitable for remote access)
+echo [address] http://localhost:3333/mcp
+echo [Prompt] Press Ctrl+C to stop the service
 echo.
 
 set PYTHONUTF8=1

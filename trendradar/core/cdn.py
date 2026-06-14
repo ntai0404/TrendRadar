@@ -1,10 +1,10 @@
 # coding=utf-8
 """
-CDN 回退模块
+CDN fallback module
 
-为版本检查等远程请求提供多源回退能力。
-默认使用 GitHub 原始链接，失败后自动切换到 CDN 备用源。
-同一会话中记住可用源的索引，后续请求从该源开始尝试。
+Provides multi-source fallback capabilities for remote requests such as version checking.
+The original GitHub link is used by default and automatically switches to the CDN backup source upon failure.
+The index of an available source is remembered within the same session and subsequent requests are attempted from that source.
 """
 
 import re
@@ -59,7 +59,7 @@ def fetch_with_fallback(
     url: str,
     proxy_url: Optional[str] = None,
 ) -> Optional[str]:
-    """从上次成功的源开始轮转尝试，非 GitHub 链接直接请求。"""
+    """Rotate attempts from the last successful source, non-GitHub links request directly."""
     proxies = {"http": proxy_url, "https": proxy_url} if proxy_url else None
 
     path = _extract_path(url)
@@ -67,7 +67,7 @@ def fetch_with_fallback(
         try:
             return _do_request(url, proxies)
         except Exception as e:
-            logger.warning("[版本检查] 获取失败: %s", e)
+            logger.warning("[version check] acquisition failed: %s", e)
             return None
 
     n = len(_ALL_SOURCES)
@@ -80,12 +80,12 @@ def fetch_with_fallback(
             content = _do_request(source + path, proxies)
             if idx != start:
                 label = _SOURCE_LABELS.get(source, source)
-                logger.info("[版本检查] 已切换到: %s", label)
+                logger.info("[Version check] has been switched to: %s", label)
             _state["last_ok"] = idx
             return content
         except Exception:
             label = _SOURCE_LABELS.get(source, source)
-            logger.debug("[版本检查] %s 不可用，尝试下一个源", label)
+            logger.debug("[Version check] %s is not available, try next source", label)
 
-    logger.warning("[版本检查] 所有源均不可用")
+    logger.warning("[Version check] All sources are unavailable")
     return None

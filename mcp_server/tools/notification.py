@@ -1,9 +1,9 @@
 # coding=utf-8
 """
-通知推送工具
+Notification push tool
 
-支持向已配置的通知渠道发送消息，自动检测 config.yaml 和 .env 中的渠道配置。
-接受 markdown 格式内容，内部按各渠道要求自动转换格式后发送。
+Supports sending messages to configured notification channels, automatically detecting channel configurations in config.yaml and .env.
+Accepts markdown format content, internally automatically converts the format according to the requirements of each channel before sending.
 """
 
 import json
@@ -36,10 +36,10 @@ from trendradar.notification.senders import SMTP_CONFIGS
 from ..utils.errors import MCPError, InvalidParameterError
 
 
-# ==================== 渠道启用判断规则 ====================
+# ==================== Channel enablement judgment rules ====================
 
-# 每个渠道需要哪些配置项都非空才算"已配置"
-# 注意：NTFY_SERVER_URL 在 loader 中有默认值 "https://ntfy.sh"，不作为判断依据
+# Which configuration items each channel needs to be non-empty to be considered "configured"
+# Note: NTFY_SERVER_URL has a default value of "https://ntfy.sh" in the loader, and is not used as a judgment basis
 _CHANNEL_REQUIREMENTS = {
     "feishu": ["FEISHU_WEBHOOK_URL"],
     "dingtalk": ["DINGTALK_WEBHOOK_URL"],
@@ -52,67 +52,67 @@ _CHANNEL_REQUIREMENTS = {
     "generic_webhook": ["GENERIC_WEBHOOK_URL"],
 }
 
-# 渠道显示名称
+# Channel display name
 _CHANNEL_NAMES = {
-    "feishu": "飞书",
-    "dingtalk": "钉钉",
-    "wework": "企业微信",
+    "feishu": "Feishu",
+    "dingtalk": "DingTalk",
+    "wework": "WeCom",
     "telegram": "Telegram",
-    "email": "邮件",
+    "email": "Email",
     "ntfy": "ntfy",
     "bark": "Bark",
     "slack": "Slack",
-    "generic_webhook": "通用 Webhook",
+    "generic_webhook": "Generic Webhook",
 }
 
 
-# ==================== 批次处理配置 ====================
+# ==================== Batch processing configuration ====================
 
-# 各渠道最大批次字节数的默认值
-# 运行时从 config.yaml → advanced.batch_size 读取覆盖
+# Default values for the maximum batch bytes of each channel
+# Read and overwrite from config.yaml → advanced.batch_size at runtime
 _CHANNEL_BATCH_SIZES_DEFAULT = {
     "feishu": 30000,    # config.yaml: advanced.batch_size.feishu
     "dingtalk": 20000,  # config.yaml: advanced.batch_size.dingtalk
     "wework": 4000,     # config.yaml: advanced.batch_size.default
     "telegram": 4000,   # config.yaml: advanced.batch_size.default
-    "email": 0,         # 邮件无字节限制，不分批
-    "ntfy": 3800,       # 严格 4KB 限制（ntfy 代码默认值）
+    "email": 0,         # Email has no byte limit, no batching
+    "ntfy": 3800,       # Strict 4KB limit (ntfy code default value)
     "bark": 4000,       # config.yaml: advanced.batch_size.bark
     "slack": 4000,      # config.yaml: advanced.batch_size.slack
     "generic_webhook": 4000,
 }
 
-# 显示最新消息在前的渠道，批次需反序发送
+# Channels that display the latest messages first need to send batches in reverse order
 _REVERSE_BATCH_CHANNELS = {"ntfy", "bark"}
 
-# 批次发送间隔默认值（秒），运行时从 config.yaml → advanced.batch_send_interval 读取
+# Default batch send interval (seconds), read from config.yaml → advanced.batch_send_interval at runtime
 _BATCH_INTERVAL_DEFAULT = 3.0
 
 
-# ==================== 批次处理 ====================
+# ==================== Batch processing ====================
 # truncate_to_bytes, get_batch_header, get_max_batch_header_size,
-# add_batch_headers 复用自 trendradar.notification.batch
+# add_batch_headers reused from trendradar.notification.batch
 
 
 def _split_text_into_batches(text: str, max_bytes: int) -> List[str]:
-    """将文本按字节限制分批，优先在段落边界（双换行）切割
+    """Split text into batches by byte limit, prioritizing cutting at paragraph boundaries (double newline)
 
-    分割策略（参考 trendradar splitter.py 的原子性保证）：
-    1. 优先按段落（双换行 \\n\\n）拆分
-    2. 段落仍超限时，按单行（\\n）拆分
-    3. 单行仍超限时，用 _truncate_to_bytes 安全截断
+    Split strategy (refer to the atomicity guarantee of trendradar splitter.py):
+    1. Prioritize splitting by paragraph (double newline \\n\\n)
+    2. When the paragraph still exceeds the limit, split by single line (\\n)
+    3. When a single line still exceeds the limit, use _truncate_to_bytes to safely truncate
 
     Args:
-        text: 已转换为目标渠道格式的文本
-        max_bytes: 单批最大字节数（已扣除批次头部预留）
+        text: Text converted to the target channel format
+        max_bytes: Maximum bytes per batch (deducting the batch header reservation)
 
     Returns:
-        分批后的文本列表
+        List of batched texts
     """
     if max_bytes <= 0 or len(text.encode("utf-8")) <= max_bytes:
         return [text]
 
-    # 按段落分割
+    # Split by paragraph
     paragraphs = text.split("\n\n")
     batches = []
     current = ""
@@ -122,16 +122,16 @@ def _split_text_into_batches(text: str, max_bytes: int) -> List[str]:
         if len(candidate.encode("utf-8")) <= max_bytes:
             current = candidate
         else:
-            # 当前段落放不下，先保存已有内容
+            # The current paragraph cannot fit, save the existing content first
             if current:
                 batches.append(current)
                 current = ""
 
-            # 检查单个段落是否超限
+            # Check if a single paragraph exceeds the limit
             if len(para.encode("utf-8")) <= max_bytes:
                 current = para
             else:
-                # 段落本身超限，按行拆分
+                # The paragraph itself exceeds the limit, split by line
                 lines = para.split("\n")
                 for line in lines:
                     candidate = f"{current}\n{line}" if current else line
@@ -141,7 +141,7 @@ def _split_text_into_batches(text: str, max_bytes: int) -> List[str]:
                         if current:
                             batches.append(current)
                             current = ""
-                        # 单行超限，循环截断直到处理完
+                        # Single line exceeds the limit, loop truncation until processed
                         if len(line.encode("utf-8")) > max_bytes:
                             remaining = line
                             while remaining:
@@ -149,7 +149,7 @@ def _split_text_into_batches(text: str, max_bytes: int) -> List[str]:
                                 if not chunk:
                                     break
                                 batches.append(chunk)
-                                # 移除已截断的部分
+                                # Remove the truncated part
                                 remaining = remaining[len(chunk):]
                         else:
                             current = line
@@ -161,17 +161,17 @@ def _split_text_into_batches(text: str, max_bytes: int) -> List[str]:
 
 
 def _format_for_channel(message: str, channel_id: str) -> str:
-    """将通用 Markdown 适配并转换为目标渠道格式
+    """Adapt and convert generic Markdown to the target channel format
 
-    统一入口：先适配（剥离不支持的语法），再转换（Markdown→HTML/mrkdwn 等）。
-    返回的文本可以直接用于字节分割和发送。
+    Unified entry: adapt first (strip unsupported syntax), then convert (Markdown→HTML/mrkdwn, etc.).
+    The returned text can be directly used for byte splitting and sending.
 
     Args:
-        message: 原始 Markdown 格式文本
-        channel_id: 目标渠道 ID
+        message: Original Markdown format text
+        channel_id: Target channel ID
 
     Returns:
-        目标渠道格式的文本
+        Text in target channel format
     """
     if channel_id == "feishu":
         return _adapt_markdown_for_feishu(message)
@@ -188,37 +188,37 @@ def _format_for_channel(message: str, channel_id: str) -> str:
     elif channel_id == "slack":
         return _convert_markdown_to_slack(message)
     else:
-        # email, generic_webhook: 保持原始 Markdown
+        # email, generic_webhook: Keep original Markdown
         return message
 
 
 def _prepare_batches(message: str, channel_id: str, batch_sizes: Dict = None) -> List[str]:
-    """完整的分批管线：格式适配 → 字节分割 → 添加批次头部
+    """Complete batch pipeline: format adaptation → byte splitting → add batch header
 
     Args:
-        message: 原始 Markdown 格式文本
-        channel_id: 目标渠道 ID
-        batch_sizes: 各渠道批次大小字典（来自 config.yaml），None 使用默认值
+        message: Original Markdown format text
+        channel_id: Target channel ID
+        batch_sizes: Batch size dictionary for each channel (from config.yaml), None uses default values
 
     Returns:
-        准备好的批次列表（已添加头部，已处理反序）
+        Prepared batch list (header added, reverse order processed)
     """
     sizes = batch_sizes or _CHANNEL_BATCH_SIZES_DEFAULT
     max_bytes = sizes.get(channel_id, sizes.get("default", 4000))
     if max_bytes <= 0:
-        # 无字节限制（如 email），返回原始文本
+        # No byte limit (e.g., email), return original text
         return [message]
 
     formatted = _format_for_channel(message, channel_id)
 
-    # 预留批次头部空间后分割
+    # Split after reserving space for batch header
     header_reserve = get_max_batch_header_size(channel_id)
     batches = _split_text_into_batches(formatted, max_bytes - header_reserve)
 
-    # 添加批次头部（单批时不添加）
+    # Add batch header (do not add for single batch)
     batches = add_batch_headers(batches, channel_id, max_bytes)
 
-    # ntfy/Bark 反序发送（客户端显示最新在前）
+    # ntfy/Bark send in reverse order (client displays newest first)
     if channel_id in _REVERSE_BATCH_CHANNELS and len(batches) > 1:
         batches = list(reversed(batches))
 
@@ -226,355 +226,355 @@ def _prepare_batches(message: str, channel_id: str, batch_sizes: Dict = None) ->
 
 CHANNEL_FORMAT_GUIDES = {
     "feishu": {
-        "name": "飞书",
-        "format": "Markdown（卡片消息）",
-        "max_length": "约 29000 字节",
+        "name": "Feishu",
+        "format": "Markdown (Card Message)",
+        "max_length": "Approx. 29000 bytes",
         "supported": [
-            "**粗体**",
-            "[链接文本](URL)",
-            "<font color='red/green/grey/orange/blue'>彩色文本</font>",
-            "---（分割线）",
-            "换行分隔段落",
+            "**Bold**",
+            "[Link text](URL)",
+            "<font color='red/green/grey/orange/blue'>Colored text</font>",
+            "--- (Divider)",
+            "Line break to separate paragraphs",
         ],
         "unsupported": [
-            "# 标题语法（不渲染为标题样式）",
-            "> 引用块",
-            "表格 / 图片嵌入",
+            "# Heading syntax (not rendered as heading style)",
+            "> Blockquote",
+            "Table / Image embedding",
         ],
         "prompt": (
-            "飞书卡片 Markdown 格式化策略：\n"
-            "1. 用 **粗体** 作小标题和重点词\n"
-            "2. 用 <font color='red'>红色</font> 标记紧急/重要内容\n"
-            "3. 用 <font color='grey'>灰色</font> 标记辅助信息（时间、来源）\n"
-            "4. 用 <font color='orange'>橙色</font> 标记警告\n"
-            "5. 用 <font color='green'>绿色</font> 标记正面/成功信息\n"
-            "6. 用 [文本](URL) 添加可点击链接\n"
-            "7. 用 --- 分割不同主题区域\n"
-            "8. 不要用 # 标题语法（卡片内不渲染）\n"
-            "9. 不要用 > 引用语法\n"
-            "10. 用换行 + 粗体模拟层级结构"
+            "Feishu Card Markdown formatting strategy:\n"
+            "1. Use **bold** for subtitles and keywords\n"
+            "2. Use <font color='red'>red</font> to mark urgent/important content\n"
+            "3. Use <font color='grey'>grey</font> to mark auxiliary info (time, source)\n"
+            "4. Use <font color='orange'>orange</font> to mark warnings\n"
+            "5. Use <font color='green'>green</font> to mark positive/success info\n"
+            "6. Use [text](URL) to add clickable links\n"
+            "7. Use --- to separate different topic areas\n"
+            "8. Do not use # heading syntax (not rendered in card)\n"
+            "9. Do not use > blockquote syntax\n"
+            "10. Use line break + bold to simulate hierarchical structure"
         ),
     },
     "dingtalk": {
-        "name": "钉钉",
+        "name": "DingTalk",
         "format": "Markdown",
-        "max_length": "约 20000 字节",
+        "max_length": "Approx. 20000 bytes",
         "supported": [
-            "### 三级标题 / #### 四级标题",
-            "**粗体**",
-            "[链接文本](URL)",
-            "> 引用块",
-            "---（分割线）",
-            "- 无序列表 / 1. 有序列表",
+            "### Heading 3 / #### Heading 4",
+            "**Bold**",
+            "[Link text](URL)",
+            "> Blockquote",
+            "--- (Divider)",
+            "- Unordered list / 1. Ordered list",
         ],
         "unsupported": [
-            "# 一级标题 / ## 二级标题（可能不渲染）",
-            "<font> 彩色文本",
-            "~~删除线~~",
-            "表格 / 图片嵌入",
+            "# Heading 1 / ## Heading 2 (may not render)",
+            "<font> Colored text",
+            "~~Strikethrough~~",
+            "Table / Image embedding",
         ],
         "prompt": (
-            "钉钉 Markdown 格式化策略：\n"
-            "1. 用 ### 或 #### 作章节标题（不用 # 和 ##）\n"
-            "2. 用 **粗体** 突出关键词和数据\n"
-            "3. 用 > 引用块展示备注或补充说明\n"
-            "4. 用 --- 分割不同主题区域\n"
-            "5. 用 [文本](URL) 添加可点击链接\n"
-            "6. 用有序列表（1. 2. 3.）组织要点\n"
-            "7. 不要用 <font> 颜色标签（钉钉不支持）\n"
-            "8. 不要用删除线语法\n"
-            "9. 标题和正文之间加空行提升可读性"
+            "DingTalk Markdown formatting strategy:\n"
+            "1. Use ### or #### for section headings (do not use # and ##)\n"
+            "2. Use **bold** to highlight keywords and data\n"
+            "3. Use > blockquote to show remarks or supplementary explanations\n"
+            "4. Use --- to separate different topic areas\n"
+            "5. Use [text](URL) to add clickable links\n"
+            "6. Use ordered lists (1. 2. 3.) to organize key points\n"
+            "7. Do not use <font> color tags (DingTalk does not support)\n"
+            "8. Do not use strikethrough syntax\n"
+            "9. Add a blank line between heading and body to improve readability"
         ),
     },
     "wework": {
-        "name": "企业微信",
-        "format": "Markdown（群机器人）/ 纯文本（个人微信）",
-        "max_length": "约 4000 字节",
+        "name": "WeCom",
+        "format": "Markdown (Group Bot) / Plain text (Personal WeChat)",
+        "max_length": "Approx. 4000 bytes",
         "supported": [
-            "**粗体**",
-            "[链接文本](URL)",
-            "> 引用块（仅首行生效）",
+            "**Bold**",
+            "[Link text](URL)",
+            "> Blockquote (only effective on the first line)",
         ],
         "unsupported": [
-            "# 标题语法",
-            "---（水平分割线）",
-            "<font> 彩色文本",
-            "~~删除线~~",
-            "表格 / 图片嵌入 / 有序列表",
+            "# Heading syntax",
+            "--- (Horizontal divider)",
+            "<font> Colored text",
+            "~~Strikethrough~~",
+            "Table / Image embedding / Ordered list",
         ],
         "prompt": (
-            "企业微信 Markdown 格式化策略：\n"
-            "1. 用 **粗体** 作小标题和重点词\n"
-            "2. 用 [文本](URL) 添加可点击链接\n"
-            "3. 用 > 引用块展示备注（仅首行生效）\n"
-            "4. 内容要简洁，受 4KB 限制\n"
-            "5. 不要用 # 标题语法（不渲染）\n"
-            "6. 不要用 ---（不渲染），用多个换行分隔区域\n"
-            "7. 不要用 <font> 颜色标签\n"
-            "8. 不要用删除线和有序列表\n"
-            "9. 用换行 + 粗体模拟层级结构\n"
-            "10. 个人微信模式下所有格式被剥离为纯文本"
+            "WeCom Markdown formatting strategy:\n"
+            "1. Use **bold** for subtitles and key words\n"
+            "2. Use [text](URL) to add clickable links\n"
+            "3. Use > blockquote to show remarks (only effective on the first line)\n"
+            "4. Keep content concise, subject to 4KB limit\n"
+            "5. Do not use # heading syntax (does not render)\n"
+            "6. Do not use --- (does not render), use multiple line breaks to separate areas\n"
+            "7. Do not use <font> color tags\n"
+            "8. Do not use strikethrough and ordered lists\n"
+            "9. Use line breaks + bold to simulate hierarchical structure\n"
+            "10. In personal WeChat mode, all formatting is stripped to plain text"
         ),
     },
     "telegram": {
         "name": "Telegram",
-        "format": "HTML（自动从 Markdown 转换）",
-        "max_length": "约 4096 字符",
+        "format": "HTML (automatically converted from Markdown)",
+        "max_length": "Approx. 4096 characters",
         "supported": [
-            "<b>粗体</b>（从 **粗体** 转换）",
-            "<i>斜体</i>（从 *斜体* 转换）",
-            "<s>删除线</s>（从 ~~删除线~~ 转换）",
-            "<code>行内代码</code>（从 `代码` 转换）",
-            "<a href='URL'>链接</a>（从 [文本](URL) 转换）",
-            "<blockquote>引用块</blockquote>（从 > 引用 转换）",
+            "<b>Bold</b> (converted from **bold**)",
+            "<i>Italic</i> (converted from *Italic*)",
+            "<s>Strikethrough</s> (converted from ~~Strikethrough~~)",
+            "<code>Inline code</code> (converted from `code`)",
+            "<a href='URL'>Link</a> (converted from [text](URL))",
+            "<blockquote>Blockquote</blockquote> (converted from > quote)",
         ],
         "unsupported": [
-            "# 标题语法（自动剥离 # 前缀）",
-            "---（分割线，自动剥离）",
-            "<font> 彩色文本（自动剥离）",
-            "表格 / 图片嵌入",
+            "# Heading syntax (automatically strip # prefix)",
+            "--- (Divider, automatically stripped)",
+            "<font> Colored text (automatically stripped)",
+            "Table / Image embedding",
         ],
         "prompt": (
-            "Telegram HTML 格式化策略（输入仍为 Markdown，自动转换为 HTML）：\n"
-            "1. 用 **粗体** 突出关键词（转为 <b>）\n"
-            "2. 用 *斜体* 标记辅助信息（转为 <i>）\n"
-            "3. 用 `代码` 标记数据值/时间（转为 <code>）\n"
-            "4. 用 [文本](URL) 添加链接（转为 <a>）\n"
-            "5. 用 > 开头的行作引用块（转为 <blockquote>）\n"
-            "6. 不要用 # 标题（Telegram 无标题样式，仅剥离 #）\n"
-            "7. 不要用 --- 分割线（被剥离），用空行分隔\n"
-            "8. 不要用 <font> 颜色标签（被剥离）\n"
-            "9. 内容受 4096 字符限制，保持简洁\n"
-            "10. 链接默认禁用预览，适合信息密集型消息"
+            "Telegram HTML formatting strategy (input is still Markdown, automatically converted to HTML):\n"
+            "1. Use **bold** to highlight keywords (converted to <b>)\n"
+            "2. Use *italic* to mark auxiliary information (converted to <i>)\n"
+            "3. Use `code` to mark data values/time (converted to <code>)\n"
+            "4. Use [text](URL) to add links (converted to <a>)\n"
+            "5. Use lines starting with > as blockquotes (converted to <blockquote>)\n"
+            "6. Do not use # headings (Telegram has no heading styles, only strips #)\n"
+            "7. Do not use --- dividers (stripped), use empty lines to separate\n"
+            "8. Do not use <font> color tags (stripped)\n"
+            "9. Content is limited to 4096 characters, keep it concise\n"
+            "10. Link previews are disabled by default, suitable for information-dense messages"
         ),
     },
     "email": {
-        "name": "邮件",
-        "format": "HTML（完整网页，从 Markdown 转换）",
-        "max_length": "无硬限制",
+        "name": "Email",
+        "format": "HTML (full webpage, converted from Markdown)",
+        "max_length": "No hard limit",
         "supported": [
-            "# / ## / ### 标题（转为 <h1>/<h2>/<h3>）",
-            "**粗体** / *斜体* / ~~删除线~~",
-            "[链接文本](URL)",
-            "`行内代码`",
-            "---（水平分割线）",
+            "# / ## / ### Headings (converted to <h1>/<h2>/<h3>)",
+            "**Bold** / *Italic* / ~~Strikethrough~~",
+            "[Link text](URL)",
+            "`Inline code`",
+            "--- (Horizontal divider)",
         ],
         "unsupported": [
-            "<font> 彩色文本（转义显示）",
-            "复杂表格",
+            "<font> Colored text (escaped display)",
+            "Complex tables",
         ],
         "prompt": (
-            "邮件 HTML 格式化策略（输入为 Markdown，自动转换为带样式 HTML）：\n"
-            "1. 用 # / ## / ### 创建清晰的标题层级\n"
-            "2. 用 **粗体** 和 *斜体* 增强可读性\n"
-            "3. 用 [文本](URL) 添加链接（蓝色可点击）\n"
-            "4. 用 --- 分割不同章节\n"
-            "5. 用 `代码` 标记技术术语或数据\n"
-            "6. 可以写较长内容，邮件无严格长度限制\n"
-            "7. 邮件主题自动追加日期时间\n"
-            "8. 自动附带纯文本备用版本"
+            "Email HTML formatting strategy (input is Markdown, automatically converted to styled HTML):\n"
+            "1. Use # / ## / ### to create clear heading hierarchies\n"
+            "2. Use **bold** and *italic* to enhance readability\n"
+            "3. Use [text](URL) to add links (blue clickable)\n"
+            "4. Use --- to separate different sections\n"
+            "5. Use `code` to mark technical terms or data\n"
+            "6. Can write longer content, emails have no strict length limits\n"
+            "7. Email subject automatically appends date and time\n"
+            "8. Automatically includes plain text fallback version"
         ),
     },
     "ntfy": {
         "name": "ntfy",
-        "format": "Markdown（原生支持）",
-        "max_length": "约 3800 字节（单条 4KB 限制）",
+        "format": "Markdown (native support)",
+        "max_length": "Approx. 3800 bytes (single message 4KB limit)",
         "supported": [
-            "**粗体** / *斜体*",
-            "[链接文本](URL)",
-            "> 引用块",
-            "`行内代码`",
-            "- 列表",
+            "**Bold** / *Italic*",
+            "[Link text](URL)",
+            "> Blockquote",
+            "`Inline code`",
+            "- List",
         ],
         "unsupported": [
-            "# 标题语法（渲染取决于客户端）",
-            "<font> 彩色文本",
-            "---（渲染取决于客户端）",
-            "表格",
+            "# Heading syntax (rendering depends on client)",
+            "<font> Colored text",
+            "--- (rendering depends on client)",
+            "Table",
         ],
         "prompt": (
-            "ntfy Markdown 格式化策略：\n"
-            "1. 用 **粗体** 突出关键词\n"
-            "2. 用 [文本](URL) 添加可点击链接\n"
-            "3. 用 > 引用块展示备注\n"
-            "4. 用 `代码` 标记数据值\n"
-            "5. 内容要精炼，受 4KB 限制\n"
-            "6. 不要用 <font> 颜色标签（无效）\n"
-            "7. 不要依赖 # 标题和 --- 分割线\n"
-            "8. 用空行和粗体组织信息层级"
+            "ntfy Markdown formatting strategy:\n"
+            "1. Use **bold** to highlight keywords\n"
+            "2. Use [text](URL) to add clickable links\n"
+            "3. Use > blockquote to show notes\n"
+            "4. Use `code` to mark data values\n"
+            "5. Content should be concise, subject to 4KB limit\n"
+            "6. Do not use <font> color tags (invalid)\n"
+            "7. Do not rely on # headings and --- dividers\n"
+            "8. Use blank lines and bold text to organize information hierarchy"
         ),
     },
     "bark": {
         "name": "Bark",
-        "format": "Markdown（iOS 推送）",
-        "max_length": "约 3600 字节（APNs 4KB 限制）",
+        "format": "Markdown (iOS push)",
+        "max_length": "Approx. 3600 bytes (APNs 4KB limit)",
         "supported": [
-            "**粗体**",
-            "[链接文本](URL)",
-            "基础文本格式",
+            "**Bold**",
+            "[Link text](URL)",
+            "Basic text format",
         ],
         "unsupported": [
-            "# 标题语法",
-            "<font> 彩色文本",
-            "---（分割线）",
-            "> 引用块",
-            "复杂嵌套格式",
+            "# Heading syntax",
+            "<font> Colored text",
+            "--- (Divider)",
+            "> Blockquote",
+            "Complex nested format",
         ],
         "prompt": (
-            "Bark 格式化策略（iOS 推送通知）：\n"
-            "1. 内容要极度精简，移动端阅读场景\n"
-            "2. 用 **粗体** 标记核心信息\n"
-            "3. 用 [文本](URL) 添加链接\n"
-            "4. 不要用标题/颜色/引用等复杂格式\n"
-            "5. 受 APNs 4KB 限制，控制内容长度\n"
-            "6. 层级结构靠缩进和换行实现\n"
-            "7. 适合简短通知和摘要，不适合长文"
+            "Bark formatting strategy (iOS push notification):\n"
+            "1. Content must be extremely concise, mobile reading scenario\n"
+            "2. Use **bold** to mark core information\n"
+            "3. Use [text](URL) to add links\n"
+            "4. Do not use complex formats like headings/colors/blockquotes\n"
+            "5. Subject to APNs 4KB limit, control content length\n"
+            "6. Hierarchical structure is achieved by indentation and line breaks\n"
+            "7. Suitable for short notifications and summaries, not suitable for long texts"
         ),
     },
     "slack": {
         "name": "Slack",
-        "format": "mrkdwn（Slack 专有格式，自动从 Markdown 转换）",
-        "max_length": "约 4000 字节",
+        "format": "mrkdwn (Slack proprietary format, automatically converted from Markdown)",
+        "max_length": "Approx. 4000 bytes",
         "supported": [
-            "*粗体*（从 **粗体** 转换）",
-            "_斜体_",
-            "~删除线~（从 ~~删除线~~ 转换）",
-            "<URL|链接文本>（从 [文本](URL) 转换）",
-            "`行内代码`",
-            "```代码块```",
-            "> 引用块",
+            "*Bold* (converted from **bold**)",
+            "_Italic_",
+            "~Strikethrough~ (converted from ~~Strikethrough~~)",
+            "<URL|Link text> (converted from [Text](URL))",
+            "`Inline code`",
+            "```Code block```",
+            "> Blockquote",
         ],
         "unsupported": [
-            "# 标题语法（剥离为粗体）",
-            "<font> 彩色文本",
-            "--- 分割线（渲染不稳定）",
-            "表格",
+            "# Heading syntax (stripped to bold)",
+            "<font> Colored text",
+            "--- Divider (rendering unstable)",
+            "Table",
         ],
         "prompt": (
-            "Slack mrkdwn 格式化策略（输入为 Markdown，自动转换为 mrkdwn）：\n"
-            "1. 用 **粗体** 突出关键词（转为 *粗体*）\n"
-            "2. 用 ~~删除线~~ 标记过时信息（转为 ~删除线~）\n"
-            "3. 用 [文本](URL) 添加链接（转为 <URL|文本>）\n"
-            "4. 用 > 引用块展示备注\n"
-            "5. 用 `代码` 标记数据值\n"
-            "6. 不要用 # 标题（Slack 无标题样式）\n"
-            "7. 不要用 <font> 颜色标签\n"
-            "8. 用空行和粗体组织信息层级"
+            "Slack mrkdwn formatting strategy (input is Markdown, automatically converted to mrkdwn):\n"
+            "1. Use **bold** to highlight keywords (converted to *bold*)\n"
+            "2. Use ~~strikethrough~~ to mark outdated information (converted to ~strikethrough~)\n"
+            "3. Use [Text](URL) to add links (converted to <URL|Text>)\n"
+            "4. Use > blockquote to show remarks\n"
+            "5. Use `code` to mark data values\n"
+            "6. Do not use # headings (Slack has no heading styles)\n"
+            "7. Do not use <font> color tags\n"
+            "8. Use blank lines and bold to organize information hierarchy"
         ),
     },
     "generic_webhook": {
-        "name": "通用 Webhook",
-        "format": "Markdown（或自定义模板）",
-        "max_length": "约 4000 字节",
-        "supported": ["标准 Markdown 语法"],
-        "unsupported": ["取决于接收端"],
+        "name": "General Webhook",
+        "format": "Markdown (or custom template)",
+        "max_length": "Approx. 4000 bytes",
+        "supported": ["Standard Markdown syntax"],
+        "unsupported": ["Depends on the receiving end"],
         "prompt": (
-            "通用 Webhook 格式化策略：\n"
-            "1. 使用标准 Markdown 格式\n"
-            "2. 避免使用特殊平台专有语法\n"
-            "3. 如配置了自定义模板，内容会填充到 {content} 占位符"
+            "General Webhook formatting strategy:\n"
+            "1. Use standard Markdown format\n"
+            "2. Avoid using special platform-specific syntax\n"
+            "3. If a custom template is configured, the content will be filled into the {content} placeholder"
         ),
     },
 }
 
 
-# ==================== 渠道 Markdown 适配 ====================
+# ==================== Channel Markdown Adaptation ====================
 
 def _adapt_markdown_for_feishu(text: str) -> str:
-    """将通用 Markdown 适配为飞书卡片 Markdown 格式
+    """Adapt general Markdown to Feishu card Markdown format
 
-    飞书卡片支持：**粗体**, [链接](url), <font color='...'>, ---
-    不支持：# 标题, > 引用块
+    Feishu card supports: **bold**, [link](url), <font color='...'>, ---
+    Does not support: # headings, > blockquote
     """
-    # 将 # 标题转换为粗体（飞书卡片不渲染标题语法）
+    # Convert # headings to bold (Feishu cards do not render heading syntax)
     text = re.sub(r'^#{1,6}\s+(.+)$', r'**\1**', text, flags=re.MULTILINE)
-    # 去除引用语法前缀（飞书不支持）
+    # Remove blockquote syntax prefix (Feishu does not support)
     text = re.sub(r'^>\s*', '', text, flags=re.MULTILINE)
-    # 清理多余空行
+    # Clean up extra blank lines
     text = re.sub(r'\n{3,}', '\n\n', text)
     return text.strip()
 
 
 def _adapt_markdown_for_dingtalk(text: str) -> str:
-    """将通用 Markdown 适配为钉钉 Markdown 格式
+    """Adapt general Markdown to DingTalk Markdown format
 
-    钉钉支持：### #### 标题, **粗体**, [链接](url), > 引用, ---
-    不支持：# ## 标题, <font> 彩色文本, ~~删除线~~
+    DingTalk supports: ### #### headings, **bold**, [link](url), > blockquote, ---
+    Does not support: # ## headings, <font> colored text, ~~strikethrough~~
     """
-    # 去除 <font> 标签（钉钉不支持，保留内容）
+    # Remove <font> tags (DingTalk does not support, keep content)
     text = re.sub(r'<font[^>]*>(.+?)</font>', r'\1', text)
-    # 将 # 和 ## 标题降级为 ### （钉钉仅支持 ### 和 ####）
+    # Downgrade # and ## headings to ### (DingTalk only supports ### and ####)
     text = re.sub(r'^##\s+(.+)$', r'### \1', text, flags=re.MULTILINE)
     text = re.sub(r'^#\s+(.+)$', r'### \1', text, flags=re.MULTILINE)
-    # 去除删除线语法（钉钉不支持）
+    # Remove strikethrough syntax (DingTalk does not support)
     text = re.sub(r'~~(.+?)~~', r'\1', text)
-    # 清理多余空行
+    # Clean up extra blank lines
     text = re.sub(r'\n{3,}', '\n\n', text)
     return text.strip()
 
 
 def _adapt_markdown_for_wework(text: str) -> str:
-    """将通用 Markdown 适配为企业微信 Markdown 格式
+    """Adapt general Markdown to WeChat Work Markdown format
 
-    企业微信支持：**粗体**, [链接](url), > 引用（有限）
-    不支持：# 标题, ---, <font>, ~~删除线~~, 有序列表
+    WeChat Work supports: **bold**, [link](url), > quote (limited)
+    Does not support: # heading, ---, <font>, ~~strikethrough~~, ordered list
     """
-    # 去除 <font> 标签（保留内容）
+    # Remove <font> tags (keep content)
     text = re.sub(r'<font[^>]*>(.+?)</font>', r'\1', text)
-    # 将 # 标题转换为粗体（企业微信不渲染标题语法）
+    # Convert # headings to bold (WeChat Work does not render heading syntax)
     text = re.sub(r'^#{1,6}\s+(.+)$', r'**\1**', text, flags=re.MULTILINE)
-    # 将 --- 分割线替换为多个换行（企业微信不渲染水平线）
+    # Replace --- dividers with multiple newlines (WeChat Work does not render horizontal lines)
     text = re.sub(r'^[\-\*]{3,}\s*$', '\n\n', text, flags=re.MULTILINE)
-    # 去除删除线语法（企业微信不支持）
+    # Remove strikethrough syntax (WeChat Work does not support)
     text = re.sub(r'~~(.+?)~~', r'\1', text)
-    # 清理多余空行（保留最多两个）
+    # Clean up extra blank lines (keep at most two)
     text = re.sub(r'\n{4,}', '\n\n\n', text)
     return text.strip()
 
 
 def _adapt_markdown_for_ntfy(text: str) -> str:
-    """将通用 Markdown 适配为 ntfy 格式
+    """Adapt general Markdown to ntfy format
 
-    ntfy 支持：**粗体**, *斜体*, [链接](url), > 引用, `代码`
-    不可靠：# 标题, ---, <font>
+    ntfy supports: **bold**, *italic*, [link](url), > quote, `code`
+    Unreliable: # heading, ---, <font>
     """
-    # 去除 <font> 标签（ntfy 不支持）
+    # Remove <font> tags (ntfy does not support)
     text = re.sub(r'<font[^>]*>(.+?)</font>', r'\1', text)
-    # 清理多余空行
+    # Clean up extra blank lines
     text = re.sub(r'\n{3,}', '\n\n', text)
     return text.strip()
 
 
 def _adapt_markdown_for_bark(text: str) -> str:
-    """将通用 Markdown 适配为 Bark 格式（iOS 推送）
+    """Adapt general Markdown to Bark format (iOS push)
 
-    Bark 支持：**粗体**, [链接](url), 基础文本
-    不支持：# 标题, <font>, ---, > 引用, 复杂嵌套
+    Bark supports: **bold**, [link](url), basic text
+    Does not support: # heading, <font>, ---, > quote, complex nesting
     """
-    # 去除 <font> 标签（保留内容）
+    # Remove <font> tags (keep content)
     text = re.sub(r'<font[^>]*>(.+?)</font>', r'\1', text)
-    # 将 # 标题转换为粗体
+    # Convert # headings to bold
     text = re.sub(r'^#{1,6}\s+(.+)$', r'**\1**', text, flags=re.MULTILINE)
-    # 将 --- 替换为换行
+    # Replace --- with newlines
     text = re.sub(r'^[\-\*]{3,}\s*$', '\n', text, flags=re.MULTILINE)
-    # 去除引用语法
+    # Remove quote syntax
     text = re.sub(r'^>\s*', '', text, flags=re.MULTILINE)
-    # 去除删除线语法
+    # Remove strikethrough syntax
     text = re.sub(r'~~(.+?)~~', r'\1', text)
-    # 清理多余空行
+    # Clean up extra blank lines
     text = re.sub(r'\n{3,}', '\n\n', text)
     return text.strip()
 
 
-# ==================== 格式转换 ====================
+# ==================== Format Conversion ====================
 
 def _markdown_to_telegram_html(text: str) -> str:
     """
-    将 markdown 转换为 Telegram 支持的 HTML 格式
+    Convert markdown to Telegram supported HTML format
 
-    Telegram 支持的标签：<b>, <i>, <s>, <code>, <a href="url">text</a>, <blockquote>
+    Telegram supported tags: <b>, <i>, <s>, <code>, <a href="url">text</a>, <blockquote>
     """
-    # 预处理：去除 <font> 标签（Telegram 不支持，保留内容）
+    # Preprocessing: remove <font> tags (Telegram does not support, keep content)
     text = re.sub(r'<font[^>]*>(.+?)</font>', r'\1', text)
 
     lines = text.split('\n')
@@ -582,19 +582,19 @@ def _markdown_to_telegram_html(text: str) -> str:
     in_blockquote = False
 
     for line in lines:
-        # 将标题符号 # ## ### 转换为粗体
+        # Convert heading symbols # ## ### to bold
         header_match = re.match(r'^(#{1,6})\s+(.+)$', line)
         if header_match:
             line = f'**{header_match.group(2)}**'
 
-        # 去除水平分割线
+        # Remove horizontal dividers
         if re.match(r'^[\-\*]{3,}\s*$', line):
             if in_blockquote:
                 result_lines.append('</blockquote>')
                 in_blockquote = False
             line = ''
 
-        # 处理引用块 > text → <blockquote>text</blockquote>
+        # Process quote blocks > text → <blockquote>text</blockquote>
         quote_match = re.match(r'^>\s*(.*)$', line)
         if quote_match:
             if not in_blockquote:
@@ -613,8 +613,8 @@ def _markdown_to_telegram_html(text: str) -> str:
 
     text = '\n'.join(result_lines)
 
-    # 转义 HTML 实体（在标记替换之前，但在 blockquote 标签之后）
-    # 分段处理：保留已生成的 HTML 标签
+    # Escape HTML entities (before tag replacement, but after blockquote tags)
+    # Segment processing: keep generated HTML tags
     parts = re.split(r'(</?blockquote>)', text)
     escaped_parts = []
     for part in parts:
@@ -627,104 +627,104 @@ def _markdown_to_telegram_html(text: str) -> str:
             escaped_parts.append(part)
     text = ''.join(escaped_parts)
 
-    # 转换链接 [text](url) → <a href="url">text</a>
+    # Convert links [text](url) → <a href="url">text</a>
     text = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2">\1</a>', text)
 
-    # 转换粗体 **text** → <b>text</b>
+    # Convert bold **text** → <b>text</b>
     text = re.sub(r'\*\*(.+?)\*\*', r'<b>\1</b>', text)
 
-    # 转换斜体 *text* → <i>text</i>
+    # Convert italic *text* → <i>text</i>
     text = re.sub(r'\*(.+?)\*', r'<i>\1</i>', text)
 
-    # 转换删除线 ~~text~~ → <s>text</s>
+    # Convert strikethrough ~~text~~ → <s>text</s>
     text = re.sub(r'~~(.+?)~~', r'<s>\1</s>', text)
 
-    # 转换行内代码 `code` → <code>code</code>
+    # Convert inline code `code` → <code>code</code>
     text = re.sub(r'`(.+?)`', r'<code>\1</code>', text)
 
-    # 清理多余空行
+    # Clean up extra blank lines
     text = re.sub(r'\n{3,}', '\n\n', text)
 
     return text.strip()
 
 
 def _convert_markdown_to_slack(text: str) -> str:
-    """将 Markdown 转换为 Slack mrkdwn 格式（增强版）
+    """Convert Markdown to Slack mrkdwn format (enhanced version)
 
-    Slack mrkdwn 与标准 Markdown 差异：
-    - 粗体: *text* (非 **text**)
-    - 删除线: ~text~ (非 ~~text~~)
-    - 链接: <url|text> (非 [text](url))
-    - 不支持标题语法
+    Slack mrkdwn differences from standard Markdown:
+    - Bold: *text* (not **text**)
+    - Strikethrough: ~text~ (not ~~text~~)
+    - Link: <url|text> (not [text](url))
+    - Header syntax not supported
     """
-    # 去除 <font> 标签（保留内容）
+    # Remove <font> tags (keep content)
     text = re.sub(r'<font[^>]*>(.+?)</font>', r'\1', text)
-    # 将 # 标题转换为粗体（Slack 无标题样式）
+    # Convert # headers to bold (Slack has no header style)
     text = re.sub(r'^#{1,6}\s+(.+)$', r'**\1**', text, flags=re.MULTILINE)
-    # 去除 --- 分割线（Slack 渲染不稳定）
+    # Remove --- dividers (Slack rendering is unstable)
     text = re.sub(r'^[\-\*]{3,}\s*$', '', text, flags=re.MULTILINE)
-    # 转换链接格式: [文本](url) → <url|文本>
+    # Convert link format: [text](url) → <url|text>
     text = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<\2|\1>', text)
-    # 转换删除线: ~~文本~~ → ~文本~
+    # Convert strikethrough: ~~text~~ → ~text~
     text = re.sub(r'~~(.+?)~~', r'~\1~', text)
-    # 转换粗体: **文本** → *文本*（必须在删除线之后）
+    # Convert bold: **text** → *text* (must be after strikethrough)
     text = re.sub(r'\*\*([^*]+)\*\*', r'*\1*', text)
-    # 清理多余空行
+    # Clean up extra blank lines
     text = re.sub(r'\n{3,}', '\n\n', text)
     return text.strip()
 
 
 def _markdown_to_simple_html(text: str) -> str:
     """
-    将 markdown 转换为简单 HTML（用于 Email）
+    Convert markdown to simple HTML (for Email)
     """
     html = text
 
-    # 转义
+    # Escape
     html = html.replace('&', '&amp;')
     html = html.replace('<', '&lt;')
     html = html.replace('>', '&gt;')
 
-    # 链接
+    # Links
     html = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2">\1</a>', html)
 
-    # 标题 ### → <h3>
+    # Headers ### → <h3>
     html = re.sub(r'^### (.+)$', r'<h3>\1</h3>', html, flags=re.MULTILINE)
     html = re.sub(r'^## (.+)$', r'<h2>\1</h2>', html, flags=re.MULTILINE)
     html = re.sub(r'^# (.+)$', r'<h1>\1</h1>', html, flags=re.MULTILINE)
 
-    # 粗体
+    # Bold
     html = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', html)
 
-    # 斜体
+    # Italic
     html = re.sub(r'\*(.+?)\*', r'<em>\1</em>', html)
 
-    # 删除线
+    # Strikethrough
     html = re.sub(r'~~(.+?)~~', r'<del>\1</del>', html)
 
-    # 行内代码
+    # Inline code
     html = re.sub(r'`(.+?)`', r'<code>\1</code>', html)
 
-    # 分割线
+    # Divider
     html = re.sub(r'^[\-\*]{3,}\s*$', '<hr>', html, flags=re.MULTILINE)
 
-    # 换行
+    # Line break
     html = html.replace('\n', '<br>\n')
 
     return f"""<!DOCTYPE html>
-<html><head><meta charset="utf-8"><title>TrendRadar 通知</title>
+<html><head><meta charset="utf-8"><title>TrendRadar Notification</title>
 <style>body{{font-family:sans-serif;padding:20px;max-width:800px;margin:0 auto}}
 a{{color:#1a73e8}}h1,h2,h3{{color:#333}}hr{{border:none;border-top:1px solid #ddd;margin:16px 0}}
 code{{background:#f5f5f5;padding:2px 6px;border-radius:3px}}</style>
 </head><body>{html}</body></html>"""
 
 
-# ==================== 各渠道发送器 ====================
+# ==================== Senders for each channel ====================
 
 def _send_feishu(webhook_url: str, content: str, title: str) -> Dict:
-    """飞书发送（纯文本消息，与 trendradar send_to_feishu 一致）
+    """Feishu send (plain text message, consistent with trendradar send_to_feishu)
 
-    飞书 webhook 使用 msg_type: "text"，所有信息整合到 content.text 中。
+    Feishu webhook uses msg_type: "text", all information is integrated into content.text.
     """
     payload = {
         "msg_type": "text",
@@ -745,7 +745,7 @@ def _send_feishu(webhook_url: str, content: str, title: str) -> Dict:
 
 
 def _send_dingtalk(webhook_url: str, content: str, title: str) -> Dict:
-    """钉钉发送（接收已适配的 Markdown）"""
+    """DingTalk send (receives adapted Markdown)"""
     payload = {
         "msgtype": "markdown",
         "markdown": {"title": title, "text": content}
@@ -760,7 +760,7 @@ def _send_dingtalk(webhook_url: str, content: str, title: str) -> Dict:
 
 
 def _send_wework(webhook_url: str, content: str, title: str, msg_type: str = "markdown") -> Dict:
-    """企业微信发送（接收已适配的 Markdown，text 模式自动剥离格式）"""
+    """WeCom send (receives adapted Markdown, text mode automatically strips formatting)"""
     if msg_type == "text":
         payload = {"msgtype": "text", "text": {"content": strip_markdown(content)}}
     else:
@@ -776,7 +776,7 @@ def _send_wework(webhook_url: str, content: str, title: str, msg_type: str = "ma
 
 
 def _send_telegram(bot_token: str, chat_id: str, content: str, title: str) -> Dict:
-    """Telegram 发送（接收已转换的 HTML）"""
+    """Telegram send (receives converted HTML)"""
     url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
     payload = {
         "chat_id": chat_id,
@@ -798,12 +798,12 @@ def _send_email(
     message: str, title: str,
     smtp_server: str = "", smtp_port: str = ""
 ) -> Dict:
-    """邮件发送（HTML 格式）"""
+    """Email send (HTML format)"""
     try:
         domain = from_email.split("@")[-1].lower()
         html_content = _markdown_to_simple_html(message)
 
-        # SMTP 配置
+        # SMTP configuration
         if smtp_server and smtp_port:
             server_host = smtp_server
             port = int(smtp_port)
@@ -825,14 +825,14 @@ def _send_email(
         msg["To"] = ", ".join(recipients)
 
         now = datetime.now()
-        msg["Subject"] = Header(f"{title} - {now.strftime('%m月%d日 %H:%M')}", "utf-8")
+        msg["Subject"] = Header(f"{title} - {now.strftime('%m/%d %H:%M')}", "utf-8")
         msg["MIME-Version"] = "1.0"
         msg["Date"] = formatdate(localtime=True)
         msg["Message-ID"] = make_msgid()
 
-        # 纯文本备选
+        # Plain text fallback
         msg.attach(MIMEText(strip_markdown(message), "plain", "utf-8"))
-        # HTML 主体
+        # HTML body
         msg.attach(MIMEText(html_content, "html", "utf-8"))
 
         if use_tls:
@@ -854,10 +854,10 @@ def _send_email(
 
 
 def _send_ntfy(server_url: str, topic: str, content: str, title: str, token: str = "") -> Dict:
-    """ntfy 发送（接收已适配的 Markdown，与 trendradar send_to_ntfy 一致）
+    """ntfy send (receives adapted Markdown, consistent with trendradar send_to_ntfy)
 
-    注意：Title 使用 ASCII 字符避免 HTTP header 编码问题。
-    支持 429 速率限制重试。
+    Note: Title uses ASCII characters to avoid HTTP header encoding issues.
+    Supports 429 rate limit retry.
     """
     base_url = server_url.rstrip("/")
     if not base_url.startswith(("http://", "https://")):
@@ -867,7 +867,7 @@ def _send_ntfy(server_url: str, topic: str, content: str, title: str, token: str
     headers = {
         "Content-Type": "text/plain; charset=utf-8",
         "Markdown": "yes",
-        "Title": "TrendRadar Notification",  # ASCII，避免 HTTP header 编码问题
+        "Title": "TrendRadar Notification",  # ASCII, avoids HTTP header encoding issues
         "Priority": "default",
         "Tags": "news",
     }
@@ -879,13 +879,13 @@ def _send_ntfy(server_url: str, topic: str, content: str, title: str, token: str
         if resp.status_code == 200:
             return {"success": True, "detail": ""}
         elif resp.status_code == 429:
-            # 速率限制，等待后重试一次（与 trendradar 一致）
+            # Rate limit, wait and retry once (consistent with trendradar)
             time.sleep(10)
             retry_resp = requests.post(url, data=content.encode("utf-8"), headers=headers, timeout=30)
             ok = retry_resp.status_code == 200
             return {"success": ok, "detail": "" if ok else f"retry status={retry_resp.status_code}"}
         elif resp.status_code == 413:
-            return {"success": False, "detail": f"消息过大被拒绝 ({len(content.encode('utf-8'))} bytes)"}
+            return {"success": False, "detail": f"Message too large and rejected ({len(content.encode('utf-8'))} bytes)"}
         else:
             return {"success": False, "detail": f"status={resp.status_code}"}
     except Exception as e:
@@ -893,11 +893,11 @@ def _send_ntfy(server_url: str, topic: str, content: str, title: str, token: str
 
 
 def _send_bark(bark_url: str, content: str, title: str) -> Dict:
-    """Bark 发送（接收已适配的 Markdown，iOS 推送）"""
+    """Bark send (receives adapted Markdown, iOS push)"""
     parsed = urlparse(bark_url)
     device_key = parsed.path.strip('/').split('/')[0] if parsed.path else None
     if not device_key:
-        return {"success": False, "detail": f"无法从 URL 提取 device_key: {bark_url}"}
+        return {"success": False, "detail": f"Cannot extract device_key from URL: {bark_url}"}
 
     api_endpoint = f"{parsed.scheme}://{parsed.netloc}/push"
     payload = {
@@ -919,7 +919,7 @@ def _send_bark(bark_url: str, content: str, title: str) -> Dict:
 
 
 def _send_slack(webhook_url: str, content: str, title: str) -> Dict:
-    """Slack 发送（接收已转换的 mrkdwn）"""
+    """Slack send (receives converted mrkdwn)"""
     payload = {"text": content}
 
     try:
@@ -933,7 +933,7 @@ def _send_slack(webhook_url: str, content: str, title: str) -> Dict:
 def _send_generic_webhook(
     webhook_url: str, message: str, title: str, payload_template: str = ""
 ) -> Dict:
-    """通用 Webhook 发送（Markdown 格式，支持自定义模板）"""
+    """Generic Webhook send (Markdown format, supports custom templates)"""
     try:
         if payload_template:
             json_content = json.dumps(message)[1:-1]
@@ -958,10 +958,10 @@ def _send_generic_webhook(
         return {"success": False, "detail": str(e)}
 
 
-# ==================== 工具类 ====================
+# ==================== Utility Classes ====================
 
 class NotificationTools:
-    """通知推送工具类"""
+    """Notification push utility class"""
 
     def __init__(self, project_root: str = None):
         if project_root:
@@ -972,10 +972,10 @@ class NotificationTools:
 
     def _load_merged_config(self) -> Dict[str, Any]:
         """
-        加载合并后的通知配置（config.yaml + .env）
+        Load merged notification configuration (config.yaml + .env)
 
         Returns:
-            包含 webhook 配置和通知参数的合并字典
+            Merged dictionary containing webhook configuration and notification parameters
         """
         config_path = self.project_root / "config" / "config.yaml"
         if config_path.exists():
@@ -989,7 +989,7 @@ class NotificationTools:
         return {**webhook_config, **notification_config}
 
     def _detect_config_source(self, env_key: str, yaml_value: str) -> str:
-        """检测配置项来源：env / yaml / 未配置"""
+        """Detect configuration item source: env / yaml / unconfigured"""
         env_val = os.environ.get(env_key, "").strip()
         if env_val:
             return "env"
@@ -999,16 +999,16 @@ class NotificationTools:
 
     def get_channel_format_guide(self, channel: Optional[str] = None) -> Dict:
         """
-        获取渠道格式化策略指南
+        Get channel formatting strategy guide
 
-        返回各渠道支持的 Markdown 特性、限制和最佳格式化提示词，
-        供 LLM 在生成推送内容时参考，确保内容样式贴合目标渠道。
+        Returns Markdown features, limitations, and best formatting prompts supported by each channel,
+        for LLM reference when generating push content, ensuring content style fits the target channel.
 
         Args:
-            channel: 指定渠道 ID，None 返回所有渠道的策略
+            channel: Specify channel ID, None returns strategies for all channels
 
         Returns:
-            格式化策略字典
+            Formatting strategy dictionary
         """
         if channel:
             if channel not in CHANNEL_FORMAT_GUIDES:
@@ -1017,8 +1017,8 @@ class NotificationTools:
                     "success": False,
                     "error": {
                         "code": "INVALID_CHANNEL",
-                        "message": f"无效的渠道: {channel}",
-                        "suggestion": f"支持的渠道: {valid}",
+                        "message": f"Invalid channel: {channel}",
+                        "suggestion": f"Supported channels: {valid}",
                     },
                 }
             guide = CHANNEL_FORMAT_GUIDES[channel]
@@ -1030,24 +1030,24 @@ class NotificationTools:
         else:
             return {
                 "success": True,
-                "summary": f"共 {len(CHANNEL_FORMAT_GUIDES)} 个渠道的格式化策略",
+                "summary": f"Total {len(CHANNEL_FORMAT_GUIDES)} channel formatting strategies",
                 "guides": CHANNEL_FORMAT_GUIDES,
             }
 
     def get_notification_channels(self) -> Dict:
         """
-        获取所有通知渠道的配置状态
+        Get configuration status of all notification channels
 
-        检测 config.yaml 和 .env 环境变量，返回每个渠道是否已配置。
+        Detect config.yaml and .env environment variables, return whether each channel is configured.
 
         Returns:
-            渠道状态字典
+            Channel status dictionary
         """
         try:
             config = self._load_merged_config()
             enabled = config.get("ENABLE_NOTIFICATION", True)
 
-            # 从 yaml 直接读取（用于判断来源）
+            # Read directly from yaml (used to determine source)
             config_path = self.project_root / "config" / "config.yaml"
             yaml_channels = {}
             if config_path.exists():
@@ -1075,7 +1075,7 @@ class NotificationTools:
             for channel_id, required_keys in _CHANNEL_REQUIREMENTS.items():
                 is_configured = all(config.get(k) for k in required_keys)
 
-                # 判断来源
+                # Determine source
                 sources = set()
                 for key in required_keys:
                     ch_name, field = env_key_map.get(key, ("", ""))
@@ -1096,7 +1096,7 @@ class NotificationTools:
             return {
                 "success": True,
                 "notification_enabled": enabled,
-                "summary": f"{configured_count}/{len(channels)} 个渠道已配置",
+                "summary": f"{configured_count}/{len(channels)} channels configured",
                 "channels": channels,
             }
         except Exception as e:
@@ -1108,27 +1108,27 @@ class NotificationTools:
     def send_notification(
         self,
         message: str,
-        title: str = "TrendRadar 通知",
+        title: str = "TrendRadar Notification",
         channels: Optional[List[str]] = None,
     ) -> Dict:
         """
-        向已配置的通知渠道发送消息
+        Send message to configured notification channels
 
-        接受 markdown 格式内容，内部自动转换为各渠道要求的格式。
+        Accepts markdown format content, internally automatically converts to the format required by each channel.
 
         Args:
-            message: markdown 格式的消息内容
-            title: 消息标题
-            channels: 指定发送的渠道列表，None 表示发送到所有已配置渠道
-                      可选值: feishu, dingtalk, wework, telegram, email, ntfy, bark, slack, generic_webhook
+            message: markdown format message content
+            title: Message title
+            channels: List of channels to send to, None means send to all configured channels
+                      Optional values: feishu, dingtalk, wework, telegram, email, ntfy, bark, slack, generic_webhook
 
         Returns:
-            发送结果字典
+            Send result dictionary
         """
         if not message or not message.strip():
             return {
                 "success": False,
-                "error": {"code": "EMPTY_MESSAGE", "message": "消息内容不能为空"},
+                "error": {"code": "EMPTY_MESSAGE", "message": "Message content cannot be empty"},
             }
 
         try:
@@ -1137,22 +1137,22 @@ class NotificationTools:
             if not config.get("ENABLE_NOTIFICATION", True):
                 return {
                     "success": False,
-                    "error": {"code": "NOTIFICATION_DISABLED", "message": "通知功能已禁用（notification.enabled = false）"},
+                    "error": {"code": "NOTIFICATION_DISABLED", "message": "Notification feature is disabled (notification.enabled = false)"},
                 }
 
-            # 确定目标渠道
+            # Determine target channels
             all_channel_ids = list(_CHANNEL_REQUIREMENTS.keys())
             if channels:
-                # 验证渠道名称
+                # Validate channel names
                 invalid = [ch for ch in channels if ch not in all_channel_ids]
                 if invalid:
                     raise InvalidParameterError(
-                        f"无效的渠道: {invalid}",
-                        suggestion=f"支持的渠道: {all_channel_ids}"
+                        f"Invalid channel: {invalid}",
+                        suggestion=f"Supported channels: {all_channel_ids}"
                     )
                 target_channels = channels
             else:
-                # 发送到所有已配置渠道
+                # Send to all configured channels
                 target_channels = [
                     ch_id for ch_id, keys in _CHANNEL_REQUIREMENTS.items()
                     if all(config.get(k) for k in keys)
@@ -1163,17 +1163,17 @@ class NotificationTools:
                     "success": False,
                     "error": {
                         "code": "NO_CHANNELS",
-                        "message": "没有已配置的目标渠道",
-                        "suggestion": "请在 config.yaml 或 .env 中配置至少一个通知渠道",
+                        "message": "No configured target channels",
+                        "suggestion": "Please configure at least one notification channel in config.yaml or .env",
                     },
                 }
 
-            # 逐渠道发送
+            # Send by channel
             results = {}
             for ch_id in target_channels:
                 required_keys = _CHANNEL_REQUIREMENTS[ch_id]
                 if not all(config.get(k) for k in required_keys):
-                    results[ch_id] = {"success": False, "detail": "渠道未配置"}
+                    results[ch_id] = {"success": False, "detail": "Channel not configured"}
                     continue
 
                 result = self._dispatch_to_channel(ch_id, config, message, title)
@@ -1184,7 +1184,7 @@ class NotificationTools:
 
             return {
                 "success": success_count > 0,
-                "summary": f"{success_count}/{total} 个渠道发送成功",
+                "summary": f"{success_count}/{total} channels sent successfully",
                 "results": {
                     ch_id: {
                         "name": _CHANNEL_NAMES.get(ch_id, ch_id),
@@ -1205,15 +1205,15 @@ class NotificationTools:
     def _dispatch_to_channel(
         self, channel_id: str, config: Dict, message: str, title: str
     ) -> Dict:
-        """分发消息到指定渠道（格式适配 → 字节分批 → 多账号 × 逐批发送）
+        """Distribute messages to specified channels (format adaptation → byte batching → multiple accounts × batch sending)
 
-        从 config.yaml → advanced.batch_size / batch_send_interval 读取配置。
+        Read configuration from config.yaml → advanced.batch_size / batch_send_interval.
         """
-        # 从 config 读取批次配置（与 trendradar 一致）
+        # Read batch configuration from config (consistent with trendradar)
         batch_sizes = self._get_batch_sizes()
         batch_interval = self._get_batch_interval()
 
-        # Email 无字节限制，不走分批管线
+        # Email has no byte limit, does not go through batch pipeline
         if channel_id == "email":
             return _send_email(
                 config["EMAIL_FROM"],
@@ -1224,10 +1224,10 @@ class NotificationTools:
                 config.get("EMAIL_SMTP_PORT", ""),
             )
 
-        # 统一分批管线：格式适配 → 字节分割 → 添加批次头部 → (可选)反序
+        # Unified batch pipeline: format adaptation → byte splitting → add batch header → (optional) reverse order
         batches = _prepare_batches(message, channel_id, batch_sizes)
 
-        # 按渠道路由发送
+        # Route and send by channel
         if channel_id == "feishu":
             return self._send_batched_multi_account(
                 config["FEISHU_WEBHOOK_URL"], batches, channel_id,
@@ -1275,10 +1275,10 @@ class NotificationTools:
                 batch_interval,
             )
         else:
-            return {"success": False, "detail": f"未知渠道: {channel_id}"}
+            return {"success": False, "detail": f"Unknown channel: {channel_id}"}
 
     def _get_batch_sizes(self) -> Dict:
-        """从 config.yaml 读取 advanced.batch_size，合并到默认值"""
+        """Read advanced.batch_size from config.yaml, merge into default values"""
         try:
             config_path = self.project_root / "config" / "config.yaml"
             if config_path.exists():
@@ -1286,14 +1286,14 @@ class NotificationTools:
                     raw = yaml.safe_load(f) or {}
                 advanced = raw.get("advanced", {})
                 cfg_sizes = advanced.get("batch_size", {})
-                # 从 config 构建渠道映射
+                # Build channel mapping from config
                 sizes = dict(_CHANNEL_BATCH_SIZES_DEFAULT)
                 default_size = cfg_sizes.get("default", 4000)
                 for ch_id in sizes:
                     if ch_id in cfg_sizes:
                         sizes[ch_id] = cfg_sizes[ch_id]
                     elif ch_id not in ("email", "ntfy") and sizes[ch_id] == 4000:
-                        # 使用 config 中的 default
+                        # Use default from config
                         sizes[ch_id] = default_size
                 return sizes
         except Exception:
@@ -1301,7 +1301,7 @@ class NotificationTools:
         return dict(_CHANNEL_BATCH_SIZES_DEFAULT)
 
     def _get_batch_interval(self) -> float:
-        """从 config.yaml 读取 advanced.batch_send_interval"""
+        """Read advanced.batch_send_interval from config.yaml"""
         try:
             config_path = self.project_root / "config" / "config.yaml"
             if config_path.exists():
@@ -1316,10 +1316,10 @@ class NotificationTools:
         self, urls_str: str, batches: List[str], channel_id: str, send_func,
         batch_interval: float = _BATCH_INTERVAL_DEFAULT,
     ) -> Dict:
-        """多账号 × 逐批发送（; 分隔的 URL）"""
+        """Multiple accounts × batch sending (; separated URLs)"""
         urls = [u.strip() for u in urls_str.split(";") if u.strip()]
         if not urls:
-            return {"success": False, "detail": "URL 为空"}
+            return {"success": False, "detail": "URL is empty"}
 
         any_ok = False
         details = []
@@ -1330,7 +1330,7 @@ class NotificationTools:
                     any_ok = True
                 elif r["detail"]:
                     details.append(r["detail"])
-                # 批次间间隔
+                # Interval between batches
                 if i < len(batches) - 1:
                     time.sleep(batch_interval)
 
@@ -1344,11 +1344,11 @@ class NotificationTools:
         self, config: Dict, batches: List[str], title: str,
         batch_interval: float = _BATCH_INTERVAL_DEFAULT,
     ) -> Dict:
-        """Telegram 多账号 × 逐批发送（token/chat_id 配对）"""
+        """Telegram multiple accounts × batch sending (token/chat_id pairing)"""
         tokens = config["TELEGRAM_BOT_TOKEN"].split(";")
         chat_ids = config["TELEGRAM_CHAT_ID"].split(";")
         if len(tokens) != len(chat_ids):
-            return {"success": False, "detail": "bot_token 和 chat_id 数量不一致"}
+            return {"success": False, "detail": "Inconsistent number of bot_token and chat_id"}
 
         any_ok = False
         details = []
@@ -1375,13 +1375,13 @@ class NotificationTools:
         self, config: Dict, batches: List[str], title: str,
         batch_interval: float = _BATCH_INTERVAL_DEFAULT,
     ) -> Dict:
-        """ntfy 多账号 × 逐批发送（server/topic/token 配对，含速率限制处理）"""
+        """ntfy multiple accounts × batch sending (server/topic/token pairing, including rate limit handling)"""
         servers = config["NTFY_SERVER_URL"].split(";")
         topics = config["NTFY_TOPIC"].split(";")
         tokens_str = config.get("NTFY_TOKEN", "")
         tokens = tokens_str.split(";") if tokens_str else [""]
         if len(servers) != len(topics):
-            return {"success": False, "detail": "server_url 和 topic 数量不一致"}
+            return {"success": False, "detail": "Inconsistent number of server_url and topic"}
 
         any_ok = False
         details = []
@@ -1390,7 +1390,7 @@ class NotificationTools:
             tk = tokens[i].strip() if i < len(tokens) else ""
             if not (srv and topic):
                 continue
-            # ntfy.sh 公共服务器用 2s 间隔（与 trendradar 一致）
+            # ntfy.sh public server uses 2s interval (consistent with trendradar)
             interval = 2.0 if "ntfy.sh" in srv else batch_interval
             for j, batch in enumerate(batches):
                 r = _send_ntfy(srv, topic, batch, title, tk)

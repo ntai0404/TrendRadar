@@ -1,7 +1,7 @@
 """
-数据查询工具
+Data query tool
 
-实现P0核心的数据查询工具。
+Implement P0 core data query tool.
 """
 
 from typing import Dict, List, Optional, Union
@@ -21,14 +21,14 @@ from ..utils.errors import MCPError
 
 
 class DataQueryTools:
-    """数据查询工具类"""
+    """Data query tool class"""
 
     def __init__(self, project_root: str = None):
         """
-        初始化数据查询工具
+        Initialize data query tool
 
         Args:
-            project_root: 项目根目录
+            project_root: Project root directory
         """
         self.data_service = DataService(project_root)
 
@@ -39,15 +39,15 @@ class DataQueryTools:
         include_url: bool = False
     ) -> Dict:
         """
-        获取最新一批爬取的新闻数据
+        Get the latest batch of crawled news data
 
         Args:
-            platforms: 平台ID列表，如 ['zhihu', 'weibo']
-            limit: 返回条数限制，默认20
-            include_url: 是否包含URL链接，默认False（节省token）
+            platforms: List of platform IDs, e.g., ['zhihu', 'weibo']
+            limit: Return count limit, default 20
+            include_url: Whether to include URL links, default False (saves tokens)
 
         Returns:
-            新闻列表字典
+            News list dictionary
 
         Example:
             >>> tools = DataQueryTools()
@@ -56,11 +56,11 @@ class DataQueryTools:
             10
         """
         try:
-            # 参数验证
+            # Parameter validation
             platforms = validate_platforms(platforms)
             limit = validate_limit(limit, default=50)
 
-            # 获取数据
+            # Get data
             news_list = self.data_service.get_latest_news(
                 platforms=platforms,
                 limit=limit,
@@ -70,10 +70,10 @@ class DataQueryTools:
             return {
                 "success": True,
                 "summary": {
-                    "description": "最新一批爬取的新闻数据",
+                    "description": "Latest batch of crawled news data",
                     "total": len(news_list),
                     "returned": len(news_list),
-                    "platforms": platforms or "全部平台"
+                    "platforms": platforms or "All platforms"
                 },
                 "data": news_list
             }
@@ -100,28 +100,28 @@ class DataQueryTools:
         limit: Optional[int] = None
     ) -> Dict:
         """
-        按关键词搜索历史新闻
+        Search historical news by keyword
 
         Args:
-            keyword: 搜索关键词（必需）
-            date_range: 日期范围，格式: {"start": "YYYY-MM-DD", "end": "YYYY-MM-DD"}
-            platforms: 平台过滤列表
-            limit: 返回条数限制（可选，默认返回所有）
+            keyword: Search keyword (required)
+            date_range: Date range, format: {"start": "YYYY-MM-DD", "end": "YYYY-MM-DD"}
+            platforms: Platform filter list
+            limit: Return count limit (optional, default returns all)
 
         Returns:
-            搜索结果字典
+            Search result dictionary
 
-        Example (假设今天是 2025-11-17):
+        Example (Assuming today is 2025-11-17):
             >>> tools = DataQueryTools()
             >>> result = tools.search_news_by_keyword(
-            ...     keyword="人工智能",
+            ...     keyword="Artificial Intelligence",
             ...     date_range={"start": "2025-11-08", "end": "2025-11-17"},
             ...     limit=50
             ... )
             >>> print(result['total'])
         """
         try:
-            # 参数验证
+            # Parameter validation
             keyword = validate_keyword(keyword)
             date_range_tuple = validate_date_range(date_range)
             platforms = validate_platforms(platforms)
@@ -129,7 +129,7 @@ class DataQueryTools:
             if limit is not None:
                 limit = validate_limit(limit, default=100)
 
-            # 搜索数据
+            # Search data
             search_result = self.data_service.search_news_by_keyword(
                 keyword=keyword,
                 date_range=date_range_tuple,
@@ -163,34 +163,34 @@ class DataQueryTools:
         extract_mode: Optional[str] = None
     ) -> Dict:
         """
-        获取热点话题统计
+        Get hot topic statistics
 
         Args:
-            top_n: 返回TOP N话题，默认10
-            mode: 时间模式
-                - "daily": 当日累计数据统计
-                - "current": 最新一批数据统计（默认）
-            extract_mode: 提取模式
-                - "keywords": 统计预设关注词（基于 config/frequency_words.txt，默认）
-                - "auto_extract": 自动从新闻标题提取高频词
+            top_n: Return TOP N topics, default 10
+            mode: Time mode
+                - "daily": Daily cumulative data statistics
+                - "current": Latest batch data statistics (default)
+            extract_mode: Extraction mode
+                - "keywords": Count preset focus words (based on config/frequency_words.txt, default)
+                - "auto_extract": Automatically extract high-frequency words from news titles
 
         Returns:
-            话题频率统计字典
+            Topic frequency statistics dictionary
 
         Example:
             >>> tools = DataQueryTools()
-            >>> # 使用预设关注词
+            >>> # Use preset focus words
             >>> result = tools.get_trending_topics(top_n=5, mode="current")
-            >>> # 自动提取高频词
+            >>> # Automatically extract high-frequency words
             >>> result = tools.get_trending_topics(top_n=10, extract_mode="auto_extract")
         """
         try:
-            # 参数验证
+            # Parameter validation
             top_n = validate_top_n(top_n, default=10)
             valid_modes = ["daily", "current"]
             mode = validate_mode(mode, valid_modes, default="current")
 
-            # 验证 extract_mode
+            # Validate extract_mode
             if extract_mode is None:
                 extract_mode = "keywords"
             elif extract_mode not in ["keywords", "auto_extract"]:
@@ -198,12 +198,12 @@ class DataQueryTools:
                     "success": False,
                     "error": {
                         "code": "INVALID_PARAMETER",
-                        "message": f"不支持的提取模式: {extract_mode}",
-                        "suggestion": "支持的模式: keywords, auto_extract"
+                        "message": f"Unsupported extraction mode: {extract_mode}",
+                        "suggestion": "Supported modes: keywords, auto_extract"
                     }
                 }
 
-            # 获取趋势话题
+            # Get trending topics
             trending_result = self.data_service.get_trending_topics(
                 top_n=top_n,
                 mode=mode,
@@ -237,27 +237,27 @@ class DataQueryTools:
         include_url: bool = False
     ) -> Dict:
         """
-        按日期查询新闻，支持自然语言日期
+        Query news by date, supports natural language dates
 
         Args:
-            date_range: 日期范围（可选，默认"今天"），支持：
-                - 范围对象：{"start": "2025-01-01", "end": "2025-01-07"}
-                - 相对日期：今天、昨天、前天、3天前
-                - 单日字符串：2025-10-10
-            platforms: 平台ID列表，如 ['zhihu', 'weibo']
-            limit: 返回条数限制，默认50
-            include_url: 是否包含URL链接，默认False（节省token）
+            date_range: Date range (optional, default "today"), supports:
+                - Range object: {"start": "2025-01-01", "end": "2025-01-07"}
+                - Relative dates: today, yesterday, the day before yesterday, 3 days ago
+                - Single day string: 2025-10-10
+            platforms: List of platform IDs, e.g., ['zhihu', 'weibo']
+            limit: Return count limit, default 50
+            include_url: Whether to include URL links, default False (saves tokens)
 
         Returns:
-            新闻列表字典
+            News list dictionary
 
         Example:
             >>> tools = DataQueryTools()
-            >>> # 不指定日期，默认查询今天
+            >>> # No date specified, defaults to querying today
             >>> result = tools.get_news_by_date(platforms=['zhihu'], limit=20)
-            >>> # 指定日期
+            >>> # Specify date
             >>> result = tools.get_news_by_date(
-            ...     date_range="昨天",
+            ...     date_range="yesterday",
             ...     platforms=['zhihu'],
             ...     limit=20
             ... )
@@ -265,24 +265,24 @@ class DataQueryTools:
             20
         """
         try:
-            # 参数验证 - 默认今天
+            # Parameter validation - default today
             if date_range is None:
-                date_range = "今天"
+                date_range = "today"
 
-            # 规范化 date_range（处理 JSON 字符串序列化问题）
+            # Normalize date_range (handle JSON string serialization issues)
             date_range = normalize_date_range(date_range)
 
-            # 处理 date_range：支持字符串或对象
+            # Process date_range: supports string or object
             if isinstance(date_range, dict):
-                # 范围对象，取 start 日期
-                date_str = date_range.get('start', '今天')
+                # Range object, get start date
+                date_str = date_range.get('start', 'today')
             else:
                 date_str = date_range
             target_date = validate_date_query(date_str)
             platforms = validate_platforms(platforms)
             limit = validate_limit(limit, default=50)
 
-            # 获取数据
+            # Get data
             news_list = self.data_service.get_news_by_date(
                 target_date=target_date,
                 platforms=platforms,
@@ -293,12 +293,12 @@ class DataQueryTools:
             return {
                 "success": True,
                 "summary": {
-                    "description": f"按日期查询的新闻（{target_date.strftime('%Y-%m-%d')}）",
+                    "description": f"News queried by date ({target_date.strftime('%Y-%m-%d')})",
                     "total": len(news_list),
                     "returned": len(news_list),
                     "date": target_date.strftime("%Y-%m-%d"),
                     "date_range": date_range,
-                    "platforms": platforms or "全部平台"
+                    "platforms": platforms or "All platforms"
                 },
                 "data": news_list
             }
@@ -318,7 +318,7 @@ class DataQueryTools:
             }
 
     # ========================================
-    # RSS 数据查询方法
+    # RSS data query methods
     # ========================================
 
     def get_latest_rss(
@@ -329,16 +329,16 @@ class DataQueryTools:
         include_summary: bool = False
     ) -> Dict:
         """
-        获取最新的 RSS 数据（支持多日查询）
+        Get the latest RSS data (supports multi-day queries)
 
         Args:
-            feeds: RSS 源 ID 列表，如 ['hacker-news', '36kr']
-            days: 获取最近 N 天的数据，默认 1（仅今天），最大 30 天
-            limit: 返回条数限制，默认50
-            include_summary: 是否包含摘要，默认False（节省token）
+            feeds: List of RSS feed IDs, e.g., ['hacker-news', '36kr']
+            days: Get data for the last N days, default 1 (today only), max 30 days
+            limit: Return count limit, default 50
+            include_summary: Whether to include summary, default False (saves tokens)
 
         Returns:
-            RSS 条目列表字典
+            RSS entry list dictionary
         """
         try:
             limit = validate_limit(limit, default=50)
@@ -353,11 +353,11 @@ class DataQueryTools:
             return {
                 "success": True,
                 "summary": {
-                    "description": f"最近 {days} 天的 RSS 订阅数据" if days > 1 else "最新的 RSS 订阅数据",
+                    "description": f"RSS subscription data for the last {days} days" if days > 1 else "Latest RSS subscription data",
                     "total": len(rss_list),
                     "returned": len(rss_list),
                     "days": days,
-                    "feeds": feeds or "全部订阅源"
+                    "feeds": feeds or "All feeds"
                 },
                 "data": rss_list
             }
@@ -385,17 +385,17 @@ class DataQueryTools:
         include_summary: bool = False
     ) -> Dict:
         """
-        搜索 RSS 数据
+        Search RSS data
 
         Args:
-            keyword: 搜索关键词
-            feeds: RSS 源 ID 列表
-            days: 搜索最近 N 天的数据，默认 7 天
-            limit: 返回条数限制，默认50
-            include_summary: 是否包含摘要
+            keyword: Search keyword
+            feeds: List of RSS feed IDs
+            days: Search data for the last N days, default 7 days
+            limit: Return count limit, default 50
+            include_summary: Whether to include summary
 
         Returns:
-            匹配的 RSS 条目列表
+            List of matched RSS entries
         """
         try:
             keyword = validate_keyword(keyword)
@@ -415,11 +415,11 @@ class DataQueryTools:
             return {
                 "success": True,
                 "summary": {
-                    "description": f"RSS 搜索结果（关键词: {keyword}）",
+                    "description": f"RSS search results (keyword: {keyword})",
                     "total": len(rss_list),
                     "returned": len(rss_list),
                     "keyword": keyword,
-                    "feeds": feeds or "全部订阅源",
+                    "feeds": feeds or "All feeds",
                     "days": days
                 },
                 "data": rss_list
@@ -441,10 +441,10 @@ class DataQueryTools:
 
     def get_rss_feeds_status(self) -> Dict:
         """
-        获取 RSS 源状态
+        Get RSS feed status
 
         Returns:
-            RSS 源状态信息
+            RSS feed status information
         """
         try:
             status = self.data_service.get_rss_feeds_status()

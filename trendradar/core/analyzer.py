@@ -1,11 +1,11 @@
 # coding=utf-8
 """
-统计分析模块
+Statistical analysis module
 
-提供新闻统计和分析功能：
-- calculate_news_weight: 计算新闻权重
-- format_time_display: 格式化时间显示
-- count_word_frequency: 统计词频
+Provide news statistics and analysis functions:
+- calculate_news_weight: Calculate news weight
+- format_time_display: Format time display
+- count_word_frequency: Count word frequency
 """
 
 from typing import Dict, List, Tuple, Optional, Callable
@@ -20,15 +20,15 @@ def calculate_news_weight(
     weight_config: Dict,
 ) -> float:
     """
-    计算新闻权重，用于排序
+    Calculate news weight, used for sorting
 
     Args:
-        title_data: 标题数据，包含 ranks 和 count
-        rank_threshold: 排名阈值
-        weight_config: 权重配置 {RANK_WEIGHT, FREQUENCY_WEIGHT, HOTNESS_WEIGHT}
+        title_data: Title data, including ranks and count
+        rank_threshold: Rank threshold
+        weight_config: Weight configuration {RANK_WEIGHT, FREQUENCY_WEIGHT, HOTNESS_WEIGHT}
 
     Returns:
-        float: 计算出的权重值
+        float: Calculated weight value
     """
     ranks = title_data.get("ranks", [])
     if not ranks:
@@ -36,7 +36,7 @@ def calculate_news_weight(
 
     count = title_data.get("count", len(ranks))
 
-    # 单次遍历计算排名分数总和与高排名次数
+    # Single pass to calculate the sum of rank scores and the number of high ranks
     rank_score_sum = 0
     high_rank_count = 0
     for rank in ranks:
@@ -44,13 +44,13 @@ def calculate_news_weight(
         if rank <= rank_threshold:
             high_rank_count += 1
 
-    # 归一化到 0~100（与 frequency_weight、hotness_weight 量纲对齐）
+    # Normalize to 0~100 (align dimensions with frequency_weight, hotness_weight)
     rank_weight = (rank_score_sum / len(ranks)) * 10
 
-    # 频次权重：min(出现次数, 10) × 10
+    # Frequency weight: min(number of occurrences, 10) × 10
     frequency_weight = min(count, 10) * 10
 
-    # 热度加成：高排名次数 / 总出现次数 × 100
+    # Hotness bonus: number of high ranks / total number of occurrences × 100
     hotness_ratio = high_rank_count / len(ranks)
     hotness_weight = hotness_ratio * 100
 
@@ -69,19 +69,19 @@ def format_time_display(
     convert_time_func: Callable[[str], str],
 ) -> str:
     """
-    格式化时间显示（将 HH-MM 转换为 HH:MM）
+    Format time display (convert HH-MM to HH:MM)
 
     Args:
-        first_time: 首次出现时间
-        last_time: 最后出现时间
-        convert_time_func: 时间格式转换函数
+        first_time: First appearance time
+        last_time: Last appearance time
+        convert_time_func: Time format conversion function
 
     Returns:
-        str: 格式化后的时间显示字符串
+        str: Formatted time display string
     """
     if not first_time:
         return ""
-    # 转换为显示格式
+    # Convert to display format
     first_display = convert_time_func(first_time)
     last_display = convert_time_func(last_time)
     if first_display == last_display or not last_display:
@@ -108,29 +108,29 @@ def count_word_frequency(
     quiet: bool = False,
 ) -> Tuple[List[Dict], int]:
     """
-    统计词频，支持必须词、频率词、过滤词、全局过滤词，并标记新增标题
+    Count word frequency, support required words, frequency words, filter words, global filter words, and mark new titles
 
     Args:
-        results: 抓取结果 {source_id: {title: title_data}}
-        word_groups: 词组配置列表
-        filter_words: 过滤词列表
-        id_to_name: ID 到名称的映射
-        title_info: 标题统计信息（可选）
-        rank_threshold: 排名阈值
-        new_titles: 新增标题（可选）
-        mode: 报告模式 (daily/incremental/current)
-        global_filters: 全局过滤词（可选）
-        weight_config: 权重配置
-        max_news_per_keyword: 每个关键词最大显示数量
-        sort_by_position_first: 是否优先按配置位置排序
-        is_first_crawl_func: 检测是否是当天第一次爬取的函数
-        convert_time_func: 时间格式转换函数
-        quiet: 是否静默模式（不打印日志）
+        results: Crawl results {source_id: {title: title_data}}
+        word_groups: Word group configuration list
+        filter_words: Filter word list
+        id_to_name: Mapping from ID to name
+        title_info: Title statistics information (optional)
+        rank_threshold: Rank threshold
+        new_titles: New titles (optional)
+        mode: Report mode (daily/incremental/current)
+        global_filters: Global filter words (optional)
+        weight_config: Weight configuration
+        max_news_per_keyword: Maximum display quantity per keyword
+        sort_by_position_first: Whether to prioritize sorting by configuration position
+        is_first_crawl_func: Function to detect if it is the first crawl of the day
+        convert_time_func: Time format conversion function
+        quiet: Whether in quiet mode (do not print logs)
 
     Returns:
-        Tuple[List[Dict], int]: (统计结果列表, 总标题数)
+        Tuple[List[Dict], int]: (List of statistical results, total number of titles)
     """
-    # 默认权重配置
+    # Default weight configuration
     if weight_config is None:
         weight_config = {
             "RANK_WEIGHT": 0.6,
@@ -138,34 +138,34 @@ def count_word_frequency(
             "HOTNESS_WEIGHT": 0.1,
         }
 
-    # 默认时间转换函数
+    # Default time conversion function
     if convert_time_func is None:
         convert_time_func = lambda x: x
 
-    # 默认首次爬取检测函数
+    # Default first crawl detection function
     if is_first_crawl_func is None:
         is_first_crawl_func = lambda: True
 
-    # 如果没有配置词组，创建一个包含所有新闻的虚拟词组
+    # If no word groups are configured, create a virtual word group containing all news
     if not word_groups:
-        print("频率词配置为空，将显示所有新闻")
-        word_groups = [{"required": [], "normal": [], "group_key": "全部新闻"}]
-        filter_words = []  # 清空过滤词，显示所有新闻
+        print("Frequency word configuration is empty, all news will be displayed")
+        word_groups = [{"required": [], "normal": [], "group_key": "All news"}]
+        filter_words = []  # Clear filter words, display all news
 
     is_first_today = is_first_crawl_func()
 
-    # 确定处理的数据源和新增标记逻辑
+    # Determine the data source to process and the new tag logic
     if mode == "incremental":
         if is_first_today:
-            # 增量模式 + 当天第一次：处理所有新闻，都标记为新增
+            # Incremental mode + first time of the day: process all news, all marked as new
             results_to_process = results
             all_news_are_new = True
         else:
-            # 增量模式 + 当天非第一次：只处理新增的新闻
+            # Incremental mode + not the first time of the day: only process new news
             results_to_process = new_titles if new_titles else {}
             all_news_are_new = True
     elif mode == "current":
-        # current 模式：只处理当前时间批次的新闻，但统计信息来自全部历史
+        # current mode: only process news of the current time batch, but statistics come from all history
         if title_info:
             latest_time = None
             for source_titles in title_info.values():
@@ -175,7 +175,7 @@ def count_word_frequency(
                         if latest_time is None or last_time > latest_time:
                             latest_time = last_time
 
-            # 只处理 last_time 等于最新时间的新闻
+            # Only process news where last_time equals the latest time
             if latest_time:
                 results_to_process = {}
                 for source_id, source_titles in results.items():
@@ -191,7 +191,7 @@ def count_word_frequency(
 
                 if not quiet:
                     print(
-                        f"Bảng xếp hạng hiện tại模式：最新时间 {latest_time}，筛选出 {sum(len(titles) for titles in results_to_process.values())} 条Bảng xếp hạng hiện tại新闻"
+                        f"Bảng xếp hạng hiện tại mode: latest time {latest_time}, filtered out {sum(len(titles) for titles in results_to_process.values())} Bảng xếp hạng hiện tại news"
                     )
             else:
                 results_to_process = results
@@ -199,16 +199,16 @@ def count_word_frequency(
             results_to_process = results
         all_news_are_new = False
     else:
-        # 当日汇总模式：处理所有新闻
+        # Daily summary mode: process all news
         results_to_process = results
         all_news_are_new = False
         total_input_news = sum(len(titles) for titles in results.values())
         filter_status = (
-            "全部显示"
-            if len(word_groups) == 1 and word_groups[0]["group_key"] == "全部新闻"
-            else "频率词过滤"
+            "Display all"
+            if len(word_groups) == 1 and word_groups[0]["group_key"] == "All news"
+            else "Frequency word filtering"
         )
-        print(f"当日汇总模式：处理 {total_input_news} 条新闻，模式：{filter_status}")
+        print(f"Daily summary mode: processed {total_input_news} news, mode: {filter_status}")
 
     word_stats = {}
     total_titles = 0
@@ -234,7 +234,7 @@ def count_word_frequency(
             if title in processed_titles.get(source_id, {}):
                 continue
 
-            # 使用统一的匹配逻辑
+            # Use unified matching logic
             matches_frequency_words = matches_word_groups(
                 title, word_groups, filter_words, global_filters
             )
@@ -242,7 +242,7 @@ def count_word_frequency(
             if not matches_frequency_words:
                 continue
 
-            # 如果是增量模式或 current 模式第一次，统计匹配的新增新闻数量
+            # If it is incremental mode or current mode first time, count the number of matched new news
             if (mode == "incremental" and all_news_are_new) or (
                 mode == "current" and is_first_today
             ):
@@ -252,20 +252,20 @@ def count_word_frequency(
             source_url = title_data.get("url", "")
             source_mobile_url = title_data.get("mobileUrl", "")
 
-            # 找到匹配的词组（防御性转换确保类型安全）
+            # Find matching word groups (defensive conversion to ensure type safety)
             title_lower = str(title).lower() if not isinstance(title, str) else title.lower()
             for group in word_groups:
                 required_words = group["required"]
                 normal_words = group["normal"]
 
-                # 如果是"全部新闻"模式，所有标题都匹配第一个（唯一的）词组
-                if len(word_groups) == 1 and word_groups[0]["group_key"] == "全部新闻":
+                # If it is "All news" mode, all titles match the first (only) word group
+                if len(word_groups) == 1 and word_groups[0]["group_key"] == "All news":
                     group_key = group["group_key"]
                     word_stats[group_key]["count"] += 1
                     if source_id not in word_stats[group_key]["titles"]:
                         word_stats[group_key]["titles"][source_id] = []
                 else:
-                    # 原有的匹配逻辑（支持正则语法）
+                    # Original matching logic (supports regex syntax)
                     if required_words:
                         all_required_present = all(
                             _word_matches(req_item, title_lower)
@@ -295,7 +295,7 @@ def count_word_frequency(
                 mobile_url = source_mobile_url
                 rank_timeline = []
 
-                # 对于 current 模式，从历史统计信息中获取完整数据
+                # For current mode, get complete data from historical statistics
                 if (
                     mode == "current"
                     and title_info
@@ -333,13 +333,13 @@ def count_word_frequency(
 
                 source_name = id_to_name.get(source_id, source_id)
 
-                # 判断是否为新增
+                # Determine if it is new
                 is_new = False
                 if all_news_are_new:
-                    # 增量模式下所有处理的新闻都是新增，或者当天第一次的所有新闻都是新增
+                    # In incremental mode, all processed news are new, or all news from the first time of the day are new
                     is_new = True
                 elif new_titles and source_id in new_titles:
-                    # 检查是否在新增列表中
+                    # Check if it is in the new list
                     new_titles_for_source = new_titles[source_id]
                     is_new = title in new_titles_for_source
 
@@ -366,63 +366,63 @@ def count_word_frequency(
 
                 break
 
-    # 最后统一打印汇总信息
+    # Finally, print summary information uniformly
     if mode == "incremental":
         if is_first_today:
             total_input_news = sum(len(titles) for titles in results.values())
             filter_status = (
-                "全部显示"
-                if len(word_groups) == 1 and word_groups[0]["group_key"] == "全部新闻"
-                else "频率词匹配"
+                "Display all"
+                if len(word_groups) == 1 and word_groups[0]["group_key"] == "All news"
+                else "Frequency word matching"
             )
             if not quiet:
                 print(
-                    f"增量模式：当天第一次爬取，{total_input_news} 条新闻中有 {matched_new_count} 条{filter_status}"
+                    f"Incremental mode: first crawl of the day, among {total_input_news} news there are {matched_new_count} {filter_status}"
                 )
         else:
             if new_titles:
                 total_new_count = sum(len(titles) for titles in new_titles.values())
                 filter_status = (
-                    "全部显示"
+                    "Display all"
                     if len(word_groups) == 1
-                    and word_groups[0]["group_key"] == "全部新闻"
-                    else "匹配频率词"
+                    and word_groups[0]["group_key"] == "All news"
+                    else "Match frequency words"
                 )
                 if not quiet:
                     print(
-                        f"增量模式：{total_new_count} 条新增新闻中，有 {matched_new_count} 条{filter_status}"
+                        f"Incremental mode: among {total_new_count} new news, there are {matched_new_count} {filter_status}"
                     )
                     if matched_new_count == 0 and len(word_groups) > 1:
-                        print("增量模式：没有新增新闻匹配频率词，将不会发送通知")
+                        print("Incremental mode: no new news matches frequency words, no notification will be sent")
             else:
                 if not quiet:
-                    print("增量模式：未检测到新增新闻")
+                    print("Incremental mode: no new news detected")
     elif mode == "current":
         total_input_news = sum(len(titles) for titles in results_to_process.values())
         if is_first_today:
             filter_status = (
-                "全部显示"
-                if len(word_groups) == 1 and word_groups[0]["group_key"] == "全部新闻"
-                else "频率词匹配"
+                "Display all"
+                if len(word_groups) == 1 and word_groups[0]["group_key"] == "All news"
+                else "Frequency word matching"
             )
             if not quiet:
                 print(
-                    f"Bảng xếp hạng hiện tại模式：当天第一次爬取，{total_input_news} 条Bảng xếp hạng hiện tại新闻中有 {matched_new_count} 条{filter_status}"
+                    f"Bảng xếp hạng hiện tại mode: first crawl of the day, among {total_input_news} Bảng xếp hạng hiện tại news there are {matched_new_count} {filter_status}"
                 )
         else:
             matched_count = sum(stat["count"] for stat in word_stats.values())
             filter_status = (
-                "全部显示"
-                if len(word_groups) == 1 and word_groups[0]["group_key"] == "全部新闻"
-                else "频率词匹配"
+                "Show all"
+                if len(word_groups) == 1 and word_groups[0]["group_key"] == "All news"
+                else "Frequency word matching"
             )
             if not quiet:
                 print(
-                    f"Bảng xếp hạng hiện tại模式：{total_input_news} 条Bảng xếp hạng hiện tại新闻中有 {matched_count} 条{filter_status}"
+                    f"Bảng xếp hạng hiện tại mode: {total_input_news} items Bảng xếp hạng hiện tại news contains {matched_count} items {filter_status}"
                 )
 
     stats = []
-    # 创建 group_key 到位置、最大数量、显示名称的映射
+    # Create mapping of group_key to position, max quantity, and display name
     group_key_to_position = {
         group["group_key"]: idx for idx, group in enumerate(word_groups)
     }
@@ -438,7 +438,7 @@ def count_word_frequency(
         for source_id, title_list in data["titles"].items():
             all_titles.extend(title_list)
 
-        # 按权重排序
+        # Sort by weight
         sorted_titles = sorted(
             all_titles,
             key=lambda x: (
@@ -448,16 +448,16 @@ def count_word_frequency(
             ),
         )
 
-        # 应用最大显示数量限制（优先级：单独配置 > 全局配置）
+        # Apply max display quantity limit (priority: individual config > global config)
         group_max_count = group_key_to_max_count.get(group_key, 0)
         if group_max_count == 0:
-            # 使用全局配置
+            # Use global config
             group_max_count = max_news_per_keyword
 
         if group_max_count > 0:
             sorted_titles = sorted_titles[:group_max_count]
 
-        # 优先使用 display_name，否则使用 group_key
+        # Prefer display_name, otherwise use group_key
         display_word = group_key_to_display_name.get(group_key) or group_key
 
         stats.append(
@@ -474,19 +474,19 @@ def count_word_frequency(
             }
         )
 
-    # 根据配置选择排序优先级
+    # Select sorting priority based on config
     if sort_by_position_first:
-        # 先按配置位置，再按热点条数
+        # First by config position, then by number of hot items
         stats.sort(key=lambda x: (x["position"], -x["count"]))
     else:
-        # 先按热点条数，再按配置位置（原逻辑）
+        # First by number of hot items, then by config position (original logic)
         stats.sort(key=lambda x: (-x["count"], x["position"]))
 
-    # 打印过滤后的匹配新闻数
+    # Print matched news count after filtering
     matched_news_count = sum(len(stat["titles"]) for stat in stats if stat["count"] > 0)
     if not quiet and mode == "daily":
-        print(f"当日汇总模式：处理 {total_titles} 条新闻，模式：频率词过滤")
-        print(f"频率词过滤后：{matched_news_count} 条新闻匹配")
+        print(f"Daily summary mode: processed {total_titles} news items, mode: frequency word filtering")
+        print(f"After frequency word filtering: {matched_news_count} news items matched")
 
     return stats, total_titles
 
@@ -504,39 +504,39 @@ def count_rss_frequency(
     quiet: bool = False,
 ) -> Tuple[List[Dict], int]:
     """
-    按关键词分组统计 RSS 条目（与热榜统计格式一致）
+    Group and count RSS items by keyword (consistent with hotlist stats format)
 
     Args:
-        rss_items: RSS 条目列表，每个条目包含：
-            - title: 标题
-            - feed_id: RSS 源 ID
-            - feed_name: RSS 源名称
-            - url: 文章链接
-            - published_at: 发布时间（ISO 格式）
-        word_groups: 词组配置列表
-        filter_words: 过滤词列表
-        global_filters: 全局过滤词（可选）
-        new_items: 新增条目列表（可选，用于标记 is_new）
-        max_news_per_keyword: 每个关键词最大显示数量
-        sort_by_position_first: 是否优先按配置位置排序
-        timezone: 时区名称（用于时间格式化）
-        quiet: 是否静默模式
+        rss_items: RSS item list, each item contains:
+            - title: Title
+            - feed_id: RSS feed ID
+            - feed_name: RSS feed name
+            - url: Article link
+            - published_at: Publish time (ISO format)
+        word_groups: Word group config list
+        filter_words: Filter word list
+        global_filters: Global filter words (optional)
+        new_items: New item list (optional, used to mark is_new)
+        max_news_per_keyword: Max display quantity per keyword
+        sort_by_position_first: Whether to prioritize sorting by config position
+        timezone: Timezone name (used for time formatting)
+        quiet: Whether in quiet mode
 
     Returns:
-        Tuple[List[Dict], int]: (统计结果列表, 总条目数)
-        统计结果格式与热榜一致：
+        Tuple[List[Dict], int]: (Stats result list, total item count)
+        Stats result format is consistent with hotlist:
         [
             {
-                "word": "关键词",
+                "word": "Keyword",
                 "count": 5,
                 "position": 0,
                 "titles": [
                     {
-                        "title": "标题",
+                        "title": "Title",
                         "source_name": "Hacker News",
                         "time_display": "12-29 08:20",
                         "count": 1,
-                        "ranks": [1],  # RSS 用发布时间顺序作为排名
+                        "ranks": [1],  # RSS uses publish time order as ranking
                         "rank_threshold": 50,
                         "url": "...",
                         "mobile_url": "",
@@ -552,31 +552,31 @@ def count_rss_frequency(
     if not rss_items:
         return [], 0
 
-    # 如果没有配置词组，创建一个包含所有条目的虚拟词组
+    # If no word group is configured, create a virtual word group containing all items
     if not word_groups:
         if not quiet:
-            print("[RSS] 频率词配置为空，将显示所有 RSS 条目")
-        word_groups = [{"required": [], "normal": [], "group_key": "全部 RSS"}]
+            print("[RSS] Frequency word config is empty, will display all RSS items")
+        word_groups = [{"required": [], "normal": [], "group_key": "All RSS"}]
         filter_words = []
 
-    # 创建新增条目的 URL 集合，用于快速查找
+    # Create URL set of new items for quick lookup
     new_urls = set()
     if new_items:
         for item in new_items:
             if item.get("url"):
                 new_urls.add(item["url"])
 
-    # 初始化词组统计
+    # Initialize word group stats
     word_stats = {}
     for group in word_groups:
         group_key = group["group_key"]
         word_stats[group_key] = {"count": 0, "titles": []}
 
     total_items = len(rss_items)
-    processed_urls = set()  # 用于去重
+    processed_urls = set()  # Used for deduplication
 
-    # 为每个条目分配一个基于发布时间的"排名"
-    # 按发布时间排序，最新的排在前面
+    # Assign a "rank" to each item based on publish time
+    # Sort by publish time, newest first
     sorted_items = sorted(
         rss_items,
         key=lambda x: x.get("published_at", ""),
@@ -588,28 +588,28 @@ def count_rss_frequency(
         title = item.get("title", "")
         url = item.get("url", "")
 
-        # 去重
+        # Deduplicate
         if url and url in processed_urls:
             continue
         if url:
             processed_urls.add(url)
 
-        # 使用统一的匹配逻辑
+        # Use unified matching logic
         if not matches_word_groups(title, word_groups, filter_words, global_filters):
             continue
 
-        # 找到匹配的词组
+        # Find matching word groups
         title_lower = title.lower()
         for group in word_groups:
             required_words = group["required"]
             normal_words = group["normal"]
             group_key = group["group_key"]
 
-            # "全部 RSS" 模式：所有条目都匹配
-            if len(word_groups) == 1 and word_groups[0]["group_key"] == "全部 RSS":
+            # "All RSS" mode: all items match
+            if len(word_groups) == 1 and word_groups[0]["group_key"] == "All RSS":
                 matched = True
             else:
-                # 检查必须词（支持正则语法）
+                # Check required words (supports regex syntax)
                 if required_words:
                     all_required_present = all(
                         _word_matches(req_item, title_lower)
@@ -618,7 +618,7 @@ def count_rss_frequency(
                     if not all_required_present:
                         continue
 
-                # 检查普通词（支持正则语法）
+                # Check normal words (supports regex syntax)
                 if normal_words:
                     any_normal_present = any(
                         _word_matches(normal_item, title_lower)
@@ -632,21 +632,21 @@ def count_rss_frequency(
             if matched:
                 word_stats[group_key]["count"] += 1
 
-                # 格式化时间显示
+                # Format time display
                 published_at = item.get("published_at", "")
                 time_display = format_iso_time_friendly(published_at, timezone, include_date=True) if published_at else ""
 
-                # 判断是否为新增
+                # Determine if it is newly added
                 is_new = url in new_urls if url else False
 
-                # 获取排名（基于发布时间顺序）
+                # Get rank (based on publish time order)
                 rank = url_to_rank.get(url, 99) if url else 99
 
                 title_data = {
                     "title": title,
                     "source_name": item.get("feed_name", item.get("feed_id", "RSS")),
                     "time_display": time_display,
-                    "count": 1,  # RSS 条目通常只出现一次
+                    "count": 1,  # RSS items usually appear only once
                     "ranks": [rank],
                     "rank_threshold": rank_threshold,
                     "url": url,
@@ -654,9 +654,9 @@ def count_rss_frequency(
                     "is_new": is_new,
                 }
                 word_stats[group_key]["titles"].append(title_data)
-                break  # 一个条目只匹配第一个词组
+                break  # An item only matches the first word group
 
-    # 构建统计结果
+    # Build statistical results
     stats = []
     group_key_to_position = {
         group["group_key"]: idx for idx, group in enumerate(word_groups)
@@ -672,20 +672,20 @@ def count_rss_frequency(
         if data["count"] == 0:
             continue
 
-        # 按发布时间排序（最新在前）
+        # Sort by publish time (newest first)
         sorted_titles = sorted(
             data["titles"],
             key=lambda x: x["ranks"][0] if x["ranks"] else 999
         )
 
-        # 应用最大显示数量限制
+        # Apply maximum display quantity limit
         group_max_count = group_key_to_max_count.get(group_key, 0)
         if group_max_count == 0:
             group_max_count = max_news_per_keyword
         if group_max_count > 0:
             sorted_titles = sorted_titles[:group_max_count]
 
-        # 优先使用 display_name，否则使用 group_key
+        # Prefer display_name, otherwise use group_key
         display_word = group_key_to_display_name.get(group_key) or group_key
 
         stats.append({
@@ -696,7 +696,7 @@ def count_rss_frequency(
             "percentage": round(data["count"] / total_items * 100, 2) if total_items > 0 else 0,
         })
 
-    # 排序
+    # Sort
     if sort_by_position_first:
         stats.sort(key=lambda x: (x["position"], -x["count"]))
     else:
@@ -704,7 +704,7 @@ def count_rss_frequency(
 
     matched_count = sum(stat["count"] for stat in stats)
     if not quiet:
-        print(f"[RSS] 关键词分组统计：{matched_count}/{total_items} 条匹配")
+        print(f"[RSS] Keyword group statistics: {matched_count}/{total_items} items matched")
 
     return stats, total_items
 
@@ -715,17 +715,17 @@ def convert_keyword_stats_to_platform_stats(
     rank_threshold: int = 5,
 ) -> List[Dict]:
     """
-    将按关键词分组的统计数据转换为按平台分组的统计数据
+    Convert statistics grouped by keyword to statistics grouped by platform
 
     Args:
-        keyword_stats: 原始按关键词分组的统计数据
-        weight_config: 权重配置
-        rank_threshold: 排名阈值
+        keyword_stats: Original statistics grouped by keyword
+        weight_config: Weight configuration
+        rank_threshold: Rank threshold
 
     Returns:
-        按平台分组的统计数据，格式与原 stats 一致
+        Statistics grouped by platform, format is consistent with original stats
     """
-    # 1. 收集所有新闻，按平台分组
+    # 1. Collect all news, group by platform
     platform_map: Dict[str, List[Dict]] = {}
 
     for stat in keyword_stats:
@@ -736,12 +736,12 @@ def convert_keyword_stats_to_platform_stats(
             if source_name not in platform_map:
                 platform_map[source_name] = []
 
-            # 复制 title_data 并添加匹配的关键词
+            # Copy title_data and add matched keywords
             title_with_keyword = title_data.copy()
             title_with_keyword["matched_keyword"] = keyword
             platform_map[source_name].append(title_with_keyword)
 
-    # 2. 去重（同一平台下相同标题只保留一条，保留第一个匹配的关键词）
+    # 2. Deduplicate (keep only one item for the same title under the same platform, keep the first matched keyword)
     for source_name, titles in platform_map.items():
         seen_titles: Dict[str, bool] = {}
         unique_titles = []
@@ -752,7 +752,7 @@ def convert_keyword_stats_to_platform_stats(
                 unique_titles.append(title_data)
         platform_map[source_name] = unique_titles
 
-    # 3. 按权重排序每个平台内的新闻
+    # 3. Sort news within each platform by weight
     for source_name, titles in platform_map.items():
         platform_map[source_name] = sorted(
             titles,
@@ -763,17 +763,17 @@ def convert_keyword_stats_to_platform_stats(
             ),
         )
 
-    # 4. 构建平台统计结果
+    # 4. Build platform statistical results
     platform_stats = []
     for source_name, titles in platform_map.items():
         platform_stats.append({
-            "word": source_name,  # 平台名作为分组标识
+            "word": source_name,  # Platform name as grouping identifier
             "count": len(titles),
             "titles": titles,
-            "percentage": 0,  # 可后续计算
+            "percentage": 0,  # Can be calculated later
         })
 
-    # 5. 按新闻条数排序平台
+    # 5. Sort platforms by number of news items
     platform_stats.sort(key=lambda x: -x["count"])
 
     return platform_stats

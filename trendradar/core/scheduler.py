@@ -1,9 +1,9 @@
 # coding=utf-8
 """
-时间线调度器
+Timeline scheduler
 
-统一的时间线调度系统，替代分散的 push_window / analysis_window 逻辑。
-基于 periods + day_plans + week_map 模型实现灵活的时间段调度。
+Unified timeline scheduling system, replacing scattered push_window / analysis_window logic.
+Implements flexible time period scheduling based on the periods + day_plans + week_map model.
 """
 
 import copy
@@ -16,10 +16,10 @@ from datetime import datetime
 
 @dataclass
 class ResolvedSchedule:
-    """当前时间解析后的调度结果"""
-    period_key: Optional[str]       # 命中的 period key，None=默认配置
-    period_name: Optional[str]      # 命中的展示名称
-    day_plan: str                   # 当前日计划
+    """Scheduling result after parsing the current time"""
+    period_key: Optional[str]       # Hit period key, None=default configuration
+    period_name: Optional[str]      # Hit display name
+    day_plan: str                   # Current day plan
     collect: bool
     analyze: bool
     push: bool
@@ -27,22 +27,22 @@ class ResolvedSchedule:
     ai_mode: str
     once_analyze: bool
     once_push: bool
-    frequency_file: Optional[str] = None  # 频率词文件路径，None=使用默认
-    filter_method: Optional[str] = None   # 筛选策略: "keyword"|"ai"，None=使用全局配置
-    interests_file: Optional[str] = None  # AI 筛选兴趣文件，None=使用默认
+    frequency_file: Optional[str] = None  # Frequency word file path, None=use default
+    filter_method: Optional[str] = None   # Filter strategy: "keyword"|"ai", None=use global configuration
+    interests_file: Optional[str] = None  # AI filter interests file, None=use default
 
 
 class Scheduler:
     """
-    时间线调度器
+    Timeline scheduler
 
-    根据 timeline 配置（periods + day_plans + week_map）解析当前时间应执行的行为。
-    支持：
-    - 预设模板 + 自定义模式
-    - 跨日时间段（如 22:00-07:00）
-    - 每天 / 每周差异化配置
-    - once 执行去重（analyze / push 独立维度）
-    - 冲突策略（error_on_overlap / last_wins）
+    Parse the behavior to be executed at the current time according to the timeline configuration (periods + day_plans + week_map).
+    Supports:
+    - Preset templates + custom mode
+    - Cross-day time periods (e.g., 22:00-07:00)
+    - Daily / weekly differentiated configuration
+    - once execution deduplication (analyze / push independent dimensions)
+    - Conflict strategy (error_on_overlap / last_wins)
     """
 
     def __init__(
@@ -54,14 +54,14 @@ class Scheduler:
         fallback_report_mode: str = "current",
     ):
         """
-        初始化调度器
+        Initialize scheduler
 
         Args:
-            schedule_config: config.yaml 中的 schedule 段（含 preset 等）
-            timeline_data: timeline.yaml 的完整数据
-            storage_backend: 存储后端（用于 once 去重记录）
-            get_time_func: 获取当前时间的函数（应使用配置的时区）
-            fallback_report_mode: 调度未启用时回退使用的 report_mode（来自 config.yaml 的 report.mode）
+            schedule_config: schedule section in config.yaml (including preset, etc.)
+            timeline_data: Complete data of timeline.yaml
+            storage_backend: Storage backend (used for once deduplication records)
+            get_time_func: Function to get the current time (should use the configured timezone)
+            fallback_report_mode: report_mode used as fallback when scheduling is not enabled (from report.mode in config.yaml)
         """
         self.schedule_config = schedule_config
         self.storage = storage_backend
@@ -69,7 +69,7 @@ class Scheduler:
         self.enabled = schedule_config.get("enabled", True)
         self.fallback_report_mode = fallback_report_mode
 
-        # 加载并构建最终 timeline
+        # Load and build the final timeline
         self.timeline = self._build_timeline(schedule_config, timeline_data)
         if self.enabled:
             self._validate_timeline(self.timeline)
@@ -79,7 +79,7 @@ class Scheduler:
         schedule_config: Dict[str, Any],
         timeline_data: Dict[str, Any],
     ) -> Dict[str, Any]:
-        """从 preset 或 custom 构建 timeline"""
+        """Build timeline from preset or custom"""
         preset = schedule_config.get("preset", "always_on")
 
         if preset == "custom":
@@ -88,12 +88,12 @@ class Scheduler:
             presets = timeline_data.get("presets", {})
             if preset not in presets:
                 raise ValueError(
-                    f"未知的预设模板: '{preset}'，可选值: "
+                    f"Unknown preset template: '{preset}', optional values: "
                     f"{', '.join(presets.keys())}, custom"
                 )
             timeline = copy.deepcopy(presets[preset])
 
-        # 确保 periods 是 dict（可能为空 {}）
+        # Ensure periods is a dict (may be empty {})
         if timeline.get("periods") is None:
             timeline["periods"] = {}
 
@@ -101,13 +101,13 @@ class Scheduler:
 
     def resolve(self) -> ResolvedSchedule:
         """
-        解析当前时间对应的调度配置
+        Parse the scheduling configuration corresponding to the current time
 
         Returns:
-            ResolvedSchedule 包含当前应执行的行为
+            ResolvedSchedule contains the behavior to be executed currently
         """
         if not self.enabled:
-            # 调度未启用时返回默认的全功能配置，report_mode 回退使用 config.yaml 的 report.mode
+            # Return default full-featured configuration when scheduling is not enabled, report_mode falls back to use config.yaml's report.mode
             return ResolvedSchedule(
                 period_key=None,
                 period_name=None,
@@ -122,27 +122,27 @@ class Scheduler:
             )
 
         now = self.get_time()
-        weekday = now.isoweekday()  # 1=周一 ... 7=周日
+        weekday = now.isoweekday()  # 1=Monday ... 7=Sunday
         now_hhmm = now.strftime("%H:%M")
 
-        # 查找当天的日计划
+        # Find the day plan for the current day
         day_plan_key = self.timeline["week_map"].get(weekday)
         if day_plan_key is None:
-            raise ValueError(f"week_map 缺少星期映射: {weekday}")
+            raise ValueError(f"week_map is missing weekday mapping: {weekday}")
 
         day_plan = self.timeline["day_plans"].get(day_plan_key)
         if day_plan is None:
-            raise ValueError(f"week_map[{weekday}] 引用了不存在的 day_plan: {day_plan_key}")
+            raise ValueError(f"week_map[{weekday}] references a non-existent day_plan: {day_plan_key}")
 
-        # 查找当前活跃的时间段
+        # Find the currently active time period
         period_key = self._find_active_period(now_hhmm, day_plan)
 
-        # 合并默认配置和时间段配置
+        # Merge default configuration and time period configuration
         merged = self._merge_with_default(period_key)
 
-        # 打印调度日志
-        weekday_names = {1: "一", 2: "二", 3: "三", 4: "四", 5: "五", 6: "六", 7: "日"}
-        period_display = "默认配置（未命中任何时间段）"
+        # Print scheduling log
+        weekday_names = {1: "Mon", 2: "Tue", 3: "Wed", 4: "Thu", 5: "Fri", 6: "Sat", 7: "Sun"}
+        period_display = "Default configuration (no time period hit)"
         if period_key:
             period_cfg = self.timeline["periods"][period_key]
             period_name = period_cfg.get("name", period_key)
@@ -150,8 +150,8 @@ class Scheduler:
             end = period_cfg.get("end", "?")
             period_display = f"{period_name} ({start}-{end})"
 
-        print(f"[调度] 星期{weekday_names.get(weekday, '?')}，日计划: {day_plan_key}")
-        print(f"[调度] 当前时间段: {period_display}")
+        print(f"[Scheduler] Weekday {weekday_names.get(weekday, '?')}, Daily plan: {day_plan_key}")
+        print(f"[Scheduler] Current time period: {period_display}")
 
         resolved = ResolvedSchedule(
             period_key=period_key,
@@ -173,17 +173,17 @@ class Scheduler:
             interests_file=merged.get("interests_file"),
         )
 
-        # 打印行为摘要
+        # Print action summary
         actions = []
         if resolved.collect:
-            actions.append("采集")
+            actions.append("Collect")
         if resolved.analyze:
-            actions.append(f"分析(AI:{resolved.ai_mode})")
+            actions.append(f"Analyze(AI:{resolved.ai_mode})")
         if resolved.push:
-            actions.append(f"推送(模式:{resolved.report_mode})")
-        print(f"[调度] 行为: {', '.join(actions) if actions else '无'}")
+            actions.append(f"Push(Mode:{resolved.report_mode})")
+        print(f"[Scheduler] Actions: {', '.join(actions) if actions else 'None'}")
         if resolved.frequency_file:
-            print(f"[调度] 频率词文件: {resolved.frequency_file}")
+            print(f"[Scheduler] Frequency word file: {resolved.frequency_file}")
 
         return resolved
 
@@ -191,14 +191,14 @@ class Scheduler:
         self, now_hhmm: str, day_plan: Dict[str, Any]
     ) -> Optional[str]:
         """
-        查找当前时间命中的活跃时间段
+        Find the active time period hit by the current time
 
         Args:
-            now_hhmm: 当前时间 HH:MM
-            day_plan: 日计划配置
+            now_hhmm: Current time HH:MM
+            day_plan: Daily plan configuration
 
         Returns:
-            命中的 period key，或 None
+            Hit period key, or None
         """
         candidates = []
         for idx, key in enumerate(day_plan.get("periods", [])):
@@ -211,23 +211,23 @@ class Scheduler:
         if not candidates:
             return None
 
-        # 检查冲突
+        # Check for conflicts
         if len(candidates) > 1:
             policy = self.timeline.get("overlap", {}).get("policy", "error_on_overlap")
             conflicting = [c[1] for c in candidates]
 
             if policy == "error_on_overlap":
                 raise ValueError(
-                    f"检测到时间段重叠冲突: {', '.join(conflicting)} 在 {now_hhmm} 重叠。"
-                    f"请调整时间段配置，或将 overlap.policy 设为 'last_wins'"
+                    f"Time period overlap conflict detected: {', '.join(conflicting)} overlap at {now_hhmm}."
+                    f"Please adjust the time period configuration, or set overlap.policy to 'last_wins'"
                 )
 
-            # last_wins：输出重叠警告，列表中后面的优先
+            # last_wins: Output overlap warning, the latter in the list takes precedence
             print(
-                f"[调度] 检测到时间段重叠: {', '.join(conflicting)} 在 {now_hhmm} 重叠"
+                f"[Scheduler] Time period overlap detected: {', '.join(conflicting)} overlap at {now_hhmm}"
             )
             winner = candidates[-1]
-            print(f"[调度] 冲突策略: last_wins，生效时间段: {winner[1]}")
+            print(f"[Scheduler] Conflict policy: last_wins, effective time period: {winner[1]}")
             return winner[1]
 
         return candidates[0][1]
@@ -235,39 +235,39 @@ class Scheduler:
     @staticmethod
     def _in_range(now_hhmm: str, start: str, end: str) -> bool:
         """
-        检查时间是否在范围内（支持跨日）
+        Check if the time is within the range (supports cross-day)
 
         Args:
-            now_hhmm: 当前时间 HH:MM
-            start: 开始时间 HH:MM
-            end: 结束时间 HH:MM
+            now_hhmm: Current time HH:MM
+            start: Start time HH:MM
+            end: End time HH:MM
 
         Returns:
-            是否在范围内
+            Whether it is within the range
         """
         if start <= end:
-            # 正常范围，如 08:00-09:00（半开区间 [start, end)）
+            # Normal range, e.g., 08:00-09:00 (half-open interval [start, end))
             return start <= now_hhmm < end
         else:
-            # 跨日范围，如 22:00-07:00（半开区间 [start, end)）
+            # Cross-day range, e.g., 22:00-07:00 (half-open interval [start, end))
             return now_hhmm >= start or now_hhmm < end
 
     def _merge_with_default(self, period_key: Optional[str]) -> Dict[str, Any]:
-        """合并默认配置和时间段配置"""
+        """Merge default configuration and time period configuration"""
         base = copy.deepcopy(self.timeline.get("default", {}))
         if not period_key:
             return base
 
         period = copy.deepcopy(self.timeline["periods"][period_key])
 
-        # 先合并 once 子对象
+        # Merge once sub-objects first
         merged_once = dict(base.get("once", {}))
         merged_once.update(period.get("once", {}))
 
-        # 标量字段覆盖
+        # Scalar field override
         base.update(period)
 
-        # 恢复合并后的 once
+        # Restore the merged once
         if merged_once:
             base["once"] = merged_once
 
@@ -275,7 +275,7 @@ class Scheduler:
 
     @staticmethod
     def _resolve_ai_mode(cfg: Dict[str, Any]) -> str:
-        """解析最终的 AI 模式"""
+        """Parse the final AI mode"""
         ai_mode = cfg.get("ai_mode", "follow_report")
         if ai_mode == "follow_report":
             return cfg.get("report_mode", "current")
@@ -283,88 +283,88 @@ class Scheduler:
 
     def already_executed(self, period_key: str, action: str, date_str: str) -> bool:
         """
-        检查指定时间段的某个 action 今天是否已执行
+        Check if a certain action in the specified time period has been executed today
 
         Args:
-            period_key: 时间段 key
-            action: 动作类型 (analyze / push)
-            date_str: 日期 YYYY-MM-DD
+            period_key: Time period key
+            action: Action type (analyze / push)
+            date_str: Date YYYY-MM-DD
 
         Returns:
-            是否已执行
+            Whether it has been executed
         """
         return self.storage.has_period_executed(date_str, period_key, action)
 
     def record_execution(self, period_key: str, action: str, date_str: str) -> None:
         """
-        记录时间段的 action 执行
+        Record the action execution of the time period
 
         Args:
-            period_key: 时间段 key
-            action: 动作类型 (analyze / push)
-            date_str: 日期 YYYY-MM-DD
+            period_key: Time period key
+            action: Action type (analyze / push)
+            date_str: Date YYYY-MM-DD
         """
         self.storage.record_period_execution(date_str, period_key, action)
 
     # ========================================
-    # 校验
+    # Validate
     # ========================================
 
     def _validate_timeline(self, timeline: Dict[str, Any]) -> None:
         """
-        启动时校验 timeline 配置
+        Validate timeline configuration on startup
 
         Raises:
-            ValueError: 配置不合法时抛出
+            ValueError: Raised when configuration is invalid
         """
         required_top_keys = ["default", "periods", "day_plans", "week_map"]
         for key in required_top_keys:
             if key not in timeline:
-                raise ValueError(f"timeline 缺少必须字段: {key}")
+                raise ValueError(f"timeline missing required field: {key}")
 
-        # week_map 必须覆盖 1..7
+        # week_map must cover 1..7
         for day in range(1, 8):
             if day not in timeline["week_map"]:
-                raise ValueError(f"week_map 缺少星期映射: {day}")
+                raise ValueError(f"week_map missing day mapping: {day}")
 
-        # day_plan 引用完整性
+        # day_plan referential integrity
         for day, plan_key in timeline["week_map"].items():
             if plan_key not in timeline["day_plans"]:
                 raise ValueError(
-                    f"week_map[{day}] 引用了不存在的 day_plan: {plan_key}"
+                    f"week_map[{day}] references non-existent day_plan: {plan_key}"
                 )
 
-        # period 引用完整性
+        # period referential integrity
         for plan_key, plan in timeline["day_plans"].items():
             for period_key in plan.get("periods", []):
                 if period_key not in timeline["periods"]:
                     raise ValueError(
-                        f"day_plan[{plan_key}] 引用了不存在的 period: {period_key}"
+                        f"day_plan[{plan_key}] references non-existent period: {period_key}"
                     )
 
-        # 时间格式校验
+        # Time format validation
         for period_key, period in timeline["periods"].items():
             if "start" not in period or "end" not in period:
                 raise ValueError(
-                    f"period '{period_key}' 缺少 start 或 end 字段"
+                    f"period '{period_key}' missing start or end field"
                 )
             self._validate_hhmm(period["start"], f"{period_key}.start")
             self._validate_hhmm(period["end"], f"{period_key}.end")
             if period["start"] == period["end"]:
                 raise ValueError(
-                    f"period '{period_key}' 的 start 与 end 不能相同: {period['start']}"
+                    f"period '{period_key}' start and end cannot be the same: {period['start']}"
                 )
 
-        # 检查冲突策略下的重叠
+        # Check for overlap under conflict policy
         policy = timeline.get("overlap", {}).get("policy", "error_on_overlap")
         if policy == "error_on_overlap":
             self._check_period_overlaps(timeline)
 
     def _check_period_overlaps(self, timeline: Dict[str, Any]) -> None:
         """
-        检查每个日计划中的时间段是否存在重叠
+        Check if time periods in each day plan overlap
 
-        仅在 overlap.policy == "error_on_overlap" 时调用
+        Only called when overlap.policy == "error_on_overlap"
         """
         periods = timeline.get("periods", {})
 
@@ -373,14 +373,14 @@ class Scheduler:
             if len(period_keys) <= 1:
                 continue
 
-            # 收集每个时间段的范围
+            # Collect the range of each time period
             ranges = []
             for pk in period_keys:
                 p = periods.get(pk, {})
                 if "start" in p and "end" in p:
                     ranges.append((pk, p["start"], p["end"]))
 
-            # 两两检查重叠
+            # Check for overlap pairwise
             for i in range(len(ranges)):
                 for j in range(i + 1, len(ranges)):
                     if self._ranges_overlap(
@@ -388,27 +388,27 @@ class Scheduler:
                         ranges[j][1], ranges[j][2],
                     ):
                         raise ValueError(
-                            f"day_plan '{plan_key}' 中时间段 '{ranges[i][0]}' "
-                            f"({ranges[i][1]}-{ranges[i][2]}) 与 '{ranges[j][0]}' "
-                            f"({ranges[j][1]}-{ranges[j][2]}) 存在重叠。"
-                            f"请调整时间段，或将 overlap.policy 设为 'last_wins'"
+                            f"day_plan '{plan_key}' time period '{ranges[i][0]}' "
+                            f"({ranges[i][1]}-{ranges[i][2]}) and '{ranges[j][0]}' "
+                            f"({ranges[j][1]}-{ranges[j][2]}) overlap."
+                            f"Please adjust the time periods, or set overlap.policy to 'last_wins'"
                         )
 
     @staticmethod
     def _ranges_overlap(s1: str, e1: str, s2: str, e2: str) -> bool:
-        """检查两个时间范围是否重叠（支持跨日）"""
+        """Check if two time ranges overlap (supports cross-day)"""
         def to_minutes(t: str) -> int:
             h, m = t.split(":")
             return int(h) * 60 + int(m)
 
         def expand_range(start: str, end: str) -> List[tuple]:
-            """将时间范围展开为分钟段列表，跨日时拆分为两段"""
+            """Expand time range into a list of minute segments, split into two segments when crossing days"""
             s = to_minutes(start)
             e = to_minutes(end)
             if s <= e:
                 return [(s, e)]
             else:
-                # 跨日：拆分为 [start, 24:00) 和 [00:00, end)
+                # Cross-day: split into [start, 24:00) and [00:00, end)
                 return [(s, 24 * 60), (0, e)]
 
         segs1 = expand_range(s1, e1)
@@ -416,16 +416,16 @@ class Scheduler:
 
         for a_start, a_end in segs1:
             for b_start, b_end in segs2:
-                # 两个半开区间有重叠的条件
+                # Condition for two half-open intervals to overlap
                 if a_start < b_end and b_start < a_end:
                     return True
         return False
 
     @staticmethod
     def _validate_hhmm(value: str, field_name: str) -> None:
-        """校验 HH:MM 格式"""
+        """Validate HH:MM format"""
         if not re.match(r"^\d{2}:\d{2}$", value):
-            raise ValueError(f"{field_name} 格式错误: '{value}'，期望 HH:MM")
+            raise ValueError(f"{field_name} format error: '{value}', expected HH:MM")
         h, m = value.split(":")
         if not (0 <= int(h) <= 23 and 0 <= int(m) <= 59):
-            raise ValueError(f"{field_name} 时间值超出范围: '{value}'")
+            raise ValueError(f"{field_name} time value out of range: '{value}'")

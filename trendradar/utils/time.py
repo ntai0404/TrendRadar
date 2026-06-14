@@ -1,8 +1,8 @@
 # coding=utf-8
 """
-时间工具模块
+time tools module
 
-本模块提供统一的时间处理函数，所有时区相关操作都应使用 DEFAULT_TIMEZONE 常量。
+This module provides a unified time processing function, and all time zone related operations should use the DEFAULT_TIMEZONE constant.
 """
 
 from datetime import datetime
@@ -10,24 +10,24 @@ from typing import Optional
 
 import pytz
 
-# 默认时区常量 - 仅作为 fallback，正常运行时使用 config.yaml 中的 app.timezone
+# Default time zone constant - only as a fallback, during normal operation use app.timezone in config.yaml
 DEFAULT_TIMEZONE = "Asia/Shanghai"
 
 
 def get_configured_time(timezone: str = DEFAULT_TIMEZONE) -> datetime:
     """
-    获取配置时区的当前时间
+    Get the current time in the configured time zone
 
     Args:
-        timezone: 时区名称，如 'Asia/Shanghai', 'America/Los_Angeles'
+        timezone: time zone name, such as 'Asia/Shanghai', 'America/Los_Angeles'
 
     Returns:
-        带时区信息的当前时间
+        Current time with time zone information
     """
     try:
         tz = pytz.timezone(timezone)
     except pytz.UnknownTimeZoneError:
-        print(f"[警告] 未知时区 '{timezone}'，使用默认时区 {DEFAULT_TIMEZONE}")
+        print(f"[Warning] Unknown time zone '{timezone}', using default time zone {DEFAULT_TIMEZONE}")
         tz = pytz.timezone(DEFAULT_TIMEZONE)
     return datetime.now(tz)
 
@@ -36,14 +36,14 @@ def format_date_folder(
     date: Optional[str] = None, timezone: str = DEFAULT_TIMEZONE
 ) -> str:
     """
-    格式化日期文件夹名 (ISO 格式: YYYY-MM-DD)
+    Format date folder name (ISO format: YYYY-MM-DD)
 
     Args:
-        date: 指定日期字符串，为 None 则使用当前日期
-        timezone: 时区名称
+        date: Specifies the date string, if None, the current date is used
+        timezone: time zone name
 
     Returns:
-        格式化后的日期字符串，如 '2025-12-09'
+        Formatted date string, such as '2025-12-09'
     """
     if date:
         return date
@@ -52,41 +52,41 @@ def format_date_folder(
 
 def format_time_filename(timezone: str = DEFAULT_TIMEZONE) -> str:
     """
-    格式化时间文件名 (格式: HH-MM，用于文件名)
+    Format time file name (Format: HH-MM, for file name)
 
-    Windows 系统不支持冒号作为文件名，因此使用连字符
+    Windows systems do not support colons as file names, so use hyphens
 
     Args:
-        timezone: 时区名称
+        timezone: time zone name
 
     Returns:
-        格式化后的时间字符串，如 '15-30'
+        Formatted time string, such as '15-30'
     """
     return get_configured_time(timezone).strftime("%H-%M")
 
 
 def get_current_time_display(timezone: str = DEFAULT_TIMEZONE) -> str:
     """
-    获取当前时间显示 (格式: HH:MM，用于显示)
+    Get the current time display (format: HH:MM, for display)
 
     Args:
-        timezone: 时区名称
+        timezone: time zone name
 
     Returns:
-        格式化后的时间字符串，如 '15:30'
+        Formatted time string, such as '15:30'
     """
     return get_configured_time(timezone).strftime("%H:%M")
 
 
 def convert_time_for_display(time_str: str) -> str:
     """
-    将 HH-MM 格式转换为 HH:MM 格式用于显示
+    Convert HH-MM format to HH:MM format for display
 
     Args:
-        time_str: 输入时间字符串，如 '15-30'
+        time_str: input time string, such as '15-30'
 
     Returns:
-        转换后的时间字符串，如 '15:30'
+        Converted time string, such as '15:30'
     """
     if time_str and "-" in time_str and len(time_str) == 5:
         return time_str.replace("-", ":")
@@ -99,24 +99,24 @@ def format_iso_time_friendly(
     include_date: bool = True,
 ) -> str:
     """
-    将 ISO 格式时间转换为用户时区的友好显示格式
+    Convert ISO format time to user time zone friendly display format
 
     Args:
-        iso_time: ISO 格式时间字符串，如 '2025-12-29T00:20:00' 或 '2025-12-29T00:20:00+00:00'
-        timezone: 目标时区名称
-        include_date: 是否包含日期部分
+        iso_time: ISO format time string, such as '2025-12-29T00:20:00' or '2025-12-29T00:20:00+00:00'
+        timezone: target time zone name
+        include_date: whether to include the date part
 
     Returns:
-        友好格式的时间字符串，如 '12-29 08:20' 或 '08:20'
+        Friendly formatted time string, such as '12-29 08:20' or '08:20'
     """
     if not iso_time:
         return ""
 
     try:
-        # 尝试解析各种 ISO 格式
+        # Try to parse various ISO formats
         dt = None
 
-        # 尝试解析带时区的格式
+        # Try to parse the format with time zone
         if "+" in iso_time or iso_time.endswith("Z"):
             iso_time = iso_time.replace("Z", "+00:00")
             try:
@@ -124,21 +124,21 @@ def format_iso_time_friendly(
             except ValueError:
                 pass
 
-        # 尝试解析不带时区的格式（假设为 UTC）
+        # Attempt to parse the format without time zone (assuming UTC)
         if dt is None:
             try:
-                # 处理 T 分隔符
+                # Handle T delimiter
                 if "T" in iso_time:
                     dt = datetime.fromisoformat(iso_time.replace("T", " ").split(".")[0])
                 else:
                     dt = datetime.fromisoformat(iso_time.split(".")[0])
-                # 假设为 UTC 时间
+                # Assume UTC time
                 dt = pytz.UTC.localize(dt)
             except ValueError:
                 pass
 
         if dt is None:
-            # 无法解析，返回原始字符串的简化版本
+            # Unable to parse, return a simplified version of the original string
             if "T" in iso_time:
                 parts = iso_time.split("T")
                 if len(parts) == 2:
@@ -147,7 +147,7 @@ def format_iso_time_friendly(
                     return f"{date_part} {time_part}" if include_date else time_part
             return iso_time
 
-        # 转换到目标时区
+        # Convert to target time zone
         try:
             target_tz = pytz.timezone(timezone)
         except pytz.UnknownTimeZoneError:
@@ -155,14 +155,14 @@ def format_iso_time_friendly(
 
         dt_local = dt.astimezone(target_tz)
 
-        # 格式化输出
+        # Format output
         if include_date:
             return dt_local.strftime("%m-%d %H:%M")
         else:
             return dt_local.strftime("%H:%M")
 
     except Exception:
-        # 出错时返回原始字符串的简化版本
+        # Return a simplified version of the original string on error
         if "T" in iso_time:
             parts = iso_time.split("T")
             if len(parts) == 2:
@@ -178,31 +178,31 @@ def is_within_days(
     timezone: str = DEFAULT_TIMEZONE,
 ) -> bool:
     """
-    检查 ISO 格式时间是否在指定天数内
+    Check if ISO format time is within specified number of days
 
-    用于 RSS 文章新鲜度过滤，判断文章发布时间是否超过指定天数。
+    Used to filter RSS article freshness to determine whether the article has been published for more than a specified number of days.
 
     Args:
-        iso_time: ISO 格式时间字符串（如 '2025-12-29T00:20:00' 或带时区）
-        max_days: 最大天数（文章发布时间距今不超过此天数则返回 True）
-            - max_days > 0: 正常过滤，保留 N 天内的文章
-            - max_days <= 0: 禁用过滤，保留所有文章
-        timezone: 时区名称（用于获取当前时间）
+        iso_time: ISO format time string (such as '2025-12-29T00:20:00' or with time zone)
+        max_days: Maximum number of days (True will be returned if the article publication time does not exceed this number of days)
+            - max_days > 0: Normal filtering, retain articles within N days
+            - max_days <= 0: disable filtering and keep all articles
+        timezone: time zone name (used to get the current time)
 
     Returns:
-        True 如果时间在指定天数内（应保留），False 如果超过指定天数（应过滤）
-        如果无法解析时间，返回 True（保留文章）
+        True if the time is within the specified number of days (should be retained), False if it is older than the specified number of days (should be filtered)
+        If the time cannot be parsed, return True (keep the article)
     """
-    # 无时间戳或禁用过滤时，保留文章
+    # When there is no timestamp or filtering is disabled, keep the article
     if not iso_time:
         return True
     if max_days <= 0:
-        return True  # max_days=0 表示禁用过滤
+        return True # max_days=0 means disabling filtering
 
     try:
         dt = None
 
-        # 尝试解析带时区的格式
+        # Try to parse the format with time zone
         if "+" in iso_time or iso_time.endswith("Z"):
             iso_time_normalized = iso_time.replace("Z", "+00:00")
             try:
@@ -210,7 +210,7 @@ def is_within_days(
             except ValueError:
                 pass
 
-        # 尝试解析不带时区的格式（假设为 UTC）
+        # Attempt to parse the format without time zone (assuming UTC)
         if dt is None:
             try:
                 if "T" in iso_time:
@@ -222,33 +222,33 @@ def is_within_days(
                 pass
 
         if dt is None:
-            # 无法解析时间，保留文章
+            # Unable to parse time, keep the article
             return True
 
-        # 获取当前时间（配置的时区，带时区信息）
+        # Get the current time (configured time zone, with time zone information)
         now = get_configured_time(timezone)
 
-        # 计算时间差（两个带时区的 datetime 相减会自动处理时区差异）
+        # Calculate the time difference (subtracting two datetimes with time zones will automatically handle the time zone difference)
         diff = now - dt
         days_diff = diff.total_seconds() / (24 * 60 * 60)
 
         return days_diff <= max_days
 
     except Exception:
-        # 出错时保留文章
+        # Keep the article in case of error
         return True
 
 
 def calculate_days_old(iso_time: str, timezone: str = DEFAULT_TIMEZONE) -> Optional[float]:
     """
-    计算 ISO 格式时间距今多少天
+    Calculate how many days since ISO format time
 
     Args:
-        iso_time: ISO 格式时间字符串
-        timezone: 时区名称
+        iso_time: ISO format time string
+        timezone: time zone name
 
     Returns:
-        距今天数（浮点数），如果无法解析返回 None
+        Number of days since today (floating point number), returns None if it cannot be parsed
     """
     if not iso_time:
         return None
@@ -256,7 +256,7 @@ def calculate_days_old(iso_time: str, timezone: str = DEFAULT_TIMEZONE) -> Optio
     try:
         dt = None
 
-        # 尝试解析带时区的格式
+        # Try to parse the format with time zone
         if "+" in iso_time or iso_time.endswith("Z"):
             iso_time_normalized = iso_time.replace("Z", "+00:00")
             try:
@@ -264,7 +264,7 @@ def calculate_days_old(iso_time: str, timezone: str = DEFAULT_TIMEZONE) -> Optio
             except ValueError:
                 pass
 
-        # 尝试解析不带时区的格式（假设为 UTC）
+        # Attempt to parse the format without time zone (assuming UTC)
         if dt is None:
             try:
                 if "T" in iso_time:

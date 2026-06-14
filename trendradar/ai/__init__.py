@@ -1,8 +1,8 @@
 # coding=utf-8
 """
-TrendRadar AI 模块
+TrendRadar AI module
 
-提供 AI 大模型对热点新闻的深度分析和翻译功能
+Provides in-depth analysis and translation functions of hot news using large AI models
 """
 
 from .analyzer import AIAnalyzer, AIAnalysisResult
@@ -18,17 +18,17 @@ from .formatter import (
 )
 
 __all__ = [
-    # 分析器
+    # parser
     "AIAnalyzer",
     "AIAnalysisResult",
-    # 智能筛选
+    #Smart filtering
     "AIFilter",
     "AIFilterResult",
-    # 翻译器
+    # Translator
     "AITranslator",
     "TranslationResult",
     "BatchTranslationResult",
-    # 格式化
+    # format
     "get_ai_analysis_renderer",
     "render_ai_analysis_markdown",
     "render_ai_analysis_feishu",

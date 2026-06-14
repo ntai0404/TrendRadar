@@ -1,15 +1,15 @@
 # coding=utf-8
 """
-提示词模板加载工具
+Prompt word template loading tool
 
-从配置目录中加载 [system] / [user] 格式的提示词文件，
-供 analyzer、translator、filter 等模块共享使用。
+Load the prompt word file in the [system]/[user] format from the configuration directory,
+For shared use by modules such as analyzer, translator, and filter.
 """
 
 from pathlib import Path
 from typing import Tuple
 
-# 项目 config 根目录
+# Project config root directory
 _CONFIG_ROOT = Path(__file__).parent.parent.parent / "config"
 
 
@@ -19,21 +19,21 @@ def load_prompt_template(
     label: str = "AI",
 ) -> Tuple[str, str]:
     """
-    加载提示词模板文件，解析 [system] 和 [user] 部分。
+    Load the prompt word template file and parse the [system] and [user] parts.
 
     Args:
-        prompt_file: 提示词文件名
-        config_subdir: config 下的子目录（如 "ai_filter"），为空则直接在 config/ 下查找
-        label: 日志标签，用于提示文件缺失时的打印
+        prompt_file: prompt word file name
+        config_subdir: subdirectory under config (such as "ai_filter"), if it is empty, search directly under config/
+        label: log label, used to prompt printing when files are missing
 
     Returns:
-        (system_prompt, user_prompt_template) 元组
+        (system_prompt, user_prompt_template) tuple
     """
     config_dir = _CONFIG_ROOT / config_subdir if config_subdir else _CONFIG_ROOT
     prompt_path = config_dir / prompt_file
 
     if not prompt_path.exists():
-        print(f"[{label}] 提示词文件不存在: {prompt_path}")
+        print(f"[{label}] prompt word file does not exist: {prompt_path}")
         return "", ""
 
     content = prompt_path.read_text(encoding="utf-8")

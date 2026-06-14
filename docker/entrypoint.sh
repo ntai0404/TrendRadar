@@ -1,48 +1,48 @@
 #!/bin/bash
 set -e
 
-# 检查配置文件
+# Check configuration file
 if [ ! -f "/app/config/config.yaml" ] || [ ! -f "/app/config/frequency_words.txt" ]; then
-    echo "❌ 配置文件缺失"
+    echo "❌ Configuration file is missing"
     exit 1
 fi
 
 case "${RUN_MODE:-cron}" in
 "once")
-    echo "🔄 单次执行"
+    echo "🔄 single execution"
     exec python -m trendradar
     ;;
 "cron")
-    # 校验 CRON_SCHEDULE 格式（仅允许 cron 表达式合法字符）
+    # Verify CRON_SCHEDULE format (only legal characters in cron expression are allowed)
     CRON_EXPR="${CRON_SCHEDULE:-*/30 * * * *}"
     if ! echo "$CRON_EXPR" | grep -qE '^[0-9*/,[:space:]-]+$'; then
-        echo "❌ CRON_SCHEDULE 格式非法: $CRON_EXPR"
+        echo "❌ CRON_SCHEDULE format is illegal: $CRON_EXPR"
         exit 1
     fi
 
-    # 生成 crontab
+    # Generate crontab
     echo "$CRON_EXPR cd /app && python -m trendradar" > /tmp/crontab
     
-    echo "📅 生成的crontab内容:"
+    echo "📅 Generated crontab content:"
     cat /tmp/crontab
 
     if ! /usr/local/bin/supercronic -test /tmp/crontab; then
-        echo "❌ crontab格式验证失败"
+        echo "❌ crontab format verification failed"
         exit 1
     fi
 
-    # 立即执行一次（如果配置了）
+    # Execute once immediately (if configured)
     if [ "${IMMEDIATE_RUN:-false}" = "true" ]; then
-        echo "▶️ 立即执行一次"
+        echo "▶️ Execute once immediately"
         python -m trendradar
     fi
 
-    # 启动 Web 服务器
-    echo "🌐 启动 Web 服务器..."
+    # Start the web server
+    echo "🌐 Start web server..."
     python manage.py start_webserver
 
-    echo "⏰ 启动supercronic: $CRON_EXPR"
-    echo "🎯 supercronic 将作为 PID 1 运行"
+    echo "⏰ Start supercronic: $CRON_EXPR"
+    echo "🎯 supercronic will run as PID 1"
 
     exec /usr/local/bin/supercronic -passthrough-logs /tmp/crontab
     ;;

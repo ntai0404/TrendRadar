@@ -1,258 +1,258 @@
 # ═══════════════════════════════════════════════════════════════
-#                    TrendRadar 频率词配置文件
+#                    TrendRadar Frequency Words Configuration File
 #                         Version: 1.1.0
 # ═══════════════════════════════════════════════════════════════
 
-# 可视化配置编辑器地址: https://sansan0.github.io/TrendRadar/
+# Visual configuration editor address: https://sansan0.github.io/TrendRadar/
 #
-# 凡是左侧有 # 的都是仅供阅读的说明性文字
+# All text with a # on the left is explanatory text for reading only
 #
-# 这个文件用来设置你想关注的新闻关键词。
-# 系统会自动抓取包含这些关键词的热榜新闻推送给你。
+# This file is used to set the news keywords you want to follow.
+# The system will automatically fetch trending news containing these keywords and push them to you.
 #
-# 文件分为两个区域：
-#   [GLOBAL_FILTER]  - 全局过滤区：排除不想看的内容
-#   [WORD_GROUPS]    - 词组定义区：设置想关注的关键词
+# The file is divided into two sections:
+#   [GLOBAL_FILTER]  - Global filter section: exclude content you don't want to see
+#   [WORD_GROUPS]    - Word group definition section: set keywords you want to follow
 #
 # ═══════════════════════════════════════════════════════════════
 
 
 # ───────────────────────────────────────────────────────────────
-#                        全局过滤区
+#                        Global Filter Section
 # ───────────────────────────────────────────────────────────────
-# 在这里写入你不想看到的词，每行一个。
-# 包含这些词的新闻会被自动排除，不会出现在推送中。
+# Write the words you don't want to see here, one per line.
+# News containing these words will be automatically excluded and will not appear in the push.
 #
-# 使用方法：
-#   震惊              直接写词，包含"震惊"的新闻会被过滤
-#   /赌博|博彩/       用 /.../ 包裹可以匹配多个词（用 | 分隔）
+# Usage:
+#   shocking              Write the word directly, news containing "shocking" will be filtered
+#   /gambling|betting/       Wrap with /.../ to match multiple words (separated by |)
 
 [GLOBAL_FILTER]
-# 过滤标题党
-震惊
+# Filter clickbait
+shocking
 
 
 
 # ───────────────────────────────────────────────────────────────
-#                        词组定义区
+#                        Word Group Definition Section
 # ───────────────────────────────────────────────────────────────
-# 在这里写入你想关注的关键词。
-# 每个词组用空行分隔，同一词组内的关键词是"或"的关系。
+# Write the keywords you want to follow here.
+# Each word group is separated by a blank line, and keywords within the same group have an "OR" relationship.
 #
 # ┌─────────────────────────────────────────────────────────────┐
-# │                      语法总览（快速参考）                      │
+# │                      Syntax Overview (Quick Reference)                      │
 # └─────────────────────────────────────────────────────────────┘
 #
-# 关键词语法：
-#   关键词            普通关键词，标题包含即匹配
-#   /正则/            正则表达式匹配（自动忽略大小写）
-#   关键词 => 别名    给关键词指定显示别名
-#   [组别名]          词组第一行，给整组指定别名
-#   +关键词           必须词，所有必须词都要匹配才算匹配
-#   !关键词           过滤词，匹配则排除该条新闻（仅限当前词组）
-#   @数字             限制该词组最多显示多少条
+# Keyword syntax:
+#   keyword            Normal keyword, matches if the title contains it
+#   /regex/            Regular expression match (automatically ignores case)
+#   keyword => alias    Specify a display alias for the keyword
+#   [group alias]          First line of the group, specifies an alias for the entire group
+#   +keyword           Required word, all required words must match for a successful match
+#   !keyword           Filter word, if matched, excludes the news (only for the current group)
+#   @number             Limit the maximum number of items displayed for this group
 #
-# 显示名称优先级：
-#   1. 有组别名 → 显示组别名
-#   2. 没有组别名 → 显示各行别名拼接（用 " / " 连接）
-#   3. 没有别名 → 显示关键词本身
-#
-#
-# ┌─────────────────────────────────────────────────────────────┐
-# │                      基础用法（推荐新手）                      │
-# └─────────────────────────────────────────────────────────────┘
-#
-# 1. 最简单：直接写关键词
-#    ────────────────────
-#    华为
-#
-#    效果：匹配所有包含"华为"的新闻
-#
-#
-# 2. 多个关键词归为一组
-#    ────────────────────
-#    华为
-#    鸿蒙
-#    任正非
-#
-#    效果：匹配包含"华为"或"鸿蒙"或"任正非"的新闻，统一显示为"华为 / 鸿蒙 / 任正非"
-#
-#
-# 3. 给词组起个名字（推荐）
-#    ────────────────────
-#    [华为]
-#    华为
-#    鸿蒙
-#    任正非
-#
-#    效果：同上，但显示名称为"华为"（更简洁）
+# Display name priority:
+#   1. Has group alias → displays group alias
+#   2. No group alias → displays concatenated aliases of each line (connected by " / ")
+#   3. No alias → displays the keyword itself
 #
 #
 # ┌─────────────────────────────────────────────────────────────┐
-# │                      进阶用法（可选）                         │
+# │                      Basic Usage (Recommended for Beginners)                      │
 # └─────────────────────────────────────────────────────────────┘
 #
-# 4. 用正则表达式匹配多个词（一行搞定）
+# 1. Simplest: write the keyword directly
 #    ────────────────────
-#    /华为|鸿蒙|任正非/ => 华为
+#    Huawei
 #
-#    效果：匹配包含"华为"或"鸿蒙"或"任正非"的新闻，显示为"华为"
-#    说明：/.../ 里用 | 分隔多个词，=> 后面是显示名称
-#
-#    💡 不懂正则？问 AI：
-#       "帮我写一个正则表达式，匹配包含'华为'或'鸿蒙'或'任正非'的文本，
-#        格式要求：/正则/ => 显示名称"
+#    Effect: matches all news containing "Huawei"
 #
 #
-# 5. 精确匹配英文单词（避免误匹配）
+# 2. Group multiple keywords together
+#    ────────────────────
+#    Huawei
+#    HarmonyOS
+#    Ren Zhengfei
+#
+#    Effect: Matches news containing "Huawei" or "HarmonyOS" or "Ren Zhengfei", uniformly displayed as "Huawei / HarmonyOS / Ren Zhengfei"
+#
+#
+# 3. Name the phrase group (Recommended)
+#    ────────────────────
+#    [Huawei]
+#    Huawei
+#    HarmonyOS
+#    Ren Zhengfei
+#
+#    Effect: Same as above, but the display name is "Huawei" (more concise)
+#
+#
+# ┌─────────────────────────────────────────────────────────────┐
+# │                      Advanced Usage (Optional)                         │
+# └─────────────────────────────────────────────────────────────┘
+#
+# 4. Use regular expressions to match multiple words (done in one line)
+#    ────────────────────
+#    /Huawei|HarmonyOS|Ren Zhengfei/ => Huawei
+#
+#    Effect: Matches news containing "Huawei" or "HarmonyOS" or "Ren Zhengfei", displayed as "Huawei"
+#    Explanation: Use | to separate multiple words inside /.../, and the display name follows =>
+#
+#    💡 Don't understand regex? Ask AI:
+#       "Help me write a regular expression that matches text containing 'Huawei' or 'HarmonyOS' or 'Ren Zhengfei',
+#        format requirement: /regex/ => display name"
+#
+#
+# 5. Exact match for English words (avoid false matches)
 #    ────────────────────
 #    /\bAI\b/i => AI
 #
-#    说明：\b 表示单词边界，避免匹配到 "MAIL" 中的 "AI"
-#          /i 表示忽略大小写，"ai"、"AI"、"Ai" 都能匹配
+#    Explanation: \b represents a word boundary, avoiding matching "AI" in "MAIL"
+#          /i means case-insensitive, matching "ai", "AI", and "Ai"
 #
-#    💡 不懂正则？问 AI：
-#       "帮我写一个正则表达式，精确匹配英文单词'AI'（不匹配 MAIL 中的 AI），
-#        忽略大小写，格式要求：/正则/i => 显示名称"
+#    💡 Don't understand regex? Ask AI:
+#       "Help me write a regular expression that exactly matches the English word 'AI' (not matching AI in MAIL),
+#        case-insensitive, format requirement: /regex/i => display name"
 #
 #
-# 6. 排除特定内容
+# 6. Exclude specific content
 #    ────────────────────
-#    [苹果公司]
-#    苹果
-#    !水果
-#    !果园
+#    [Apple Inc.]
+#    Apple
+#    !fruit
+#    !orchard
 #
-#    效果：匹配"苹果"但排除包含"水果"或"果园"的新闻
-#    说明：! 开头的词表示"排除"
+#    Effect: Matches "Apple" but excludes news containing "fruit" or "orchard"
+#    Explanation: Words starting with ! indicate "exclude"
 #
 #
-# 7. 限制显示条数
+# 7. Limit the number of displayed items
 #    ────────────────────
-#    [科技新闻]
-#    科技
+#    [Tech News]
+#    Tech
 #    @5
 #
-#    效果：最多显示 5 条匹配的新闻
-#    说明：@数字 表示限制条数
+#    Effect: Displays a maximum of 5 matched news items
+#    Explanation: @number indicates the limit on the number of items
 #
 #
-# 8. 必须同时包含多个词
+# 8. Must contain multiple words simultaneously
 #    ────────────────────
-#    +苹果
-#    +发布会
+#    +Apple
+#    +launch event
 #
-#    效果：必须同时包含"苹果"和"发布会"才匹配
-#    说明：+ 开头的词表示"必须包含"
+#    Effect: Must contain both "Apple" and "launch event" to match
+#    Explanation: Words starting with + indicate "must contain"
 #
 # ───────────────────────────────────────────────────────────────
 
 [WORD_GROUPS]
 
 # ═══════════════════════════════════════════════════════════════
-#                         企业与品牌
+#                         Companies and Brands
 # ═══════════════════════════════════════════════════════════════
 
-/胖东来|于东来/ => 胖东来
+/Pang Dong Lai|Yu Donglai/ => Pang Dong Lai
 
-/深度求索|幻方量化|梁文锋|\bDeepSeek\b/ => DeepSeek
+/DeepSeek|High-Flyer Quant|Liang Wenfeng|\bDeepSeek\b/ => DeepSeek
 
-/华为|任正非|余承东|鸿蒙|海思|昇腾|鲲鹏|\bHUAWEI\b|\bHarmonyOS\b|\bHiSilicon\b/ => 华为
+/Huawei|Ren Zhengfei|Yu Chengdong|HarmonyOS|HiSilicon|Ascend|Kunpeng|\bHUAWEI\b|\bHarmonyOS\b|\bHiSilicon\b/ => Huawei
 
-/比亚迪|王传福|方程豹|腾势|仰望|弗迪|刀片电池|云辇|\bBYD\b|\bDenza\b|\bYangwang\b/ => 比亚迪
+/BYD|Wang Chuanfu|Fang Cheng Bao|Denza|Yangwang|FinDreams|Blade Battery|DiSus|\bBYD\b|\bDenza\b|\bYangwang\b/ => BYD
 
-/大疆|汪滔|灵眸|如影|\bDJI\b|\bRoboMaster\b|\bMavic\b|\bZenmuse\b/ => 大疆
+/DJI|Frank Wang|Osmo|Ronin|\bDJI\b|\bRoboMaster\b|\bMavic\b|\bZenmuse\b/ => DJI
 
-/宇树|王兴兴|\bUnitree\b/ => 宇树机器人
+/Unitree|Wang Xingxing|\bUnitree\b/ => Unitree Robotics
 
-/智元|灵犀|稚晖君|彭志辉|AgiBot/ => 智元机器人
-/众擎|EngineAI|赵同阳/ => 众擎机器人
+/Zhiyuan|Lingxi|Zhihuijun|Peng Zhihui|AgiBot/ => Zhiyuan Robotics
+/Zhongqing|EngineAI|Zhao Tongyang/ => Zhongqing Robotics
 
-/黑神话|冯骥/ => 黑神话悟空
+/Black Myth|Feng Ji/ => Black Myth: Wukong
 
-/影之刃零|梁其伟/ => 影之刃零
+/Phantom Blade Zero|Liang Qiwei/ => Phantom Blade Zero
 
-/三体|流浪地球|刘慈欣|郭帆/ => 三体/流浪地球
+/The Three-Body Problem|The Wandering Earth|Liu Cixin|Guo Fan/ => The Three-Body Problem/The Wandering Earth
 
-申奥
+Shen Ao
 
-/京东|刘强东|\bJD\b|\bJingdong\b/ => 京东
+/JD|Richard Liu|\bJD\b|\bJingdong\b/ => JD
 
-/字节|张一鸣|梁汝波|抖音|\bByteDance\b|\bTikTok\b|\bDouyin\b|\bLark\b|\bCapCut\b/ => 字节跳动
+/ByteDance|Zhang Yiming|Liang Rubo|Douyin|\bByteDance\b|\bTikTok\b|\bDouyin\b|\bLark\b|\bCapCut\b/ => ByteDance
 
-/腾讯|鹅厂|马化腾|微信|QQ|天美|阅文集团|微众银行|\bTencent\b|\bPony Ma\b|\bWeChat\b|\bLightSpeed\b|\bWeBank\b/ => 腾讯
+/Tencent|Goose Factory|Pony Ma|WeChat|QQ|TiMi|China Literature|WeBank|\bTencent\b|\bPony Ma\b|\bWeChat\b|\bLightSpeed\b|\bWeBank\b/ => Tencent
 
-/qwen|minimax|glm/ => 国产开源模型
+/qwen|minimax|glm/ => Domestic Open Source Models
 
-/特斯拉|马斯克|\bTesla\b|\bElon Musk\b|\bCybertruck\b|\bModel 3\b|\bModel Y\b|\bModel S\b|\bModel X\b|\bFSD\b/ => 特斯拉
+/Tesla|Musk|\bTesla\b|\bElon Musk\b|\bCybertruck\b|\bModel 3\b|\bModel Y\b|\bModel S\b|\bModel X\b|\bFSD\b/ => Tesla
 
-/英伟达|黄仁勋|\bNVIDIA\b|\bGeForce\b|\bRTX\b|\bCUDA\b|\bJensen Huang\b/ => 英伟达
-/苏姿丰|锐龙|霄龙|\bAMD\b|\bRyzen\b|\bEPYC\b|\bRadeon\b|\bLisa Su\b/ => AMD
+/NVIDIA|Jensen Huang|\bNVIDIA\b|\bGeForce\b|\bRTX\b|\bCUDA\b|\bJensen Huang\b/ => NVIDIA
+/Lisa Su|Ryzen|EPYC|\bAMD\b|\bRyzen\b|\bEPYC\b|\bRadeon\b|\bLisa Su\b/ => AMD
 
-/微软|\bMicrosoft\b|\bWindows\b|\bAzure\b|\bSatya Nadella\b|\bCopilot\b/ => 微软
-/谷歌|皮查伊|安卓|油管|\bGoogle\b|\bAlphabet\b|\bAndroid\b|\bChrome\b|\bYouTube\b|\bGemini\b|\bDeepMind\b|\bWaymo\b/ => 谷歌
-/库克|\biPhone\b|\biPad\b|\bMacBook\b|\biOS\b|\bVision Pro\b|\bAirPods\b|\bApple\b|\bTim Cook\b/ => 苹果
+/Microsoft|\bMicrosoft\b|\bWindows\b|\bAzure\b|\bSatya Nadella\b|\bCopilot\b/ => Microsoft
+/Google|Pichai|Android|YouTube|\bGoogle\b|\bAlphabet\b|\bAndroid\b|\bChrome\b|\bYouTube\b|\bGemini\b|\bDeepMind\b|\bWaymo\b/ => Google
+/Cook|\biPhone\b|\biPad\b|\bMacBook\b|\biOS\b|\bVision Pro\b|\bAirPods\b|\bApple\b|\bTim Cook\b/ => Apple
 
 /\bOpenAI\b|\bChatGPT\b|\bSora\b|\bDALL-E\b|\bSam Altman\b|\bGreg Brockman\b/ => OpenAI
 /\bAnthropic\b|\bClaude\b|\bDario Amodei\b/ => Claude
 
 
 # ═══════════════════════════════════════════════════════════════
-#                         国家与地区
+#                         Countries and Regions
 # ═══════════════════════════════════════════════════════════════
 
-[中国]
-国产
-中国
+[China]
+Domestic
+China
 
-[东亚]
-日本
-朝鲜
-韩国
+[East Asia]
+Japan
+North Korea
+South Korea
 
-[北美]
-美国
-加拿大
+[North America]
+United States
+Canada
 
-[西欧]
-法国
-英国
+[Western Europe]
+France
+United Kingdom
 
-/俄罗斯|俄国/ => 俄罗斯
+/Russia|Russian/ => Russia
 
-印度
+India
 
 
 # ═══════════════════════════════════════════════════════════════
-#                         科技领域
+#                         Technology Fields
 # ═══════════════════════════════════════════════════════════════
 
 [Tin tức AI]
 /(?<![a-zA-Z])ai(?![a-zA-Z])/
-人工智能
+Artificial Intelligence
 
-[芯片]
-芯片
-光刻机
-半导体
+[Chips]
+Chip
+Lithography machine
+Semiconductor
 
-/水电|雅鲁藏布江/ => 水电
-/光伏|太阳能/ => 光伏
-核能
-能源
+/Hydropower|Yarlung Tsangpo River/ => Hydropower
+/Photovoltaic|Solar energy/ => Photovoltaic
+Nuclear energy
+Energy
 
-/自动驾驶|无人驾驶|智驾/ => 自动驾驶
+/Autonomous driving|Driverless|Smart driving/ => Autonomous driving
 
-机器人
-/机械狗|四足/ => 机器狗
-具身智能
+Robot
+/Mechanical dog|Quadruped/ => Robot dog
+Embodied AI
 
-/月球|登月|火星|宇宙|飞船|航天|空间站|卫星/ => 航天
+/Moon|Moon landing|Mars|Universe|Spaceship|Aerospace|Space station|Satellite/ => Aerospace
 
-# 前沿科技
-量子
-脑机
-基因
+# Frontier technology
+Quantum
+Brain-computer
+Gene
 
-# 产业政策
-生产力
+# Industrial policy
+Productivity
