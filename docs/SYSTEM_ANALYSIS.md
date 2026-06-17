@@ -1447,7 +1447,7 @@ ai_analysis = ai_analyzer.analyze(metadata["content"])
 # AI Model Configuration (shared with core system)
 ROUTER_BASE_URL=http://127.0.0.1:20128/v1
 ROUTER_API_KEY=sk-...
-ROUTER_MODEL=openai/ag/gemini-3.1-pro-low
+ROUTER_MODEL=openai/gh/gemini-3.1-pro-preview
 
 # Browser Configuration
 AUTO_CDP_FIRST_RUN_WAIT_SECONDS=30  # Wait time for manual login in CDP mode

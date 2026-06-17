@@ -786,11 +786,18 @@ class NewsAnalyzer:
         return standalone_data
 
     def _get_crawled_bot_items(self) -> List[Dict]:
-        """Đọc kết quả đã crawl từ llm_news_crawler_bot."""
+        """Đọc kết quả đã crawl từ llm_news_crawler_bot - chỉ phiên hiện tại."""
         bot_output_dir = Path("llm_news_crawler_bot/output")
         crawled_items = []
         if bot_output_dir.exists():
             import json
+            from datetime import timezone as tz
+
+            # Lấy ngưỡng thời gian của phiên hiện tại (UTC, aware)
+            session_start = getattr(self, "_bot_session_start", None)
+            if session_start is not None and session_start.tzinfo is None:
+                session_start = session_start.replace(tzinfo=tz.utc)
+
             for job_dir in bot_output_dir.iterdir():
                 if job_dir.is_dir():
                     metadata_file = job_dir / "metadata.json"
@@ -798,6 +805,20 @@ class NewsAnalyzer:
                         try:
                             with open(metadata_file, "r", encoding="utf-8") as f:
                                 data = json.load(f)
+
+                            # --- Lọc theo phiên hiện tại bằng thời gian tạo/sửa file ---
+                            mtime = metadata_file.stat().st_mtime
+                            from datetime import datetime as _dt
+                            job_ts = _dt.fromtimestamp(mtime, tz=tz.utc)
+                            file_ts_str = job_ts.isoformat()
+
+                            if session_start is not None:
+                                try:
+                                    if job_ts < session_start:
+                                        continue  # Bỏ qua job từ phiên cũ
+                                except Exception:
+                                    pass
+
                             # manifest metadata.json has a "items" list but no "status" field
                             # item-level metadata.json (under items/item_xxx/) has article data directly
                             items = data.get("items", [])
@@ -807,7 +828,7 @@ class NewsAnalyzer:
                                     if not item_metadata:
                                         continue
                                     # Attach timestamp
-                                    item_metadata["extracted_at"] = data.get("timestamp", "")
+                                    item_metadata["extracted_at"] = data.get("timestamp", file_ts_str)
                                     # Normalize url field
                                     if not item_metadata.get("url") and item_metadata.get("source_url"):
                                         item_metadata["url"] = item_metadata["source_url"]
@@ -816,7 +837,7 @@ class NewsAnalyzer:
                                         crawled_items.append(item_metadata)
                         except Exception as e:
                             print(f"Lỗi đọc metadata bot: {e}")
-        
+
         # Sort by extracted_at desc
         crawled_items.sort(key=lambda x: x.get("extracted_at", ""), reverse=True)
         return crawled_items
@@ -1794,8 +1815,13 @@ class NewsAnalyzer:
                         
         if not urls:
             return
-            
+
         print(f"Phát hiện {len(urls)} link mạng xã hội/video. Đang kích hoạt LLM Bot thu thập dữ liệu...")
+
+        # Ghi nhận thời điểm bắt đầu phiên hiện tại (UTC) để lọc kết quả sau này
+        from datetime import datetime as _dt, timezone as _tz
+        self._bot_session_start = _dt.now(_tz.utc)
+
         import subprocess
         prompt_file = Path("config/social_media_prompt.txt").absolute()
         bot_dir = Path("llm_news_crawler_bot").absolute()

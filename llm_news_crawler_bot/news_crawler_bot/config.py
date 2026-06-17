@@ -11,7 +11,7 @@ load_dotenv(BASE_DIR.parent / ".env")
 
 ROUTER_BASE_URL = os.getenv("ROUTER_BASE_URL", "http://127.0.0.1:20128/v1")
 ROUTER_API_KEY = os.getenv("ROUTER_API_KEY", "sk-local-placeholder")
-ROUTER_MODEL = os.getenv("ROUTER_MODEL", "ag/gemini-3.1-pro-low")
+ROUTER_MODEL = os.getenv("ROUTER_MODEL", "gh/gemini-3.1-pro-preview")
 
 PLAYWRIGHT_HEADLESS = os.getenv("PLAYWRIGHT_HEADLESS", "true").lower() == "true"
 PLAYWRIGHT_TIMEOUT_MS = int(os.getenv("PLAYWRIGHT_TIMEOUT_MS", "60000"))

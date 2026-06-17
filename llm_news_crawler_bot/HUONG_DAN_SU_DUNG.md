@@ -69,7 +69,7 @@ File cấu hình đã được tạo tại: `llm_news_crawler_bot/.env`
 # 9Router Configuration
 ROUTER_BASE_URL=http://localhost:20128/v1
 ROUTER_API_KEY=sk-your-9router-key          # ⚠️ CẦN ĐIỀN API KEY
-ROUTER_MODEL=ag/gemini-3.1-pro-low
+ROUTER_MODEL=gh/gemini-3.1-pro-preview
 
 # Browser Configuration
 PLAYWRIGHT_HEADLESS=true                     # true = không hiện cửa sổ browser

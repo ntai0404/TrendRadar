@@ -5,6 +5,7 @@ API_KEY = "sk-3970b0ca3a786f01-2cfii4-d6fc14b4"
 API_BASE = "http://localhost:20128/v1/chat/completions"
 
 models = [
+    "gh/gemini-3.1-pro-preview",
     "ag/gemini-3.1-pro-high",
     "ag/gemini-3.1-pro-low",
     "ag/gemini-3-flash",
@@ -22,7 +23,7 @@ def test_model(model_name):
         "model": model_name,
         "messages": [{"role": "user", "content": "Hello, simply reply with 'Hi' and nothing else."}],
         "max_tokens": 10,
-        "stream": True
+        "stream": False
     }
     
     print(f"Testing {model_name}...")

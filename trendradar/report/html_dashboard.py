@@ -171,11 +171,12 @@ def _render_news_updates(stats: list) -> str:
     return f'<section class="news-updates-section"><div class="section-heading">News Updates</div>{groups_html}</section>'
 
 
-def _render_rss_section(rss_items: list) -> str:
-    """RSS feeds section."""
-    if not rss_items:
-        return ""
+def _render_rss_items_html(rss_items: list) -> tuple:
+    """Render RSS feed items HTML and return (html, count)."""
     items_html = ""
+    total = 0
+    if not rss_items:
+        return "", 0
     for stat in rss_items:
         word = html_escape(stat.get("word", ""))
         titles = stat.get("titles", [])
@@ -199,16 +200,16 @@ def _render_rss_section(rss_items: list) -> str:
                 </div>
               </div>
             </div>"""
-    if not items_html:
-        return ""
-    return f'<section class="news-updates-section"><div class="section-heading">RSS Updates</div>{items_html}</section>'
+            total += 1
+    return items_html, total
 
 
-def _render_llm_bot_section(crawled_bot_items: list) -> str:
-    """LLM Bot crawled data section."""
-    if not crawled_bot_items:
-        return ""
+def _render_facebook_items_html(crawled_bot_items: list) -> tuple:
+    """Render Facebook/LLM Bot crawled items HTML and return (html, count)."""
     items_html = ""
+    total = 0
+    if not crawled_bot_items:
+        return "", 0
     for item in crawled_bot_items:
         title = html_escape(item.get("title", "Không có tiêu đề"))
         url = html_escape(item.get("url", ""))
@@ -216,7 +217,7 @@ def _render_llm_bot_section(crawled_bot_items: list) -> str:
         summary = html_escape(item.get("summary", ""))
         time_d = html_escape(item.get("extracted_at", ""))
         href = f'href="{url}" target="_blank"' if url else ""
-        
+
         # Format extracted_at time
         if "T" in time_d:
             try:
@@ -225,36 +226,89 @@ def _render_llm_bot_section(crawled_bot_items: list) -> str:
                 time_d = dt_obj.strftime("%m-%d %H:%M")
             except:
                 pass
-                
-        summary_html = f'<div style="font-size: 11px; color: #94a3b8; margin-top: 6px; background: #1e2535; padding: 8px; border-radius: 4px; border-left: 2px solid #6366f1;">{summary}</div>' if summary else ""
-        
+
+        summary_html = f'<div class="fb-summary">{summary}</div>' if summary else ""
+
         screenshot_path = item.get("screenshot_path", "")
         screenshot_html = ""
         if screenshot_path:
             import urllib.parse
-            # Ensure it works when opened in browser via file:// protocol
             img_url = f"file://{urllib.parse.quote(screenshot_path)}"
-            screenshot_html = f'<div style="margin-top: 8px;"><img src="{img_url}" alt="Screenshot" style="max-width: 100%; max-height: 300px; border-radius: 4px; object-fit: contain; border: 1px solid #334155; cursor: pointer;" onclick="window.open(this.src)" /></div>'
-            
+            screenshot_html = f'<div class="fb-screenshot"><img src="{img_url}" alt="Screenshot" onclick="window.open(this.src)" /></div>'
+
         items_html += f"""
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
             <a class="news-row-title" {href}>{title}</a>
             <div class="news-row-meta">
-              <span class="news-row-source">{author}</span>
+              <span class="news-row-source">{author if author and author != 'None' else 'Facebook'}</span>
               {f'<span class="news-row-time">{time_d}</span>' if time_d else ""}
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
             {summary_html}
             {screenshot_html}
           </div>
         </div>"""
-    if not items_html:
+        total += 1
+    return items_html, total
+
+
+def _render_tabbed_data_section(rss_items: list, crawled_bot_items: list) -> str:
+    """Unified tabbed section combining RSS and Facebook data."""
+    rss_html, rss_count = _render_rss_items_html(rss_items)
+    fb_html, fb_count = _render_facebook_items_html(crawled_bot_items)
+
+    if not rss_html and not fb_html:
         return ""
-    return f'<section class="news-updates-section"><div class="section-heading">LLM Bot Data</div>{items_html}</section>'
+
+    rss_badge = f'<span class="data-tab-badge">{rss_count}</span>' if rss_count else ""
+    fb_badge = f'<span class="data-tab-badge fb">{fb_count}</span>' if fb_count else ""
+
+    # Default active tab: RSS if available, else Facebook
+    rss_active = "active" if rss_html else ""
+    fb_active = "active" if not rss_html and fb_html else ""
+    rss_panel_style = "" if rss_html else "display:none"
+    fb_panel_style = "" if not rss_html and fb_html else "display:none"
+
+    rss_panel = f'<div id="data-panel-rss" class="data-tab-panel" style="{rss_panel_style}">{rss_html}</div>' if rss_html else ''
+    fb_panel = f'<div id="data-panel-fb" class="data-tab-panel" style="{fb_panel_style}">{fb_html}</div>' if fb_html else ''
+
+    rss_tab = f'<button class="data-tab {rss_active}" onclick="switchDataTab(this,\'rss\')" data-panel="data-panel-rss">📰 RSS {rss_badge}</button>' if rss_html else ''
+    fb_tab = f'<button class="data-tab {fb_active}" onclick="switchDataTab(this,\'fb\')" data-panel="data-panel-fb">📘 Facebook {fb_badge}</button>' if fb_html else ''
+
+    return f"""
+    <section class="data-section">
+      <div class="data-section-header">
+        <div class="data-tab-bar">
+          {rss_tab}
+          {fb_tab}
+        </div>
+      </div>
+      <div class="data-section-body">
+        {rss_panel}
+        {fb_panel}
+      </div>
+    </section>"""
+
+
+# Keep legacy wrappers for any other callers
+def _render_rss_section(rss_items: list) -> str:
+    """Legacy wrapper - use _render_tabbed_data_section instead."""
+    rss_html, _ = _render_rss_items_html(rss_items)
+    if not rss_html:
+        return ""
+    return f'<section class="news-updates-section"><div class="section-heading">RSS Updates</div>{rss_html}</section>'
+
+
+def _render_llm_bot_section(crawled_bot_items: list) -> str:
+    """Legacy wrapper - use _render_tabbed_data_section instead."""
+    fb_html, _ = _render_facebook_items_html(crawled_bot_items)
+    if not fb_html:
+        return ""
+    return f'<section class="news-updates-section"><div class="section-heading">Facebook Data</div>{fb_html}</section>'
 
 
 
@@ -405,6 +459,27 @@ _CSS += """
 .rank-badge.high{background:#ea580c;color:#fff}
 .rss-tag{background:#0f3460;color:#60a5fa;font-size:10px;padding:1px 5px;border-radius:3px}
 
+/* ── Tabbed Data Section (RSS / Facebook) ── */
+.data-section{background:#161b27;border:1px solid #1e2535;border-radius:12px;margin-bottom:24px;overflow:hidden}
+.data-section-header{background:#1a2035;border-bottom:1px solid #1e2535;padding:0 16px}
+.data-tab-bar{display:flex;gap:4px;padding:8px 0}
+.data-tab{display:flex;align-items:center;gap:6px;padding:7px 16px;border-radius:8px;font-size:13px;font-weight:600;color:#94a3b8;cursor:pointer;border:none;background:none;transition:all .18s;position:relative}
+.data-tab:hover{color:#e2e8f0;background:rgba(255,255,255,.05)}
+.data-tab.active{color:#fff;background:#0f1117;border:1px solid #2d3748;box-shadow:0 1px 6px rgba(0,0,0,.4)}
+.data-tab.active::after{content:'';position:absolute;bottom:-9px;left:50%;transform:translateX(-50%);width:40px;height:2px;background:#6366f1;border-radius:2px}
+.data-tab-badge{background:#1e2535;color:#94a3b8;font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;min-width:20px;text-align:center}
+.data-tab-badge.fb{background:#1a3a6b;color:#60a5fa}
+.data-section-body{padding:16px}
+.data-tab-panel{animation:fadeInPanel .2s ease}
+@keyframes fadeInPanel{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── Facebook specific ── */
+.fb-tag{background:#1a3a6b;color:#60a5fa;font-size:10px;padding:1px 6px;border-radius:3px;font-weight:600}
+.fb-summary{font-size:11px;color:#94a3b8;margin-top:6px;background:#1a2035;padding:8px 10px;border-radius:6px;border-left:2px solid #1877f2;line-height:1.5;white-space:pre-wrap}
+.fb-screenshot{margin-top:8px}
+.fb-screenshot img{max-width:100%;max-height:300px;border-radius:6px;object-fit:contain;border:1px solid #2d3748;cursor:pointer;transition:opacity .15s}
+.fb-screenshot img:hover{opacity:.85}
+
 /* ── Right sidebar ── */
 .sidebar-right{padding:20px 12px;border-left:1px solid #1e2535}
 .latest-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #1e2535;cursor:pointer;transition:opacity .15s}
@@ -419,6 +494,48 @@ _CSS += """
 /* ── Footer ── */
 .app-footer{text-align:center;padding:16px;font-size:11px;color:#475569;border-top:1px solid #1e2535;margin-top:auto}
 .app-footer a{color:#6366f1}
+
+/* ── Light Mode ── */
+body.light-mode { background: #f8fafc; color: #0f172a; }
+body.light-mode .topnav { background: #ffffff; border-bottom: 1px solid #e2e8f0; }
+body.light-mode .brand-name { color: #0f172a; }
+body.light-mode .nav-tab { color: #64748b; }
+body.light-mode .nav-tab:hover { color: #0f172a; background: #f1f5f9; }
+body.light-mode .nav-tab.active { color: #0f172a; background: #ffffff; border-bottom: 2px solid #6366f1; }
+body.light-mode .nav-icon-btn { color: #64748b; }
+body.light-mode .nav-icon-btn:hover { color: #0f172a; }
+body.light-mode .sidebar-left { border-right: 1px solid #e2e8f0; }
+body.light-mode .sidebar-right { border-left: 1px solid #e2e8f0; }
+body.light-mode .filter-item { color: #64748b; }
+body.light-mode .filter-item:hover { background: #f1f5f9; color: #0f172a; }
+body.light-mode .filter-item.active { background: #e2e8f0; color: #0f172a; font-weight: 600; }
+body.light-mode .hashtag { background: #e0e7ff; color: #4338ca; }
+body.light-mode .hashtag:hover { background: #4f46e5; color: #fff; }
+body.light-mode .section-heading, body.light-mode .sidebar-title { color: #475569; }
+body.light-mode .top-card { background: #ffffff; border-color: #e2e8f0; }
+body.light-mode .top-card:hover { border-color: #6366f1; }
+body.light-mode .top-card-title { color: #0f172a; }
+body.light-mode .ai-highlights-section { background: #ffffff; border-color: #e2e8f0; }
+body.light-mode .ai-highlights-header { background: #f8fafc; color: #4338ca; }
+body.light-mode .ai-col { background: #f8fafc; border-color: #e2e8f0; }
+body.light-mode .ai-col-title { color: #0f172a; }
+body.light-mode .ai-col-list li { color: #475569; }
+body.light-mode .news-row { border-bottom-color: #e2e8f0; }
+body.light-mode .news-row-title { color: #0f172a; }
+body.light-mode .news-row-title:hover { color: #4f46e5; }
+body.light-mode .news-group-count { background: #e2e8f0; color: #475569; }
+body.light-mode .data-section { background: #ffffff; border-color: #e2e8f0; }
+body.light-mode .data-section-header { background: #f8fafc; border-bottom-color: #e2e8f0; }
+body.light-mode .data-tab { color: #64748b; }
+body.light-mode .data-tab:hover { background: #f1f5f9; color: #0f172a; }
+body.light-mode .data-tab.active { background: #ffffff; color: #0f172a; border-color: #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+body.light-mode .data-tab-badge { background: #e2e8f0; color: #475569; }
+body.light-mode .data-tab-badge.fb { background: #dbeafe; color: #1e3a8a; }
+body.light-mode .latest-item { border-bottom-color: #e2e8f0; }
+body.light-mode .latest-title { color: #0f172a; }
+body.light-mode .app-footer { border-top-color: #e2e8f0; color: #64748b; }
+body.light-mode .fb-summary { background: #f8fafc; color: #475569; border-left-color: #1877f2; }
+body.light-mode .fb-screenshot img { border-color: #e2e8f0; }
 """
 
 
@@ -448,6 +565,24 @@ function filterKeyword(el,kw){
     g.style.display=(label.textContent.trim().toLowerCase().indexOf(kw.toLowerCase())>=0)?'':'none';
   });
 }
+function switchDataTab(btn, panelKey){
+  // Deactivate all tabs in same bar
+  var bar=btn.closest('.data-tab-bar');
+  if(bar)bar.querySelectorAll('.data-tab').forEach(function(t){t.classList.remove('active');});
+  btn.classList.add('active');
+  // Hide all panels in same section body
+  var body=btn.closest('.data-section').querySelector('.data-section-body');
+  if(body)body.querySelectorAll('.data-tab-panel').forEach(function(p){
+    p.style.display='none';
+  });
+  var target=document.getElementById('data-panel-'+panelKey);
+  if(target){target.style.display='';target.style.animation='none';target.offsetHeight;target.style.animation='';}
+}
+function toggleTheme(btn){
+  var isLight = document.body.classList.toggle('light-mode');
+  localStorage.setItem('trendradar-theme', isLight ? 'light' : 'dark');
+  btn.textContent = isLight ? '☀' : '☽';
+}
 // Restore preferences
 (function(){
   var tabs=document.querySelectorAll('.nav-tab');
@@ -457,6 +592,13 @@ function filterKeyword(el,kw){
       t.classList.add('active');
     });
   });
+  
+  var theme = localStorage.getItem('trendradar-theme');
+  if (theme === 'light') {
+    document.body.classList.add('light-mode');
+    var btn = document.querySelector('.nav-icon-btn[title="Chế độ tối/sáng"]');
+    if(btn) btn.textContent = '☀';
+  }
 })();
 """
 
@@ -503,13 +645,14 @@ def render_html_dashboard(
     # Stats summary
     hot_count = sum(len(s.get("titles", [])) for s in stats)
     rss_count = sum(len(s.get("titles", [])) for s in (rss_items or []))
+    fb_count = len(crawled_bot_items) if crawled_bot_items else 0
 
     # Sections
     top_news_html = _render_top_news_cards(all_titles)
     ai_html = _render_ai_highlights(ai_analysis)
     news_updates_html = _render_news_updates(stats)
-    rss_html = _render_rss_section(rss_items) if rss_items else ""
-    llm_bot_html = _render_llm_bot_section(crawled_bot_items)
+    # Use unified tabbed section for RSS + Facebook
+    tabbed_data_html = _render_tabbed_data_section(rss_items or [], crawled_bot_items or [])
     sidebar_left = _render_sidebar_filters(stats)
     sidebar_right = _render_sidebar_latest(all_titles)
 
@@ -539,7 +682,7 @@ def render_html_dashboard(
     <button class="nav-ai-btn">AI SUMMARIES</button>
     <div class="nav-actions">
       <button class="nav-icon-btn" title="Tìm kiếm">🔍</button>
-      <button class="nav-icon-btn" title="Chế độ tối/sáng" onclick="document.body.classList.toggle('light-mode')">☽</button>
+      <button class="nav-icon-btn" title="Chế độ tối/sáng" onclick="toggleTheme(this)">☽</button>
       <span style="font-size:11px;color:#475569">{time_str}</span>
     </div>
   </nav>
@@ -552,8 +695,7 @@ def render_html_dashboard(
       {top_news_html}
       {ai_html}
       {news_updates_html}
-      {rss_html}
-      {llm_bot_html}
+      {tabbed_data_html}
     </main>
 
     {sidebar_right}
@@ -561,7 +703,7 @@ def render_html_dashboard(
 
   <footer class="app-footer">
     Tạo bởi <a href="https://github.com/sansan0/TrendRadar" target="_blank">TrendRadar</a> ·
-    {hot_count} tin hot · {rss_count} RSS · {mode_label}
+    {hot_count} tin hot · {rss_count} RSS · {fb_count} Facebook · {mode_label}
     {f'<br><span style="color:#eab308">Phiên bản mới {update_info["remote_version"]} có sẵn</span>' if update_info else ""}
   </footer>
 </div>

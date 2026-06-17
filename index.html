@@ -95,6 +95,27 @@ a{text-decoration:none;color:inherit}
 .rank-badge.high{background:#ea580c;color:#fff}
 .rss-tag{background:#0f3460;color:#60a5fa;font-size:10px;padding:1px 5px;border-radius:3px}
 
+/* ── Tabbed Data Section (RSS / Facebook) ── */
+.data-section{background:#161b27;border:1px solid #1e2535;border-radius:12px;margin-bottom:24px;overflow:hidden}
+.data-section-header{background:#1a2035;border-bottom:1px solid #1e2535;padding:0 16px}
+.data-tab-bar{display:flex;gap:4px;padding:8px 0}
+.data-tab{display:flex;align-items:center;gap:6px;padding:7px 16px;border-radius:8px;font-size:13px;font-weight:600;color:#94a3b8;cursor:pointer;border:none;background:none;transition:all .18s;position:relative}
+.data-tab:hover{color:#e2e8f0;background:rgba(255,255,255,.05)}
+.data-tab.active{color:#fff;background:#0f1117;border:1px solid #2d3748;box-shadow:0 1px 6px rgba(0,0,0,.4)}
+.data-tab.active::after{content:'';position:absolute;bottom:-9px;left:50%;transform:translateX(-50%);width:40px;height:2px;background:#6366f1;border-radius:2px}
+.data-tab-badge{background:#1e2535;color:#94a3b8;font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;min-width:20px;text-align:center}
+.data-tab-badge.fb{background:#1a3a6b;color:#60a5fa}
+.data-section-body{padding:16px}
+.data-tab-panel{animation:fadeInPanel .2s ease}
+@keyframes fadeInPanel{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── Facebook specific ── */
+.fb-tag{background:#1a3a6b;color:#60a5fa;font-size:10px;padding:1px 6px;border-radius:3px;font-weight:600}
+.fb-summary{font-size:11px;color:#94a3b8;margin-top:6px;background:#1a2035;padding:8px 10px;border-radius:6px;border-left:2px solid #1877f2;line-height:1.5;white-space:pre-wrap}
+.fb-screenshot{margin-top:8px}
+.fb-screenshot img{max-width:100%;max-height:300px;border-radius:6px;object-fit:contain;border:1px solid #2d3748;cursor:pointer;transition:opacity .15s}
+.fb-screenshot img:hover{opacity:.85}
+
 /* ── Right sidebar ── */
 .sidebar-right{padding:20px 12px;border-left:1px solid #1e2535}
 .latest-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #1e2535;cursor:pointer;transition:opacity .15s}
@@ -109,6 +130,48 @@ a{text-decoration:none;color:inherit}
 /* ── Footer ── */
 .app-footer{text-align:center;padding:16px;font-size:11px;color:#475569;border-top:1px solid #1e2535;margin-top:auto}
 .app-footer a{color:#6366f1}
+
+/* ── Light Mode ── */
+body.light-mode { background: #f8fafc; color: #0f172a; }
+body.light-mode .topnav { background: #ffffff; border-bottom: 1px solid #e2e8f0; }
+body.light-mode .brand-name { color: #0f172a; }
+body.light-mode .nav-tab { color: #64748b; }
+body.light-mode .nav-tab:hover { color: #0f172a; background: #f1f5f9; }
+body.light-mode .nav-tab.active { color: #0f172a; background: #ffffff; border-bottom: 2px solid #6366f1; }
+body.light-mode .nav-icon-btn { color: #64748b; }
+body.light-mode .nav-icon-btn:hover { color: #0f172a; }
+body.light-mode .sidebar-left { border-right: 1px solid #e2e8f0; }
+body.light-mode .sidebar-right { border-left: 1px solid #e2e8f0; }
+body.light-mode .filter-item { color: #64748b; }
+body.light-mode .filter-item:hover { background: #f1f5f9; color: #0f172a; }
+body.light-mode .filter-item.active { background: #e2e8f0; color: #0f172a; font-weight: 600; }
+body.light-mode .hashtag { background: #e0e7ff; color: #4338ca; }
+body.light-mode .hashtag:hover { background: #4f46e5; color: #fff; }
+body.light-mode .section-heading, body.light-mode .sidebar-title { color: #475569; }
+body.light-mode .top-card { background: #ffffff; border-color: #e2e8f0; }
+body.light-mode .top-card:hover { border-color: #6366f1; }
+body.light-mode .top-card-title { color: #0f172a; }
+body.light-mode .ai-highlights-section { background: #ffffff; border-color: #e2e8f0; }
+body.light-mode .ai-highlights-header { background: #f8fafc; color: #4338ca; }
+body.light-mode .ai-col { background: #f8fafc; border-color: #e2e8f0; }
+body.light-mode .ai-col-title { color: #0f172a; }
+body.light-mode .ai-col-list li { color: #475569; }
+body.light-mode .news-row { border-bottom-color: #e2e8f0; }
+body.light-mode .news-row-title { color: #0f172a; }
+body.light-mode .news-row-title:hover { color: #4f46e5; }
+body.light-mode .news-group-count { background: #e2e8f0; color: #475569; }
+body.light-mode .data-section { background: #ffffff; border-color: #e2e8f0; }
+body.light-mode .data-section-header { background: #f8fafc; border-bottom-color: #e2e8f0; }
+body.light-mode .data-tab { color: #64748b; }
+body.light-mode .data-tab:hover { background: #f1f5f9; color: #0f172a; }
+body.light-mode .data-tab.active { background: #ffffff; color: #0f172a; border-color: #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+body.light-mode .data-tab-badge { background: #e2e8f0; color: #475569; }
+body.light-mode .data-tab-badge.fb { background: #dbeafe; color: #1e3a8a; }
+body.light-mode .latest-item { border-bottom-color: #e2e8f0; }
+body.light-mode .latest-title { color: #0f172a; }
+body.light-mode .app-footer { border-top-color: #e2e8f0; color: #64748b; }
+body.light-mode .fb-summary { background: #f8fafc; color: #475569; border-left-color: #1877f2; }
+body.light-mode .fb-screenshot img { border-color: #e2e8f0; }
 </style>
 </head>
 <body>
@@ -127,8 +190,8 @@ a{text-decoration:none;color:inherit}
     <button class="nav-ai-btn">AI SUMMARIES</button>
     <div class="nav-actions">
       <button class="nav-icon-btn" title="Tìm kiếm">🔍</button>
-      <button class="nav-icon-btn" title="Chế độ tối/sáng" onclick="document.body.classList.toggle('light-mode')">☽</button>
-      <span style="font-size:11px;color:#475569">22:10 · 05/06/2026</span>
+      <button class="nav-icon-btn" title="Chế độ tối/sáng" onclick="toggleTheme(this)">☽</button>
+      <span style="font-size:11px;color:#475569">21:12 · 17/06/2026</span>
     </div>
   </nav>
 
@@ -155,540 +218,1447 @@ a{text-decoration:none;color:inherit}
         <div class="ai-cols-row">
         <div class="ai-col">
           <div class="ai-col-title">Xu hướng cốt lõi <span class="ai-tag">AI</span></div>
-          <ul class="ai-col-list"><li>Dưới sự ảnh hưởng của các cuộc tranh luận và cuộc họp, tin tức về AI đã nổi bật trong tháng này. Cùng với đó là các tin tức về Du lịch Việt Nam, Thủ tướng Thái Lan thăm Việt Nam và Diễn đàn Tương lai ASEAN.</li></ul>
+          <ul class="ai-col-list"><li>Lan tỏa phá ranh giới trong cộng đồng kinh tế và công nghệ Việt Nam với hai trục chính: tái cơ cấu tài chính vĩ mô và làn sóng ứng dụng AI/năng lượng xanh.</li><li>【Chủ đề vĩ mô】</li><li>1. Thị trường tài chính biến động mạnh với xu hướng rút ròng của khối ngoại, đề xuất nới trần vốn ngắn hạn cho vay trung dài hạn lên 40%, và hoạt động thanh lý tài sản của SCB.</li><li>2. Vĩ thế của các tập đoàn lớn như 「Vingroup」 và 「BIDV」 được khẳng định khi lọt vào danh sách các doanh nghiệp lớn nhất Đông Nam Á.</li></ul>
         </div>
         <div class="ai-col">
           <div class="ai-col-title">Tranh cãi dư luận <span class="ai-tag">AI</span></div>
-          <ul class="ai-col-list"><li>Tin tức về AI có một số tranh luận và cuộc họp sôi động. Có người cho rằng AI sẽ thay đổi cuộc sống con người, trong khi những người khác lại khẳng định AI chỉ là một công cụ đơn giản. Tin tức về Du lịch Việt Nam cũng được nhiều người quan tâm do mùa thi trùng thời điểm mưa bão.</li></ul>
+          <ul class="ai-col-list"><li>【Phổ cảm xúc】</li><li>Sự hoang mang của nhà đầu tư cá nhân trước đà bán tháo của khối ngoại đối lập với sự lạc quan về chu kỳ tăng giá mới của vàng và Bitcoin.</li><li>【Mâu thuẫn cốt lõi】</li><li>1. Rủi ro từ việc dòng vốn cá nhân cố gắng gánh đỡ thị trường chứng khoán trong bối cảnh khối ngoại rút ròng mạnh.</li></ul>
         </div>
         <div class="ai-col">
           <div class="ai-col-title">Tín hiệu yếu <span class="ai-tag">AI</span></div>
-          <ul class="ai-col-list"><li>Có vài tín hiệu về tin tức AI trong tháng này: Tin tức giá xe Isuzu mu-X giảm tới 115 triệu tại đại lý; Tin tức Apple &#x27;đá xoáy&#x27; trình duyệt Chrome.</li></ul>
+          <ul class="ai-col-list"><li>【Lan tỏa phá ranh giới】</li><li>Thông tin 「SpaceX」 vượt vốn hóa 「Microsoft」 xuất hiện đồng loạt trên cả nguồn tin công nghệ quốc tế lẫn các trang tài chính trong nước, cho thấy sức hút toàn cầu của ngành hàng không vũ trụ và công nghệ mới.</li><li>【Chênh lệch nền tảng】</li><li>Chủ đề về 「Xăng E10」 và chính sách thuế được thảo luận chuyên sâu trên các chuyên trang kinh tế chính thống như Dân Trí và VnExpress, nhưng hầu như chưa tạo được làn sóng thảo luận sôi nổi từ người dùng phổ thông.</li></ul>
         </div></div>
       </div>
     </section>
       
-      <section class="news-updates-section"><div class="section-heading">RSS Updates</div>
+      
+    <section class="data-section">
+      <div class="data-section-header">
+        <div class="data-tab-bar">
+          <button class="data-tab active" onclick="switchDataTab(this,'rss')" data-panel="data-panel-rss">📰 RSS <span class="data-tab-badge">5</span></button>
+          <button class="data-tab " onclick="switchDataTab(this,'fb')" data-panel="data-panel-fb">📘 Facebook <span class="data-tab-badge fb">90</span></button>
+        </div>
+      </div>
+      <div class="data-section-body">
+        <div id="data-panel-rss" class="data-tab-panel" style="">
             <div class="news-row">
               <div class="news-row-left">
-                <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1a1a2e,#16213e)"></div>
+                <div class="news-row-source-dot" style="background:linear-gradient(135deg,#7b2d00,#c1440e)"></div>
               </div>
               <div class="news-row-body">
-                <a class="news-row-title" href="https://tuoitre.vn/pho-bi-thu-nguyen-phuoc-loc-mang-luoi-y-te-phai-linh-hoat-khong-de-ai-bi-han-che-tiep-can-20260605183716837.htm" target="_blank">Phó bí thư Nguyễn Phước Lộc: Mạng lưới y tế phải linh hoạt, không để ai bị hạn chế tiếp cận</a>
+                <a class="news-row-title" href="https://dantri.com.vn/kinh-doanh/chuyen-gia-du-bao-sieu-chu-ky-vang-chi-ra-dong-luc-quan-trong-it-ai-de-y-20260617145721996.htm" target="_blank">Chuyên gia dự báo &quot;siêu chu kỳ&quot; vàng, chỉ ra động lực quan trọng ít ai để ý</a>
                 <div class="news-row-meta">
-                  <span class="news-row-source">Tuổi Trẻ</span>
-                  <span class="news-row-time">06-06 02:11</span>
+                  <span class="news-row-source">Dân Trí Kinh Doanh</span>
+                  <span class="news-row-time">06-17 15:29</span>
                   <span class="rss-tag">Tin tức AI</span>
                 </div>
               </div>
             </div>
             <div class="news-row">
               <div class="news-row-left">
-                <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1a1a2e,#16213e)"></div>
+                <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1a0533,#4a0e8f)"></div>
               </div>
               <div class="news-row-body">
-                <a class="news-row-title" href="https://tuoitre.vn/mo-huong-phat-trien-ai-va-giao-thong-thong-minh-tai-viet-nam-20260605174852096.htm" target="_blank">Mở hướng phát triển AI và giao thông thông minh tại Việt Nam</a>
+                <a class="news-row-title" href="https://tuoitre.vn/ai-vao-chuong-heo-dem-tieng-ho-do-than-nhiet-bat-benh-cho-heo-100260617095831504.htm" target="_blank">AI vào chuồng heo, đếm tiếng ho, đo thân nhiệt, bắt bệnh cho heo</a>
                 <div class="news-row-meta">
-                  <span class="news-row-source">Tuổi Trẻ</span>
-                  <span class="news-row-time">06-06 02:08</span>
+                  <span class="news-row-source">Tuổi Trẻ Kinh Doanh</span>
+                  
                   <span class="rss-tag">Tin tức AI</span>
                 </div>
               </div>
             </div>
             <div class="news-row">
               <div class="news-row-left">
-                <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1a1a2e,#16213e)"></div>
+                <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1a0533,#4a0e8f)"></div>
               </div>
               <div class="news-row-body">
-                <a class="news-row-title" href="https://tuoitre.vn/5-nhan-vat-anime-shonen-khong-ai-muon-cham-mat-ngoai-doi-20260604220422864.htm" target="_blank">5 nhân vật anime shonen không ai muốn chạm mặt ngoài đời</a>
+                <a class="news-row-title" href="https://tuoitre.vn/thu-tuong-lap-hoi-dong-tham-dinh-nha-nuoc-du-an-duong-vanh-dai-5-vung-thu-do-ha-noi-100260617133345267.htm" target="_blank">Thủ tướng lập Hội đồng thẩm định nhà nước dự án đường vành đai 5 vùng thủ đô Hà Nội</a>
                 <div class="news-row-meta">
-                  <span class="news-row-source">Tuổi Trẻ</span>
-                  <span class="news-row-time">06-06 00:08</span>
+                  <span class="news-row-source">Tuổi Trẻ Kinh Doanh</span>
+                  
                   <span class="rss-tag">Tin tức AI</span>
                 </div>
               </div>
             </div>
             <div class="news-row">
               <div class="news-row-left">
-                <div class="news-row-source-dot" style="background:linear-gradient(135deg,#2b2d42,#8d99ae)"></div>
+                <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1a0533,#4a0e8f)"></div>
               </div>
               <div class="news-row-body">
-                <a class="news-row-title" href="https://vnexpress.net/truy-cap-internet-tu-bot-ai-lan-dau-vuot-con-nguoi-5082127.html" target="_blank">Truy cập Internet từ bot AI lần đầu vượt con người</a>
+                <a class="news-row-title" href="https://tuoitre.vn/tu-dien-toan-dam-may-ai-den-robot-100-nhua-doanh-nghiep-tim-loi-giai-tang-nang-suat-10026061717550304.htm" target="_blank">Từ điện toán đám mây, AI đến robot 100% nhựa: Doanh nghiệp tìm lời giải tăng năng suất</a>
                 <div class="news-row-meta">
-                  <span class="news-row-source">VnExpress</span>
-                  <span class="news-row-time">06-05 20:06</span>
+                  <span class="news-row-source">Tuổi Trẻ Kinh Doanh</span>
+                  
                   <span class="rss-tag">Tin tức AI</span>
                 </div>
               </div>
             </div>
             <div class="news-row">
               <div class="news-row-left">
-                <div class="news-row-source-dot" style="background:linear-gradient(135deg,#370617,#9d0208)"></div>
+                <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1a0533,#4a0e8f)"></div>
               </div>
               <div class="news-row-body">
-                <a class="news-row-title" href="https://dantri.com.vn/thoi-su/can-canh-goi-cau-vanh-dai-3-tren-cao-o-ha-noi-bi-xo-lech-bien-dang-20260605185434607.htm" target="_blank">Cận cảnh gối cầu Vành đai 3 trên cao ở Hà Nội bị xô lệch, biến dạng</a>
+                <a class="news-row-title" href="https://tuoitre.vn/gia-tri-von-hoa-spacex-vuot-microsoft-va-amazon-100260617144122072.htm" target="_blank">Giá trị vốn hóa SpaceX vượt Microsoft và Amazon</a>
                 <div class="news-row-meta">
-                  <span class="news-row-source">Dân Trí</span>
-                  <span class="news-row-time">06-05 19:00</span>
-                  <span class="rss-tag">Tin tức AI</span>
-                </div>
-              </div>
-            </div>
-            <div class="news-row">
-              <div class="news-row-left">
-                <div class="news-row-source-dot" style="background:linear-gradient(135deg,#370617,#9d0208)"></div>
-              </div>
-              <div class="news-row-body">
-                <a class="news-row-title" href="https://dantri.com.vn/kinh-doanh/cuu-chu-tich-google-viet-nam-du-tiem-nang-dan-dau-ve-ai-20260605203517582.htm" target="_blank">Cựu Chủ tịch Google: Việt Nam đủ tiềm năng dẫn đầu về AI</a>
-                <div class="news-row-meta">
-                  <span class="news-row-source">Dân Trí</span>
-                  <span class="news-row-time">06-05 21:21</span>
+                  <span class="news-row-source">Tuổi Trẻ Kinh Doanh</span>
+                  
                   <span class="rss-tag">微软 / 谷歌 / 苹果</span>
                 </div>
               </div>
-            </div>
-            <div class="news-row">
-              <div class="news-row-left">
-                <div class="news-row-source-dot" style="background:linear-gradient(135deg,#2b2d42,#8d99ae)"></div>
-              </div>
-              <div class="news-row-body">
-                <a class="news-row-title" href="https://vnexpress.net/apple-da-xoay-trinh-duyet-chrome-5082143.html" target="_blank">Apple &#x27;đá xoáy&#x27; trình duyệt Chrome</a>
-                <div class="news-row-meta">
-                  <span class="news-row-source">VnExpress</span>
-                  <span class="news-row-time">06-05 19:04</span>
-                  <span class="rss-tag">微软 / 谷歌 / 苹果</span>
-                </div>
-              </div>
-            </div></section>
-      <section class="news-updates-section"><div class="section-heading">LLM Bot Data</div>
+            </div></div>
+        <div id="data-panel-fb" class="data-tab-panel" style="display:none">
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
-            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">CafeF Tài khoản đã xác minh</a>
+            <a class="news-row-title" href="https://www.facebook.com/TintucVTV24" target="_blank">Cứ ngỡ rằng chỉ có trong phim ._.</a>
             <div class="news-row-meta">
-              <span class="news-row-source">None</span>
-              
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="news-row-source">Tieens Lee</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
-            
-            <div style="margin-top: 8px;"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/be0edd28-c6e6-444b-951e-cf581a76d8be/items/item_001/screenshot.png" alt="Screenshot" style="max-width: 100%; max-height: 300px; border-radius: 4px; object-fit: contain; border: 1px solid #334155; cursor: pointer;" onclick="window.open(this.src)" /></div>
+            <div class="fb-summary">Video ngắn (Reel) từ tài khoản Tieens Lee với nội dung chia sẻ giải trí kèm dòng trạng thái &#x27;Cứ ngỡ rằng chỉ có trong phim ._.&#x27; và các hashtag xu hướng.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/0fc49c8d-b5f4-4fa6-a93d-b960e4e83320/items/item_001/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
           </div>
         </div>
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
-            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">CafeF Tài khoản đã xác minh</a>
+            <a class="news-row-title" href="https://www.facebook.com/TintucVTV24" target="_blank">VTV24 - Sống trọn FIFA World Cup cùng VTV</a>
             <div class="news-row-meta">
-              <span class="news-row-source">None</span>
-              
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="news-row-source">VTV24</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
-            
-            <div style="margin-top: 8px;"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/5775938f-6a3d-4f8b-9553-38c78a4c2f99/items/item_001/screenshot.png" alt="Screenshot" style="max-width: 100%; max-height: 300px; border-radius: 4px; object-fit: contain; border: 1px solid #334155; cursor: pointer;" onclick="window.open(this.src)" /></div>
+            <div class="fb-summary">Bài đăng hình ảnh của VTV24 chia sẻ về chương trình đồng hành và phát sóng trực tiếp giải đấu FIFA World Cup trên VTV.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/0fc49c8d-b5f4-4fa6-a93d-b960e4e83320/items/item_002/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
           </div>
         </div>
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
-            <a class="news-row-title" href="https://static.xx.fbcdn.net/rsrc.php/yS/r/hP6qDL2Mt8j.webp" target="_blank">CafeF</a>
+            <a class="news-row-title" href="https://www.facebook.com/TintucVTV24" target="_blank">Facebook - VTV24</a>
             <div class="news-row-meta">
-              <span class="news-row-source">None</span>
-              
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="news-row-source">VTV24</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
-            
-            
+            <div class="fb-summary">Một bài đăng hình ảnh của trang VTV24 trên Facebook. Hiện tại hình ảnh không đi kèm mô tả chi tiết và chưa có bình luận nào từ người dùng.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/0fc49c8d-b5f4-4fa6-a93d-b960e4e83320/items/item_003/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
           </div>
         </div>
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
-            <a class="news-row-title" href="https://static.xx.fbcdn.net/rsrc.php/yS/r/hP6qDL2Mt8j.webp" target="_blank">CafeF</a>
+            <a class="news-row-title" href="https://www.facebook.com/TintucVTV24" target="_blank">Messi lập kỷ lục cầu thủ lớn tuổi nhất ghi hat-trick tại World Cup</a>
             <div class="news-row-meta">
-              <span class="news-row-source">None</span>
-              
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="news-row-source">VTV24</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
-            
-            
+            <div class="fb-summary">Theo thống kê của Opta, Messi đã trở thành cầu thủ lớn tuổi nhất từng ghi hat-trick tại một kỳ World Cup ở tuổi 38, vượt qua kỷ lục trước đó của Cristiano Ronaldo.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/0fc49c8d-b5f4-4fa6-a93d-b960e4e83320/items/item_004/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
           </div>
         </div>
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
-            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">CafeF Verified account</a>
+            <a class="news-row-title" href="https://www.facebook.com/TintucVTV24" target="_blank">Ảnh này nằm trong một bài viết - VTV24</a>
             <div class="news-row-meta">
-              <span class="news-row-source">None</span>
-              
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="news-row-source">VTV24</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
-            
-            <div style="margin-top: 8px;"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/e82db662-aac2-4f7a-bc33-6bc432d4a6e7/items/item_001/screenshot.png" alt="Screenshot" style="max-width: 100%; max-height: 300px; border-radius: 4px; object-fit: contain; border: 1px solid #334155; cursor: pointer;" onclick="window.open(this.src)" /></div>
+            <div class="fb-summary">Trang Facebook của VTV24 chia sẻ một hình ảnh nằm trong một bài viết chi tiết.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/0fc49c8d-b5f4-4fa6-a93d-b960e4e83320/items/item_005/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
           </div>
         </div>
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
-            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">CafeF Tài khoản đã xác minh</a>
+            <a class="news-row-title" href="https://www.facebook.com/TintucVTV24" target="_blank">Facebook - Ảnh từ bài viết của VTV24</a>
             <div class="news-row-meta">
-              <span class="news-row-source">None</span>
-              
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="news-row-source">VTV24</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
-            <div style="font-size: 11px; color: #94a3b8; margin-top: 6px; background: #1e2535; padding: 8px; border-radius: 4px; border-left: 2px solid #6366f1;">Kênh thông tin chuyên sâu về Kinh tế - Tài chính - Chứng khoán - Bất động sản hàng đầu Việt Nam
-Trang web tin tức và truyền thông
-Vượt nửa vòng Trái đất đến Cuba: Kỹ sư Việt bắt tay làm ngay 1 việc, kỳ tích xuất hiện vào tháng 5/2026
-Ảnh từ bài viết của CafeF
-MWidFkFV9r1uYmB3aTbrZvrLoVRc0AYMxzxAFp</div>
-            <div style="margin-top: 8px;"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/b2d10479-1512-4801-abbc-b773306b4a7d/items/item_001/screenshot.png" alt="Screenshot" style="max-width: 100%; max-height: 300px; border-radius: 4px; object-fit: contain; border: 1px solid #334155; cursor: pointer;" onclick="window.open(this.src)" /></div>
+            <div class="fb-summary">Ảnh này nằm trong một bài viết của trang VTV24 trên Facebook.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/0fc49c8d-b5f4-4fa6-a93d-b960e4e83320/items/item_006/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
           </div>
         </div>
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
-            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">CafeF Tài khoản đã xác minh</a>
+            <a class="news-row-title" href="https://www.facebook.com/TintucVTV24" target="_blank">Không phải trò chơi: Cá sấu “lên bờ”, ghé thăm nhà dân lúc nửa đêm</a>
             <div class="news-row-meta">
-              <span class="news-row-source">None</span>
-              
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="news-row-source">VTV24</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
-            <div style="font-size: 11px; color: #94a3b8; margin-top: 6px; background: #1e2535; padding: 8px; border-radius: 4px; border-left: 2px solid #6366f1;">Bạn có thể đi đến phần cài đặt trình duyệt để cho phép hoặc chặn thông báo Facebook trên trình duyệt.</div>
-            <div style="margin-top: 8px;"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/10e78012-945a-44dc-ad49-03f5d653b3ca/items/item_001/screenshot.png" alt="Screenshot" style="max-width: 100%; max-height: 300px; border-radius: 4px; object-fit: contain; border: 1px solid #334155; cursor: pointer;" onclick="window.open(this.src)" /></div>
+            <div class="fb-summary">Bài viết đưa tin về việc một con cá sấu bất ngờ xuất hiện và ghé thăm nhà dân lúc nửa đêm tại phường Thuận Hóa, TP. Huế, sau đó đã được chính quyền địa phương và Hạt Kiểm lâm tiếp nhận.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/0fc49c8d-b5f4-4fa6-a93d-b960e4e83320/items/item_007/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
           </div>
         </div>
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
-            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">CafeF Tài khoản đã xác minh</a>
+            <a class="news-row-title" href="https://www.facebook.com/TintucVTV24" target="_blank">Câu hỏi Chuyển động 24h ngày 17/6</a>
             <div class="news-row-meta">
-              <span class="news-row-source">None</span>
-              
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="news-row-source">VTV24</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
-            <div style="font-size: 11px; color: #94a3b8; margin-top: 6px; background: #1e2535; padding: 8px; border-radius: 4px; border-left: 2px solid #6366f1;">Kênh thông tin chuyên sâu về Kinh tế - Tài chính - Chứng khoán - Bất động sản hàng đầu Việt Nam
-Trang web tin tức và truyền thông
-Kênh · 16K thành viên
-https://www.tiktok.com/@cafef_official
-Từ 1/7, người cận thị ở Hà Nội đón tin vui
-Ảnh từ bài viết của CafeF
-fG6wQa9dMJ1j2AWAGvnk66IzBVV8iyl3QgzaH1WMsB6fIOG1zx5v4HSiINubdMz7eT3GdB59Z
-Vượt nửa vòng Tr...</div>
-            <div style="margin-top: 8px;"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/dc1a9495-87bc-4365-98ef-595ac7ebdb10/items/item_001/screenshot.png" alt="Screenshot" style="max-width: 100%; max-height: 300px; border-radius: 4px; object-fit: contain; border: 1px solid #334155; cursor: pointer;" onclick="window.open(this.src)" /></div>
+            <div class="fb-summary">Câu hỏi khảo sát của Chuyển động 24h ngày 17/6 về tỷ lệ trẻ em gặp rủi ro trên môi trường mạng theo khảo sát của Cục An ninh mạng và phòng chống tội phạm sử dụng công nghệ cao.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/0fc49c8d-b5f4-4fa6-a93d-b960e4e83320/items/item_008/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
           </div>
         </div>
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
-            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">CafeF Tài khoản đã xác minh</a>
+            <a class="news-row-title" href="https://www.facebook.com/TintucVTV24" target="_blank">Liên tiếp ngộ độc bánh mì, hàng chục người ở Đồng Tháp phải nhập viện</a>
             <div class="news-row-meta">
-              <span class="news-row-source">None</span>
-              
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="news-row-source">VTV24</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
-            <div style="font-size: 11px; color: #94a3b8; margin-top: 6px; background: #1e2535; padding: 8px; border-radius: 4px; border-left: 2px solid #6366f1;">Kênh thông tin chuyên sâu về Kinh tế - Tài chính - Chứng khoán - Bất động sản hàng đầu Việt Nam
-Trang web tin tức và truyền thông
-Kênh · 16K thành viên
-https://www.tiktok.com/@cafef_official</div>
-            <div style="margin-top: 8px;"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/4a766ba9-553f-4a81-b629-6fffd99e6900/items/item_001/screenshot.png" alt="Screenshot" style="max-width: 100%; max-height: 300px; border-radius: 4px; object-fit: contain; border: 1px solid #334155; cursor: pointer;" onclick="window.open(this.src)" /></div>
+            <div class="fb-summary">Bệnh viện Đa khoa Tiền Giang (tỉnh Đồng Tháp) đang tiếp nhận và điều trị nhiều trường hợp nghi ngộ độc thực phẩm sau khi ăn bánh mì.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/0fc49c8d-b5f4-4fa6-a93d-b960e4e83320/items/item_009/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
           </div>
         </div>
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
-            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">CafeF Tài khoản đã xác minh</a>
+            <a class="news-row-title" href="https://www.facebook.com/TintucVTV24" target="_blank">Hattrick cho Messi, hattrick ở trận ra quân cũng là hattrick đầu tiên của World Cup 2026</a>
             <div class="news-row-meta">
-              <span class="news-row-source">None</span>
-              
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="news-row-source">VTV24</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
-            <div style="font-size: 11px; color: #94a3b8; margin-top: 6px; background: #1e2535; padding: 8px; border-radius: 4px; border-left: 2px solid #6366f1;">Kênh thông tin chuyên sâu về Kinh tế - Tài chính - Chứng khoán - Bất động sản hàng đầu Việt Nam
-Trang web tin tức và truyền thông
-Kênh · 16K thành viên
-https://www.tiktok.com/@cafef_official
-Từ 1/7, người cận thị ở Hà Nội đón tin vui
-Ảnh từ bài viết của CafeF
-Q3VOBqE8rxQoWuJCWr8Zh207aQ0EoOTE3yawLDXvi2
-Thủ tướng và các Phó Thủ tướng sẽ làm việc với ...</div>
-            <div style="margin-top: 8px;"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/4ed1566b-a3a6-4a36-a4b0-1e4296050408/items/item_001/screenshot.png" alt="Screenshot" style="max-width: 100%; max-height: 300px; border-radius: 4px; object-fit: contain; border: 1px solid #334155; cursor: pointer;" onclick="window.open(this.src)" /></div>
+            <div class="fb-summary">Bài viết đưa tin về cú hattrick của Messi trong trận ra quân đầu tiên tại World Cup 2026 và giới thiệu link xem highlights trên nền tảng VTVgo.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/0fc49c8d-b5f4-4fa6-a93d-b960e4e83320/items/item_010/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
           </div>
         </div>
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
-            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">Đoạn chat</a>
+            <a class="news-row-title" href="https://www.facebook.com/TintucVTV24" target="_blank">Lại là Messi, 2-0 cho Argentina.</a>
             <div class="news-row-meta">
-              <span class="news-row-source">None</span>
-              
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="news-row-source">VTV24</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
-            <div style="font-size: 11px; color: #94a3b8; margin-top: 6px; background: #1e2535; padding: 8px; border-radius: 4px; border-left: 2px solid #6366f1;">Tin nhắn và cuộc gọi được bảo mật bằng tính năng mã hóa đầu cuối.
-Tin nhắn và cuộc gọi được bảo mật bằng tính năng mã hóa đầu cuối.
-Tin nhắn và cuộc gọi được bảo mật bằng tính năng mã hóa đầu cuối.
-https://www.instagram.com/reel/DZHwzZFScgm/?igsh=MTBtZWkyeXRjbjY5cA==
-Tin nhắn và cuộc gọi được bảo mật bằng tính năng mã hóa đầu cuối.
-Tin nhắn và cuộc...</div>
-            <div style="margin-top: 8px;"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/afce3317-b2ee-4bd1-9cb4-d22cd943dad8/items/item_001/screenshot.png" alt="Screenshot" style="max-width: 100%; max-height: 300px; border-radius: 4px; object-fit: contain; border: 1px solid #334155; cursor: pointer;" onclick="window.open(this.src)" /></div>
+            <div class="fb-summary">Bài đăng từ trang VTV24 cập nhật tỷ số 2-0 cho Argentina nhờ công của Messi và hướng dẫn xem highlights trên VTVgo.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/0fc49c8d-b5f4-4fa6-a93d-b960e4e83320/items/item_011/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
           </div>
         </div>
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
-            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">Đoạn chat</a>
+            <a class="news-row-title" href="https://www.facebook.com/TintucVTV24" target="_blank">Messi vẫn ở đẳng cấp khác so với phần còn lại</a>
             <div class="news-row-meta">
-              <span class="news-row-source">None</span>
-              
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="news-row-source">VTV24</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
-            <div style="font-size: 11px; color: #94a3b8; margin-top: 6px; background: #1e2535; padding: 8px; border-radius: 4px; border-left: 2px solid #6366f1;">Nhập mã PIN để khôi phục lịch sử chat.
-Sử dụng mã dùng một lần
-Tin nhắn và cuộc gọi được bảo mật bằng tính năng mã hóa đầu cuối.
-Tin nhắn và cuộc gọi được bảo mật bằng tính năng mã hóa đầu cuối.
-Tin nhắn và cuộc gọi được bảo mật bằng tính năng mã hóa đầu cuối.
-https://www.instagram.com/reel/DZHwzZFScgm/?igsh=MTBtZWkyeXRjbjY5cA==
-Tin nhắn và cuộc gọ...</div>
-            <div style="margin-top: 8px;"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/afce3317-b2ee-4bd1-9cb4-d22cd943dad8/items/item_002/screenshot.png" alt="Screenshot" style="max-width: 100%; max-height: 300px; border-radius: 4px; object-fit: contain; border: 1px solid #334155; cursor: pointer;" onclick="window.open(this.src)" /></div>
+            <div class="fb-summary">Bài viết chia sẻ về bàn thắng tuyệt đẹp của Messi và cung cấp đường dẫn xem lại highlights trận đấu giữa Argentina và Algeria trên nền tảng truyền hình số quốc gia VTVgo.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/0fc49c8d-b5f4-4fa6-a93d-b960e4e83320/items/item_012/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
           </div>
         </div>
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
-            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">Đoạn chat</a>
+            <a class="news-row-title" href="https://www.facebook.com/TintucVTV24" target="_blank">VTV24: Messi thiết lập kỷ lục hat-trick tại World Cup ở tuổi 38</a>
             <div class="news-row-meta">
-              <span class="news-row-source">None</span>
-              
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="news-row-source">VTV24</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
-            <div style="font-size: 11px; color: #94a3b8; margin-top: 6px; background: #1e2535; padding: 8px; border-radius: 4px; border-left: 2px solid #6366f1;">Nhập mã PIN để khôi phục lịch sử chat.
-Sử dụng mã dùng một lần
-Tin nhắn và cuộc gọi được bảo mật bằng tính năng mã hóa đầu cuối.
-Tin nhắn và cuộc gọi được bảo mật bằng tính năng mã hóa đầu cuối.
-Tin nhắn và cuộc gọi được bảo mật bằng tính năng mã hóa đầu cuối.
-https://www.instagram.com/reel/DZHwzZFScgm/?igsh=MTBtZWkyeXRjbjY5cA==
-Tin nhắn và cuộc gọ...</div>
-            <div style="margin-top: 8px;"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/afce3317-b2ee-4bd1-9cb4-d22cd943dad8/items/item_003/screenshot.png" alt="Screenshot" style="max-width: 100%; max-height: 300px; border-radius: 4px; object-fit: contain; border: 1px solid #334155; cursor: pointer;" onclick="window.open(this.src)" /></div>
+            <div class="fb-summary">Theo thống kê của Opta, với cú hat-trick vào lưới Algeria, Lionel Messi đã trở thành cầu thủ lớn tuổi nhất từng ghi hat-trick tại một kỳ World Cup ở tuổi 38, vượt qua kỷ lục trước đó của Cristiano Ronaldo.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/0fc49c8d-b5f4-4fa6-a93d-b960e4e83320/items/item_013/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
           </div>
         </div>
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
-            <a class="news-row-title" href="https://scontent.fhan15-1.fna.fbcdn.net/v/t1.30497-1/453178253_471506465671661_2781666950760530985_n.png?stp=dst-png_s100x100&amp;_nc_cat=1&amp;_nc_sid=136b72&amp;_nc_ohc=RSeC8wl7CPIQ7kNvwGRA4Ox&amp;_nc_oc=AdqXEUtCf9F3ksd1XJolVKdLlkUKjKhZXdOpJoUe81_BexrvO0b8xikrLg4R6uJYy7g&amp;_nc_ad=z-m&amp;_nc_cid=0&amp;_nc_zt=24&amp;_nc_ht=scontent.fhan15-1.fna&amp;_nc_ss=7a22e&amp;oh=00_Af_2hvcKQcfx_O1WoY624MmSRjiBjHZ-Jb-T4teRs2trQg&amp;oe=6A47B0FA" target="_blank">thường thôi</a>
+            <a class="news-row-title" href="https://www.facebook.com/TintucVTV24" target="_blank">Messi thiết lập loạt kỷ lục mới tại World Cup ở tuổi 38</a>
             <div class="news-row-meta">
-              <span class="news-row-source">None</span>
-              
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="news-row-source">VTV24</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
-            <div style="font-size: 11px; color: #94a3b8; margin-top: 6px; background: #1e2535; padding: 8px; border-radius: 4px; border-left: 2px solid #6366f1;">thường thôi</div>
-            
+            <div class="fb-summary">Với cú hat-trick vào lưới Algeria ở tuổi 38, Lionel Messi trở thành cầu thủ lớn tuổi nhất ghi hat-trick tại một kỳ World Cup, đồng thời san bằng kỷ lục 16 bàn thắng của Miroslav Klose tại giải đấu này.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/0fc49c8d-b5f4-4fa6-a93d-b960e4e83320/items/item_014/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
           </div>
         </div>
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
-            <a class="news-row-title" href="https://vnexpress.net/tin-tuc/the-gioi/1-7-ngu-cun-thi-o-ha-noi-don-tin-vui-4441444.html" target="_blank">Từ 1/7, người cận thị ở Hà Nội đón tin vui</a>
+            <a class="news-row-title" href="https://www.facebook.com/thanhnien" target="_blank">Thước phim Facebook của Tieens Lee</a>
             <div class="news-row-meta">
-              <span class="news-row-source">None</span>
-              
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="news-row-source">Tieens Lee</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
-            <div style="font-size: 11px; color: #94a3b8; margin-top: 6px; background: #1e2535; padding: 8px; border-radius: 4px; border-left: 2px solid #6366f1;">Từ 1/7, người cận thị ở Hà Nội đón tin vui.</div>
-            
+            <div class="fb-summary">Thước phim ngắn (Reel) được chia sẻ công khai bởi người dùng Tieens Lee trên Facebook với các hashtag #j4f, #xuhuong, #28, thu hút 620 lượt thích, 9 bình luận và 3 lượt chia sẻ.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/82109351-a324-4008-b07b-f80ac34dbd94/items/item_001/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
           </div>
         </div>
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
-            <a class="news-row-title" href="https://www.example.com/article/1234567890" target="_blank">Article Title</a>
+            <a class="news-row-title" href="https://www.facebook.com/thanhnien" target="_blank">Báo Thanh Niên - Hình ảnh trên Facebook</a>
             <div class="news-row-meta">
-              <span class="news-row-source">None</span>
-              
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="news-row-source">Báo Thanh Niên</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
-            <div style="font-size: 11px; color: #94a3b8; margin-top: 6px; background: #1e2535; padding: 8px; border-radius: 4px; border-left: 2px solid #6366f1;">This is a summary of the article.</div>
-            <div style="margin-top: 8px;"><img src="file:///path/to/screenshot.jpg" alt="Screenshot" style="max-width: 100%; max-height: 300px; border-radius: 4px; object-fit: contain; border: 1px solid #334155; cursor: pointer;" onclick="window.open(this.src)" /></div>
+            <div class="fb-summary">Hình ảnh được chia sẻ trên trang Facebook chính thức của Báo Thanh Niên.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/82109351-a324-4008-b07b-f80ac34dbd94/items/item_002/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
           </div>
         </div>
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
-            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">Facebook</a>
+            <a class="news-row-title" href="https://www.facebook.com/thanhnien" target="_blank">🔴 TRỰC TIẾP: Dậy thì sớm ở trẻ: Nhận biết và chủ động ngăn chặn sớm để bảo vệ tuổi thơ con</a>
             <div class="news-row-meta">
-              <span class="news-row-source">None</span>
-              
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="news-row-source">Báo Thanh Niên</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
-            <div style="font-size: 11px; color: #94a3b8; margin-top: 6px; background: #1e2535; padding: 8px; border-radius: 4px; border-left: 2px solid #6366f1;">Tại sao lại là xanh da trời dị
-Muọn tiền nhanh chóng, không cần bảo lãnh! ️
-Tìm hiểu thêm: bit.ly/mfvay
-Vâng. Xin TT vui vẻ với trang ạ.</div>
-            <div style="margin-top: 8px;"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/f3efda31-e839-4caa-bf9c-2bfe97e4a8a4/items/item_002/screenshot.png" alt="Screenshot" style="max-width: 100%; max-height: 300px; border-radius: 4px; object-fit: contain; border: 1px solid #334155; cursor: pointer;" onclick="window.open(this.src)" /></div>
+            <div class="fb-summary">Chương trình truyền hình trực tiếp của Báo Thanh Niên bàn luận về tình trạng dậy thì sớm ở trẻ em, hướng dẫn phụ huynh cách nhận biết và chủ động ngăn chặn kịp thời.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/82109351-a324-4008-b07b-f80ac34dbd94/items/item_003/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
           </div>
         </div>
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
-            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">Facebook</a>
+            <a class="news-row-title" href="https://www.facebook.com/thanhnien" target="_blank">Ảnh từ bài viết của Báo Thanh Niên</a>
             <div class="news-row-meta">
-              <span class="news-row-source">None</span>
-              
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="news-row-source">Báo Thanh Niên</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
-            <div style="font-size: 11px; color: #94a3b8; margin-top: 6px; background: #1e2535; padding: 8px; border-radius: 4px; border-left: 2px solid #6366f1;">Láng giềng Việt Nam vừa &#x27;cứu&#x27; giá dầu thế giới: Họ đã làm gì?</div>
-            <div style="margin-top: 8px;"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/f3efda31-e839-4caa-bf9c-2bfe97e4a8a4/items/item_003/screenshot.png" alt="Screenshot" style="max-width: 100%; max-height: 300px; border-radius: 4px; object-fit: contain; border: 1px solid #334155; cursor: pointer;" onclick="window.open(this.src)" /></div>
+            <div class="fb-summary">Ảnh nằm trong một bài viết của Báo Thanh Niên trên Facebook.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/82109351-a324-4008-b07b-f80ac34dbd94/items/item_004/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
           </div>
         </div>
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
-            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">Facebook</a>
+            <a class="news-row-title" href="https://www.facebook.com/thanhnien" target="_blank">Ảnh từ bài viết của Báo Thanh Niên</a>
             <div class="news-row-meta">
-              <span class="news-row-source">None</span>
-              
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="news-row-source">Báo Thanh Niên</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
-            <div style="font-size: 11px; color: #94a3b8; margin-top: 6px; background: #1e2535; padding: 8px; border-radius: 4px; border-left: 2px solid #6366f1;">Chuyện thật mà như đùa: ông chú ở Hoài Đức (Hà Nội) xuống ao làng tập bơi vô tình làm rơi mất sợi dây chuyền vàng giá trị khoảng 1 cây. Sau đó không tìm được, đã huy động tới 4 máy bơm công suất lớn tát cạn ao để tìm kiếm.
-May mắn là sau 1 ngày 1 đêm, cùng sự nỗ lực của rất nhiều người thì cuối cùng ông chú cũng tìm thấy sợ dây chuyền vàng, còn ngư...</div>
-            <div style="margin-top: 8px;"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/f3efda31-e839-4caa-bf9c-2bfe97e4a8a4/items/item_004/screenshot.png" alt="Screenshot" style="max-width: 100%; max-height: 300px; border-radius: 4px; object-fit: contain; border: 1px solid #334155; cursor: pointer;" onclick="window.open(this.src)" /></div>
+            <div class="fb-summary">Hình ảnh nằm trong một bài viết của Báo Thanh Niên trên Facebook, hiển thị các tài liệu có tiêu đề &#x27;Hợp đồng mua bán&#x27;.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/82109351-a324-4008-b07b-f80ac34dbd94/items/item_005/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
           </div>
         </div>
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
-            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">Facebook</a>
+            <a class="news-row-title" href="https://www.facebook.com/thanhnien" target="_blank">Thí sinh có 5 ngày thử nghiệm đăng ký nguyện vọng xét tuyển đại học</a>
             <div class="news-row-meta">
-              <span class="news-row-source">None</span>
-              
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="news-row-source">Báo Thanh Niên</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
-            <div style="font-size: 11px; color: #94a3b8; margin-top: 6px; background: #1e2535; padding: 8px; border-radius: 4px; border-left: 2px solid #6366f1;">1.000 tấn hàng hóa Trung Quốc chỉ mất 7 ngày vượt 4.000 km &#x27;&#x27;đổ&quot; về Đồng Nai bằng tuyến đường sắt xuyên biên giới mới
-Chuyến tàu Trung Á hành trình Tây Ninh (Thanh Hải, Trung Quốc) - Đồng Nai chở gần 1.000 tấn nhựa PVC (polyvinyl chloride), khở
-1.000 tấn hàng hóa Trung Quốc chỉ mất 7 ngày vượt 4.000 km &#x27;&#x27;đổ&quot; về Đồng Nai bằng tuyến đường sắt xuyên b...</div>
-            <div style="margin-top: 8px;"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/f3efda31-e839-4caa-bf9c-2bfe97e4a8a4/items/item_005/screenshot.png" alt="Screenshot" style="max-width: 100%; max-height: 300px; border-radius: 4px; object-fit: contain; border: 1px solid #334155; cursor: pointer;" onclick="window.open(this.src)" /></div>
+            <div class="fb-summary">Bộ GD-ĐT đã mở cổng cho thí sinh thử nghiệm đăng ký nguyện vọng xét tuyển Đại học trong vòng 5 ngày trước khi thực hiện chính thức từ ngày 2.7.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/82109351-a324-4008-b07b-f80ac34dbd94/items/item_006/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
           </div>
         </div>
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
-            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">Đoạn chat</a>
+            <a class="news-row-title" href="https://www.facebook.com/thanhnien" target="_blank">Bộ GD-ĐT sắp có thông tư về hoạt động giáo dục tăng cường, môn &#x27;tự nguyện&#x27;</a>
             <div class="news-row-meta">
-              <span class="news-row-source">None</span>
-              
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="news-row-source">Báo Thanh Niên</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
-            <div style="font-size: 11px; color: #94a3b8; margin-top: 6px; background: #1e2535; padding: 8px; border-radius: 4px; border-left: 2px solid #6366f1;">Học Sinh Nghèo Chuyển Trường Gặp Được Chị Đại B-ao K-e Tận Giường…</div>
-            <div style="margin-top: 8px;"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/4b4dcd95-c16f-43ed-b50c-d66790d3b94d/items/item_001/screenshot.png" alt="Screenshot" style="max-width: 100%; max-height: 300px; border-radius: 4px; object-fit: contain; border: 1px solid #334155; cursor: pointer;" onclick="window.open(this.src)" /></div>
+            <div class="fb-summary">Bộ GD-ĐT đang lấy ý kiến để chuẩn bị ban hành thông tư quy định về hoạt động giáo dục tăng cường và các môn học tự nguyện.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/82109351-a324-4008-b07b-f80ac34dbd94/items/item_007/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
           </div>
         </div>
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
-            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">Đoạn chat</a>
+            <a class="news-row-title" href="https://www.facebook.com/thanhnien" target="_blank">Tranh cãi chuyện cho con ngủ trễ dịp hè</a>
             <div class="news-row-meta">
-              <span class="news-row-source">None</span>
-              
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="news-row-source">Báo Thanh Niên</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
-            <div style="font-size: 11px; color: #94a3b8; margin-top: 6px; background: #1e2535; padding: 8px; border-radius: 4px; border-left: 2px solid #6366f1;">Nhập mã PIN để khôi phục đoạn chat của bạn
-Một số tin nhắn còn thiếu. Hãy nhập mã PIN để khôi phục lịch sử chat của bạn.
-Sử dụng mã dùng một lần
-Tại sao lại là xanh da trời dị
-Muọn tiền nhanh chóng, không cần bảo lãnh! ️
-Tìm hiểu thêm: bit.ly/mfvay
-Vâng. Xin TT vui vẻ với trang ạ.</div>
-            <div style="margin-top: 8px;"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/4b4dcd95-c16f-43ed-b50c-d66790d3b94d/items/item_002/screenshot.png" alt="Screenshot" style="max-width: 100%; max-height: 300px; border-radius: 4px; object-fit: contain; border: 1px solid #334155; cursor: pointer;" onclick="window.open(this.src)" /></div>
+            <div class="fb-summary">Bài viết phản ánh những tranh luận trái chiều của các bậc phụ huynh về việc có nên cho con ngủ trễ và dậy muộn trong kỳ nghỉ hè hay không.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/82109351-a324-4008-b07b-f80ac34dbd94/items/item_008/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
           </div>
         </div>
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
-            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">Đoạn chat</a>
+            <a class="news-row-title" href="https://www.facebook.com/thanhnien" target="_blank">Ảnh từ bài viết của Báo Thanh Niên</a>
             <div class="news-row-meta">
-              <span class="news-row-source">None</span>
-              
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="news-row-source">Báo Thanh Niên</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
-            <div style="font-size: 11px; color: #94a3b8; margin-top: 6px; background: #1e2535; padding: 8px; border-radius: 4px; border-left: 2px solid #6366f1;">Nhập mã PIN để khôi phục đoạn chat của bạn
-Một số tin nhắn còn thiếu. Hãy nhập mã PIN để khôi phục lịch sử chat của bạn.
-Sử dụng mã dùng một lần
-Đặc sản mùa hè của Việt Nam &#x27;ghi điểm&#x27; tại Mỹ: Hàng chưa kịp lên kệ đã có khách đặt mua</div>
-            <div style="margin-top: 8px;"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/4b4dcd95-c16f-43ed-b50c-d66790d3b94d/items/item_003/screenshot.png" alt="Screenshot" style="max-width: 100%; max-height: 300px; border-radius: 4px; object-fit: contain; border: 1px solid #334155; cursor: pointer;" onclick="window.open(this.src)" /></div>
+            <div class="fb-summary">Trang hiển thị một bức ảnh nằm trong bài viết của Báo Thanh Niên trên Facebook.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/82109351-a324-4008-b07b-f80ac34dbd94/items/item_009/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
           </div>
         </div>
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
-            <a class="news-row-title" href="https://www.facebook.com/CafeF?__tn__=-UC*F" target="_blank">CafeF</a>
+            <a class="news-row-title" href="https://www.facebook.com/thanhnien" target="_blank">Ảnh trên Facebook của Báo Thanh Niên</a>
             <div class="news-row-meta">
-              <span class="news-row-source">None</span>
-              
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="news-row-source">Báo Thanh Niên</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
-            <div style="font-size: 11px; color: #94a3b8; margin-top: 6px; background: #1e2535; padding: 8px; border-radius: 4px; border-left: 2px solid #6366f1;">﻿</div>
-            
+            <div class="fb-summary">Trang chi tiết hiển thị một hình ảnh nằm trong bài viết của Báo Thanh Niên trên Facebook.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/82109351-a324-4008-b07b-f80ac34dbd94/items/item_010/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
           </div>
         </div>
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:#6366f1"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
           </div>
           <div class="news-row-body">
-            <a class="news-row-title" href="https://www.example.com/article/123456" target="_blank">Article Title</a>
+            <a class="news-row-title" href="https://www.facebook.com/thanhnien" target="_blank">Khởi tố 187 bị can trong vụ &#x27;hợp đồng kỳ nghỉ&#x27;</a>
             <div class="news-row-meta">
-              <span class="news-row-source">None</span>
-              
-              <span class="rss-tag" style="background:#4f46e5; color:#fff">Crawl Bot</span>
+              <span class="news-row-source">Báo Thanh Niên</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
             </div>
-            <div style="font-size: 11px; color: #94a3b8; margin-top: 6px; background: #1e2535; padding: 8px; border-radius: 4px; border-left: 2px solid #6366f1;">This is a summary of the article.</div>
-            <div style="margin-top: 8px;"><img src="file:///path/to/screenshot.jpg" alt="Screenshot" style="max-width: 100%; max-height: 300px; border-radius: 4px; object-fit: contain; border: 1px solid #334155; cursor: pointer;" onclick="window.open(this.src)" /></div>
+            <div class="fb-summary">Bài đăng của Báo Thanh Niên thông tin về việc cơ quan chức năng khởi tố 187 bị can liên quan đến vụ án &#x27;hợp đồng kỳ nghỉ&#x27;.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/82109351-a324-4008-b07b-f80ac34dbd94/items/item_011/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
           </div>
-        </div></section>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/thanhnien" target="_blank">Ảnh từ Báo Thanh Niên trên Facebook</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Báo Thanh Niên</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Trang chi tiết ảnh trên Facebook thuộc một bài viết của Báo Thanh Niên, hiện chưa có nội dung văn bản chi tiết hay bình luận nào được hiển thị trực tiếp.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/82109351-a324-4008-b07b-f80ac34dbd94/items/item_012/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/thanhnien" target="_blank">🔴 TRỰC TIẾP: Dậy thì sớm ở trẻ: Nhận biết và chủ động ngăn chặn sớm để bảo vệ tuổi thơ con</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Báo Thanh Niên</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Chương trình phát sóng trực tiếp của Báo Thanh Niên chia sẻ về vấn đề dậy thì sớm ở trẻ em, cách nhận biết và chủ động ngăn chặn sớm để bảo vệ tuổi thơ của con.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/82109351-a324-4008-b07b-f80ac34dbd94/items/item_013/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/thanhnien" target="_blank">SỐNG ĐẸP VI CHÍNH THỨC CÓ MẶT TẠI TRƯỜNG ĐH QUỐC TẾ HỒNG BÀNG: GỬI ĐIỀU TỬ TẾ, NHẬN QUÀ LIỀN TAY!</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Báo Thanh Niên</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Hoạt động &#x27;Cùng HIUers lan tỏa sống đẹp&#x27; thuộc khuôn khổ chương trình &#x27;Sống Đẹp VI&#x27; chính thức diễn ra tại Trường ĐH Quốc tế Hồng Bàng nhằm lan tỏa những điều tử tế và trao tặng nhiều phần quà độc quyền.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/82109351-a324-4008-b07b-f80ac34dbd94/items/item_014/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/thanhnien" target="_blank">ỨNG DỤNG CÔNG NGHỆ MỚI TRONG SẢN XUẤT PHIM: ĐIỀU GÌ LÀM NÊN SỰ KHÁC BIỆT?</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Báo Thanh Niên</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Giới thiệu sự kiện Cinetour &#x27;Ứng dụng công nghệ mới trong sản xuất phim&#x27; diễn ra ngày 18.06.2026 tại Trường Đại học Quốc tế Hồng Bàng với sự tham gia của các đạo diễn và chuyên gia VFX hàng đầu nhằm chia sẻ kinh nghiệm tối ưu chi phí bằng AI và VFX.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/82109351-a324-4008-b07b-f80ac34dbd94/items/item_015/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/vneconomy.vn" target="_blank">CHÍNH THỨC PHÁT HÀNH NIÊN GIÁM KINH TẾ VIỆT NAM &amp; THẾ GIỚI 2025 - 2026</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">VnEconomy</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Tạp chí Kinh tế Việt Nam chính thức phát hành Niên giám Kinh tế Việt Nam &amp; Thế giới 2025 - 2026, cung cấp hệ thống dữ liệu thực chứng và dự báo chiến lược cho giai đoạn phát triển mới.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3aff765d-651c-46b5-bb80-146d9dc4a9ad/items/item_001/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/vneconomy.vn" target="_blank">Ra mắt Giao diện mới dành cho bạn đọc VnEconomy và Nền tảng quản trị toà soạn thông minh - AI CMS</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">VnEconomy</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">VnEconomy chính thức ra mắt giao diện mới cùng nền tảng quản trị tòa soạn thông minh AI CMS tích hợp các giải pháp trí tuệ nhân tạo như dịch thuật tự động, tóm tắt bài viết và phát podcast tự động.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3aff765d-651c-46b5-bb80-146d9dc4a9ad/items/item_002/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/vneconomy.vn" target="_blank">Robert Taylor - Facebook Reel</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Robert Taylor</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Một video ngắn (Reel) được chia sẻ công khai bởi tài khoản Robert Taylor kèm theo liên kết yêu cầu người dùng truy cập để xem toàn bộ nội dung clip.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3aff765d-651c-46b5-bb80-146d9dc4a9ad/items/item_003/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/vneconomy.vn" target="_blank">Giới thiệu Niên giám Kinh Tế Việt Nam &amp; Thế Giới 2025–2026 - VnEconomy</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">VnEconomy</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Bài viết giới thiệu ấn phẩm Niên giám Kinh Tế Việt Nam &amp; Thế Giới 2025–2026 của Tạp chí Kinh tế Việt Nam, cung cấp các phân tích, bình luận chuyên sâu và dự báo kinh tế.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3aff765d-651c-46b5-bb80-146d9dc4a9ad/items/item_004/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/vneconomy.vn" target="_blank">Dự trữ dầu lửa chiến lược của Mỹ giảm xuống mức thấp nhất 43 năm</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">VnEconomy</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Dự trữ Dầu lửa Chiến lược (SPR) của Mỹ vừa ghi nhận mức sụt giảm kỷ lục xuống còn 340,3 triệu thùng, đánh dấu mức thấp nhất trong vòng 43 năm qua.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3aff765d-651c-46b5-bb80-146d9dc4a9ad/items/item_005/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/vneconomy.vn" target="_blank">Các dự án trạm dừng nghỉ cao tốc Bắc – Nam nếu chậm tiến độ sẽ bị xem xét thu hồi</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">VnEconomy</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Cục Đường bộ Việt Nam yêu cầu các ban quản lý dự án, nhà đầu tư và doanh nghiệp đẩy nhanh tiến độ xây dựng trạm dừng nghỉ cao tốc Bắc – Nam, cảnh báo sẽ xem xét thu hồi nếu chậm tiến độ.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3aff765d-651c-46b5-bb80-146d9dc4a9ad/items/item_006/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/vneconomy.vn" target="_blank">Từ 1/7/2026: Chậm chuyến từ 4 giờ, hãng hàng không bắt buộc hoàn vé và bồi thường</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">VnEconomy</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Chính phủ vừa ban hành Nghị định số 208/2026/NĐ-CP (có hiệu lực từ ngày 1/7/2026) quy định chi tiết trách nhiệm của các hãng hàng không trong việc hoàn vé và bồi thường khi chậm chuyến từ 4 giờ.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3aff765d-651c-46b5-bb80-146d9dc4a9ad/items/item_007/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/vneconomy.vn" target="_blank">VnEconomy - Facebook Photo</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">VnEconomy</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Trang hiển thị một ảnh đơn lẻ từ Fanpage VnEconomy trên Facebook. Không thể trích xuất danh sách 15 bài viết mới nhất do đây là trang chi tiết của một ảnh cụ thể.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3aff765d-651c-46b5-bb80-146d9dc4a9ad/items/item_008/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/vneconomy.vn" target="_blank">VnEconomy - Ảnh trên Facebook</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">VnEconomy</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Trang hiển thị một hình ảnh nằm trong bài viết của VnEconomy trên Facebook.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3aff765d-651c-46b5-bb80-146d9dc4a9ad/items/item_009/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/vneconomy.vn" target="_blank">Iran chính thức nối lại xuất khẩu dầu thô sau thỏa thuận sơ bộ với Mỹ</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">VnEconomy</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Mỹ chính thức cho phép Iran nối lại ngay lập tức các hoạt động xuất khẩu dầu thô trong khuôn khổ thỏa thuận hòa bình sơ bộ vừa đạt được giữa hai nước.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3aff765d-651c-46b5-bb80-146d9dc4a9ad/items/item_010/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/vneconomy.vn" target="_blank">Hình ảnh từ bài viết của VnEconomy về Đại hội đồng cổ đông VEAM</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">VnEconomy</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Hình ảnh nằm trong bài viết của VnEconomy liên quan đến Đại hội đồng cổ đông thường niên của Tổng công ty Máy động lực và Máy nông nghiệp Việt Nam (VEAM).</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3aff765d-651c-46b5-bb80-146d9dc4a9ad/items/item_011/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/vneconomy.vn" target="_blank">VnEconomy - Hình ảnh trên Facebook</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">VnEconomy</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Trang chi tiết một hình ảnh của VnEconomy trên Facebook. Trang này không chứa danh sách 15 bài viết mới nhất như yêu cầu do đã chuyển hướng vào chi tiết một ảnh.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3aff765d-651c-46b5-bb80-146d9dc4a9ad/items/item_012/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/vneconomy.vn" target="_blank">Bài đăng của VnEconomy về Đại hội đồng cổ đông thường niên năm 2026</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">VnEconomy</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Hình ảnh chia sẻ từ trang VnEconomy chúc mừng Ngày Nông nghiệp Việt Nam và thông tin về Đại hội đồng cổ đông thường niên năm 2026.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3aff765d-651c-46b5-bb80-146d9dc4a9ad/items/item_013/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/vneconomy.vn" target="_blank">Danh sách video hashtag #vneconomy trên Facebook</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">VnEconomy</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Danh sách các video ngắn (Reels) mới nhất từ VnEconomy trên Facebook Watch với hashtag #vneconomy, bao gồm thông tin người đăng, liên kết và lượt xem.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3aff765d-651c-46b5-bb80-146d9dc4a9ad/items/item_014/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/vneconomy.vn" target="_blank">Danh sách video hashtag #kinhtevietnam trên Facebook</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Facebook</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Danh sách các video/thước phim mới nhất được tìm thấy dưới hashtag #kinhtevietnam trên Facebook, bao gồm thông tin người đăng và lượt tương tác.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3aff765d-651c-46b5-bb80-146d9dc4a9ad/items/item_015/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/tuoitre.vn" target="_blank">Tập 28 Gia đình là số 1 phần 2</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Xem Phim Xuyên Đêm</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Video trích đoạn Tập 28 của bộ phim Gia đình là số 1 phần 2 được chia sẻ bởi trang Xem Phim Xuyên Đêm.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3decf9e2-394c-41e1-9548-a1bf4a654b78/items/item_001/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/tuoitre.vn" target="_blank">Bài đăng hình ảnh của Tuoitre Vn</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Tuoitre Vn</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Bài đăng chia sẻ hình ảnh trên trang Facebook của Tuoitre Vn với dòng trạng thái ngắn.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3decf9e2-394c-41e1-9548-a1bf4a654b78/items/item_002/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/tuoitre.vn" target="_blank">Tuoitre Vn - Facebook</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Tuoitre Vn</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Trang chi tiết hình ảnh của Tuoitre Vn trên Facebook. Hiện tại không có mô tả ảnh hoặc bài viết chi tiết nào được tìm thấy trên trang này.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3decf9e2-394c-41e1-9548-a1bf4a654b78/items/item_003/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/tuoitre.vn" target="_blank">Ảnh trên Facebook của Tuoitre Vn</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Tuoitre Vn</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Trang hiển thị một hình ảnh của Tuoitre Vn trên Facebook. Hiện tại ảnh không có phần mô tả chi tiết và chưa có bình luận nào từ người dùng.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3decf9e2-394c-41e1-9548-a1bf4a654b78/items/item_004/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/tuoitre.vn" target="_blank">Facebook - Tuoitre Vn</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Tuoitre Vn</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Trang hiển thị một hình ảnh riêng lẻ trên Facebook của Tuoitre Vn. Không thể trích xuất danh sách 15 bài viết mới nhất do đây là trang chi tiết ảnh đơn.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3decf9e2-394c-41e1-9548-a1bf4a654b78/items/item_005/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/tuoitre.vn" target="_blank">Facebook - Ảnh của Tuoitre Vn</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Tuoitre Vn</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Trang hiện tại là một liên kết ảnh đơn lẻ trên Facebook của Tuoitre Vn, không chứa danh sách 15 bài viết mới nhất như yêu cầu.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3decf9e2-394c-41e1-9548-a1bf4a654b78/items/item_006/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/tuoitre.vn" target="_blank">Facebook - Ảnh của Tuoitre Vn</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Tuoitre Vn</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Trang hiển thị chi tiết một bức ảnh được đăng tải bởi Tuoitre Vn trên Facebook.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3decf9e2-394c-41e1-9548-a1bf4a654b78/items/item_007/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/tuoitre.vn" target="_blank">Tuoitre Vn - Facebook Photo</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Tuoitre Vn</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Trang chi tiết ảnh trên Facebook của Tuoitre Vn. Không có mô tả hoặc nội dung bài viết đi kèm trên trang này.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3decf9e2-394c-41e1-9548-a1bf4a654b78/items/item_008/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/tuoitre.vn" target="_blank">Facebook Photo - Tuoitre Vn</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Tuoitre Vn</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Bài đăng hình ảnh trên trang Facebook của Tuoitre Vn với nội dung văn bản đi kèm.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3decf9e2-394c-41e1-9548-a1bf4a654b78/items/item_009/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/tuoitre.vn" target="_blank">Tuoitre Vn - Facebook Photo</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Tuoitre Vn</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Bài đăng hình ảnh của Tuoitre Vn kèm theo các bình luận phản hồi về hình ảnh đại diện mới.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3decf9e2-394c-41e1-9548-a1bf4a654b78/items/item_010/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/tuoitre.vn" target="_blank">Hình ảnh từ Tuoitre Vn trên Facebook</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Tuoitre Vn</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Bài đăng hình ảnh của trang Tuoitre Vn trên Facebook với dòng trạng thái đính kèm bằng ký tự đặc biệt.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3decf9e2-394c-41e1-9548-a1bf4a654b78/items/item_011/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/tuoitre.vn" target="_blank">Hình ảnh trên Facebook của Tuoitre Vn</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Tuoitre Vn</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Trang chi tiết hình ảnh trên Facebook của Tuoitre Vn, hiển thị một số bình luận của người dùng dưới bài đăng.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3decf9e2-394c-41e1-9548-a1bf4a654b78/items/item_012/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/tuoitre.vn" target="_blank">Hình ảnh từ Tuoitre Vn trên Facebook</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Tuoitre Vn</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Bài đăng hình ảnh của Tuoitre Vn trên Facebook kèm theo một số bình luận của người dùng.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3decf9e2-394c-41e1-9548-a1bf4a654b78/items/item_013/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/tuoitre.vn" target="_blank">Bài viết của Tuoitre Vn</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Tuoitre Vn</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Bài viết của Tuoitre Vn chia sẻ đường dẫn tham gia nhóm Facebook &#x27;laptop cũ giá rẻ Nhất Bình Định&#x27;.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3decf9e2-394c-41e1-9548-a1bf4a654b78/items/item_014/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/tuoitre.vn" target="_blank">Bài đăng hình ảnh của Tuoitre Vn</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Tuoitre Vn</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Một bài đăng chia sẻ hình ảnh trên trang Facebook của Tuoitre Vn.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/3decf9e2-394c-41e1-9548-a1bf4a654b78/items/item_015/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">Thước phim của Tieens Lee</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Tieens Lee</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Một video ngắn (Reel) được chia sẻ bởi người dùng Tieens Lee trên Facebook với các hashtag #j4f và #xuhuong.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/a245c0bc-efdd-4ab2-83ef-a39428156497/items/item_001/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">Bài đăng của CafeF về chỉ báo trạng thái online</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">CafeF</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Bài đăng của CafeF thảo luận về sự thay đổi màu sắc của chỉ báo trạng thái online trên Facebook sang màu xanh da trời.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/a245c0bc-efdd-4ab2-83ef-a39428156497/items/item_002/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">CafeF - Bài viết hình ảnh trên Facebook</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">CafeF</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Bài viết dạng hình ảnh của CafeF trên Facebook. Trang hiện tại không chứa mô tả văn bản cho hình ảnh và chỉ hiển thị các bình luận từ người dùng.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/a245c0bc-efdd-4ab2-83ef-a39428156497/items/item_003/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">Thông tin mới từ Bộ Tài chính về ngưỡng doanh thu chịu thuế</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">CafeF</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Bộ Tài chính đang triển khai các giải pháp hỗ trợ doanh nghiệp, hộ kinh doanh trong quá trình thay đổi phương thức quản lý thu liên quan đến ngưỡng doanh thu chịu thuế.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/a245c0bc-efdd-4ab2-83ef-a39428156497/items/item_004/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">Bài đăng của CafeF trên Facebook</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">CafeF</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Hình ảnh từ bài viết của CafeF hiển thị danh sách các công ty liên quan đến vụ án lừa đảo chiếm đoạt tài sản thông qua hình thức mua bán thẻ kỳ nghỉ, bao gồm Golden Vacation, Viet Tour, Global Travel Tour và các đơn vị khác.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/a245c0bc-efdd-4ab2-83ef-a39428156497/items/item_005/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">Bài đăng hình ảnh của CafeF trên Facebook</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">CafeF</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Một bài đăng hình ảnh từ trang CafeF trên Facebook, hiện chưa có bình luận.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/a245c0bc-efdd-4ab2-83ef-a39428156497/items/item_006/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">Bài đăng ảnh trên Facebook của CafeF</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">CafeF</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Trang hiển thị một hình ảnh cụ thể nằm trong bài viết của trang CafeF trên Facebook.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/a245c0bc-efdd-4ab2-83ef-a39428156497/items/item_007/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">Cảnh báo chiêu trò lừa đảo hợp đồng kỳ nghỉ của Hoàng Nhất Long</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">CafeF</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Bài viết cảnh báo về đối tượng Hoàng Nhất Long, giám đốc các công ty bán thẻ hợp đồng kỳ nghỉ và tư vấn pháp lý, thực hiện hành vi lừa đảo khách hàng qua nhiều vòng.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/a245c0bc-efdd-4ab2-83ef-a39428156497/items/item_008/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">CafeF - Ảnh trên Facebook</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">CafeF</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Trang chi tiết hình ảnh nằm trong một bài viết được đăng tải bởi CafeF trên Facebook.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/a245c0bc-efdd-4ab2-83ef-a39428156497/items/item_009/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">Bài đăng hình ảnh của CafeF trên Facebook</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">CafeF</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Bài đăng hình ảnh từ trang CafeF chia sẻ về sơ đồ tổ chức nhân sự và các vị trí tuyển dụng của doanh nghiệp.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/a245c0bc-efdd-4ab2-83ef-a39428156497/items/item_010/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">Nóng: Ngân hàng Nhà nước muốn nới trần vốn ngắn hạn cho vay trung dài hạn lên mức 40%</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">CafeF</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Ngân hàng Nhà nước đang đề xuất nâng tỷ lệ tối đa nguồn vốn ngắn hạn được sử dụng để cho vay trung, dài hạn từ 30% lên 40%, giúp tiếp tục cởi trói thanh khoản.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/a245c0bc-efdd-4ab2-83ef-a39428156497/items/item_011/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">Bài viết của CafeF trên Facebook</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">CafeF</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Hình ảnh nằm trong một bài viết được chia sẻ bởi trang CafeF trên Facebook.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/a245c0bc-efdd-4ab2-83ef-a39428156497/items/item_012/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">Thông tin mới từ Bộ Tài chính về ngưỡng doanh thu chịu thuế</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">CafeF</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Bộ Tài chính đang triển khai các giải pháp hỗ trợ doanh nghiệp, hộ kinh doanh trong quá trình thay đổi phương thức quản lý thu liên quan đến ngưỡng doanh thu chịu thuế.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/a245c0bc-efdd-4ab2-83ef-a39428156497/items/item_013/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">Bài đăng hình ảnh của CafeF trên Facebook</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">CafeF</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Hình ảnh đính kèm trong một bài viết của trang CafeF trên Facebook với nội dung thảo luận về chỉ báo trạng thái online.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/a245c0bc-efdd-4ab2-83ef-a39428156497/items/item_014/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/CafeF" target="_blank">CafeF - 23 công ty mua bán thẻ kỳ nghỉ bị khởi tố về tội Lừa đảo chiếm đoạt tài sản</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">CafeF</span>
+              <span class="news-row-time">06-17 14:12</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Thông tin hình ảnh từ trang CafeF về danh sách 23 công ty mua bán thẻ kỳ nghỉ bị khởi tố về tội Lừa đảo chiếm đoạt tài sản.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/a245c0bc-efdd-4ab2-83ef-a39428156497/items/item_015/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/baodautu.vn" target="_blank">Tập 6 Gia đình là số 1 phần 2 - P1</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Cày Phim Cùng Bạn</span>
+              <span class="news-row-time">06-17 14:11</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Video ngắn (Reel) chia sẻ phân đoạn Tập 6 của bộ phim Gia đình là số 1 phần 2 (Phần 1) đăng tải bởi trang Cày Phim Cùng Bạn.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/f36fdcc2-8a1d-4d4f-b1e6-7a6d73fd8746/items/item_001/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/baodautu.vn" target="_blank">Bài đăng trên Facebook của Báo Đầu tư</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Báo Đầu tư</span>
+              <span class="news-row-time">06-17 14:11</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Hình ảnh và nội dung chia sẻ trên trang Facebook chính thức của Báo Đầu tư.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/f36fdcc2-8a1d-4d4f-b1e6-7a6d73fd8746/items/item_002/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/baodautu.vn" target="_blank">Bài đăng hình ảnh của Báo Đầu tư trên Facebook</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Báo Đầu tư</span>
+              <span class="news-row-time">06-17 14:11</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Bài đăng chia sẻ hình ảnh của trang Báo Đầu tư trên mạng xã hội Facebook.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/f36fdcc2-8a1d-4d4f-b1e6-7a6d73fd8746/items/item_003/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/baodautu.vn" target="_blank">Tiêu điểm kinh doanh trong tuần: Tín Nghĩa xây chiến lược phát triển quanh sân bay Long Thành; PV Drilling mua thêm một giàn khoan</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Báo Đầu tư</span>
+              <span class="news-row-time">06-17 14:11</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Bài viết tổng hợp các tiêu điểm kinh doanh nổi bật trong tuần, bao gồm chiến lược phát triển của Tín Nghĩa quanh sân bay Long Thành, PV Drilling mua thêm giàn khoan, và kết quả kinh doanh của một số doanh nghiệp khác như Thiso, Phát Đạt, Becamex.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/f36fdcc2-8a1d-4d4f-b1e6-7a6d73fd8746/items/item_004/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/baodautu.vn" target="_blank">Gia Lai khởi công 39 dự án năng lượng tái tạo; Đà Nẵng khai thác hơn 16.200 lô đất</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Báo Đầu tư</span>
+              <span class="news-row-time">06-17 14:11</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Tiêu điểm đầu tư tuần qua nổi bật với thông tin Gia Lai khởi công 39 dự án năng lượng tái tạo tập trung trong tháng 10/2026 và Đà Nẵng phê duyệt phương án khai thác hơn 16.200 lô đất.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/f36fdcc2-8a1d-4d4f-b1e6-7a6d73fd8746/items/item_005/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/baodautu.vn" target="_blank">Gỡ điểm nghẽn cho các dự án điện gió tỷ USD</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Báo Đầu tư</span>
+              <span class="news-row-time">06-17 14:11</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Bài viết đề cập đến việc tháo gỡ các vướng mắc, điểm nghẽn cho các dự án điện gió quy mô tỷ USD tại Việt Nam trong bối cảnh đã có hơn 6.000 MW điện gió trên bờ nhưng chưa có dự án ngoài khơi nào.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/f36fdcc2-8a1d-4d4f-b1e6-7a6d73fd8746/items/item_006/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/baodautu.vn" target="_blank">Ngân hàng và Vinhomes tiếp tục thống lĩnh thị trường trái phiếu tháng 5</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Báo Đầu tư</span>
+              <span class="news-row-time">06-17 14:11</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Bài viết thông tin về thị trường trái phiếu doanh nghiệp riêng lẻ trong tháng 5, nổi bật với sự thống lĩnh của nhóm ngành ngân hàng và Vinhomes.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/f36fdcc2-8a1d-4d4f-b1e6-7a6d73fd8746/items/item_007/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/baodautu.vn" target="_blank">Kỳ vọng dòng vốn ngoại sớm trở lại thị trường chứng khoán</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Báo Đầu tư</span>
+              <span class="news-row-time">06-17 14:11</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Bài viết phân tích về kỳ vọng dòng vốn ngoại sớm quay trở lại thị trường chứng khoán Việt Nam trong bối cảnh khối ngoại tiếp tục bán ròng mạnh nhưng thị trường vẫn duy trì đà tăng nhờ dòng tiền nội.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/f36fdcc2-8a1d-4d4f-b1e6-7a6d73fd8746/items/item_008/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/baodautu.vn" target="_blank">Tiêu điểm kinh doanh trong tuần: Gelex Infra lập thêm doanh nghiệp mới; Hòa Phát muốn nghiên cứu khai thác mỏ sắt Thạch Khê</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Báo Đầu tư</span>
+              <span class="news-row-time">06-17 14:11</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Bài viết tổng hợp các tiêu điểm kinh doanh trong tuần bao gồm việc Gelex Infra lập doanh nghiệp mới, Hòa Phát muốn nghiên cứu khai thác mỏ sắt Thạch Khê, và kế hoạch đầu tư của Viettel Global tại Caribe.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/f36fdcc2-8a1d-4d4f-b1e6-7a6d73fd8746/items/item_009/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/baodautu.vn" target="_blank">TP.HCM tìm nhà đầu tư Trung tâm Phát triển công nghệ chiến lược</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Báo Đầu tư</span>
+              <span class="news-row-time">06-17 14:11</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">TP.HCM sẽ tham vấn nhà đầu tư về định hướng xây dựng Trung tâm Phát triển công nghệ chiến lược đặt tại Khu Công nghệ cao.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/f36fdcc2-8a1d-4d4f-b1e6-7a6d73fd8746/items/item_010/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/baodautu.vn" target="_blank">“Đèn xanh” cho việc khởi động sớm cao tốc Pleiku - Buôn Ma Thuột - Gia Nghĩa</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Báo Đầu tư</span>
+              <span class="news-row-time">06-17 14:11</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Dự án tuyến đường bộ cao tốc Bắc - Nam phía Tây (CT.02), đoạn Pleiku - Buôn Ma Thuột - Gia Nghĩa đi qua 3 tỉnh Gia Lai, Đắk Lắk được bật đèn xanh để khởi động sớm.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/f36fdcc2-8a1d-4d4f-b1e6-7a6d73fd8746/items/item_011/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/baodautu.vn" target="_blank">Lãi suất neo cao, cảnh báo nợ xấu vọt tăng với ngân hàng bán lẻ</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Báo Đầu tư</span>
+              <span class="news-row-time">06-17 14:11</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Chuyên gia phân tích cảnh báo nợ xấu phân khúc bán lẻ gia tăng tại các ngân hàng quy mô vừa và nhỏ trong bối cảnh lãi suất neo cao và đòn bẩy tài chính lớn.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/f36fdcc2-8a1d-4d4f-b1e6-7a6d73fd8746/items/item_012/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/groups/congdongchungkhoanvietnam" target="_blank">Cộng Đồng Chứng Khoán Việt Nam</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Facebook</span>
+              <span class="news-row-time">06-17 14:10</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Không thể trích xuất các bài viết do đây là nhóm riêng tư trên Facebook và yêu cầu người dùng đăng nhập hoặc tham gia nhóm để xem nội dung.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/0756a3cc-5045-4750-be96-fb93afc215ab/items/item_001/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/groups/congdongchungkhoanvietnam" target="_blank">Đậu Phộng TV - Anh đi tốc độ giúp em nha 🙄</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Đậu Phộng TV</span>
+              <span class="news-row-time">06-17 14:10</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Video Reel từ kênh Đậu Phộng TV với dòng trạng thái chia sẻ hài hước: &#x27;Anh đi tốc độ giúp em nha 🙄&#x27;.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/0756a3cc-5045-4750-be96-fb93afc215ab/items/item_002/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/groups/congdongchungkhoanvietnam" target="_blank">Bài đăng của Vượng Lân La trên Facebook</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Vượng Lân La</span>
+              <span class="news-row-time">06-17 14:10</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Bài đăng chia sẻ hình ảnh chứa thông tin liên hệ quảng cáo của tài khoản Vượng Lân La trong nhóm riêng tư.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/0756a3cc-5045-4750-be96-fb93afc215ab/items/item_003/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div>
+        <div class="news-row">
+          <div class="news-row-left">
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+          </div>
+          <div class="news-row-body">
+            <a class="news-row-title" href="https://www.facebook.com/vtv24money" target="_blank">Anh Shipper - Vợ đã cho có 20 cá ăn sáng rồi thì Ken phải chiều theo vậy …</a>
+            <div class="news-row-meta">
+              <span class="news-row-source">Anh Shipper</span>
+              <span class="news-row-time">06-17 14:10</span>
+              <span class="fb-tag">📘 Facebook</span>
+            </div>
+            <div class="fb-summary">Video Reel chia sẻ từ tài khoản Anh Shipper với nội dung hài hước về việc ăn sáng với 20k.</div>
+            <div class="fb-screenshot"><img src="file:///home/aimond/ProjectNews/TrendRadar/llm_news_crawler_bot/output/b85d5555-a209-4528-a5c4-f41cc7b27dd5/items/item_001/screenshot.png" alt="Screenshot" onclick="window.open(this.src)" /></div>
+          </div>
+        </div></div>
+      </div>
+    </section>
     </main>
 
     
@@ -700,7 +1670,7 @@ Sử dụng mã dùng một lần
 
   <footer class="app-footer">
     Tạo bởi <a href="https://github.com/sansan0/TrendRadar" target="_blank">TrendRadar</a> ·
-    0 tin hot · 9 RSS · Bảng xếp hạng hiện tại
+    0 tin hot · 5 RSS · 90 Facebook · Bảng xếp hạng hiện tại
     
   </footer>
 </div>
@@ -726,6 +1696,24 @@ function filterKeyword(el,kw){
     g.style.display=(label.textContent.trim().toLowerCase().indexOf(kw.toLowerCase())>=0)?'':'none';
   });
 }
+function switchDataTab(btn, panelKey){
+  // Deactivate all tabs in same bar
+  var bar=btn.closest('.data-tab-bar');
+  if(bar)bar.querySelectorAll('.data-tab').forEach(function(t){t.classList.remove('active');});
+  btn.classList.add('active');
+  // Hide all panels in same section body
+  var body=btn.closest('.data-section').querySelector('.data-section-body');
+  if(body)body.querySelectorAll('.data-tab-panel').forEach(function(p){
+    p.style.display='none';
+  });
+  var target=document.getElementById('data-panel-'+panelKey);
+  if(target){target.style.display='';target.style.animation='none';target.offsetHeight;target.style.animation='';}
+}
+function toggleTheme(btn){
+  var isLight = document.body.classList.toggle('light-mode');
+  localStorage.setItem('trendradar-theme', isLight ? 'light' : 'dark');
+  btn.textContent = isLight ? '☀' : '☽';
+}
 // Restore preferences
 (function(){
   var tabs=document.querySelectorAll('.nav-tab');
@@ -735,6 +1723,13 @@ function filterKeyword(el,kw){
       t.classList.add('active');
     });
   });
+  
+  var theme = localStorage.getItem('trendradar-theme');
+  if (theme === 'light') {
+    document.body.classList.add('light-mode');
+    var btn = document.querySelector('.nav-icon-btn[title="Chế độ tối/sáng"]');
+    if(btn) btn.textContent = '☀';
+  }
 })();
 </script>
 </body>

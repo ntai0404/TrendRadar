@@ -33,7 +33,7 @@ Sua `.env` neu can. Mac dinh bot dung 9Router local giong `hyper-MAS`:
 ```env
 ROUTER_BASE_URL=http://127.0.0.1:20128/v1
 ROUTER_API_KEY=sk-...
-ROUTER_MODEL=openai/ag/gemini-3.1-pro-low
+ROUTER_MODEL=gh/gemini-3.1-pro-preview
 ```
 
 ## Chay bang CLI

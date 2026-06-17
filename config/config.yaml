@@ -83,23 +83,30 @@ rss:
   # - 正整数：覆盖全局设置，只推送此天数内的文章
   # - 0：禁用此频道的新鲜度过滤，推送所有文章
   feeds:
-    - id: "vnexpress"
-      name: "VnExpress"
-      url: "https://vnexpress.net/rss/tin-moi-nhat.rss"
+    - id: "vnexpress_kinhdoanh"
+      name: "VnExpress Kinh Doanh"
+      url: "https://vnexpress.net/rss/kinh-doanh.rss"
+      max_items: 30
 
-    - id: "tuoitre"
-      name: "Tuổi Trẻ"
-      url: "https://tuoitre.vn/rss/tin-moi-nhat.rss"
+    - id: "tuoitre_kinhdoanh"
+      name: "Tuổi Trẻ Kinh Doanh"
+      url: "https://tuoitre.vn/rss/kinh-doanh.rss"
+      max_items: 30
       
-    - id: "dantri"
-      name: "Dân Trí"
-      url: "https://dantri.com.vn/rss/home.rss"
+    - id: "dantri_kinhdoanh"
+      name: "Dân Trí Kinh Doanh"
+      url: "https://dantri.com.vn/rss/kinh-doanh.rss"
+      max_items: 30
 
-    # Thêm kênh YouTube (Ví dụ: Kênh tin tức tài chính/chứng khoán)
-    # Bạn có thể thay channel_id bằng ID kênh YouTube bạn muốn theo dõi
-    - id: "youtube_vtv24"
-      name: "VTV24 Money"
-      url: "https://www.youtube.com/feeds/videos.xml?channel_id=UCz2B8Fm2O6l2x8oZ3L0w4aQ"
+    - id: "thanhnien_kinhte"
+      name: "Thanh Niên Kinh Tế"
+      url: "https://thanhnien.vn/rss/kinh-te.rss"
+      max_items: 30
+
+    - id: "vneconomy_chungkhoan"
+      name: "VnEconomy Chứng Khoán"
+      url: "https://vneconomy.vn/rss/chung-khoan.rss"
+      max_items: 30
 
 # ===============================================================
 # 3.5. Theo dõi Mạng xã hội & Video tĩnh (Social Media & Videos)
@@ -110,6 +117,13 @@ rss:
 SOCIAL_MEDIA:
   URLS:
     - "https://www.facebook.com/CafeF"
+    - "https://www.facebook.com/vtv24money"
+    - "https://www.facebook.com/vneconomy.vn"
+    - "https://www.facebook.com/baodautu.vn"
+    - "https://www.facebook.com/thanhnien"
+    - "https://www.facebook.com/tuoitre.vn"
+    - "https://www.facebook.com/TintucVTV24"
+    - "https://www.facebook.com/groups/congdongchungkhoanvietnam"
 
 # ===============================================================
 # 4. 报告模式
@@ -208,8 +222,8 @@ display:
   # 推送展示由 regions.standalone 控制，AI 分析由 ai_analysis.include_standalone 控制
   standalone:
     platforms: []     # 热榜平台 ID 列表（如 ["zhihu", "weibo"]）
-    rss_feeds: ["vnexpress", "tuoitre", "dantri"]                                # RSS 源 ID 列表（如 ["hacker-news"]）
-    max_items: 20                                # 每个源最多展示条数（0=不限制）
+    rss_feeds: ["vnexpress_kinhdoanh", "tuoitre_kinhdoanh", "dantri_kinhdoanh", "thanhnien_kinhte", "vneconomy_chungkhoan"]                                # RSS 源 ID 列表（如 ["hacker-news"]）
+    max_items: 40                                # 每个源最多展示条数（0=不限制）
 
 
 # ===============================================================
@@ -320,14 +334,14 @@ ai:
   # 推荐使用: 
   #   - openai/gpt-4o-mini (性价比最高)
   #   - openai/deepseek-chat (DeepSeek V3，最聪明)
-  model: "openai/llama3:latest"
+  model: "openai/ag/gemini-3-flash"
   
   # 备用模型：当主模型因为网络或并发限制失败时，自动使用备用模型重试
   fallback_models: []
 
-  api_key: "ollama"      # Điền API Key của 9router vào đây
+  api_key: "sk-3970b0ca3a786f01-2cfii4-d6fc14b4"      # API Key của 9Router
   
-  api_base: "http://127.0.0.1:11434/v1" # ĐỔI 'PORT' THÀNH PORT CỦA 9ROUTER (VD: 4000, 8080)
+  api_base: "http://127.0.0.1:20128/v1" # 9Router chạy trên port 20128
                                     #
                                     # ❓ 什么时候需要填？
                                     #    当你使用的 AI 服务商不在上方支持列表中时。

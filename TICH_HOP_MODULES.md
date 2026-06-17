@@ -244,7 +244,7 @@ echo "✅ HOÀN THÀNH!"
 **TrendRadar:** `config/config.yaml`
 ```yaml
 ai:
-  model: "openai/ag/gemini-3.1-pro-low"
+  model: "openai/gh/gemini-3.1-pro-preview"
   api_key: "sk-your-key"
   api_base: "http://localhost:20128/v1"
 ```
@@ -253,7 +253,7 @@ ai:
 ```env
 ROUTER_BASE_URL=http://localhost:20128/v1
 ROUTER_API_KEY=sk-your-key
-ROUTER_MODEL=ag/gemini-3.1-pro-low
+ROUTER_MODEL=gh/gemini-3.1-pro-preview
 ```
 
 ⚠️ **Lưu ý:** API Key phải giống nhau!

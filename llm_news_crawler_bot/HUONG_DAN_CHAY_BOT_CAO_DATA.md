@@ -25,7 +25,7 @@ Mo `.env` va dien key/router that:
 ```env
 ROUTER_BASE_URL=http://127.0.0.1:20128/v1
 ROUTER_API_KEY=sk-your-9router-key
-ROUTER_MODEL=ag/gemini-3.1-pro-low
+ROUTER_MODEL=gh/gemini-3.1-pro-preview
 PLAYWRIGHT_HEADLESS=true
 PLAYWRIGHT_TIMEOUT_MS=60000
 OUTPUT_DIR=output
