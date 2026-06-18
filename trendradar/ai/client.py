@@ -88,17 +88,21 @@ class AIClient:
             if key not in params:
                 params[key] = value
 
-        # Bật stream để tương thích với 9router (luôn trả về định dạng chunk streaming)
-        params["stream"] = True
+        # Stream mode: tắt khi có fallbacks (litellm không hỗ trợ stream + fallback đồng thời)
+        use_stream = not self.fallback_models
+        params["stream"] = use_stream
 
         # 调用 LiteLLM
         response = completion(**params)
 
-        # 提取响应内容 (xử lý stream)
-        content = ""
-        for chunk in response:
-            if chunk.choices and chunk.choices[0].delta.content:
-                content += chunk.choices[0].delta.content
+        # 提取响应内容
+        if use_stream:
+            content = ""
+            for chunk in response:
+                if chunk.choices and chunk.choices[0].delta.content:
+                    content += chunk.choices[0].delta.content
+        else:
+            content = response.choices[0].message.content if response.choices else ""
                 
         return content or ""
 
