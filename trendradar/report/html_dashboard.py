@@ -229,6 +229,28 @@ def _render_facebook_items_html(crawled_bot_items: list) -> tuple:
 
         summary_html = f'<div class="fb-summary">{summary}</div>' if summary else ""
 
+        # Screenshot: copy to report folder and use relative path
+        screenshot_path = item.get("screenshot_path", "")
+        screenshot_html = ""
+        if screenshot_path:
+            from pathlib import Path as _Path
+            import shutil
+            img_path = _Path(screenshot_path)
+            if img_path.exists():
+                try:
+                    # Copy screenshot to output/html/screenshots/
+                    screenshots_dir = _Path("output/html/screenshots")
+                    screenshots_dir.mkdir(parents=True, exist_ok=True)
+                    dest_name = f"{img_path.parent.parent.parent.name}_{img_path.parent.name}.png"
+                    dest_path = screenshots_dir / dest_name
+                    if not dest_path.exists():
+                        shutil.copy2(img_path, dest_path)
+                    # Use relative path from report HTML location (../screenshots/file.png)
+                    rel_url = f"../screenshots/{dest_name}"
+                    screenshot_html = f'<div class="fb-screenshot"><img src="{rel_url}" alt="Screenshot" style="max-width:100%;max-height:300px;border-radius:8px;margin-top:8px;cursor:pointer;object-fit:contain" onclick="window.open(this.src)" loading="lazy" /></div>'
+                except Exception:
+                    pass
+
         items_html += f"""
         <div class="news-row">
           <div class="news-row-left">
@@ -242,6 +264,7 @@ def _render_facebook_items_html(crawled_bot_items: list) -> tuple:
               <span class="fb-tag">📘 Facebook</span>
             </div>
             {summary_html}
+            {screenshot_html}
           </div>
         </div>"""
         total += 1
