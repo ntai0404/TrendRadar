@@ -103,9 +103,24 @@ rss:
       url: "https://thanhnien.vn/rss/kinh-te.rss"
       max_items: 30
 
-    - id: "vneconomy_chungkhoan"
+    - id: "vnexpress_thegioi"
+      name: "VnExpress Thế Giới"
+      url: "https://vnexpress.net/rss/the-gioi.rss"
+      max_items: 30
+
+    - id: "cafef"
+      name: "CafeF Chứng Khoán"
+      url: "https://cafef.vn/thi-truong-chung-khoan.rss"
+      max_items: 30
+
+    - id: "vneconomy"
       name: "VnEconomy Chứng Khoán"
-      url: "https://vneconomy.vn/rss/chung-khoan.rss"
+      url: "https://vneconomy.vn/chung-khoan.rss"
+      max_items: 30
+
+    - id: "tinnhanhck"
+      name: "Tin Nhanh Chứng Khoán"
+      url: "https://tinnhanhchungkhoan.vn/rss/home.rss"
       max_items: 30
 
 # ===============================================================
@@ -124,6 +139,17 @@ SOCIAL_MEDIA:
     - "https://www.facebook.com/tuoitre.vn"
     - "https://www.facebook.com/TintucVTV24"
     - "https://www.facebook.com/groups/congdongchungkhoanvietnam"
+
+# ===============================================================
+# 3.6. Cấu hình Crawler Bot (tích hợp LLM News Crawler Bot)
+#
+# Khi TrendRadar chạy, nó sẽ đọc output từ crawler bot
+# để tổng hợp vào báo cáo chung.
+# ===============================================================
+crawler_bot:
+  enabled: true
+  output_dir: "llm_news_crawler_bot/output"
+  mark_as_processed: true
 
 # ===============================================================
 # 4. 报告模式
@@ -151,7 +177,7 @@ report:
 # 4.5 筛选策略
 # ===============================================================
 filter:
-  method: "keyword"                     # 筛选方式（二选一）
+  method: "ai"                          # Dùng AI filter (Claude Sonnet mạnh structured JSON)
                                        # keyword = 关键词匹配，不调用 AI，不消耗 token，但规则固定
                                        #           词组定义在 config/frequency_words.txt
                                        # ai = AI 智能分类，更灵活但每次运行消耗 token
@@ -169,7 +195,7 @@ ai_filter:
   batch_size: 200                         # 每批发送给 AI 的标题数，超过此数量自动分批
   batch_interval: 2                       # 分批间隔（秒），避免触发 API 限流，0=不等待
 
-  min_score: 0.7                          # 推送最低分数阈值（0.0~1.0），值越高越严格
+  min_score: 0.5                          # 推送最低分数阈值（0.0~1.0），值越高越严格
                                           # 推荐 0.5~0.7 起步，0=不过滤
 
   # 兴趣描述文件（默认 config/ai_interests.txt，无需配置）
@@ -222,7 +248,7 @@ display:
   # 推送展示由 regions.standalone 控制，AI 分析由 ai_analysis.include_standalone 控制
   standalone:
     platforms: []     # 热榜平台 ID 列表（如 ["zhihu", "weibo"]）
-    rss_feeds: ["vnexpress_kinhdoanh", "tuoitre_kinhdoanh", "dantri_kinhdoanh", "thanhnien_kinhte", "vneconomy_chungkhoan"]                                # RSS 源 ID 列表（如 ["hacker-news"]）
+    rss_feeds: ["vnexpress_kinhdoanh", "tuoitre_kinhdoanh", "dantri_kinhdoanh", "thanhnien_kinhte", "vnexpress_thegioi", "tinnhanhck", "cafef", "vneconomy"]    # RSS 源 ID 列表
     max_items: 40                                # 每个源最多展示条数（0=不限制）
 
 
@@ -252,8 +278,8 @@ notification:
       msg_type: "markdown"            # 消息类型：markdown(群机器人) | text(个人微信应用)
 
     telegram:
-      bot_token: ""                   # Telegram Bot Token
-      chat_id: ""                     # Telegram Chat ID
+      bot_token: ""                   # ← ĐIỀN Bot Token từ @BotFather (VD: 123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11)
+      chat_id: ""                     # ← ĐIỀN Chat ID (dùng @userinfobot hoặc @getidsbot để lấy)
 
     email:
       from: ""                        # 发件人邮箱地址
@@ -334,12 +360,12 @@ ai:
   # 推荐使用: 
   #   - openai/gpt-4o-mini (性价比最高)
   #   - openai/deepseek-chat (DeepSeek V3，最聪明)
-  model: "openai/ag/gemini-3-flash"
+  model: "openai/ag/claude-sonnet-4-6"
   
-  # 备用模型：当主模型因为网络或并发限制失败时，自动使用备用模型重试
-  fallback_models: []
+  #备用模型：当主模型因为网络或并发限制失败时，自动使用备用模型重试
+  fallback_models: ["openai/ag/gemini-3.1-pro-high", "openai/gc/gemini-3-pro-preview"]
 
-  api_key: "sk-3970b0ca3a786f01-2cfii4-d6fc14b4"      # API Key của 9Router
+  api_key: "sk-3970b0ca3a786f01-2cfii4-d6fc14b4"      # API Key của 9Router (đã điền)
   
   api_base: "http://127.0.0.1:20128/v1" # 9Router chạy trên port 20128
                                     #
@@ -370,8 +396,8 @@ ai:
   max_tokens: 10000                  # 最大生成 token 数
                                     # 注意：如果 API 不支持此参数(报 HTTP 400)，请设为 0 以禁用发送
   # 高级选项
-  num_retries: 1                    # 失败重试次数
-  fallback_models: []               # 备用模型列表（可选）
+  num_retries: 2                    # 失败重试次数
+  fallback_models: ["openai/ag/gemini-3.1-pro-high", "openai/gc/gemini-3-pro-preview"]               # 备用模型列表
                                     # 示例: ["openai/gpt-4o-mini", "openai/deepseek-ai/DeepSeek-V3"]
 
   # 额外参数（一般无需修改，删掉 # 号即可启用）

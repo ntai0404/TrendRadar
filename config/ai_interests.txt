@@ -1,33 +1,40 @@
 # ═══════════════════════════════════════════════════════════════
-#                    TrendRadar AI 兴趣描述文件
-#                         Version: 1.1.0
+#                    TrendRadar AI Mô tả Sở thích
+#                         Version: 2.0.0
 # ═══════════════════════════════════════════════════════════════
-# 用自然语言描述你关注的话题，AI 会自动提取标签并对新闻进行分类
-# 修改此文件后，下次运行时自动生效（旧分类会被标记废弃，重新分类）
+# Dùng ngôn ngữ tự nhiên mô tả chủ đề bạn quan tâm, AI sẽ tự động
+# trích xuất nhãn và phân loại tin tức.
+# Sửa file này → lần chạy tiếp tự động có hiệu lực.
 
 
-下面是我要关注的内容：
-# 重要性排序说明：从上到下优先级递减，越靠前越重要。
-# 如果一条新闻同时可能匹配多个方向，请优先归入更靠前的方向。
+Dưới đây là nội dung tôi muốn theo dõi:
+# Sắp xếp theo mức độ quan trọng giảm dần (từ trên xuống dưới).
+# Nếu một tin có thể khớp nhiều hướng, ưu tiên hướng đứng trước.
 
-1. 中国科技与互联网公司：重点关注 DeepSeek、华为、腾讯、字节跳动、京东及相关核心人物和业务线（含鸿蒙、海思、昇腾、抖音、微信等）的战略、组织调整、产品节奏、资本动作与监管影响。
-2. 大模型与 AI 产品：关注 OpenAI、Claude、ChatGPT、Sora、DALL-E、Qwen、MiniMax、GLM 等模型和产品的能力演进、开源闭源策略与生态竞争。
-3. AI 基础设施与云算力：关注英伟达、AMD、华为算力体系、CUDA、Azure、Google Cloud 相关的算力供给、推理成本、训练效率与供应链变化。
-4. 芯片与半导体制造：关注芯片、半导体、光刻机、先进封装、国产替代、关键材料设备与供应安全。
-5. 智能汽车与自动驾驶：关注比亚迪、特斯拉、FSD、无人驾驶、智驾、刀片电池、云辇等技术路线，以及销量、定价与出海变化。
-6. 机器人与具身智能：关注宇树、智元、众擎、大疆在机器人、机械狗、四足、人形、具身智能方向的产品发布、量产和场景落地。
-7. 全球科技巨头：关注苹果、微软、谷歌、Anthropic、OpenAI 的财报、发布会、产品路线、合作与竞争格局。
-8. 地缘政治与国际关系（独立于金融）：重点关注中美欧日印及俄罗斯相关的关税、制裁、外交、冲突、产业脱钩和关键供应链博弈。
-9. 金融市场与宏观政策：关注美联储利率路径、汇率波动、通胀、就业、股债商品表现及全球流动性变化。
-10. 能源与电力系统：关注光伏、太阳能、水电（含雅鲁藏布江项目）、核能和新型电力系统建设。
-11. 航天与深空探索：关注 SpaceX、登月、火星、飞船、卫星、空间站、商业航天的技术节点与产业化进展。
-12. 前沿科学技术：关注量子、脑机接口、基因工程等前沿方向的重要科研突破与产业应用。
-13. 文化 IP 与内容产业：关注黑神话悟空、影之刃零、三体、流浪地球、申奥相关内容，以及游戏工业化和文化出海。
-14. 零售与消费品牌：关注胖东来等零售标杆在组织效率、供应链管理、门店运营和消费趋势方面的信号。
-15. 国家与区域观察：关注中国、美国、加拿大、日本、韩国、朝鲜、英国、法国、印度、俄罗斯相关的政策、科技、产业与社会议题（作为背景参考，不高于上述核心方向）。
+1. Chứng khoán & Thị trường vốn Việt Nam: Theo dõi VN-Index, HNX, UPCOM, cổ phiếu bluechip (VNM, VIC, VHM, HPG, FPT, MWG, TCB, VPB, ACB, SSI), margin, thanh khoản, dòng tiền khối ngoại, IPO, phát hành thêm, cổ tức, ESOP, tin nội bộ doanh nghiệp niêm yết.
+
+2. Ngân hàng & Tài chính: Theo dõi lãi suất, tín dụng, nợ xấu, NHNN, SBV, tỷ giá USD/VND, trái phiếu doanh nghiệp, bảo hiểm, fintech (VNPay, MoMo, ZaloPay), các ngân hàng lớn (Vietcombank, BIDV, VietinBank, Techcombank, VPBank, MB, ACB).
+
+3. Bất động sản: Theo dõi giá nhà đất, chung cư, đất nền, khu công nghiệp, Luật Đất đai, Luật Nhà ở, Luật Kinh doanh BĐS, quy hoạch, giải phóng mặt bằng, các chủ đầu tư lớn (Vingroup, Novaland, Masterise, Vinhomes, Phú Mỹ Hưng, Ecopark).
+
+4. Kinh tế vĩ mô Việt Nam: Theo dõi GDP, CPI, lạm phát, xuất nhập khẩu, FDI, ODA, đầu tư công, ngân sách nhà nước, chính sách tài khóa/tiền tệ, cải cách hành chính, Quốc hội, Chính phủ.
+
+5. Doanh nghiệp & Kinh doanh: Theo dõi doanh thu, lợi nhuận, M&A, thoái vốn, cổ phần hóa, IPO, startup Việt Nam, các tập đoàn lớn (Vingroup, FPT, Hòa Phát, Masan, Thế Giới Di Động, PNJ, Vietjet, Bamboo Airways).
+
+6. Công nghệ & AI: Theo dõi AI, ChatGPT, DeepSeek, Gemini, chuyển đổi số, FPT, VNPT, Viettel, Make in Vietnam, trung tâm dữ liệu, chip bán dẫn, đào tạo nhân lực IT.
+
+7. Năng lượng & Hạ tầng: Theo dõi điện, EVN, quy hoạch điện VIII, điện gió, điện mặt trời, LNG, nhiệt điện, đường cao tốc, sân bay Long Thành, cảng biển, logistics.
+
+8. Nông nghiệp & Xuất khẩu: Theo dõi gạo, cà phê, thủy sản, hồ tiêu, cao su, gỗ, rau quả, EVFTA, CPTPP, thị trường Mỹ/EU/Trung Quốc, phòng vệ thương mại.
+
+9. Tiền tệ & Vàng: Theo dõi giá vàng SJC, vàng nhẫn, tỷ giá, USD, đô la, ngoại hối, crypto, Bitcoin, chính sách quản lý tiền ảo.
+
+10. Địa chính trị & Quốc tế (ảnh hưởng Việt Nam): Theo dõi quan hệ Việt-Mỹ, Việt-Trung, ASEAN, biển Đông, FTA, thuế quan, chuỗi cung ứng, chiến tranh thương mại, Fed, lãi suất Mỹ, giá dầu.
+
+11. Lao động & Xã hội: Theo dõi việc làm, lương tối thiểu, bảo hiểm xã hội, sa thải, tuyển dụng, xuất khẩu lao động, giáo dục, y tế.
 
 
-# 标题质量要求（即使匹配了上面的标签，符合以下特征的标题也请跳过）
-# 可自由增删改，按你的偏好来
-- 不要标题党/震惊体（如"震惊！"、"太可怕了！"、"竟然..."、"刚刚！"）
-- 不要营销软文、广告推广类标题
+# Yêu cầu chất lượng tiêu đề (dù khớp nhãn trên, vẫn bỏ qua nếu có đặc điểm sau):
+- Không lấy tiêu đề giật gân/clickbait ("Sốc!", "Kinh hoàng!", "Không thể tin nổi...")
+- Không lấy quảng cáo, bài PR, tin tài trợ
+- Không lấy tin giải trí, showbiz, thể thao (trừ khi liên quan kinh tế/doanh nghiệp)

@@ -1,0 +1,96 @@
+# ═══════════════════════════════════════════════════════════════
+#            LLM Crawler Bot - Cấu hình nguồn crawl
+#                      Version: 1.0.0
+# ═══════════════════════════════════════════════════════════════
+#
+# File này cấu hình các nguồn mà LLM Crawler Bot sẽ crawl tự động.
+# Bot dùng AI + Playwright để trích xuất nội dung chi tiết từ các
+# trang yêu cầu đăng nhập hoặc render JavaScript.
+#
+# Các trường:
+#   id:          Định danh duy nhất cho nguồn
+#   type:        Loại nguồn (facebook, youtube, news_website)
+#   url:         URL cần crawl
+#   username:    Tài khoản đăng nhập (để trống nếu không cần)
+#   password:    Mật khẩu (để trống nếu dùng CDP session)
+#   instruction: Lệnh cho AI biết cần lấy gì
+#   enabled:     true/false - bật/tắt nguồn này
+#
+# ═══════════════════════════════════════════════════════════════
+
+sources:
+  # ─────────────────────────────────────────
+  # Facebook Pages & Groups (cần CDP login)
+  # ─────────────────────────────────────────
+  - id: "fb_cafef"
+    type: "facebook"
+    url: "https://www.facebook.com/CafeF"
+    username: "${FB_USERNAME}"
+    password: "${FB_PASSWORD}"
+    instruction: "Lấy 10 bài viết mới nhất về chứng khoán, kinh tế, tài chính."
+    enabled: true
+
+  - id: "fb_vtv24money"
+    type: "facebook"
+    url: "https://www.facebook.com/vtv24money"
+    username: "${FB_USERNAME}"
+    password: "${FB_PASSWORD}"
+    instruction: "Lấy 10 bài viết mới nhất về kinh tế, thị trường tài chính."
+    enabled: true
+
+  - id: "fb_vneconomy"
+    type: "facebook"
+    url: "https://www.facebook.com/vneconomy.vn"
+    username: "${FB_USERNAME}"
+    password: "${FB_PASSWORD}"
+    instruction: "Lấy 10 bài viết mới nhất về kinh tế vĩ mô, doanh nghiệp."
+    enabled: true
+
+  - id: "fb_baodautu"
+    type: "facebook"
+    url: "https://www.facebook.com/baodautu.vn"
+    username: "${FB_USERNAME}"
+    password: "${FB_PASSWORD}"
+    instruction: "Lấy 10 bài viết mới nhất về đầu tư, chứng khoán, bất động sản."
+    enabled: true
+
+  - id: "fb_group_chungkhoan"
+    type: "facebook"
+    url: "https://www.facebook.com/groups/congdongchungkhoanvietnam"
+    username: "${FB_USERNAME}"
+    password: "${FB_PASSWORD}"
+    instruction: "Lấy 10 bài viết mới nhất trong nhóm, tập trung vào các nhận định thị trường và phân tích cổ phiếu."
+    enabled: true
+
+  # ─────────────────────────────────────────
+  # Trang tin tức (crawl trực tiếp - RSS không khả dụng)
+  # ─────────────────────────────────────────
+  - id: "web_baodautu"
+    type: "news_website"
+    url: "https://baodautu.vn"
+    username: ""
+    password: ""
+    instruction: "Lấy 15 bài viết mới nhất trên trang chủ về đầu tư, chứng khoán, bất động sản, ngân hàng."
+    enabled: true
+
+  # ─────────────────────────────────────────
+  # YouTube Channels (không cần login)
+  # ─────────────────────────────────────────
+  - id: "yt_taichinh_channel"
+    type: "youtube"
+    url: "https://www.youtube.com/@placeholder_channel/videos"
+    username: ""
+    password: ""
+    instruction: "Lấy thông tin 5 video mới nhất, tóm tắt tiêu đề và mô tả video."
+    enabled: false
+
+  # ─────────────────────────────────────────
+  # Trang tin premium (yêu cầu login)
+  # ─────────────────────────────────────────
+  - id: "news_premium"
+    type: "news_website"
+    url: "https://example-premium-news.com/latest"
+    username: ""
+    password: ""
+    instruction: "Cào 3 bài viết nổi bật nhất trang chủ, lấy metadata, ảnh và nội dung bài."
+    enabled: false

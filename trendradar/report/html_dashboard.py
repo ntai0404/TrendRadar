@@ -232,9 +232,15 @@ def _render_facebook_items_html(crawled_bot_items: list) -> tuple:
         screenshot_path = item.get("screenshot_path", "")
         screenshot_html = ""
         if screenshot_path:
-            import urllib.parse
-            img_url = f"file://{urllib.parse.quote(screenshot_path)}"
-            screenshot_html = f'<div class="fb-screenshot"><img src="{img_url}" alt="Screenshot" onclick="window.open(this.src)" /></div>'
+            import base64
+            from pathlib import Path as _Path
+            img_path = _Path(screenshot_path)
+            if img_path.exists():
+                try:
+                    img_data = base64.b64encode(img_path.read_bytes()).decode("ascii")
+                    screenshot_html = f'<div class="fb-screenshot"><img src="data:image/png;base64,{img_data}" alt="Screenshot" style="max-width:100%;border-radius:8px;margin-top:8px;cursor:pointer" onclick="window.open(this.src)" /></div>'
+                except Exception:
+                    pass
 
         items_html += f"""
         <div class="news-row">
