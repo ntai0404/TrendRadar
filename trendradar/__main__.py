@@ -914,8 +914,26 @@ class NewsAnalyzer:
             # 获取模式策略来确定报告类型
             mode_strategy = self._get_mode_strategy()
             report_type = mode_strategy["report_type"]
+            
+            # Gộp Facebook crawled data vào RSS items để AI phân tích toàn bộ
+            crawled_bot_items = self._get_crawled_bot_items()
+            ai_rss_items = list(rss_items) if rss_items else []
+            if crawled_bot_items:
+                for item in crawled_bot_items:
+                    title = item.get("title", "")
+                    if title and title != "Không có tiêu đề":
+                        ai_rss_items.append({
+                            "word": "Facebook",
+                            "titles": [{
+                                "title": title,
+                                "source_name": item.get("author", "Facebook"),
+                                "url": item.get("url", ""),
+                                "time_display": item.get("extracted_at", ""),
+                            }]
+                        })
+            
             ai_result = self._run_ai_analysis(
-                stats, rss_items, mode, report_type, id_to_name,
+                stats, ai_rss_items if ai_rss_items else rss_items, mode, report_type, id_to_name,
                 current_results=data_source, schedule=schedule,
                 standalone_data=standalone_data
             )

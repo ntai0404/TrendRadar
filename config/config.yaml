@@ -130,16 +130,15 @@ rss:
 # để trích xuất nội dung mỗi lần TrendRadar khởi chạy.
 # ===============================================================
 SOCIAL_MEDIA:
-  URLS: []
-    # Bật lại khi cần: uncomment dưới đây
-    # - "https://www.facebook.com/CafeF"
-    # - "https://www.facebook.com/vtv24money"
-    # - "https://www.facebook.com/vneconomy.vn"
-    # - "https://www.facebook.com/baodautu.vn"
-    # - "https://www.facebook.com/thanhnien"
-    # - "https://www.facebook.com/tuoitre.vn"
-    # - "https://www.facebook.com/TintucVTV24"
-    # - "https://www.facebook.com/groups/congdongchungkhoanvietnam"
+  URLS:
+    - "https://www.facebook.com/CafeF"
+    - "https://www.facebook.com/vtv24money"
+    - "https://www.facebook.com/vneconomy.vn"
+    - "https://www.facebook.com/baodautu.vn"
+    - "https://www.facebook.com/thanhnien"
+    - "https://www.facebook.com/tuoitre.vn"
+    - "https://www.facebook.com/TintucVTV24"
+    - "https://www.facebook.com/groups/congdongchungkhoanvietnam"
 
 # ===============================================================
 # 3.6. Cấu hình Crawler Bot (tích hợp LLM News Crawler Bot)
