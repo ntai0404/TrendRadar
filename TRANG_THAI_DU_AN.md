@@ -162,19 +162,25 @@ cd llm_news_crawler_bot
 - [x] Cấu hình 8 nguồn RSS hoạt động (bao gồm CafeF, VnEconomy)
 - [x] Cấu hình LLM Crawler Bot cho Facebook (8 pages/groups)
 - [x] Tạo CDP Chrome profile cho Facebook (đã login)
-- [x] AI Filter bằng tiếng Việt (11 nhãn, 140+ bài match)
-- [x] AI Analysis xuất báo cáo tiếng Việt
-- [x] HTML Report dark mode, responsive, ảnh base64 không lỗi
-- [x] Fallback models chất lượng (Claude → Gemini Pro High → GC Gemini Pro)
+- [x] AI Filter bằng Gemini Flash (batch=50, 136+ bài match)
+- [x] AI Analysis xuất báo cáo tiếng Việt (Gemini Flash)
+- [x] Facebook data được đưa vào AI Analysis (luồng thống nhất RSS+FB→AI)
+- [x] HTML Report: 3 tabs (RSS + Facebook + AI Analysis), 128KB nhẹ
+- [x] Screenshots Facebook: copy vào output/html/screenshots/, relative path
+- [x] AI SUMMARIES button: switch sang tab AI Analysis
+- [x] Trending filter: hiện top items có tag
+- [x] Fallback models: Gemini Flash → Gemini Pro Low → GC Gemini Pro
 - [x] Từ khóa + sở thích AI hoàn toàn tiếng Việt
 - [x] Tất cả prompts AI filter đã Việt hóa
-- [x] Báo Đầu Tư crawl qua bot (RSS trống)
-- [x] Env variables cho social media accounts (FB, X, IG, TikTok)
+- [x] Env variables cho social media accounts
+- [x] Fix stream+fallback bug (litellm)
+- [x] Fix index.html write error (file quá lớn)
+- [x] Push code lên github.com/oanhcuongdo/vsmac-agents-research
 
 ### ⚠️ Cần làm
-- [ ] **Điền Telegram bot_token + chat_id** vào `config/config.yaml` → mục `notification.channels.telegram`
+- [ ] **Điền Telegram bot_token + chat_id** vào `config/config.yaml`
 - [ ] Test gửi thông báo Telegram
-- [ ] (Tùy chọn) Bật schedule tự động trong `config.yaml` → `schedule.enabled: true`
+- [ ] (Tùy chọn) Bật schedule tự động
 
 ### 📝 Ghi chú kỹ thuật
 - **Báo Đầu Tư RSS**: Server trả HTTP 200 nhưng 0 items trong channel. Không phải lỗi code — phía server đã ngừng cung cấp nội dung qua RSS. Workaround: crawl bằng LLM Bot.
