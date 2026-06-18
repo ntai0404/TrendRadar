@@ -262,12 +262,33 @@ def _render_facebook_items_html(crawled_bot_items: list) -> tuple:
     return items_html, total
 
 
-def _render_tabbed_data_section(rss_items: list, crawled_bot_items: list) -> str:
-    """Unified tabbed section combining RSS and Facebook data."""
+def _render_tabbed_data_section(rss_items: list, crawled_bot_items: list, ai_analysis=None) -> str:
+    """Unified tabbed section combining RSS, Facebook and AI data."""
     rss_html, rss_count = _render_rss_items_html(rss_items)
     fb_html, fb_count = _render_facebook_items_html(crawled_bot_items)
 
-    if not rss_html and not fb_html:
+    # Render AI analysis as a tab
+    ai_tab_html = ""
+    if ai_analysis and getattr(ai_analysis, 'success', False):
+        fields = [
+            ("core_trends", "🔥 Xu hướng cốt lõi"),
+            ("sentiment_controversy", "💬 Tranh cãi dư luận"),
+            ("signals", "📡 Tín hiệu yếu"),
+            ("rss_insights", "📰 Góc nhìn RSS"),
+            ("outlook_strategy", "🎯 Đề xuất chiến lược"),
+        ]
+        for attr, label in fields:
+            text = getattr(ai_analysis, attr, None)
+            if not text:
+                continue
+            if not isinstance(text, str):
+                import json
+                text = json.dumps(text, ensure_ascii=False)
+            lines = [l.strip() for l in text.strip().splitlines() if l.strip()]
+            items_li = "".join(f'<li style="margin-bottom:8px;line-height:1.6">{html_escape(l)}</li>' for l in lines)
+            ai_tab_html += f'<div style="margin-bottom:16px"><div style="font-weight:700;color:#a5b4fc;margin-bottom:8px">{label}</div><ul style="color:#cbd5e1;padding-left:20px">{items_li}</ul></div>'
+
+    if not rss_html and not fb_html and not ai_tab_html:
         return ""
 
     rss_badge = f'<span class="data-tab-badge">{rss_count}</span>' if rss_count else ""
@@ -276,26 +297,32 @@ def _render_tabbed_data_section(rss_items: list, crawled_bot_items: list) -> str
     # Default active tab: RSS if available, else Facebook
     rss_active = "active" if rss_html else ""
     fb_active = "active" if not rss_html and fb_html else ""
+    ai_active = ""
     rss_panel_style = "" if rss_html else "display:none"
     fb_panel_style = "" if not rss_html and fb_html else "display:none"
+    ai_panel_style = "display:none"
 
     rss_panel = f'<div id="data-panel-rss" class="data-tab-panel" style="{rss_panel_style}">{rss_html}</div>' if rss_html else ''
     fb_panel = f'<div id="data-panel-fb" class="data-tab-panel" style="{fb_panel_style}">{fb_html}</div>' if fb_html else ''
+    ai_panel = f'<div id="data-panel-ai" class="data-tab-panel" style="{ai_panel_style}">{ai_tab_html}</div>' if ai_tab_html else ''
 
     rss_tab = f'<button class="data-tab {rss_active}" onclick="switchDataTab(this,\'rss\')" data-panel="data-panel-rss">📰 RSS {rss_badge}</button>' if rss_html else ''
     fb_tab = f'<button class="data-tab {fb_active}" onclick="switchDataTab(this,\'fb\')" data-panel="data-panel-fb">📘 Facebook {fb_badge}</button>' if fb_html else ''
+    ai_tab = f'<button class="data-tab {ai_active}" onclick="switchDataTab(this,\'ai\')" data-panel="data-panel-ai">✨ AI Analysis</button>' if ai_tab_html else ''
 
     return f"""
-    <section class="data-section">
+    <section class="data-section" id="dataSection">
       <div class="data-section-header">
         <div class="data-tab-bar">
           {rss_tab}
           {fb_tab}
+          {ai_tab}
         </div>
       </div>
       <div class="data-section-body">
         {rss_panel}
         {fb_panel}
+        {ai_panel}
       </div>
     </section>"""
 
@@ -551,17 +578,20 @@ body.light-mode .fb-screenshot img { border-color: #e2e8f0; }
 
 _JS = """
 function scrollToAI(){
-  var section=document.querySelector('.ai-highlights-section');
-  if(section){
-    section.scrollIntoView({behavior:'smooth',block:'start'});
-    // Ensure it's visible
-    var body=document.getElementById('aiHighlightsBody');
-    if(body && body.style.display==='none'){body.style.display='';
-      var btn=section.querySelector('.ai-collapse-btn');if(btn)btn.textContent='▲';
+  // Switch to AI tab
+  var aiTab=document.querySelector('[data-panel="data-panel-ai"]');
+  if(aiTab){
+    aiTab.click();
+    var section=document.getElementById('dataSection');
+    if(section){
+      section.scrollIntoView({behavior:'smooth',block:'start'});
+      section.style.boxShadow='0 0 20px rgba(99,102,241,0.5)';
+      setTimeout(function(){section.style.boxShadow='';},1500);
     }
-    // Flash highlight
-    section.style.boxShadow='0 0 20px rgba(99,102,241,0.5)';
-    setTimeout(function(){section.style.boxShadow='';},1500);
+  } else {
+    // Fallback: scroll to data section
+    var ds=document.getElementById('dataSection');
+    if(ds)ds.scrollIntoView({behavior:'smooth',block:'start'});
   }
 }
 function toggleAI(btn){
@@ -575,24 +605,29 @@ function filterAll(el){
   document.querySelectorAll('.filter-item').forEach(function(i){i.classList.remove('active')});
   if(el)el.classList.add('active');
   document.querySelectorAll('.news-group').forEach(function(g){g.style.display=''});
-  // Also show data section
+  // Restore all hidden rows in RSS panel
+  var panel=document.getElementById('data-panel-rss');
+  if(panel)panel.querySelectorAll('.news-row').forEach(function(r){r.style.display='';});
   var ds=document.querySelector('.data-section');if(ds)ds.style.display='';
 }
 function filterTrending(el){
   document.querySelectorAll('.filter-item').forEach(function(i){i.classList.remove('active')});
   if(el)el.classList.add('active');
-  // Show only the top 3 news groups (most articles = trending)
-  var groups=document.querySelectorAll('.news-group');
-  var arr=Array.from(groups);
-  // Sort by item count (descending)
-  arr.sort(function(a,b){
-    var ca=a.querySelectorAll('.news-row').length;
-    var cb=b.querySelectorAll('.news-row').length;
-    return cb-ca;
+  // Switch to RSS tab and scroll to top
+  var rssTab=document.querySelector('[data-panel="data-panel-rss"]');
+  if(rssTab)rssTab.click();
+  var ds=document.getElementById('dataSection');
+  if(ds)ds.scrollIntoView({behavior:'smooth',block:'start'});
+  // Show only rows with tags (filtered/categorized items)
+  var panel=document.getElementById('data-panel-rss');
+  if(!panel)return;
+  var rows=panel.querySelectorAll('.news-row');
+  var shown=0;
+  rows.forEach(function(r){
+    var hasTag=r.querySelector('.rss-tag');
+    if(hasTag && shown<20){r.style.display='';shown++;}
+    else{r.style.display='none';}
   });
-  arr.forEach(function(g,i){g.style.display=(i<3)?'':'none';});
-  // Scroll to news section
-  if(arr.length>0)arr[0].scrollIntoView({behavior:'smooth',block:'start'});
 }
 function filterKeyword(el,kw){
   document.querySelectorAll('.filter-item').forEach(function(i){i.classList.remove('active')});
@@ -687,8 +722,8 @@ def render_html_dashboard(
     top_news_html = _render_top_news_cards(all_titles)
     ai_html = _render_ai_highlights(ai_analysis)
     news_updates_html = _render_news_updates(stats)
-    # Use unified tabbed section for RSS + Facebook
-    tabbed_data_html = _render_tabbed_data_section(rss_items or [], crawled_bot_items or [])
+    # Use unified tabbed section for RSS + Facebook + AI
+    tabbed_data_html = _render_tabbed_data_section(rss_items or [], crawled_bot_items or [], ai_analysis)
     sidebar_left = _render_sidebar_filters(stats)
     sidebar_right = _render_sidebar_latest(all_titles)
 
