@@ -322,7 +322,7 @@ def _render_sidebar_filters(stats: list) -> str:
     """Left sidebar: keyword filters."""
     icons = ["🔥", "📈", "💻", "🏛️", "💰", "🔬", "🌍"]
     items = '<li class="filter-item active" onclick="filterAll(this)"><span class="filter-icon">📰</span> All Topics</li>\n'
-    items += '<li class="filter-item" onclick="filterAll(this)"><span class="filter-icon">📊</span> Trending</li>\n'
+    items += '<li class="filter-item" onclick="filterTrending(this)"><span class="filter-icon">📊</span> Trending</li>\n'
     for i, stat in enumerate(stats[:6]):
         word = html_escape(stat.get("word", ""))
         icon = icons[i % len(icons)]
@@ -550,6 +550,20 @@ body.light-mode .fb-screenshot img { border-color: #e2e8f0; }
 # ---------------------------------------------------------------------------
 
 _JS = """
+function scrollToAI(){
+  var section=document.querySelector('.ai-highlights-section');
+  if(section){
+    section.scrollIntoView({behavior:'smooth',block:'start'});
+    // Ensure it's visible
+    var body=document.getElementById('aiHighlightsBody');
+    if(body && body.style.display==='none'){body.style.display='';
+      var btn=section.querySelector('.ai-collapse-btn');if(btn)btn.textContent='▲';
+    }
+    // Flash highlight
+    section.style.boxShadow='0 0 20px rgba(99,102,241,0.5)';
+    setTimeout(function(){section.style.boxShadow='';},1500);
+  }
+}
 function toggleAI(btn){
   var body=document.getElementById('aiHighlightsBody');
   if(!body)return;
@@ -561,6 +575,24 @@ function filterAll(el){
   document.querySelectorAll('.filter-item').forEach(function(i){i.classList.remove('active')});
   if(el)el.classList.add('active');
   document.querySelectorAll('.news-group').forEach(function(g){g.style.display=''});
+  // Also show data section
+  var ds=document.querySelector('.data-section');if(ds)ds.style.display='';
+}
+function filterTrending(el){
+  document.querySelectorAll('.filter-item').forEach(function(i){i.classList.remove('active')});
+  if(el)el.classList.add('active');
+  // Show only the top 3 news groups (most articles = trending)
+  var groups=document.querySelectorAll('.news-group');
+  var arr=Array.from(groups);
+  // Sort by item count (descending)
+  arr.sort(function(a,b){
+    var ca=a.querySelectorAll('.news-row').length;
+    var cb=b.querySelectorAll('.news-row').length;
+    return cb-ca;
+  });
+  arr.forEach(function(g,i){g.style.display=(i<3)?'':'none';});
+  // Scroll to news section
+  if(arr.length>0)arr[0].scrollIntoView({behavior:'smooth',block:'start'});
 }
 function filterKeyword(el,kw){
   document.querySelectorAll('.filter-item').forEach(function(i){i.classList.remove('active')});
@@ -572,11 +604,9 @@ function filterKeyword(el,kw){
   });
 }
 function switchDataTab(btn, panelKey){
-  // Deactivate all tabs in same bar
   var bar=btn.closest('.data-tab-bar');
   if(bar)bar.querySelectorAll('.data-tab').forEach(function(t){t.classList.remove('active');});
   btn.classList.add('active');
-  // Hide all panels in same section body
   var body=btn.closest('.data-section').querySelector('.data-section-body');
   if(body)body.querySelectorAll('.data-tab-panel').forEach(function(p){
     p.style.display='none';
@@ -685,7 +715,7 @@ def render_html_dashboard(
       </div>
     </div>
     <div class="nav-tabs">{nav_tabs_html}</div>
-    <button class="nav-ai-btn">AI SUMMARIES</button>
+    <button class="nav-ai-btn" onclick="scrollToAI()">AI SUMMARIES</button>
     <div class="nav-actions">
       <button class="nav-icon-btn" title="Tìm kiếm">🔍</button>
       <button class="nav-icon-btn" title="Chế độ tối/sáng" onclick="toggleTheme(this)">☽</button>
