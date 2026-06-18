@@ -229,19 +229,6 @@ def _render_facebook_items_html(crawled_bot_items: list) -> tuple:
 
         summary_html = f'<div class="fb-summary">{summary}</div>' if summary else ""
 
-        screenshot_path = item.get("screenshot_path", "")
-        screenshot_html = ""
-        if screenshot_path:
-            import base64
-            from pathlib import Path as _Path
-            img_path = _Path(screenshot_path)
-            if img_path.exists():
-                try:
-                    img_data = base64.b64encode(img_path.read_bytes()).decode("ascii")
-                    screenshot_html = f'<div class="fb-screenshot"><img src="data:image/png;base64,{img_data}" alt="Screenshot" style="max-width:100%;border-radius:8px;margin-top:8px;cursor:pointer" onclick="window.open(this.src)" /></div>'
-                except Exception:
-                    pass
-
         items_html += f"""
         <div class="news-row">
           <div class="news-row-left">
@@ -255,7 +242,6 @@ def _render_facebook_items_html(crawled_bot_items: list) -> tuple:
               <span class="fb-tag">📘 Facebook</span>
             </div>
             {summary_html}
-            {screenshot_html}
           </div>
         </div>"""
         total += 1

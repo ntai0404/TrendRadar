@@ -234,12 +234,18 @@ def generate_html_report(
     # 3. 复制到 index.html（入口）
     # output/index.html（供 Docker Volume 挂载访问）
     output_index = Path(output_dir) / "index.html"
-    with open(output_index, "w", encoding="utf-8") as f:
-        f.write(html_content)
+    try:
+        with open(output_index, "w", encoding="utf-8") as f:
+            f.write(html_content)
+    except OSError:
+        pass  # Skip if file too large or locked
 
     # 根目录 index.html（供 GitHub Pages 访问）
     root_index = Path("index.html")
-    with open(root_index, "w", encoding="utf-8") as f:
-        f.write(html_content)
+    try:
+        with open(root_index, "w", encoding="utf-8") as f:
+            f.write(html_content)
+    except OSError:
+        pass  # Skip if file too large or locked
 
     return snapshot_file
