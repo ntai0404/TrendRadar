@@ -1,7 +1,7 @@
 # Trạng Thái Dự Án TrendRadar
 
-> Cập nhật: 2026-06-18
-> Nhánh: `output_html`
+> Cập nhật: 2026-06-20
+> Nhánh: `ntai0404-update`
 
 ---
 
@@ -18,27 +18,29 @@ TrendRadar là hệ thống **tự động thu thập, phân loại và phân t�
 │                     TrendRadar Pipeline                        │
 ├──────────────────────────────────────────────────────────────┤
 │                                                                │
-│  ┌─────────────┐     ┌─────────────────┐     ┌───────────┐  │
-│  │  RSS Crawl  │     │ LLM Crawler Bot │     │ AI Filter │  │
-│  │  (8 nguồn)  │     │ (Facebook CDP)  │     │ (Claude)  │  │
-│  └──────┬──────┘     └───────┬─────────┘     └─────┬─────┘  │
-│         │                     │                      │        │
-│         └─────────┬───────────┘                      │        │
-│                   ▼                                   │        │
-│         ┌─────────────────┐                          │        │
-│         │  SQLite Storage │◄─────────────────────────┘        │
-│         └────────┬────────┘                                   │
-│                  │                                             │
-│                  ▼                                             │
-│         ┌─────────────────┐                                   │
-│         │  AI Analysis    │  (Claude Sonnet / Gemini Pro)     │
+│  ┌─────────────┐  ┌─────────────────┐  ┌────────────────┐   │
+│  │  RSS Crawl  │  │ LLM Crawler Bot │  │External Sources│   │
+│  │  (8 nguồn)  │  │ (Facebook CDP)  │  │(Twitter,YT,GH) │   │
+│  └──────┬──────┘  └───────┬─────────┘  └───────┬────────┘   │
+│         │                  │                     │            │
+│         └──────────┬───────┴─────────────────────┘            │
+│                    ▼                                           │
+│         ┌─────────────────┐     ┌─────────────┐              │
+│         │  SQLite Storage │     │  AI Filter  │              │
+│         └────────┬────────┘     │  (Gemini)   │              │
+│                  │              └──────┬──────┘              │
+│                  ▼                     │                      │
+│         ┌─────────────────┐           │                      │
+│         │  AI Analysis    │◄──────────┘                      │
+│         │  (Gemini Flash) │                                   │
 │         └────────┬────────┘                                   │
 │                  │                                             │
 │         ┌────────┴────────┐                                   │
 │         ▼                 ▼                                   │
 │  ┌────────────┐   ┌──────────────┐                           │
-│  │ HTML Report│   │ Notification │ (Telegram - chưa config)  │
-│  └────────────┘   └──────────────┘                           │
+│  │ HTML Report│   │ Notification │ (Telegram, Email, v.v.)   │
+│  │ (multi-tab)│   └──────────────┘                           │
+│  └────────────┘                                               │
 │                                                                │
 └──────────────────────────────────────────────────────────────┘
 ```
@@ -66,8 +68,20 @@ TrendRadar/
 ├── trendradar/                     # Module chính
 │   ├── __main__.py                 # Entry point
 │   ├── ai/                         # AI analysis, filter, translation
-│   ├── crawler/                    # RSS crawler
-│   ├── report/                     # HTML report generator
+│   ├── crawler/                    # RSS crawler + External Sources
+│   │   ├── fetcher.py              # Hot list fetcher (NewsNow API)
+│   │   ├── rss/                    # RSS parser + fetcher
+│   │   └── sources/                # 🆕 External Sources (Twitter, YT, Reddit, ...)
+│   │       ├── base.py             # Base class
+│   │       ├── manager.py          # Orchestrator
+│   │       ├── twitter.py          # Twitter/X
+│   │       ├── youtube.py          # YouTube
+│   │       ├── reddit.py           # Reddit
+│   │       ├── github_trending.py  # GitHub
+│   │       ├── exa_search.py       # Exa AI Search
+│   │       ├── podcast.py          # Podcast Transcript
+│   │       └── ...                 # + placeholders
+│   ├── report/                     # HTML report generator (multi-tab)
 │   ├── notification/               # Multi-channel notification
 │   └── storage/                    # SQLite + S3 storage
 ├── llm_news_crawler_bot/           # Module crawl MXH
@@ -122,6 +136,23 @@ TrendRadar/
 |-------|-------|
 | baodautu.vn | RSS server trả 0 items, cần crawl trực tiếp |
 
+### External Sources (mới — tích hợp 2026-06-20)
+
+| Nguồn | Tool | Status | Ghi chú |
+|--------|------|:------:|---------|
+| 🐦 Twitter/X | `twitter-cli` (pipx) | ✅ Active | Cookie auth, miễn phí |
+| 📺 YouTube | `yt-dlp` (pip) | ✅ Active | Zero config |
+| 💻 GitHub Trending | `gh` CLI + API | ✅ Active | Zero config |
+| 📖 Reddit | `rdt-cli` (pipx) | ⚠️ Sẵn sàng | Cần fix subprocess trên Windows |
+| 🔍 Exa Search | `exa-py` (pip) | 🔲 Cần key | API key miễn phí tại exa.ai |
+| 📈 Xueqiu | requests | 🔲 Cần acc | Cookie account TQ |
+| 🎙️ Podcast | `yt-dlp` + Groq | ✅ Sẵn sàng | Có key, cần episode URL |
+| 📕 XiaoHongShu | `opencli` | 🔲 Placeholder | Cần Chrome extension |
+| 💼 LinkedIn | Jina Reader | 🔲 Placeholder | Cần URL profiles |
+| 💬 V2EX | requests | ✅ Tắt | Nội dung tiếng Trung, không phù hợp |
+
+Chi tiết: xem `docs/EXTERNAL_SOURCES.md`
+
 ---
 
 ## Cấu hình AI
@@ -165,7 +196,7 @@ cd llm_news_crawler_bot
 - [x] AI Filter bằng Gemini Flash (batch=50, 136+ bài match)
 - [x] AI Analysis xuất báo cáo tiếng Việt (Gemini Flash)
 - [x] Facebook data được đưa vào AI Analysis (luồng thống nhất RSS+FB→AI)
-- [x] HTML Report: 3 tabs (RSS + Facebook + AI Analysis), 128KB nhẹ
+- [x] HTML Report: multi-tab per source (RSS, Facebook, Twitter, YouTube, GitHub, V2EX, AI Analysis)
 - [x] Screenshots Facebook: copy vào output/html/screenshots/, relative path
 - [x] AI SUMMARIES button: switch sang tab AI Analysis
 - [x] Trending filter: hiện top items có tag
@@ -175,7 +206,12 @@ cd llm_news_crawler_bot
 - [x] Env variables cho social media accounts
 - [x] Fix stream+fallback bug (litellm)
 - [x] Fix index.html write error (file quá lớn)
-- [x] Push code lên github.com/oanhcuongdo/vsmac-agents-research
+- [x] **Tích hợp 10 external sources** (Twitter, YouTube, Reddit, GitHub, Exa, Xueqiu, Podcast, XiaoHongShu, LinkedIn, V2EX)
+- [x] **Cài đặt CLI tools** (pipx, twitter-cli, rdt-cli, gh, exa-py)
+- [x] **Multi-tab HTML UI** theo từng nguồn (không còn gom chung Facebook)
+- [x] **Tab bar responsive** scroll ngang khi nhiều tabs
+- [x] **Docs** EXTERNAL_SOURCES.md hướng dẫn setup đầy đủ
+- [x] Push code lên nhánh `ntai0404-update`
 
 ### ⚠️ Cần làm
 - [ ] **Điền Telegram bot_token + chat_id** vào `config/config.yaml`
@@ -194,6 +230,9 @@ cd llm_news_crawler_bot
 
 | Ngày | Thay đổi |
 |------|----------|
+| 2026-06-20 | **Tích hợp External Sources**: Twitter, YouTube, GitHub, Reddit, Exa, Podcast, V2EX + multi-tab UI |
+| 2026-06-20 | Cài CLI tools (pipx, twitter-cli, rdt-cli, gh, exa-py), setup cookies |
+| 2026-06-20 | HTML report multi-tab per source, tab bar scroll ngang |
 | 2026-06-18 | Setup ban đầu, fix RSS URLs, fix AI model, Việt hóa config |
 | 2026-06-18 | Fix ảnh lỗi (base64), thêm CafeF + VnEconomy RSS |
 | 2026-06-18 | Cấu hình Facebook CDP, test full pipeline thành công |

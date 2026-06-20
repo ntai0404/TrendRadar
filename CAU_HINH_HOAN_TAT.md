@@ -286,12 +286,26 @@ Nếu gặp vấn đề:
 **Đã hoàn thành:**
 - ✅ Cài đặt và cấu hình TrendRadar
 - ✅ Cài đặt và cấu hình LLM News Crawler Bot
+- ✅ Tích hợp 10 External Sources (Twitter, YouTube, GitHub, Reddit, Exa, Podcast, ...)
+- ✅ HTML report multi-tab theo nguồn
+- ✅ CLI tools cài global (pipx): twitter-cli, rdt-cli, gh
 - ✅ Tạo tài liệu hướng dẫn đầy đủ
 - ✅ Test chạy TrendRadar thành công
 
+**External Sources active:**
+- 🐦 Twitter/X (cookie auth đã cấu hình)
+- 📺 YouTube (zero config)
+- 💻 GitHub Trending (zero config + gh CLI)
+- 🎙️ Podcast (Groq key đã có, cần episode URL)
+
 **Cần làm tiếp:**
-- ⚠️ Điền API Key vào `llm_news_crawler_bot/.env`
-- 🔄 Test LLM Bot
-- 🚀 Sử dụng workflow hoàn chỉnh
+- ⚠️ Điền Telegram bot_token + chat_id (nếu muốn push notification)
+- 🔄 Fix Reddit subprocess issue (hoạt động qua shell nhưng crash từ Python subprocess)
+- 🔑 Đăng ký Exa API key miễn phí nếu muốn AI semantic search
+
+**Tài liệu:**
+- `docs/EXTERNAL_SOURCES.md` — Hướng dẫn cài đặt + cấu hình external sources
+- `TRANG_THAI_DU_AN.md` — Trạng thái tổng quan
+- `TICH_HOP_MODULES.md` — Workflow tích hợp modules
 
 **Chúc bạn sử dụng thành công! 🎊**
