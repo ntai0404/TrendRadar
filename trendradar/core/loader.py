@@ -611,6 +611,13 @@ def load_config(config_path: Optional[str] = None) -> Dict[str, Any]:
         "URLS": social_media.get("URLS") or social_media.get("urls", [])
     }
 
+    # External Sources (Twitter, YouTube, Reddit, ...)
+    ext_sources = config_data.get("external_sources", {})
+    config["EXTERNAL_SOURCES"] = {
+        "ENABLED": ext_sources.get("enabled", False),
+        "sources": ext_sources.get("sources", {}),
+    }
+
     # 打印通知渠道配置来源
     _print_notification_sources(config)
 

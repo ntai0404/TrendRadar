@@ -829,6 +829,9 @@ class NewsAnalyzer:
                                         continue
                                     # Attach timestamp
                                     item_metadata["extracted_at"] = data.get("timestamp", file_ts_str)
+                                    # Attach source identifier (for per-source tab rendering)
+                                    if data.get("source"):
+                                        item_metadata["source"] = data["source"]
                                     # Normalize url field
                                     if not item_metadata.get("url") and item_metadata.get("source_url"):
                                         item_metadata["url"] = item_metadata["source_url"]
@@ -1803,8 +1806,81 @@ class NewsAnalyzer:
 
         return html_file
 
+    def _fetch_external_sources(self) -> None:
+        """Fetch dữ liệu từ external sources (Twitter, YouTube, Reddit, ...) và lưu vào bot output."""
+        ext_config = self.ctx.config.get("EXTERNAL_SOURCES", {})
+        if not ext_config.get("ENABLED", False):
+            return
+
+        from trendradar.crawler.sources import ExternalSourceManager
+
+        try:
+            manager = ExternalSourceManager(ext_config)
+            if not manager.enabled_sources:
+                return
+
+            # Set session start TRƯỚC khi fetch → _get_crawled_bot_items sẽ lấy items này
+            from datetime import datetime as _dt, timezone as _tz
+            if not hasattr(self, "_bot_session_start") or self._bot_session_start is None:
+                self._bot_session_start = _dt.now(_tz.utc)
+
+            results = manager.fetch_all(quiet=False)
+
+            # Ghi kết quả vào output dir (cùng format với bot) để pipeline xử lý
+            output_dir = Path("llm_news_crawler_bot/output")
+            output_dir.mkdir(parents=True, exist_ok=True)
+
+            timestamp = _dt.now(_tz.utc).isoformat()
+
+            for result in results:
+                if not result.success or not result.items:
+                    continue
+
+                # Tạo thư mục job cho source này
+                job_dir = output_dir / f"ext_{result.source_id}_{_dt.now().strftime('%Y%m%d_%H%M%S')}"
+                job_dir.mkdir(parents=True, exist_ok=True)
+
+                # Ghi metadata.json theo format mà _get_crawled_bot_items() đọc được
+                metadata = {
+                    "timestamp": timestamp,
+                    "source": result.source_id,
+                    "source_name": result.source_name,
+                    "items": [
+                        {
+                            "metadata": {
+                                "title": item.title,
+                                "url": item.url,
+                                "author": item.author or result.source_name,
+                                "source_url": item.url,
+                                "summary": item.summary or "",
+                                "content": item.content or item.summary or "",
+                                "published_at": item.published_at or "",
+                                "extracted_at": timestamp,
+                            }
+                        }
+                        for item in result.items
+                    ],
+                }
+
+                metadata_file = job_dir / "metadata.json"
+                with open(metadata_file, "w", encoding="utf-8") as f:
+                    json.dump(metadata, f, ensure_ascii=False, indent=2)
+
+                print(f"[Sources] Đã lưu {result.count} items từ {result.source_name}")
+
+        except Exception as e:
+            print(f"[Sources] Lỗi fetch external sources: {e}")
+            if self.ctx.config.get("DEBUG", False):
+                import traceback
+                traceback.print_exc()
+
     def _trigger_llm_bot_for_social_media(self, results: Dict, raw_rss_items: Dict) -> None:
         """Kích hoạt bot chạy ngầm cho các bài viết mạng xã hội (VD: facebook, youtube)."""
+        # Skip nếu env var TRENDRADAR_SKIP_BOT=1 (dùng khi test)
+        if os.environ.get("TRENDRADAR_SKIP_BOT") == "1":
+            print("[Bot] Bỏ qua LLM Bot (TRENDRADAR_SKIP_BOT=1)")
+            return
+
         urls = set()
         
         def is_target_url(url: str) -> bool:
@@ -1889,6 +1965,9 @@ class NewsAnalyzer:
 
             # 抓取 RSS 数据（如果启用），返回统计条目、新增条目和原始条目
             rss_items, rss_new_items, raw_rss_items, rss_new_urls = self._crawl_rss_data()
+
+            # Fetch external sources (Twitter, YouTube, Reddit, ...)
+            self._fetch_external_sources()
 
             # Chạy Bot đồng bộ trước khi tạo báo cáo HTML
             self._trigger_llm_bot_for_social_media(results, raw_rss_items)

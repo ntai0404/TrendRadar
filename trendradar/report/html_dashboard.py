@@ -204,13 +204,13 @@ def _render_rss_items_html(rss_items: list) -> tuple:
     return items_html, total
 
 
-def _render_facebook_items_html(crawled_bot_items: list) -> tuple:
-    """Render Facebook/LLM Bot crawled items HTML and return (html, count)."""
+def _render_source_items_html(items: list, source_id: str, source_label: str, color: str, tag_bg: str) -> tuple:
+    """Render items cho một nguồn cụ thể. Returns (html, count)."""
     items_html = ""
     total = 0
-    if not crawled_bot_items:
+    if not items:
         return "", 0
-    for item in crawled_bot_items:
+    for item in items:
         title = html_escape(item.get("title", "Không có tiêu đề"))
         url = html_escape(item.get("url", ""))
         author = html_escape(item.get("author", ""))
@@ -227,9 +227,9 @@ def _render_facebook_items_html(crawled_bot_items: list) -> tuple:
             except:
                 pass
 
-        summary_html = f'<div class="fb-summary">{summary}</div>' if summary else ""
+        summary_html = f'<div class="fb-summary" style="border-left-color:{color}">{summary}</div>' if summary else ""
 
-        # Screenshot: copy to report folder and use relative path
+        # Screenshot (chỉ cho Facebook)
         screenshot_path = item.get("screenshot_path", "")
         screenshot_html = ""
         if screenshot_path:
@@ -238,30 +238,30 @@ def _render_facebook_items_html(crawled_bot_items: list) -> tuple:
             img_path = _Path(screenshot_path)
             if img_path.exists():
                 try:
-                    # Copy screenshot to output/html/screenshots/
                     screenshots_dir = _Path("output/html/screenshots")
                     screenshots_dir.mkdir(parents=True, exist_ok=True)
                     dest_name = f"{img_path.parent.parent.parent.name}_{img_path.parent.name}.png"
                     dest_path = screenshots_dir / dest_name
                     if not dest_path.exists():
                         shutil.copy2(img_path, dest_path)
-                    # Use relative path from report HTML location (../screenshots/file.png)
                     rel_url = f"../screenshots/{dest_name}"
                     screenshot_html = f'<div class="fb-screenshot"><img src="{rel_url}" alt="Screenshot" style="max-width:100%;max-height:300px;border-radius:8px;margin-top:8px;cursor:pointer;object-fit:contain" onclick="window.open(this.src)" loading="lazy" /></div>'
                 except Exception:
                     pass
 
+        display_author = author if author and author != 'None' else source_label
+
         items_html += f"""
         <div class="news-row">
           <div class="news-row-left">
-            <div class="news-row-source-dot" style="background:linear-gradient(135deg,#1877f2,#0d63d0)"></div>
+            <div class="news-row-source-dot" style="background:linear-gradient(135deg,{color},{color}dd)"></div>
           </div>
           <div class="news-row-body">
             <a class="news-row-title" {href}>{title}</a>
             <div class="news-row-meta">
-              <span class="news-row-source">{author if author and author != 'None' else 'Facebook'}</span>
+              <span class="news-row-source">{display_author}</span>
               {f'<span class="news-row-time">{time_d}</span>' if time_d else ""}
-              <span class="fb-tag">📘 Facebook</span>
+              <span class="source-tag" style="background:{tag_bg};color:#e2e8f0;font-size:10px;padding:1px 6px;border-radius:3px;font-weight:600">{source_label}</span>
             </div>
             {summary_html}
             {screenshot_html}
@@ -271,10 +271,101 @@ def _render_facebook_items_html(crawled_bot_items: list) -> tuple:
     return items_html, total
 
 
+def _group_crawled_items_by_source(crawled_bot_items: list) -> dict:
+    """Group crawled bot items by source. Returns {source_id: [items]}."""
+    groups = {}
+    for item in crawled_bot_items:
+        # Detect source from metadata or author field
+        url = item.get("url", "")
+        author = item.get("author", "")
+        source = item.get("source", "")  # Set by external sources
+
+        if source:
+            sid = source
+        elif "facebook.com" in url:
+            sid = "facebook"
+        elif "x.com" in url or "twitter.com" in url:
+            sid = "twitter"
+        elif "youtube.com" in url or "youtu.be" in url:
+            sid = "youtube"
+        elif "reddit.com" in url:
+            sid = "reddit"
+        elif "github.com" in url:
+            sid = "github"
+        elif "v2ex.com" in url:
+            sid = "v2ex"
+        elif "GitHub Trending" in author or "GitHub" in author:
+            sid = "github"
+        elif "V2EX" in author:
+            sid = "v2ex"
+        elif "YouTube" in author:
+            sid = "youtube"
+        elif "Twitter" in author or "Twitter/X" in author:
+            sid = "twitter"
+        elif "Reddit" in author:
+            sid = "reddit"
+        else:
+            sid = "facebook"  # Default fallback
+
+        if sid not in groups:
+            groups[sid] = []
+        groups[sid].append(item)
+
+    return groups
+
+
+# Source display config
+SOURCE_CONFIG = {
+    "facebook": {"label": "Facebook", "icon": "📘", "color": "#1877f2", "tag_bg": "#1a3a6b"},
+    "twitter": {"label": "Twitter/X", "icon": "🐦", "color": "#1da1f2", "tag_bg": "#0c3d5f"},
+    "youtube": {"label": "YouTube", "icon": "📺", "color": "#ff0000", "tag_bg": "#5c1010"},
+    "reddit": {"label": "Reddit", "icon": "📖", "color": "#ff4500", "tag_bg": "#5c2200"},
+    "github": {"label": "GitHub", "icon": "💻", "color": "#8b5cf6", "tag_bg": "#2d1a5e"},
+    "v2ex": {"label": "V2EX", "icon": "💬", "color": "#1a1a2e", "tag_bg": "#2a2a4a"},
+    "exa_search": {"label": "Exa Search", "icon": "🔍", "color": "#10b981", "tag_bg": "#0a3d2e"},
+    "podcast": {"label": "Podcast", "icon": "🎙️", "color": "#f59e0b", "tag_bg": "#5c3a00"},
+    "xueqiu": {"label": "Xueqiu", "icon": "📈", "color": "#2563eb", "tag_bg": "#1a2d5a"},
+    "xiaohongshu": {"label": "小红书", "icon": "📕", "color": "#fe2c55", "tag_bg": "#5c0f1f"},
+    "linkedin": {"label": "LinkedIn", "icon": "💼", "color": "#0a66c2", "tag_bg": "#0a2d5a"},
+}
+
+
+def _render_facebook_items_html(crawled_bot_items: list) -> tuple:
+    """Legacy: render all crawled items grouped by source."""
+    if not crawled_bot_items:
+        return "", 0
+    # Just render all as single block (backward compat)
+    cfg = SOURCE_CONFIG["facebook"]
+    return _render_source_items_html(crawled_bot_items, "facebook", cfg["label"], cfg["color"], cfg["tag_bg"])
+
+
 def _render_tabbed_data_section(rss_items: list, crawled_bot_items: list, ai_analysis=None) -> str:
-    """Unified tabbed section combining RSS, Facebook and AI data."""
+    """Unified tabbed section: RSS + per-source tabs + AI Analysis."""
     rss_html, rss_count = _render_rss_items_html(rss_items)
-    fb_html, fb_count = _render_facebook_items_html(crawled_bot_items)
+
+    # Group crawled items by actual source
+    source_groups = _group_crawled_items_by_source(crawled_bot_items or [])
+
+    # Build per-source tabs
+    source_tabs = []  # [(id, label_html, panel_html, count)]
+    # Define display order
+    source_order = ["facebook", "twitter", "youtube", "reddit", "github", "v2ex", "exa_search", "podcast", "xueqiu", "xiaohongshu", "linkedin"]
+
+    for sid in source_order:
+        items = source_groups.get(sid, [])
+        if not items:
+            continue
+        cfg = SOURCE_CONFIG.get(sid, SOURCE_CONFIG["facebook"])
+        items_html, count = _render_source_items_html(items, sid, cfg["label"], cfg["color"], cfg["tag_bg"])
+        if items_html:
+            source_tabs.append((sid, cfg["icon"], cfg["label"], items_html, count))
+
+    # Handle any unknown sources
+    for sid, items in source_groups.items():
+        if sid not in source_order and items:
+            items_html, count = _render_source_items_html(items, sid, sid.title(), "#64748b", "#334155")
+            if items_html:
+                source_tabs.append((sid, "📄", sid.title(), items_html, count))
 
     # Render AI analysis as a tab
     ai_tab_html = ""
@@ -297,41 +388,46 @@ def _render_tabbed_data_section(rss_items: list, crawled_bot_items: list, ai_ana
             items_li = "".join(f'<li style="margin-bottom:8px;line-height:1.6">{html_escape(l)}</li>' for l in lines)
             ai_tab_html += f'<div style="margin-bottom:16px"><div style="font-weight:700;color:#a5b4fc;margin-bottom:8px">{label}</div><ul style="color:#cbd5e1;padding-left:20px">{items_li}</ul></div>'
 
-    if not rss_html and not fb_html and not ai_tab_html:
+    if not rss_html and not source_tabs and not ai_tab_html:
         return ""
 
-    rss_badge = f'<span class="data-tab-badge">{rss_count}</span>' if rss_count else ""
-    fb_badge = f'<span class="data-tab-badge fb">{fb_count}</span>' if fb_count else ""
+    # Build tab bar and panels
+    tab_buttons = []
+    tab_panels = []
 
-    # Default active tab: RSS if available, else Facebook
-    rss_active = "active" if rss_html else ""
-    fb_active = "active" if not rss_html and fb_html else ""
-    ai_active = ""
-    rss_panel_style = "" if rss_html else "display:none"
-    fb_panel_style = "" if not rss_html and fb_html else "display:none"
-    ai_panel_style = "display:none"
+    # RSS tab
+    if rss_html:
+        rss_badge = f'<span class="data-tab-badge">{rss_count}</span>'
+        tab_buttons.append(f'<button class="data-tab active" onclick="switchDataTab(this,\'rss\')" data-panel="data-panel-rss">📰 RSS {rss_badge}</button>')
+        tab_panels.append(f'<div id="data-panel-rss" class="data-tab-panel">{rss_html}</div>')
 
-    rss_panel = f'<div id="data-panel-rss" class="data-tab-panel" style="{rss_panel_style}">{rss_html}</div>' if rss_html else ''
-    fb_panel = f'<div id="data-panel-fb" class="data-tab-panel" style="{fb_panel_style}">{fb_html}</div>' if fb_html else ''
-    ai_panel = f'<div id="data-panel-ai" class="data-tab-panel" style="{ai_panel_style}">{ai_tab_html}</div>' if ai_tab_html else ''
+    # Source tabs (Facebook, Twitter, YouTube, etc.)
+    for sid, icon, label, panel_html, count in source_tabs:
+        badge = f'<span class="data-tab-badge">{count}</span>'
+        is_active = "active" if not rss_html and not tab_buttons else ""
+        style = "display:none" if tab_buttons else ""
+        tab_buttons.append(f'<button class="data-tab {is_active}" onclick="switchDataTab(this,\'{sid}\')" data-panel="data-panel-{sid}">{icon} {label} {badge}</button>')
+        tab_panels.append(f'<div id="data-panel-{sid}" class="data-tab-panel" style="{style}">{panel_html}</div>')
 
-    rss_tab = f'<button class="data-tab {rss_active}" onclick="switchDataTab(this,\'rss\')" data-panel="data-panel-rss">📰 RSS {rss_badge}</button>' if rss_html else ''
-    fb_tab = f'<button class="data-tab {fb_active}" onclick="switchDataTab(this,\'fb\')" data-panel="data-panel-fb">📘 Facebook {fb_badge}</button>' if fb_html else ''
-    ai_tab = f'<button class="data-tab {ai_active}" onclick="switchDataTab(this,\'ai\')" data-panel="data-panel-ai">✨ AI Analysis</button>' if ai_tab_html else ''
+    # AI tab
+    if ai_tab_html:
+        is_active = "active" if not tab_buttons else ""
+        style = "display:none" if tab_buttons else ""
+        tab_buttons.append(f'<button class="data-tab {is_active}" onclick="switchDataTab(this,\'ai\')" data-panel="data-panel-ai">✨ AI Analysis</button>')
+        tab_panels.append(f'<div id="data-panel-ai" class="data-tab-panel" style="{style}">{ai_tab_html}</div>')
+
+    tabs_html = "\n          ".join(tab_buttons)
+    panels_html = "\n        ".join(tab_panels)
 
     return f"""
     <section class="data-section" id="dataSection">
       <div class="data-section-header">
         <div class="data-tab-bar">
-          {rss_tab}
-          {fb_tab}
-          {ai_tab}
+          {tabs_html}
         </div>
       </div>
       <div class="data-section-body">
-        {rss_panel}
-        {fb_panel}
-        {ai_panel}
+        {panels_html}
       </div>
     </section>"""
 
@@ -503,14 +599,17 @@ _CSS += """
 
 /* ── Tabbed Data Section (RSS / Facebook) ── */
 .data-section{background:#161b27;border:1px solid #1e2535;border-radius:12px;margin-bottom:24px;overflow:hidden}
-.data-section-header{background:#1a2035;border-bottom:1px solid #1e2535;padding:0 16px}
-.data-tab-bar{display:flex;gap:4px;padding:8px 0}
-.data-tab{display:flex;align-items:center;gap:6px;padding:7px 16px;border-radius:8px;font-size:13px;font-weight:600;color:#94a3b8;cursor:pointer;border:none;background:none;transition:all .18s;position:relative}
+.data-section-header{background:#1a2035;border-bottom:1px solid #1e2535;padding:0 16px;overflow-x:auto}
+.data-tab-bar{display:flex;gap:4px;padding:8px 0;min-width:max-content}
+.data-tab{display:flex;align-items:center;gap:6px;padding:7px 12px;border-radius:8px;font-size:12px;font-weight:600;color:#94a3b8;cursor:pointer;border:none;background:none;transition:all .18s;position:relative;white-space:nowrap;flex-shrink:0}
 .data-tab:hover{color:#e2e8f0;background:rgba(255,255,255,.05)}
 .data-tab.active{color:#fff;background:#0f1117;border:1px solid #2d3748;box-shadow:0 1px 6px rgba(0,0,0,.4)}
 .data-tab.active::after{content:'';position:absolute;bottom:-9px;left:50%;transform:translateX(-50%);width:40px;height:2px;background:#6366f1;border-radius:2px}
 .data-tab-badge{background:#1e2535;color:#94a3b8;font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;min-width:20px;text-align:center}
 .data-tab-badge.fb{background:#1a3a6b;color:#60a5fa}
+.data-section-header::-webkit-scrollbar{height:3px}
+.data-section-header::-webkit-scrollbar-track{background:transparent}
+.data-section-header::-webkit-scrollbar-thumb{background:#334155;border-radius:3px}
 .data-section-body{padding:16px}
 .data-tab-panel{animation:fadeInPanel .2s ease}
 @keyframes fadeInPanel{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
@@ -783,7 +882,7 @@ def render_html_dashboard(
 
   <footer class="app-footer">
     Tạo bởi <a href="https://github.com/sansan0/TrendRadar" target="_blank">TrendRadar</a> ·
-    {hot_count} tin hot · {rss_count} RSS · {fb_count} Facebook · {mode_label}
+    {hot_count} tin hot · {rss_count} RSS · {fb_count} nguồn mở rộng · {mode_label}
     {f'<br><span style="color:#eab308">Phiên bản mới {update_info["remote_version"]} có sẵn</span>' if update_info else ""}
   </footer>
 </div>

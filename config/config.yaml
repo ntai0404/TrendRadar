@@ -141,6 +141,131 @@ SOCIAL_MEDIA:
     - "https://www.facebook.com/groups/congdongchungkhoanvietnam"
 
 # ===============================================================
+# 3.7. External Sources - Nguồn dữ liệu mở rộng
+#
+# Tích hợp các nền tảng bên ngoài (Twitter, YouTube, Reddit, ...)
+# Mỗi nguồn cần cài tool riêng — xem ghi chú trong từng section.
+# enabled: true/false để bật/tắt từng nguồn.
+# ===============================================================
+external_sources:
+  enabled: true                       # Tổng switch bật/tắt toàn bộ external sources
+
+  sources:
+    # ─────── PRIORITY CAO (khuyến nghị bật) ────────
+
+    # 1. Twitter/X — Tin nhanh, sentiment thị trường
+    #    Cài: pipx install twitter-cli ✅ ĐÃ CÀI
+    #    Auth: export cookie qua Cookie-Editor (cần login x.com trên browser)
+    twitter:
+      enabled: true                   # ✅ Cookie đã cấu hình qua env TWITTER_AUTH_TOKEN + TWITTER_CT0
+      queries:
+        - "chứng khoán Việt Nam"
+        - "VN-Index"
+        - "thị trường tài chính"
+      max_results: 10
+
+    # 2. YouTube — Video phân tích tài chính
+    #    Cài: pip install yt-dlp ✅ ĐÃ CÀI
+    #    Zero config — không cần API key
+    youtube:
+      enabled: true
+      channels:
+        - "https://www.youtube.com/@CaFeLand/videos"
+        # - "https://www.youtube.com/@YourChannel/videos"
+      search_queries:
+        - "phân tích chứng khoán Việt Nam 2026"
+      max_results: 5
+
+    # 3. Exa Search — AI semantic web search
+    #    Cài: pip install exa-py ✅ ĐÃ CÀI
+    #    API key miễn phí: https://exa.ai
+    exa_search:
+      enabled: false                  # ← Cần API key miễn phí. Đăng ký tại https://exa.ai
+      api_key: ""                     # Hoặc set env EXA_API_KEY
+      queries:
+        - "Vietnam stock market news today"
+        - "kinh tế Việt Nam"
+      max_results: 10
+      num_days: 3                     # Chỉ lấy kết quả trong N ngày gần
+
+    # 4. Reddit — Thảo luận quốc tế về VN market
+    #    Cài: pipx install rdt-cli ✅ ĐÃ CÀI
+    #    Auth: rdt login (cần browser session — chạy 1 lần)
+    reddit:
+      enabled: true                   # ✅ Cookie đã cấu hình. Account: InterestingPhrase837
+      subreddits:
+        - "VietNam"
+        - "wallstreetbets"
+        - "stocks"
+      search_queries:
+        - "Vietnam market"
+      max_results: 10
+      sort: "hot"                     # hot, new, top
+
+    # ─────── PRIORITY TRUNG BÌNH ────────
+
+    # 5. Xueqiu (雪球) — Sentiment chứng khoán TQ
+    #    Auth: browser cookie (cấu hình qua env XUEQIU_COOKIE)
+    xueqiu:
+      enabled: false
+      cookie: ""                      # Hoặc set env XUEQIU_COOKIE
+      max_results: 15
+      include_hot_stocks: true
+
+    # 6. GitHub Trending — Tech trend
+    #    Zero config (dùng public API) ✅ SẴN SÀNG
+    #    Optional: gh CLI đã cài cho search mạnh hơn
+    github:
+      enabled: true
+      language: ""                    # Filter: "python", "javascript", etc. Để trống = all
+      since: "daily"                  # daily, weekly, monthly
+      search_queries:
+        - "LLM agent"
+        - "AI finance"
+      max_results: 15
+
+    # 7. Podcast Transcript — KOL tài chính
+    #    Cần: Groq API key miễn phí ✅ ĐÃ CÓ (env GROQ_API_KEY)
+    #    + yt-dlp để download audio ✅ ĐÃ CÀI
+    podcast:
+      enabled: true
+      groq_key: ""                    # Đọc từ env GROQ_API_KEY
+      max_episodes: 3
+      episodes:
+        # - url: "https://www.xiaoyuzhoufm.com/episode/xxx"
+        #   title: "Tên episode"
+        []
+
+    # ─────── PLACEHOLDER (chưa hoàn thiện) ────────
+
+    # 8. XiaoHongShu (小红书) — Lifestyle, reviews
+    #    Cần: opencli (desktop) hoặc xiaohongshu-mcp (server)
+    xiaohongshu:
+      enabled: false
+      search_queries:
+        - "đầu tư"
+        - "chứng khoán"
+      max_results: 10
+
+    # 9. LinkedIn — Professional content
+    #    Dùng Jina Reader cho public pages
+    #    Full: cần linkedin-scraper-mcp (browser login)
+    linkedin:
+      enabled: false
+      profiles: []
+      companies: []
+        # - "https://www.linkedin.com/company/example"
+
+    # 10. V2EX — Tech community (TQ)
+    #     Zero config — public API ✅ SẴN SÀNG
+    #     Nội dung tiếng Trung — tắt mặc định
+    v2ex:
+      enabled: false
+      mode: "hot"                     # hot, latest
+      max_results: 15
+
+
+# ===============================================================
 # 3.6. Cấu hình Crawler Bot (tích hợp LLM News Crawler Bot)
 #
 # Khi TrendRadar chạy, nó sẽ đọc output từ crawler bot
